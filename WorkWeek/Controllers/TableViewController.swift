@@ -1,4 +1,5 @@
 import UIKit
+import CoreLocation
 
 enum StoryBoardSegues: String {
     case Map = "MapViewSegue"
@@ -25,9 +26,7 @@ class TableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
-
         cell.textLabel?.text = array[indexPath.row]
-        
         return cell
     }
 

@@ -151,35 +151,38 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <searchBar contentMode="redraw" placeholder="Where do you work?" translatesAutoresizingMaskIntoConstraints="NO" id="192-hf-iyF">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
-                                <scopeButtonTitles>
-                                    <string>Title</string>
-                                </scopeButtonTitles>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHY-C8-aJ7">
+                                <rect key="frame" x="197" y="20" width="207" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="Jtp-pV-NtV"/>
+                                    <constraint firstAttribute="width" constant="207" id="cdZ-XC-tmW"/>
+                                </constraints>
+                                <state key="normal" title="Set Work Location"/>
+                                <state key="selected" title="Set Work Location">
+                                    <color key="titleColor" red="0.97058475378787878" green="0.32502235229281096" blue="0.41755804717845058" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0.21223958333333337" green="0.071073245644369787" blue="0.091308199108599553" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
-                                    <outlet property="delegate" destination="9Q0-cl-wKy" id="FCo-62-Lto"/>
+                                    <action selector="setWorkLocation:" destination="9Q0-cl-wKy" eventType="touchUpInside" id="Twm-CY-S1G"/>
                                 </connections>
-                            </searchBar>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="VMW-M3-NRE" firstAttribute="leading" secondItem="192-hf-iyF" secondAttribute="leading" id="HpQ-Vv-60F"/>
-                            <constraint firstItem="eoO-Fi-auT" firstAttribute="bottom" secondItem="MbH-la-jFa" secondAttribute="top" id="PEQ-c1-Kog"/>
-                            <constraint firstItem="VMW-M3-NRE" firstAttribute="top" secondItem="192-hf-iyF" secondAttribute="top" id="PFj-F9-cqr"/>
-                            <constraint firstItem="192-hf-iyF" firstAttribute="trailing" secondItem="eoO-Fi-auT" secondAttribute="trailing" id="UV3-ds-CLb"/>
-                            <constraint firstItem="192-hf-iyF" firstAttribute="leading" secondItem="Jlk-3Y-FcJ" secondAttribute="leading" id="Uhq-l3-Bdm"/>
-                            <constraint firstItem="VMW-M3-NRE" firstAttribute="bottom" secondItem="eoO-Fi-auT" secondAttribute="top" id="bXA-tx-gui"/>
-                            <constraint firstAttribute="trailing" secondItem="192-hf-iyF" secondAttribute="trailing" id="cac-GE-umt"/>
-                            <constraint firstItem="192-hf-iyF" firstAttribute="top" secondItem="d8t-3T-j73" secondAttribute="bottom" id="o4h-uA-Oq4"/>
-                            <constraint firstItem="VMW-M3-NRE" firstAttribute="leading" secondItem="eoO-Fi-auT" secondAttribute="leading" id="uGj-Tk-XpR"/>
-                            <constraint firstItem="VMW-M3-NRE" firstAttribute="trailing" secondItem="192-hf-iyF" secondAttribute="trailing" id="zTE-Lg-Cuh"/>
+                            <constraint firstItem="oHY-C8-aJ7" firstAttribute="centerX" secondItem="Jlk-3Y-FcJ" secondAttribute="centerX" id="2nh-Nr-VT5"/>
+                            <constraint firstItem="VMW-M3-NRE" firstAttribute="centerX" secondItem="oHY-C8-aJ7" secondAttribute="centerX" id="4C9-gw-rr6"/>
+                            <constraint firstItem="eoO-Fi-auT" firstAttribute="leading" secondItem="Jlk-3Y-FcJ" secondAttribute="leading" id="9yU-bT-gPY"/>
+                            <constraint firstItem="VMW-M3-NRE" firstAttribute="trailing" secondItem="eoO-Fi-auT" secondAttribute="trailing" id="Ltb-bD-pyY"/>
+                            <constraint firstItem="VMW-M3-NRE" firstAttribute="bottom" secondItem="eoO-Fi-auT" secondAttribute="top" id="cFw-p2-fuX"/>
+                            <constraint firstItem="VMW-M3-NRE" firstAttribute="leading" secondItem="eoO-Fi-auT" secondAttribute="leading" id="g4R-GE-xKC"/>
+                            <constraint firstItem="VMW-M3-NRE" firstAttribute="top" secondItem="d8t-3T-j73" secondAttribute="bottom" id="lEj-l1-bsJ"/>
+                            <constraint firstItem="oHY-C8-aJ7" firstAttribute="top" secondItem="Jlk-3Y-FcJ" secondAttribute="top" constant="20" symbolic="YES" id="pPO-t3-oBB"/>
+                            <constraint firstItem="eoO-Fi-auT" firstAttribute="bottom" secondItem="MbH-la-jFa" secondAttribute="top" id="uRP-gS-yTR"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="VMW-M3-NRE" id="7Cy-CC-hAF"/>
-                        <outlet property="searchBar" destination="192-hf-iyF" id="Njg-Gm-gTZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rgr-3I-wWf" userLabel="First Responder" sceneMemberID="firstResponder"/>
