@@ -28,15 +28,37 @@
                     <navigationItem key="navigationItem" title="WorkWeek" id="xiR-gx-5bx">
                         <barButtonItem key="leftBarButtonItem" title="Map" id="moK-8J-sYe">
                             <connections>
-                                <segue destination="9Q0-cl-wKy" kind="show" identifier="MapViewSegue" id="SKK-6g-xWN"/>
+                                <segue destination="9Q0-cl-wKy" kind="presentation" identifier="MapViewSegue" id="SKK-6g-xWN"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="6ca-VR-QOt"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="6ca-VR-QOt">
+                            <connections>
+                                <segue destination="WIA-yz-lfT" kind="show" id="NA1-vi-5Rf"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="peR-UG-9l3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1276" y="413"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="nty-gp-YkN">
+            <objects>
+                <viewController id="WIA-yz-lfT" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zoW-Ps-2fd"/>
+                        <viewControllerLayoutGuide type="bottom" id="09f-ol-pP0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FMN-PH-qyi">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lWP-jg-0PC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1952" y="413"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="cNR-ho-hZn">
@@ -50,11 +72,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="VMW-M3-NRE">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="VMW-M3-NRE">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </mapView>
+                            <searchBar contentMode="redraw" placeholder="Where do you work?" translatesAutoresizingMaskIntoConstraints="NO" id="192-hf-iyF">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eoO-Fi-auT">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Done" id="LT9-TF-j2x"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="192-hf-iyF" secondAttribute="trailing" id="BqE-Qk-7dM"/>
+                            <constraint firstItem="VMW-M3-NRE" firstAttribute="bottom" secondItem="MbH-la-jFa" secondAttribute="top" id="CmF-QO-obT"/>
+                            <constraint firstItem="VMW-M3-NRE" firstAttribute="trailing" secondItem="192-hf-iyF" secondAttribute="trailing" id="HhZ-pe-I8M"/>
+                            <constraint firstItem="eoO-Fi-auT" firstAttribute="bottom" secondItem="MbH-la-jFa" secondAttribute="top" id="PEQ-c1-Kog"/>
+                            <constraint firstItem="192-hf-iyF" firstAttribute="top" secondItem="Jlk-3Y-FcJ" secondAttribute="top" id="YUM-o0-Vfj"/>
+                            <constraint firstItem="VMW-M3-NRE" firstAttribute="leading" secondItem="192-hf-iyF" secondAttribute="leading" id="Ywe-do-eRt"/>
+                            <constraint firstItem="eoO-Fi-auT" firstAttribute="leading" secondItem="VMW-M3-NRE" secondAttribute="leading" id="bQu-An-bPK"/>
+                            <constraint firstItem="VMW-M3-NRE" firstAttribute="top" secondItem="192-hf-iyF" secondAttribute="top" id="m6g-TR-na4"/>
+                            <constraint firstItem="eoO-Fi-auT" firstAttribute="trailing" secondItem="192-hf-iyF" secondAttribute="trailing" id="pf2-C7-5gY"/>
+                            <constraint firstItem="192-hf-iyF" firstAttribute="leading" secondItem="Jlk-3Y-FcJ" secondAttribute="leading" id="sri-RP-ZEs"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rgr-3I-wWf" userLabel="First Responder" sceneMemberID="firstResponder"/>
