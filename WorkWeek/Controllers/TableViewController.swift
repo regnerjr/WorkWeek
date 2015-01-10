@@ -1,5 +1,10 @@
 import UIKit
 
+enum StoryBoardSegues: String {
+    case Map = "MapViewSegue"
+    case Settings = "settingsSegue"
+}
+
 class TableViewController: UITableViewController {
 
     let array = ["first","second", "third", "fourth", "fifth",]
@@ -32,6 +37,15 @@ class TableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        println("Segueing to \(segue.description)")
+
+        //we have 2 segues, SettingsSegue, and MapViewSegue
+        if segue.identifier == StoryBoardSegues.Map.rawValue{
+            println("transitioning to MapView")
+        } else if segue.identifier == StoryBoardSegues.Settings.rawValue {
+            println("transitioning to Settings")
+        }
+    }
+    @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
+        println("unwinding: \(segue.identifier)")
     }
 }
