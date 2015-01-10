@@ -1,13 +1,19 @@
 import UIKit
 import MapKit
+import CoreLocation
 
 class MapViewController: UIViewController {
 
-  @IBOutlet weak var mapView: MKMapView!
-  @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    lazy var locationManager:CLLocationManager = {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        return appDelegate.locationManager
+    }()
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.showsUserLocation = true
     }
 
     // MARK: - Navigation
