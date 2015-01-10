@@ -7,12 +7,22 @@ enum StoryBoardSegues: String {
 }
 
 class TableViewController: UITableViewController {
+    
+    lazy var workManager: WorkManager = {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        return appDelegate.workManager
+    }()
 
-    let array = ["first","second", "third", "fourth", "fifth",]
+
+    var array = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.title = "WorkWeek"
+        //set ourselves as the location Manager delegate
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate.locationManager.delegate = self
+        array = workManager.allItems()
     }
 
     // MARK: - Table view data source
@@ -46,5 +56,19 @@ class TableViewController: UITableViewController {
     }
     @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
         println("unwinding: \(segue.identifier)")
+    }
+}
+
+extension TableViewController: CLLocationManagerDelegate {
+    
+    func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
+        if region.identifier == "WorkRegion" {
+            println( "Arrived at work")
+        }
+    }
+    func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
+        if region.identifier == "WorkRegion" {
+            println("Leaving work")
+        }
     }
 }
