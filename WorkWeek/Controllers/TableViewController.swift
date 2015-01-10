@@ -6,6 +6,7 @@ class TableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.title = "WorkWeek"
     }
 
     // MARK: - Table view data source
@@ -25,7 +26,6 @@ class TableViewController: UITableViewController {
         return cell
     }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -33,5 +33,4 @@ class TableViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
     }
-    */
 }
