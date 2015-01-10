@@ -1,0 +1,8 @@
+# Include Argo
+github "thoughtbot/Argo" >= 0.2.2
+
+# Prelude
+github "robrix/Prelude" >= 1.2.0
+
+# Either
+github "robrix/Either" >= 1.0.3
