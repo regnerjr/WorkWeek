@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--WorkWeek-->
         <scene sceneID="mP2-s4-sJB">
             <objects>
                 <tableViewController id="gqb-qp-BJH" customClass="TableViewController" customModule="WorkWeek" customModuleProvider="target" sceneMemberID="viewController">
@@ -25,11 +25,41 @@
                             <outlet property="delegate" destination="gqb-qp-BJH" id="VCb-py-1KB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="xiR-gx-5bx"/>
+                    <navigationItem key="navigationItem" title="WorkWeek" id="xiR-gx-5bx">
+                        <barButtonItem key="leftBarButtonItem" title="Map" id="moK-8J-sYe">
+                            <connections>
+                                <segue destination="9Q0-cl-wKy" kind="show" identifier="MapViewSegue" id="SKK-6g-xWN"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="6ca-VR-QOt"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="peR-UG-9l3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1276" y="413"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="cNR-ho-hZn">
+            <objects>
+                <viewController id="9Q0-cl-wKy" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="d8t-3T-j73"/>
+                        <viewControllerLayoutGuide type="bottom" id="MbH-la-jFa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Jlk-3Y-FcJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="VMW-M3-NRE">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rgr-3I-wWf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1276" y="1155"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Zbd-dc-VCq">
