@@ -1,3 +1,4 @@
 github "thoughtbot/Argo" "v0.2.2"
 github "robrix/Either" "1.0.3"
 github "robrix/Prelude" "1.2"
+github "thoughtbot/Runes" "v1.0"

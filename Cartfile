@@ -1,8 +1,11 @@
 # Include Argo
-github "thoughtbot/Argo" >= 0.2.2
+github "thoughtbot/Argo"
 
-# Prelude
-github "robrix/Prelude" >= 1.2.0
+# Thoughtbot/Runes
+github "thoughtbot/Runes"
 
 # Either
-github "robrix/Either" >= 1.0.3
+github "robrix/Either"
+
+#Prelude is broken? :(
+#github "robrix/Prelude"
