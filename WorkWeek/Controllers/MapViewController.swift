@@ -17,6 +17,8 @@ class MapViewController: UIViewController {
     }
 }
 
+// MARK: - UISearchBarExtension
+
 extension MapViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {

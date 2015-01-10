@@ -33,7 +33,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="6ca-VR-QOt">
                             <connections>
-                                <segue destination="WIA-yz-lfT" kind="show" identifier="settingsSegue" id="NA1-vi-5Rf"/>
+                                <segue destination="WIA-yz-lfT" kind="presentation" identifier="settingsSegue" id="NA1-vi-5Rf"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -53,12 +53,74 @@
                     <view key="view" contentMode="scaleToFill" id="FMN-PH-qyi">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Length of Work Week" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNx-Ip-Fvi">
+                                <rect key="frame" x="218" y="28" width="164" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="nhu-Fy-DdY">
+                                <rect key="frame" x="179" y="56" width="94" height="29"/>
+                            </stepper>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="40" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fNh-QF-z7P">
+                                <rect key="frame" x="281" y="56" width="37" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYV-eK-RQy">
+                                <rect key="frame" x="326" y="61" width="46" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unpaid Lunch (Daily)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Jb-dw-FkH">
+                                <rect key="frame" x="213" y="157" width="159" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.5" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aRe-Nm-uQD">
+                                <rect key="frame" x="213" y="185" width="159" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TI-eM-xkr">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Done" id="AIE-r8-TUL">
+                                        <connections>
+                                            <segue destination="Cyw-Ik-mOo" kind="unwind" unwindAction="unwindToThisViewController:" id="vyP-jd-PDc"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="fNh-QF-z7P" secondAttribute="centerX" constant="0.5" id="06e-jU-oPw"/>
+                            <constraint firstItem="aRe-Nm-uQD" firstAttribute="leading" secondItem="0Jb-dw-FkH" secondAttribute="leading" id="1OC-5q-tth"/>
+                            <constraint firstItem="fNh-QF-z7P" firstAttribute="top" secondItem="CNx-Ip-Fvi" secondAttribute="bottom" constant="8" id="2gm-SL-0Sh"/>
+                            <constraint firstItem="CNx-Ip-Fvi" firstAttribute="top" secondItem="zoW-Ps-2fd" secondAttribute="bottom" constant="8" id="95o-1k-i7L"/>
+                            <constraint firstItem="fNh-QF-z7P" firstAttribute="centerY" secondItem="wYV-eK-RQy" secondAttribute="centerY" constant="0.5" id="Fuh-wx-xQP"/>
+                            <constraint firstItem="4TI-eM-xkr" firstAttribute="centerX" secondItem="CNx-Ip-Fvi" secondAttribute="centerX" id="GAZ-c6-sQI"/>
+                            <constraint firstItem="0Jb-dw-FkH" firstAttribute="top" secondItem="fNh-QF-z7P" secondAttribute="bottom" constant="70.5" id="MTt-0R-Ern"/>
+                            <constraint firstItem="4TI-eM-xkr" firstAttribute="bottom" secondItem="09f-ol-pP0" secondAttribute="top" id="NEE-j7-Tt2"/>
+                            <constraint firstItem="aRe-Nm-uQD" firstAttribute="trailing" secondItem="0Jb-dw-FkH" secondAttribute="trailing" id="Ngd-NB-qSR"/>
+                            <constraint firstAttribute="centerX" secondItem="0Jb-dw-FkH" secondAttribute="centerX" constant="7.75" id="U9c-p2-ZoA"/>
+                            <constraint firstItem="aRe-Nm-uQD" firstAttribute="top" secondItem="0Jb-dw-FkH" secondAttribute="bottom" constant="8" symbolic="YES" id="WUm-4X-8JJ"/>
+                            <constraint firstItem="fNh-QF-z7P" firstAttribute="centerY" secondItem="nhu-Fy-DdY" secondAttribute="centerY" constant="0.5" id="YNl-U2-NWk"/>
+                            <constraint firstItem="fNh-QF-z7P" firstAttribute="leading" secondItem="nhu-Fy-DdY" secondAttribute="trailing" constant="8" id="ZCc-7b-A0i"/>
+                            <constraint firstAttribute="centerX" secondItem="CNx-Ip-Fvi" secondAttribute="centerX" id="fJY-Qu-ggJ"/>
+                            <constraint firstItem="4TI-eM-xkr" firstAttribute="leading" secondItem="FMN-PH-qyi" secondAttribute="leading" id="lVc-6B-EXj"/>
+                            <constraint firstItem="wYV-eK-RQy" firstAttribute="leading" secondItem="fNh-QF-z7P" secondAttribute="trailing" constant="8" id="vbr-I6-yot"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lWP-jg-0PC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Cyw-Ik-mOo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1952" y="413"/>
+            <point key="canvasLocation" x="1972" y="413"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="cNR-ho-hZn">
