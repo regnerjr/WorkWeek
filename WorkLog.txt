@@ -1,0 +1,44 @@
+Notes on the WorkWeek
+
+Started a new project with liftoff in Dropbox/Xcode-Projects/
+Added to github. http://github.com/regnerjr/WorkWeek
+
+Gonna figure out how to add carthage to the project.
+ - Brew install carthage
+ - Created Cartfile - 
+ 	- added Prelude, Either, Argo, 
+	- Prelude is having some issues building so, Guess I will remove it. I wanna use gordon's new Operators
+	- Added Thoughtbot Runes
+ - Done playing with carthage
+ 
+ How to write an app
+ 	Need to figure out how to get stated
+	Added TableView to hold start and end times. 
+	
+	Order by Start Time - Absolute GMT
+	Format Cells:
+		M - 8:05 - 4:02        Hours
+		T - 9:03 - 5:35        Hours
+		W - 8:23 - 5:05        Hours
+		T - 8:15 - Now         CurrentHours
+
+Data needed - In Time, Out Time/CurrentTime, Elapsed Time, WeeklyTime
+
+Table DataSource: 
+	Struct WorkDay { inTime: NSTimeInterval, 
+			OutTime: NSTimeInterval?, 
+			ElapsedTime:(calculated), 
+			} 
+	Store WorkWeek{ ArrayOfTimeStructs: 
+			CalculatedTotalForWeek:}
+			
+SettingsStruct {
+	UnpaidLunch:NSTimeInterval?
+	HoursInWorkWeek: NSTimeInterval?
+	}
+	
+No Data model yet. Added a tableview in a navigation Controller. Main screen is the tableview. Added 2 buttons in the nav bar, one to go to the map view, the other to load the settings screen. 
+
+Got Storyboard Pretty well laid out. 
+Now to add some logic.
+
