@@ -40,7 +40,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="peR-UG-9l3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1276" y="413"/>
+            <point key="canvasLocation" x="1171" y="413"/>
         </scene>
         <!--Settings-->
         <scene sceneID="nty-gp-YkN">
@@ -55,7 +55,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Length of Work Week" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNx-Ip-Fvi">
-                                <rect key="frame" x="218" y="28" width="164" height="21"/>
+                                <rect key="frame" x="218" y="28" width="164" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -69,19 +69,19 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYV-eK-RQy">
-                                <rect key="frame" x="326" y="61" width="46" height="21"/>
+                                <rect key="frame" x="326" y="61" width="46" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unpaid Lunch (Daily)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Jb-dw-FkH">
-                                <rect key="frame" x="213" y="157" width="159" height="21"/>
+                                <rect key="frame" x="213" y="157" width="158.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.5" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aRe-Nm-uQD">
-                                <rect key="frame" x="213" y="185" width="159" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.5" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aRe-Nm-uQD">
+                                <rect key="frame" x="213.5" y="186" width="158.5" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -120,7 +120,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lWP-jg-0PC" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Cyw-Ik-mOo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1972" y="413"/>
+            <point key="canvasLocation" x="1914" y="413"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="cNR-ho-hZn">
@@ -136,6 +136,9 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="VMW-M3-NRE">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                                <connections>
+                                    <outlet property="delegate" destination="9Q0-cl-wKy" id="obP-SZ-OTh"/>
+                                </connections>
                             </mapView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eoO-Fi-auT">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
@@ -182,7 +185,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rgr-3I-wWf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="xfb-w4-g08" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1276" y="1155"/>
+            <point key="canvasLocation" x="1171" y="1161"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Zbd-dc-VCq">
