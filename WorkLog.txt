@@ -42,3 +42,10 @@ No Data model yet. Added a tableview in a navigation Controller. Main screen is 
 Got Storyboard Pretty well laid out. 
 Now to add some logic.
 
+Focusing on the Mapview right now. 
+The mapviewcontroller is the delegate. 
+Reading up on geofences. CLRegion is the Class which is used to set a geofence. 
+
+got my geofence delegates going just, maybe just as simple as addLeaving, addComing on the model when those fire.
+
+

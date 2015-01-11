@@ -10,7 +10,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let auth = CLLocationManager.authorizationStatus()
         if auth != CLAuthorizationStatus.Authorized {
             manager.requestAlwaysAuthorization()
-            println("requstion Location")
+            println("requesting Location")
         } else {
             println("Location already authorized" )
         }
@@ -19,15 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
     
     lazy var workManager: WorkManager = {
-        //read from a store if we can maybe later
+        //read from a store, maybe later
         return WorkManager()
     }()
-    
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         return true
     }
 
-    
-    
 }

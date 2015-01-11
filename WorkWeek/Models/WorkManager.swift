@@ -29,7 +29,7 @@ class WorkManager: NSObject {
     
     func addDeparture(){
         println("Adding departure")
-        left += [NSDate]()
+        left += [NSDate()]
     }
     
 }
