@@ -22,6 +22,8 @@ class TableViewController: UITableViewController {
         //set ourselves as the location Manager delegate
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.locationManager.delegate = self
+    }
+    override func viewWillAppear(animated: Bool) {
         array = workManager.allItems()
     }
 
@@ -64,11 +66,17 @@ extension TableViewController: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
         if region.identifier == "WorkRegion" {
             println( "Arrived at work")
+            self.workManager.addArrival()
+            self.array = workManager.allItems()
+            self.tableView.reloadData()
         }
     }
     func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
         if region.identifier == "WorkRegion" {
             println("Leaving work")
+            self.workManager.addDeparture()
+            self.array = workManager.allItems()
+            self.tableView.reloadData()
         }
     }
 }
