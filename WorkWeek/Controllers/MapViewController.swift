@@ -26,7 +26,8 @@ class MapViewController: UIViewController {
     
     //locationmanager.startMonitoringRegion()
   @IBAction func setWorkLocation(sender: AnyObject) {
-    let managerCenter = locationManager.location.coordinate
+    if let managerCenter = locationManager.location?.coordinate {
+    
     let workRegion = CLCircularRegion(center: managerCenter, radius: 150.0, identifier: "WorkRegion")
     println("Setting workRegion: \(workRegion)")
     locationManager.startMonitoringForRegion(workRegion)
@@ -34,9 +35,21 @@ class MapViewController: UIViewController {
     let region: MKCoordinateRegion = MKCoordinateRegion(center: workRegion.center, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
     mapView.setRegion(region, animated: true)
     
+    //currently in order to start monitoring you need to be at work so add an arrival
+    let workManager:WorkManager = {
+        let ad = UIApplication.sharedApplication().delegate as AppDelegate
+        return ad.workManager
+        }()
+    workManager.addArrival()
+    } else {
+        println("Could not get location")
+    }
+    
   }
     
 }
+
+// MARK: - MapViewDelegate
 
 extension MapViewController: MKMapViewDelegate {
 
