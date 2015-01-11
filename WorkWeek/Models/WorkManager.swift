@@ -9,11 +9,27 @@
 import UIKit
 
 class WorkManager: NSObject {
-   
+
+    var arrived = [NSDate]()
+    var left = [NSDate]()
+    
     func allItems() -> [String] {
-        let item1 = "M 8:04 - 5:02      8.45Hours"
-        return [item1]
+        var output:[String] = ["one","two","three","four","five",]
+        let arrivedDescriptions: [String] = arrived.map{ "A: " + $0.description}
+        output += arrivedDescriptions
+        let departureDescriptions: [String] = left.map{ "D: " + $0.description }
+        output += departureDescriptions
+        return output
+    }
+
+    func addArrival(){
+        println("Adding arrival")
+        arrived += [NSDate()]
     }
     
+    func addDeparture(){
+        println("Adding departure")
+        left += [NSDate]()
+    }
     
 }
