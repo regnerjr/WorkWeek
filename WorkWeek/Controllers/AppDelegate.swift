@@ -8,7 +8,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var locationManager:CLLocationManager = {
         var manager = CLLocationManager()
         let auth = CLLocationManager.authorizationStatus()
-        if auth != CLAuthorizationStatus.Authorized {
+        if auth != CLAuthorizationStatus.AuthorizedAlways {
             manager.requestAlwaysAuthorization()
             println("requesting Location")
         } else {

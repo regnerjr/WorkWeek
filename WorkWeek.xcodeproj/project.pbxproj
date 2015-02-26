@@ -8,14 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		229CAFF7DED38B3E1FF05521 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CF0ED90738128E08E03CC2 /* AppDelegate.swift */; };
+		52146CBA1A9E648E00F40A87 /* WorkManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */; };
 		5217633E1A61A5FA009661ED /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5217633D1A61A5FA009661ED /* TableViewController.swift */; };
 		5217633F1A61A5FA009661ED /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5217633D1A61A5FA009661ED /* TableViewController.swift */; };
 		521763441A61B368009661ED /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763431A61B368009661ED /* MapKit.framework */; };
 		521763461A61BABA009661ED /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521763451A61BABA009661ED /* MapViewController.swift */; };
-		521763471A61BABA009661ED /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521763451A61BABA009661ED /* MapViewController.swift */; };
 		521763491A61D0C5009661ED /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763481A61D0C5009661ED /* CoreLocation.framework */; };
 		5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5270F3AA1A61EABF007834AF /* WorkManager.swift */; };
 		5270F3AC1A61EABF007834AF /* WorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5270F3AA1A61EABF007834AF /* WorkManager.swift */; };
+		52F40A501A9E7D4700FA02C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CF0ED90738128E08E03CC2 /* AppDelegate.swift */; };
+		52F40A521A9E7E1800FA02C6 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A511A9E7E1800FA02C6 /* Event.swift */; };
+		52F40A531A9E7E1800FA02C6 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A511A9E7E1800FA02C6 /* Event.swift */; };
+		52F40A551A9E7E7400FA02C6 /* EventTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A541A9E7E7400FA02C6 /* EventTest.swift */; };
+		52F40A571A9E803C00FA02C6 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A561A9E803C00FA02C6 /* NSDateExtensions.swift */; };
+		52F40A581A9E803C00FA02C6 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A561A9E803C00FA02C6 /* NSDateExtensions.swift */; };
+		52F40A5A1A9E808B00FA02C6 /* NSDateExtensionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A591A9E808B00FA02C6 /* NSDateExtensionsTest.swift */; };
 		DA806D9C0720182851F5EADB /* Main.storyboard in Sources */ = {isa = PBXBuildFile; fileRef = 39F3BE244B7296584727EAC5 /* Main.storyboard */; };
 		E65CE64206D775D006BBE953 /* LaunchScreen.xib in Sources */ = {isa = PBXBuildFile; fileRef = 49B3D806C300C55550FD0FA7 /* LaunchScreen.xib */; };
 		F191B23CC45B08C69746EFD2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA5035B079F37F07486CB30 /* Foundation.framework */; };
@@ -37,12 +44,18 @@
 		30E265B519BC5E1BC3D618FE /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		39F3BE244B7296584727EAC5 /* Main.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		49B3D806C300C55550FD0FA7 /* LaunchScreen.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkManagerTest.swift; sourceTree = "<group>"; };
 		5217633C1A61A5FA009661ED /* UnitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		5217633D1A61A5FA009661ED /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		521763431A61B368009661ED /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		521763451A61BABA009661ED /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		521763481A61D0C5009661ED /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5270F3AA1A61EABF007834AF /* WorkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkManager.swift; sourceTree = "<group>"; };
+		52B275211A9D2D2B00501780 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playground.playground; path = WorkWeek/Playground.playground; sourceTree = "<group>"; };
+		52F40A511A9E7E1800FA02C6 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		52F40A541A9E7E7400FA02C6 /* EventTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTest.swift; sourceTree = "<group>"; };
+		52F40A561A9E803C00FA02C6 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
+		52F40A591A9E808B00FA02C6 /* NSDateExtensionsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensionsTest.swift; sourceTree = "<group>"; };
 		6219AAAD4B2D8CAFB333EB1B /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B5EA2E4B8F1C6F2451087C9 /* WorkWeek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkWeek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F81B384B6127F9E6F6561E8 /* UnitTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
@@ -161,6 +174,7 @@
 		749DF0AFEB6121917888A16B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				52F40A561A9E803C00FA02C6 /* NSDateExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -168,6 +182,7 @@
 		8CCF5699F90307DD07BD5177 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				52F40A511A9E7E1800FA02C6 /* Event.swift */,
 				5270F3AA1A61EABF007834AF /* WorkManager.swift */,
 			);
 			path = Models;
@@ -191,6 +206,7 @@
 		C14C4A6AE12787F2C3174306 = {
 			isa = PBXGroup;
 			children = (
+				52B275211A9D2D2B00501780 /* Playground.playground */,
 				535532DFF0F16EC023159453 /* WorkWeek */,
 				5C8F223530E23502684ED33A /* UnitTests */,
 				4AA5892E8CB787E807D6F4D2 /* Frameworks */,
@@ -221,6 +237,9 @@
 		F51E11A88905048A10793377 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				52F40A591A9E808B00FA02C6 /* NSDateExtensionsTest.swift */,
+				52F40A541A9E7E7400FA02C6 /* EventTest.swift */,
+				52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -362,9 +381,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52F40A571A9E803C00FA02C6 /* NSDateExtensions.swift in Sources */,
 				229CAFF7DED38B3E1FF05521 /* AppDelegate.swift in Sources */,
 				DA806D9C0720182851F5EADB /* Main.storyboard in Sources */,
 				5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */,
+				52F40A521A9E7E1800FA02C6 /* Event.swift in Sources */,
 				E65CE64206D775D006BBE953 /* LaunchScreen.xib in Sources */,
 				521763461A61BABA009661ED /* MapViewController.swift in Sources */,
 				5217633E1A61A5FA009661ED /* TableViewController.swift in Sources */,
@@ -375,9 +396,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52F40A551A9E7E7400FA02C6 /* EventTest.swift in Sources */,
+				52F40A581A9E803C00FA02C6 /* NSDateExtensions.swift in Sources */,
+				52F40A501A9E7D4700FA02C6 /* AppDelegate.swift in Sources */,
 				5217633F1A61A5FA009661ED /* TableViewController.swift in Sources */,
-				521763471A61BABA009661ED /* MapViewController.swift in Sources */,
+				52F40A5A1A9E808B00FA02C6 /* NSDateExtensionsTest.swift in Sources */,
+				52146CBA1A9E648E00F40A87 /* WorkManagerTest.swift in Sources */,
 				5270F3AC1A61EABF007834AF /* WorkManager.swift in Sources */,
+				52F40A531A9E7E1800FA02C6 /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@ enum StoryBoardSegues: String {
 class TableViewController: UITableViewController {
     
     lazy var workManager: WorkManager = {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         return appDelegate.workManager
     }()
 
@@ -20,7 +20,7 @@ class TableViewController: UITableViewController {
         super.viewDidLoad()
         navigationController?.title = "WorkWeek"
         //set ourselves as the location Manager delegate
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.locationManager.delegate = self
     }
     override func viewWillAppear(animated: Bool) {
@@ -37,7 +37,7 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel?.text = array[indexPath.row]
         return cell
     }
@@ -66,7 +66,7 @@ extension TableViewController: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
         if region.identifier == "WorkRegion" {
             println( "Arrived at work")
-            self.workManager.addArrival()
+            self.workManager.addArrival(NSDate())
             self.array = workManager.allItems()
             self.tableView.reloadData()
         }
@@ -74,7 +74,7 @@ extension TableViewController: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
         if region.identifier == "WorkRegion" {
             println("Leaving work")
-            self.workManager.addDeparture()
+            self.workManager.addDeparture(NSDate())
             self.array = workManager.allItems()
             self.tableView.reloadData()
         }
