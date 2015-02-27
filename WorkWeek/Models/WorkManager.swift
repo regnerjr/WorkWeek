@@ -1,13 +1,13 @@
 import Foundation
 
-
-struct CompleteDay {
-    let dayOfWeekString: String
-    //    let HoursWorked:
-}
-
 class WorkManager {
+
     var eventsForTheWeek: [Event] = []
+    var workDays: [WorkDay] = []
+    var hoursWorkedThisWeek: Int {
+        return workDays.reduce(0, combine: {$0 + $1.hoursWorked})
+    }
+
     func addArrival(date: NSDate){
         let newArrival = Event(inOrOut: .Arrival, date: date)
         eventsForTheWeek.append(newArrival)
@@ -16,10 +16,7 @@ class WorkManager {
     func addDeparture(date: NSDate){
         let newDeparture = Event(inOrOut: .Departure, date: date)
         eventsForTheWeek.append(newDeparture)
-
-        //check event before the one we just added
-        let arrivalDate = eventsForTheWeek[eventsForTheWeek.count - 2].date
-        let timeWorked = hoursMinutesFromDate(date: arrivalDate, toDate: newDeparture.date)
+        workDays = processEvents(eventsForTheWeek)
     }
 
     func isAtWork() -> Bool {
@@ -28,24 +25,41 @@ class WorkManager {
         }
         return false // if no events then there has not been an arrival
     }
+
     func clearEvents(){
         eventsForTheWeek = [Event]()
     }
-    func timeWorkedOnDay(date: NSDate) -> (hours:Int, minutes: Int){
-        let eventsForWeekday = eventsForTheWeek.reduce([Event](), combine: { //get only items for work matching weekday requested
-            if $1.date.dayOfWeek == date.dayOfWeek{
-                $0 + [$1]
-            }
-            return $0
-        })
-        if eventsForWeekday.first?.inOrOut != .Arrival {
-            println("First item is not an arrival!")
-            return (0, 0)
-        }
-        return hoursMinutesFromDate(date: eventsForWeekday[0].date, toDate: eventsForWeekday[1].date)
+
+    func allItems() -> [WorkDay]{
+        workDays = processEvents(eventsForTheWeek)
+        return workDays
     }
-    func allItems() -> [String]{
-        return ["Item1", "Item2", "Item3"]
+    //What we need is a loop to process the events and turn them into workdays
+    func processEvents(var events: [Event]) -> [WorkDay]{
+        var workTimes = [WorkDay]()
+        //items should be paired, make sure first item is an arrival
+        //if not drop it
+        if events.count > 0 && events[0].inOrOut != .Arrival {
+            events.removeAtIndex(0)
+        }
+
+        while events.count >= 2 { //loop through events pairing them
+
+            //still need to check length of the array
+            if events.count >= 2 {
+                if events[0].inOrOut == .Arrival && events[1].inOrOut == .Departure {
+                //we have two paired items
+                let hoursMinutes = hoursMinutesFromDate(date: events[0].date, toDate: events[1].date)
+                let workDay = WorkDay(weekDay: events[0].date.dayOfWeek, hoursWorked:hoursMinutes.hours, minutesWorked: hoursMinutes.minutes)
+                workTimes.append(workDay)
+                events.removeAtIndex(0) //remove the arrival
+                events.removeAtIndex(0) //remove the departure
+                }
+            }
+            
+        }
+        
+        return workTimes
     }
 }
 

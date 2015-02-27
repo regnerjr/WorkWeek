@@ -9,18 +9,18 @@ enum StoryBoardSegues: String {
 class TableViewController: UITableViewController {
     
     lazy var workManager: WorkManager = {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         return appDelegate.workManager
     }()
 
 
-    var array = [String]()
+    var array = [WorkDay]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.title = "WorkWeek"
         //set ourselves as the location Manager delegate
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.locationManager.delegate = self
     }
     override func viewWillAppear(animated: Bool) {
@@ -37,8 +37,11 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = array[indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
+        let workItem = array[indexPath.row]
+        cell.textLabel?.text = workItem.weekDay + ": " +
+            String(workItem.hoursWorked) + " Hours, " +
+            String(workItem.minutesWorked) + " Minutes"
         return cell
     }
 

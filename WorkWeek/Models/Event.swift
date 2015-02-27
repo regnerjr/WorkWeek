@@ -15,4 +15,19 @@ struct Event {
         timeFormatter.dateStyle = NSDateFormatterStyle.NoStyle
         return timeFormatter.stringFromDate(self.date)
     }
+
+}
+
+// MARK: - Equatable
+extension Event: Equatable {}
+func ==(lhs: Event, rhs: Event) -> Bool {
+    return (lhs.inOrOut == rhs.inOrOut) && (lhs.date == rhs.date)
+}
+
+// MARK: - WorkHours
+
+struct WorkDay {
+    let weekDay: String //string to store the weekday of the Arrival
+    let hoursWorked: Int //counts Hours worked from arrival to departure
+    let minutesWorked: Int //counts minutes not included in the Hours
 }

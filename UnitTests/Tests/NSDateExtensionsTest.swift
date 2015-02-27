@@ -9,7 +9,7 @@ class NSDateExtensionsTest: XCTestCase {
         let date = NSDate(timeIntervalSinceReferenceDate: 0)
 
         NSTimeZone.setDefaultTimeZone(NSTimeZone(forSecondsFromGMT: 0))
-        //set time zone to gmt else the day of the week could be interpreted 
+        //set time zone to gmt else the day of the week could be interpreted
         //incorrectly. When testing this I originally had some testing issues.
         // asking for the NSDate(timeIntervalSinceReferenceDate: 0) gives Jan 1, 2001 00:00:00 GMT
         // When printing this out using a formatter as dayOfWeek does, I live in 

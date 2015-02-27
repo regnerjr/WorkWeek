@@ -7,7 +7,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchBar: UISearchBar!
     lazy var locationManager:CLLocationManager = {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         return appDelegate.locationManager
     }()
   
@@ -39,7 +39,7 @@ class MapViewController: UIViewController {
             
             //currently in order to start monitoring you need to be at work so add an arrival
             let workManager: WorkManager = {
-                let ad = UIApplication.sharedApplication().delegate as! AppDelegate
+                let ad = UIApplication.sharedApplication().delegate as AppDelegate
                 return ad.workManager
             }()
             workManager.addArrival(NSDate())
