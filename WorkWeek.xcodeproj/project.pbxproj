@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		229CAFF7DED38B3E1FF05521 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CF0ED90738128E08E03CC2 /* AppDelegate.swift */; };
 		52084F1B1A9FFEA10015F544 /* home.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 52084F1A1A9FFEA10015F544 /* home.gpx */; };
+		52084F1D1AA00BCF0015F544 /* TableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52084F1C1AA00BCF0015F544 /* TableViewFooter.xib */; };
 		52146CBA1A9E648E00F40A87 /* WorkManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */; };
 		5217633E1A61A5FA009661ED /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5217633D1A61A5FA009661ED /* TableViewController.swift */; };
 		521763441A61B368009661ED /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763431A61B368009661ED /* MapKit.framework */; };
@@ -44,6 +45,7 @@
 		39F3BE244B7296584727EAC5 /* Main.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		49B3D806C300C55550FD0FA7 /* LaunchScreen.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		52084F1A1A9FFEA10015F544 /* home.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = home.gpx; sourceTree = "<group>"; };
+		52084F1C1AA00BCF0015F544 /* TableViewFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TableViewFooter.xib; path = ../../Views/TableViewFooter.xib; sourceTree = "<group>"; };
 		52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkManagerTest.swift; sourceTree = "<group>"; };
 		5217633C1A61A5FA009661ED /* UnitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		5217633D1A61A5FA009661ED /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 		3ABF780F373EBAE98E49206E /* Nibs */ = {
 			isa = PBXGroup;
 			children = (
+				52084F1C1AA00BCF0015F544 /* TableViewFooter.xib */,
 				49B3D806C300C55550FD0FA7 /* LaunchScreen.xib */,
 			);
 			path = Nibs;
@@ -331,6 +334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52084F1B1A9FFEA10015F544 /* home.gpx in Resources */,
+				52084F1D1AA00BCF0015F544 /* TableViewFooter.xib in Resources */,
 				FE2FB851CFA2EDC690983CFD /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

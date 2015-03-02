@@ -46,6 +46,7 @@ class MapViewController: UIViewController {
         } else {
             println("Could not get location")
         }
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
 }
@@ -58,7 +59,7 @@ extension MapViewController: MKMapViewDelegate {
         println("MapViewDelegate: didUpdateUserLocation")
         //zoom the map to the users location
         let coords = userLocation.location.coordinate
-        let region = MKCoordinateRegion(center: coords, span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
+        let region = MKCoordinateRegion(center: coords, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         mapView.setRegion(region, animated: true)
     }
 

@@ -45,6 +45,15 @@ class TableViewController: UITableViewController {
         return cell
     }
 
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        return NSBundle.mainBundle().loadNibNamed("TableViewFooter", owner: self, options: nil)[0] as UITableViewHeaderFooterView
+        let footer = tableView.dequeueReusableHeaderFooterViewWithIdentifier("FooterView") as UITableViewHeaderFooterView
+//        let label = workManager.isAtWork() ? "At Work :(" : "Horray! Not Working."
+//        footer.textLabel.text = label
+
+        return nil
+    }
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -59,6 +68,7 @@ class TableViewController: UITableViewController {
             println("transitioning to Settings")
         }
     }
+
     @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
         println("unwinding: \(segue.identifier)")
     }
