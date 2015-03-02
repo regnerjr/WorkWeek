@@ -12,5 +12,5 @@ xcode_sdk: iphonesimulator8.1
 env: export LANG=en_US.UTF-8
 
 script:
-  xctool -workspace WorkWeek.xcodeproj -scheme TravisWorkWeekTests -sdk iphonesimulator8.1
-  xctool test -workspace WorkWeek.xcodeproj -scheme TravisWorkWeekTests -sdk iphonesimulator8.1
+  xctool -project WorkWeek.xcodeproj -scheme TravisWorkWeekTests -sdk iphonesimulator8.1
+  xctool test -project WorkWeek.xcodeproj -scheme TravisWorkWeekTests -sdk iphonesimulator8.1
