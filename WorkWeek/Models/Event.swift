@@ -30,4 +30,6 @@ struct WorkDay {
     let weekDay: String //string to store the weekday of the Arrival
     let hoursWorked: Int //counts Hours worked from arrival to departure
     let minutesWorked: Int //counts minutes not included in the Hours
+    let arrivalTime: String
+    let departureTime: String
 }

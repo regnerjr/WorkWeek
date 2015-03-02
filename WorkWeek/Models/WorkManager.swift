@@ -50,7 +50,7 @@ class WorkManager {
                 if events[0].inOrOut == .Arrival && events[1].inOrOut == .Departure {
                 //we have two paired items
                 let hoursMinutes = hoursMinutesFromDate(date: events[0].date, toDate: events[1].date)
-                let workDay = WorkDay(weekDay: events[0].date.dayOfWeek, hoursWorked:hoursMinutes.hours, minutesWorked: hoursMinutes.minutes)
+                let workDay = WorkDay(weekDay: events[0].date.dayOfWeek, hoursWorked:hoursMinutes.hours, minutesWorked: hoursMinutes.minutes, arrivalTime: events[0].timeString, departureTime: events[1].timeString)
                 workTimes.append(workDay)
                 events.removeAtIndex(0) //remove the arrival
                 events.removeAtIndex(0) //remove the departure
