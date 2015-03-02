@@ -1,9 +1,7 @@
 language: objective-c
 
-branches:
-  only:
-    master
+xcode_project: WorkWeek.xcodeproj
+xcode_scheme: TravisWorkWeekTests
+xcode_sdk: iphonesimulator8.1
 
 env: export LANG=en_US.UTF-8
-
-script: bin/test
