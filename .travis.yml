@@ -1,7 +1,16 @@
 language: objective-c
 
+before_install:
+  - sudo gem install cocoapods
+  - brew update
+  - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
+
 xcode_project: WorkWeek.xcodeproj
 xcode_scheme: TravisWorkWeekTests
 xcode_sdk: iphonesimulator8.1
 
 env: export LANG=en_US.UTF-8
+
+script:
+  xctool -workspace WorkWeek.xcodeproj -scheme TravisWorkWeekTests -sdk iphonesimulator8.1
+  xctool test -workspace WorkWeek.xcodeproj -scheme TravisWorkWeekTests -sdk iphonesimulator8.1
