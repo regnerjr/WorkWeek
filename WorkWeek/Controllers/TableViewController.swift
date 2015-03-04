@@ -37,21 +37,30 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as WorkDayCellTableViewCell
+
         let workItem = array[indexPath.row]
-        cell.textLabel?.text = workItem.weekDay + ": " +
+        cell.workTIme?.text = workItem.weekDay + ": " +
             String(workItem.hoursWorked) + " Hours, " +
             String(workItem.minutesWorked) + " Minutes"
+        cell.arrivalTime.text = workItem.arrivalTime
+        cell.departureTime.text = workItem.departureTime
+
         return cell
     }
 
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        return NSBundle.mainBundle().loadNibNamed("TableViewFooter", owner: self, options: nil)[0] as UITableViewHeaderFooterView
-        let footer = tableView.dequeueReusableHeaderFooterViewWithIdentifier("FooterView") as UITableViewHeaderFooterView
-//        let label = workManager.isAtWork() ? "At Work :(" : "Horray! Not Working."
-//        footer.textLabel.text = label
+        println("Called View For Footer in Section")
+        if let footer = tableView.dequeueReusableCellWithIdentifier("footerView") as UITableViewCell? {
 
-        return nil
+            footer.textLabel?.text = workManager.isAtWork() ? "Working :(" : "Enjoying a Balanced Life"
+            return footer
+        } else {
+            let defaultfooter = UIView()
+            defaultfooter.backgroundColor = UIColor.whiteColor()
+            return defaultfooter
+        }
+
     }
 
     // MARK: - Navigation
