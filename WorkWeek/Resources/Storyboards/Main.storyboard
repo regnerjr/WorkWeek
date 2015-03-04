@@ -85,7 +85,7 @@
         <!--Settings-->
         <scene sceneID="nty-gp-YkN">
             <objects>
-                <viewController title="Settings" id="WIA-yz-lfT" sceneMemberID="viewController">
+                <viewController title="Settings" id="WIA-yz-lfT" customClass="SettingsViewController" customModule="WorkWeek" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zoW-Ps-2fd"/>
                         <viewControllerLayoutGuide type="bottom" id="09f-ol-pP0"/>
@@ -135,6 +135,15 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8XR-bn-yhO">
+                                <rect key="frame" x="217" y="526" width="167" height="30"/>
+                                <state key="normal" title="Launch System Settings">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="launchSystemSettings:" destination="WIA-yz-lfT" eventType="touchUpInside" id="Sue-R0-tUa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -153,6 +162,8 @@
                             <constraint firstItem="fNh-QF-z7P" firstAttribute="leading" secondItem="nhu-Fy-DdY" secondAttribute="trailing" constant="8" id="ZCc-7b-A0i"/>
                             <constraint firstAttribute="centerX" secondItem="CNx-Ip-Fvi" secondAttribute="centerX" id="fJY-Qu-ggJ"/>
                             <constraint firstItem="4TI-eM-xkr" firstAttribute="leading" secondItem="FMN-PH-qyi" secondAttribute="leading" id="lVc-6B-EXj"/>
+                            <constraint firstItem="4TI-eM-xkr" firstAttribute="top" secondItem="8XR-bn-yhO" secondAttribute="bottom" id="min-99-WwI"/>
+                            <constraint firstAttribute="centerX" secondItem="8XR-bn-yhO" secondAttribute="centerX" id="ufr-pu-0Vh"/>
                             <constraint firstItem="wYV-eK-RQy" firstAttribute="leading" secondItem="fNh-QF-z7P" secondAttribute="trailing" constant="8" id="vbr-I6-yot"/>
                         </constraints>
                     </view>

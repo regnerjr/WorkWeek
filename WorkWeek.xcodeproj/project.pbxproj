@@ -15,6 +15,7 @@
 		521763461A61BABA009661ED /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521763451A61BABA009661ED /* MapViewController.swift */; };
 		521763491A61D0C5009661ED /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763481A61D0C5009661ED /* CoreLocation.framework */; };
 		5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5270F3AA1A61EABF007834AF /* WorkManager.swift */; };
+		5281A8261AA79AD500C4F154 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281A8251AA79AD500C4F154 /* SettingsViewController.swift */; };
 		52C565BB1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C565BA1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift */; };
 		52F40A521A9E7E1800FA02C6 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A511A9E7E1800FA02C6 /* Event.swift */; };
 		52F40A551A9E7E7400FA02C6 /* EventTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A541A9E7E7400FA02C6 /* EventTest.swift */; };
@@ -49,6 +50,7 @@
 		521763451A61BABA009661ED /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		521763481A61D0C5009661ED /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5270F3AA1A61EABF007834AF /* WorkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkManager.swift; sourceTree = "<group>"; };
+		5281A8251AA79AD500C4F154 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		52C565BA1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkDayCellTableViewCell.swift; sourceTree = "<group>"; };
 		52F40A511A9E7E1800FA02C6 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		52F40A541A9E7E7400FA02C6 /* EventTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTest.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 		668C4FEC797AB83A0AC83487 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5281A8251AA79AD500C4F154 /* SettingsViewController.swift */,
 				521763451A61BABA009661ED /* MapViewController.swift */,
 				5217633D1A61A5FA009661ED /* TableViewController.swift */,
 				20CF0ED90738128E08E03CC2 /* AppDelegate.swift */,
@@ -384,6 +387,7 @@
 				52F40A571A9E803C00FA02C6 /* NSDateExtensions.swift in Sources */,
 				229CAFF7DED38B3E1FF05521 /* AppDelegate.swift in Sources */,
 				DA806D9C0720182851F5EADB /* Main.storyboard in Sources */,
+				5281A8261AA79AD500C4F154 /* SettingsViewController.swift in Sources */,
 				5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */,
 				52F40A521A9E7E1800FA02C6 /* Event.swift in Sources */,
 				E65CE64206D775D006BBE953 /* LaunchScreen.xib in Sources */,
