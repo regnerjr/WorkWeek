@@ -6,6 +6,12 @@ enum StoryBoardSegues: String {
     case Settings = "settingsSegue"
 }
 
+enum ReuseIdentifiers: String {
+    case headerCell = "headerView"
+    case mainCell = "mainCell"
+    case footerCell = "footerView"
+}
+
 class TableViewController: UITableViewController {
 
     lazy var workManager: WorkManager = {
@@ -39,7 +45,7 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as WorkDayCellTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.mainCell.rawValue, forIndexPath: indexPath) as WorkDayCellTableViewCell
 
         let workItem = array[indexPath.row]
         cell.workTIme?.text = workItem.weekDay + ": " +
@@ -53,7 +59,7 @@ class TableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         println("Called View For Footer in Section")
-        if let footer = tableView.dequeueReusableCellWithIdentifier("footerView") as UITableViewCell? {
+        if let footer = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.footerCell.rawValue) as UITableViewCell? {
 
             footer.textLabel?.text = workManager.isAtWork() ? "Working :(" : "Enjoying a Balanced Life"
             return footer
@@ -63,6 +69,17 @@ class TableViewController: UITableViewController {
             return defaultfooter
         }
 
+    }
+
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        println("Called View for Header in Section")
+        if let header = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.headerCell.rawValue) as UITableViewCell? {
+            return header
+        } else {
+            let defaultHeader = UIView()
+            defaultHeader.backgroundColor = UIColor.redColor()
+            return defaultHeader
+        }
     }
 
     // MARK: - Navigation
