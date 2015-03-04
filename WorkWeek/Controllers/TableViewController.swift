@@ -7,7 +7,7 @@ enum StoryBoardSegues: String {
 }
 
 class TableViewController: UITableViewController {
-    
+
     lazy var workManager: WorkManager = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         return appDelegate.workManager
@@ -15,7 +15,7 @@ class TableViewController: UITableViewController {
 
 
     var array = [WorkDay]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.title = "WorkWeek"

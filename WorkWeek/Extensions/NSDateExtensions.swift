@@ -1,6 +1,6 @@
 import Foundation
 
-extension NSDate{
+public extension NSDate{
 
     var dayOfWeek: String {
         let weekdayFmt = NSDateFormatter()

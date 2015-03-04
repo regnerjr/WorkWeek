@@ -7,5 +7,5 @@ github "thoughtbot/Runes"
 # Either
 github "robrix/Either"
 
-#Prelude is broken? :(
-#github "robrix/Prelude"
+#Prelude
+github "robrix/Prelude"

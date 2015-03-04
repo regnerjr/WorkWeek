@@ -1,6 +1,8 @@
 import UIKit
 import XCTest
 
+import WorkWeek
+
 class EventTest: XCTestCase {
 
     func testEventCreate(){

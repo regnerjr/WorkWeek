@@ -1,41 +1,43 @@
 import Foundation
 
-class WorkManager {
+public class WorkManager {
 
-    var eventsForTheWeek: [Event] = []
-    var workDays: [WorkDay] = []
-    var hoursWorkedThisWeek: Int {
+    public var eventsForTheWeek: [Event] = []
+    public var workDays: [WorkDay] = []
+    public var hoursWorkedThisWeek: Int {
         return workDays.reduce(0, combine: {$0 + $1.hoursWorked})
     }
 
-    func addArrival(date: NSDate){
+    public init(){}
+    
+    public func addArrival(date: NSDate){
         let newArrival = Event(inOrOut: .Arrival, date: date)
         eventsForTheWeek.append(newArrival)
     }
 
-    func addDeparture(date: NSDate){
+    public func addDeparture(date: NSDate){
         let newDeparture = Event(inOrOut: .Departure, date: date)
         eventsForTheWeek.append(newDeparture)
         workDays = processEvents(eventsForTheWeek)
     }
 
-    func isAtWork() -> Bool {
+    public func isAtWork() -> Bool {
         if let lastEvent = eventsForTheWeek.last{
             return lastEvent.inOrOut == .Arrival //if the last event was an arrival return true
         }
         return false // if no events then there has not been an arrival
     }
 
-    func clearEvents(){
+    public func clearEvents(){
         eventsForTheWeek = [Event]()
     }
 
-    func allItems() -> [WorkDay]{
+    public func allItems() -> [WorkDay]{
         workDays = processEvents(eventsForTheWeek)
         return workDays
     }
     //What we need is a loop to process the events and turn them into workdays
-    func processEvents(var events: [Event]) -> [WorkDay]{
+    public func processEvents(var events: [Event]) -> [WorkDay]{
         var workTimes = [WorkDay]()
         //items should be paired, make sure first item is an arrival
         //if not drop it
@@ -63,7 +65,7 @@ class WorkManager {
     }
 }
 
-func hoursMinutesFromDate(date date1: NSDate, toDate date2: NSDate ) -> (hours: Int, minutes: Int){
+public func hoursMinutesFromDate(date date1: NSDate, toDate date2: NSDate ) -> (hours: Int, minutes: Int){
     let cal = NSCalendar.currentCalendar()
     let hour = cal.components(NSCalendarUnit.HourCalendarUnit, fromDate: date1, toDate: date2, options: NSCalendarOptions.MatchStrictly).hour
     //gets the minutes not already included in an hour

@@ -1,6 +1,8 @@
 import Foundation
 import XCTest
 
+import WorkWeek
+
 class NSDateExtensionsTest: XCTestCase {
 
     func testDateGivesCorrectDayOfWeek(){

@@ -1,6 +1,8 @@
 import UIKit
 import XCTest
 
+import WorkWeek
+
 class WorkManagerTest: XCTestCase {
 
     override func setUp() {
