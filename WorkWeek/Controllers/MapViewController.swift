@@ -60,6 +60,10 @@ extension MapViewController: MKMapViewDelegate {
         let coords = userLocation.location.coordinate
         let region = MKCoordinateRegion(center: coords, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         mapView.setRegion(region, animated: true)
+
+        //once we have the users location on the map, stop looking or location updates
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate.locationManager.stopUpdatingLocation() //better for user battery
     }
 
 }

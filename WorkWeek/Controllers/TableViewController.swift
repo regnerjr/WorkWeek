@@ -19,10 +19,12 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.title = "WorkWeek"
+
         //set ourselves as the location Manager delegate
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.locationManager.delegate = self
     }
+
     override func viewWillAppear(animated: Bool) {
         array = workManager.allItems()
     }
