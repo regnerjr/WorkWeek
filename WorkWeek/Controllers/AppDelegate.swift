@@ -11,11 +11,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        if auth != CLAuthorizationStatus.AuthorizedAlways {
         if auth != CLAuthorizationStatus.Authorized {
             manager.requestAlwaysAuthorization()
-            println("requesting Location")
-        } else {
-            println("Location already authorized" )
         }
         manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        manager.distanceFilter = 300
+        manager.pausesLocationUpdatesAutomatically = true
         return manager
     }()
 
