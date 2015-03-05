@@ -131,7 +131,7 @@ extension TableViewController: UITableViewDelegate {
 extension TableViewController: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
-        if region.identifier == "WorkRegion" {
+        if region.identifier == MapRegionIdentifiers.work {
             println( "Arrived at work")
             self.workManager.addArrival(NSDate())
             self.array = workManager.allItems()
@@ -139,7 +139,7 @@ extension TableViewController: CLLocationManagerDelegate {
         }
     }
     func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
-        if region.identifier == "WorkRegion" {
+        if region.identifier == MapRegionIdentifiers.work {
             println("Leaving work")
             self.workManager.addDeparture(NSDate())
             self.array = workManager.allItems()

@@ -24,14 +24,24 @@ class MapViewController: UIViewController {
     }
 
     // MARK: - My Geofence
-    
-    //locationmanager.startMonitoringRegion()
-    @IBAction func setWorkLocation(sender: AnyObject) {
-        if let managerCenter = locationManager.location?.coordinate {
+    @IBAction func handleLongPress(sender: UILongPressGestureRecognizer) {
 
-            let workRegion = CLCircularRegion(center: managerCenter, radius: 150.0, identifier: "WorkRegion")
-            println("Setting workRegion: \(workRegion)")
-            println("Regions \(locationManager.monitoredRegions)")
+        let location = sender.locationInView(mapView)
+        //make coordinated from where the user pressed
+        let coordinate = mapView.convertPoint(location, toCoordinateFromView: mapView)
+
+        if sender.state == UIGestureRecognizerState.Began {
+
+            //remove existing overlays
+            if let overlays = mapView.overlays {
+                let existingOverlays = mapView.overlays
+                mapView.removeOverlays(existingOverlays)
+            }
+            //add a circle over lay where the user pressed
+            let circle = MKCircle(centerCoordinate: coordinate, radius: RegionRadius.value)
+            mapView.addOverlay(circle) //make sure to draw this overlay in the delegate
+
+        } else if sender.state == UIGestureRecognizerState.Ended {
 
             //current limitation: Only one location may be used!!!
             let currentRegions = locationManager.monitoredRegions as NSSet
@@ -43,20 +53,14 @@ class MapViewController: UIViewController {
             let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
             appDelegate.workManager.clearEvents()
 
+            let workRegion = CLCircularRegion(center: coordinate, radius: RegionRadius.value, identifier: MapRegionIdentifiers.work)
             locationManager.startMonitoringForRegion(workRegion)
 
-            //add a thing to the map to show the new region
-            let region = MKCoordinateRegionMakeWithDistance(workRegion.center, 150.0, 150.0)
-            mapView.setRegion(region, animated: true)
-            
-            //currently in order to start monitoring you need to be at work so add an arrival
-            let workManager: WorkManager = {
-                let ad = UIApplication.sharedApplication().delegate as AppDelegate
-                return ad.workManager
-            }()
-            workManager.addArrival(NSDate())
-        } else {
-            println("Could not get location")
+            //if you are currently at work add an arrival right now.
+            let ad = UIApplication.sharedApplication().delegate as AppDelegate
+            if workRegion.containsCoordinate(ad.locationManager.location.coordinate) {
+                ad.workManager.addArrival(NSDate())
+            }
         }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -78,5 +82,20 @@ extension MapViewController: MKMapViewDelegate {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.locationManager.stopUpdatingLocation() //better for user battery
     }
+
+
+    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+        //only one overlay so dont bother to check it just return a renderer
+        if overlay is MKCircle{
+            let renderer = MKCircleRenderer(circle: overlay as MKCircle)
+            renderer.fillColor = OverlayColor.Fill
+            renderer.strokeColor = OverlayColor.Stroke
+            renderer.lineWidth = 5
+            return renderer
+        } else {
+            return MKOverlayRenderer(overlay: overlay) //just return a default unconfigured renderer
+        }
+    }
+
 
 }
