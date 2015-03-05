@@ -312,6 +312,15 @@
 				CLASSPREFIX = "";
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = TRexTech;
+				TargetAttributes = {
+					4BCABD9A23A6ECC9F81703B7 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = D6682FA811E5ACC696C12ECD /* Build configuration list for PBXProject "WorkWeek" */;
 			compatibilityVersion = "Xcode 3.2";
