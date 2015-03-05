@@ -39,6 +39,11 @@ class TableViewController: UITableViewController {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.locationManager.delegate = self
 
+        //check if at least one location is monitored, else we should transition to the map view so that the user can set a work location and begin using the app
+        if appDelegate.locationManager.monitoredRegions.count == 0 {
+            performSegueWithIdentifier(StoryBoardSegues.Map.rawValue, sender: self)
+        }
+
     }
 
     override func viewWillAppear(animated: Bool) {
