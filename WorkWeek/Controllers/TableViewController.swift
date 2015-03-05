@@ -68,9 +68,10 @@ class TableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.mainCell.rawValue, forIndexPath: indexPath) as WorkDayCellTableViewCell
 
         let workItem = array[indexPath.row]
-        cell.workTIme?.text = workItem.weekDay + ": " +
-            String(workItem.hoursWorked) + " Hours, " +
-            String(workItem.minutesWorked) + " Minutes"
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+        let decimalHoursWorked = Float(workItem.hoursWorked) + Float( workItem.minutesWorked / 60)
+        cell.workTIme?.text = workItem.weekDay + " " + ( formatter.stringFromNumber( decimalHoursWorked ) ?? "" ) //leave it blank if nil
         cell.arrivalTime.text = workItem.arrivalTime
         cell.departureTime.text = workItem.departureTime
 
