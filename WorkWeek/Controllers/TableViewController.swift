@@ -75,8 +75,10 @@ extension TableViewController: UITableViewDataSource {
         let workItem = array[indexPath.row]
         let formatter = NSNumberFormatter()
         formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
-        let decimalHoursWorked = Float(workItem.hoursWorked) + Float( workItem.minutesWorked / 60)
-        cell.workTIme?.text = workItem.weekDay + " " + ( formatter.stringFromNumber( decimalHoursWorked ) ?? "" ) //leave it blank if nil
+        let decimalHoursWorked = Float(workItem.hoursWorked) +
+                                 Float( workItem.minutesWorked / 60)
+        cell.workTIme?.text = workItem.weekDay + " " +
+                              ( formatter.stringFromNumber( decimalHoursWorked ) ?? "" ) //leave it blank if nil
         cell.arrivalTime.text = workItem.arrivalTime
         cell.departureTime.text = workItem.departureTime
 

@@ -20,9 +20,19 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchBar: UISearchBar!
 
-    var workLocation: CLCircularRegion? = {
-        let ad = UIApplication.sharedApplication().delegate as AppDelegate
-        if let regions = ad.locationManager.monitoredRegions? as NSSet? {
+
+    lazy var locationManager: CLLocationManager = {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        return appDelegate.locationManager
+    }()
+
+    lazy var workManager: WorkManager = {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        return appDelegate.workManager
+    }()
+
+    var workLocation: CLCircularRegion? {
+        if let regions = locationManager.monitoredRegions? as NSSet? {
             if regions.count > 0 {
                 for region in regions {
                     let typedRegion = region as CLCircularRegion
@@ -34,13 +44,8 @@ class MapViewController: UIViewController {
 
         }
         return nil
-    }()
+    }
 
-    lazy var locationManager:CLLocationManager = {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        return appDelegate.locationManager
-    }()
-  
     override func viewDidLoad() {
         super.viewDidLoad()
         //draw the current work location if it is not nil
@@ -77,16 +82,14 @@ class MapViewController: UIViewController {
             }
 
             //also if setting a new work location, we need to clear the existing work history
-            let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-            appDelegate.workManager.clearEvents()
+            workManager.clearEvents()
 
             let workRegion = CLCircularRegion(center: coordinate, radius: RegionRadius.value, identifier: MapRegionIdentifiers.work)
             locationManager.startMonitoringForRegion(workRegion)
 
             //if you are currently at work add an arrival right now.
-            let ad = UIApplication.sharedApplication().delegate as AppDelegate
-            if workRegion.containsCoordinate(ad.locationManager.location.coordinate) {
-                ad.workManager.addArrival(NSDate())
+            if workRegion.containsCoordinate(locationManager.location.coordinate) {
+                workManager.addArrival(NSDate())
             }
         }
     }
@@ -117,8 +120,7 @@ extension MapViewController: MKMapViewDelegate {
         }
 
         //once we have the users location on the map, stop looking or location updates
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        appDelegate.locationManager.stopUpdatingLocation() //better for user battery
+        locationManager.stopUpdatingLocation() //better for user battery
     }
 
 
