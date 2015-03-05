@@ -217,6 +217,13 @@
                                     <outlet property="delegate" destination="9Q0-cl-wKy" id="obP-SZ-OTh"/>
                                 </connections>
                             </mapView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ECW-rw-mnH">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="9Q0-cl-wKy" id="pXa-Na-sqo"/>
+                                </connections>
+                            </searchBar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eoO-Fi-auT">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
@@ -232,13 +239,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="ECW-rw-mnH" firstAttribute="top" secondItem="d8t-3T-j73" secondAttribute="bottom" id="2um-Cy-eOu"/>
                             <constraint firstItem="VMW-M3-NRE" firstAttribute="top" secondItem="d8t-3T-j73" secondAttribute="bottom" id="JTk-bz-kjJ"/>
                             <constraint firstItem="eoO-Fi-auT" firstAttribute="top" secondItem="VMW-M3-NRE" secondAttribute="bottom" id="OZy-sy-dui"/>
+                            <constraint firstAttribute="trailing" secondItem="ECW-rw-mnH" secondAttribute="trailing" id="YDa-ei-mD2"/>
                             <constraint firstAttribute="trailing" secondItem="VMW-M3-NRE" secondAttribute="trailing" id="l5f-lS-5OM"/>
                             <constraint firstAttribute="trailing" secondItem="eoO-Fi-auT" secondAttribute="trailing" id="ldT-Cm-0Vk"/>
                             <constraint firstItem="VMW-M3-NRE" firstAttribute="leading" secondItem="Jlk-3Y-FcJ" secondAttribute="leading" id="nng-Ww-XFV"/>
                             <constraint firstItem="eoO-Fi-auT" firstAttribute="bottom" secondItem="MbH-la-jFa" secondAttribute="top" id="uRP-gS-yTR"/>
                             <constraint firstItem="eoO-Fi-auT" firstAttribute="leading" secondItem="Jlk-3Y-FcJ" secondAttribute="leading" id="ytR-8j-SWA"/>
+                            <constraint firstItem="ECW-rw-mnH" firstAttribute="leading" secondItem="Jlk-3Y-FcJ" secondAttribute="leading" id="yu1-Mn-8h5"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="OE7-Ld-yTJ" appends="YES" id="Nd0-dd-InK"/>
