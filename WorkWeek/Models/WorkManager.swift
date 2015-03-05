@@ -4,10 +4,12 @@ public class WorkManager {
 
     public var eventsForTheWeek: [Event] = []
     public var workDays: [WorkDay] = []
-    public var hoursWorkedThisWeek: Int {
+    public var hoursWorkedThisWeek: Double {
         //TODO: Fix this so it accounts for minutes as well as hours, mayge it will round up but we should be adding the minutes and see if they add up to another hour or more
         // Should maybe return a float?
-        return workDays.reduce(0, combine: {$0 + $1.hoursWorked})
+        let hoursWorked = workDays.reduce(0, combine: {$0 + $1.hoursWorked})
+        let hourFractions = workDays.reduce(0, combine: {$0 + $1.minutesWorked})
+        return Double(hoursWorked) + Double(hourFractions) / 60.0
     }
 
     public init(){}
@@ -74,4 +76,3 @@ public func hoursMinutesFromDate(date date1: NSDate, toDate date2: NSDate ) -> (
     let min = cal.components(NSCalendarUnit.MinuteCalendarUnit, fromDate: date1, toDate: date2, options: NSCalendarOptions.MatchStrictly).minute % 60
     return (hour, min)
 }
-

@@ -111,12 +111,17 @@ class WorkManagerTest: XCTestCase {
         let manager = WorkManager()
         manager.addArrival(NSDate())
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
-        XCTAssert(manager.hoursWorkedThisWeek == 8, "Worked 8 hours!")
+        XCTAssert(manager.hoursWorkedThisWeek == 8.0, "Worked 8 hours!")
 
         //add a second day
-        manager.addArrival(NSDate(timeIntervalSinceNow: 60*60*24))
+        manager.addArrival(NSDate(timeIntervalSinceNow:   60*60*24))
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*(24+8)))
-        XCTAssert(manager.hoursWorkedThisWeek == 16, "Worked 16 Hours")
+        XCTAssert(manager.hoursWorkedThisWeek == 16.0, "Worked 16 Hours")
+
+        //test fractions of an hour add 6 minutes and get 16.1
+        manager.addArrival(NSDate(timeIntervalSinceNow:   60*60*(24 + 8) + 1 ))
+        manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*(24 + 8) + 1 + 60 * 6))
+        XCTAssert(manager.hoursWorkedThisWeek == 16.1, "Worked 16 Hours and 6 minutes")
     }
 }
 

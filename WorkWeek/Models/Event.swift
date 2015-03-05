@@ -24,21 +24,23 @@ public struct Event {
 
 }
 
+
 // MARK: - Equatable
 extension Event: Equatable {}
 public func ==(lhs: Event, rhs: Event) -> Bool {
     return (lhs.inOrOut == rhs.inOrOut) && (lhs.date == rhs.date)
 }
 
-// MARK: - WorkHours
 
+// MARK: - WorkHours
 public struct WorkDay {
     let weekDay: String //string to store the weekday of the Arrival
     let hoursWorked: Int //counts Hours worked from arrival to departure
     let minutesWorked: Int //counts minutes not included in the Hours
     let arrivalTime: String
     let departureTime: String
-    init(weekDay:String, hoursWorked: Int, minutesWorked: Int, arrivalTime: String, departureTime: String){
+    init(weekDay:String, hoursWorked: Int, minutesWorked: Int,
+         arrivalTime: String, departureTime: String) {
         self.weekDay = weekDay
         self.hoursWorked = hoursWorked
         self.minutesWorked = minutesWorked

@@ -128,7 +128,7 @@ extension TableViewController: UITableViewDelegate {
         if let header = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.headerCell.rawValue) as UITableViewCell? {
             let graph = header.contentView.subviews[0] as HeaderView
             graph.hoursInWeek = settings.hoursInWorkWeek
-            graph.hoursWorked = workManager.hoursWorkedThisWeek
+            graph.hoursWorked = Int(workManager.hoursWorkedThisWeek) //loss of precision to draw the graph using only hour marks.
 
             return header
         } else {
