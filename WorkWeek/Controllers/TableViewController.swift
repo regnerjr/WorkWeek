@@ -23,16 +23,17 @@ class TableViewController: UITableViewController {
     var array = [WorkDay]()
 
     override func viewDidLoad() {
-        super.viewDidLoad()
         navigationController?.title = "WorkWeek"
 
         //set ourselves as the location Manager delegate
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.locationManager.delegate = self
+
     }
 
     override func viewWillAppear(animated: Bool) {
         array = workManager.allItems()
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -42,6 +43,15 @@ class TableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return array.count
+    }
+
+
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 150
+    }
+
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 80
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
