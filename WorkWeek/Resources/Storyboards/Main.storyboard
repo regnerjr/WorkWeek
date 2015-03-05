@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VyB-Nf-Eby">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -10,7 +11,7 @@
             <objects>
                 <tableViewController id="gqb-qp-BJH" customClass="TableViewController" customModule="WorkWeek" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bS6-aL-c5B">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -48,17 +49,23 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arrival: 8:07" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="We7-ar-0Pi">
                                             <rect key="frame" x="8" y="62" width="82" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.78431372549019607" green="0.47058823529411764" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Departure: 5:02" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKe-VI-UpV">
                                             <rect key="frame" x="485" y="62" width="107" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.78431372549019607" green="0.47058823529411764" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Sun: 8.2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDS-T3-eJK">
-                                            <rect key="frame" x="262" y="31" width="77" height="26"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="8.2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDS-T3-eJK">
+                                            <rect key="frame" x="312" y="31" width="29" height="26"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sun" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Nl-8g-P06">
+                                            <rect key="frame" x="263" y="31" width="37" height="26"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -67,10 +74,12 @@
                                     <constraints>
                                         <constraint firstAttribute="centerY" secondItem="dDS-T3-eJK" secondAttribute="centerY" id="E9v-3A-iRd"/>
                                         <constraint firstItem="We7-ar-0Pi" firstAttribute="bottom" secondItem="XUF-vv-9lh" secondAttribute="bottomMargin" id="MjV-k7-ihN"/>
+                                        <constraint firstAttribute="centerX" secondItem="2Nl-8g-P06" secondAttribute="trailing" id="VNy-tY-hzE"/>
                                         <constraint firstItem="UKe-VI-UpV" firstAttribute="trailing" secondItem="XUF-vv-9lh" secondAttribute="trailingMargin" id="Zho-C0-xiz"/>
+                                        <constraint firstItem="dDS-T3-eJK" firstAttribute="baseline" secondItem="2Nl-8g-P06" secondAttribute="baseline" id="r65-Zf-ux9"/>
                                         <constraint firstItem="We7-ar-0Pi" firstAttribute="leading" secondItem="XUF-vv-9lh" secondAttribute="leadingMargin" id="tJy-T5-FtD"/>
-                                        <constraint firstAttribute="centerX" secondItem="dDS-T3-eJK" secondAttribute="centerX" id="tpa-9d-x4q"/>
                                         <constraint firstItem="UKe-VI-UpV" firstAttribute="bottom" secondItem="XUF-vv-9lh" secondAttribute="bottomMargin" id="wGn-bs-Kgy"/>
+                                        <constraint firstItem="dDS-T3-eJK" firstAttribute="leading" secondItem="2Nl-8g-P06" secondAttribute="trailing" constant="12" id="yqm-06-xjb"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -87,7 +96,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mKf-zB-GKT">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                            <color key="textColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.7843137255" green="0.47058823529999999" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gyZ-Qk-gUj">
@@ -233,6 +242,7 @@
                             </mapView>
                             <searchBar contentMode="redraw" prompt="Where do you work?" placeholder="Library" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECW-rw-mnH">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="75"/>
+                                <color key="tintColor" red="0.78431372549019607" green="0.47058823529411764" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                                 <scopeButtonTitles>
                                     <string>Title</string>
@@ -292,9 +302,12 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VyB-Nf-Eby" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fL1-RX-Xai">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="fL1-RX-Xai">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.78431372549019607" green="0.47058823529411764" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -306,4 +319,5 @@
             <point key="canvasLocation" x="464" y="413"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.78431372549019607" green="0.47058823529411764" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
