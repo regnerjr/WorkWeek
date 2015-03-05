@@ -6,6 +6,7 @@ class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchBar: UISearchBar!
+
     lazy var locationManager:CLLocationManager = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         return appDelegate.locationManager
@@ -30,10 +31,22 @@ class MapViewController: UIViewController {
 
             let workRegion = CLCircularRegion(center: managerCenter, radius: 150.0, identifier: "WorkRegion")
             println("Setting workRegion: \(workRegion)")
+            println("Regions \(locationManager.monitoredRegions)")
+
+            //current limitation: Only one location may be used!!!
+            let currentRegions = locationManager.monitoredRegions as NSSet
+            for region in currentRegions {
+                locationManager.stopMonitoringForRegion(region as CLRegion)
+            }
+
+            //also if setting a new work location, we need to clear the existing work history
+            let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            appDelegate.workManager.clearEvents()
+
             locationManager.startMonitoringForRegion(workRegion)
 
             //add a thing to the map to show the new region
-            let region: MKCoordinateRegion = MKCoordinateRegion(center: workRegion.center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            let region = MKCoordinateRegionMakeWithDistance(workRegion.center, 150.0, 150.0)
             mapView.setRegion(region, animated: true)
             
             //currently in order to start monitoring you need to be at work so add an arrival
