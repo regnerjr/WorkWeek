@@ -12,6 +12,11 @@ enum ReuseIdentifiers: String {
     case footerCell = "footerView"
 }
 
+
+struct Settings {
+    let hoursInWorkWeek: Int
+}
+
 class TableViewController: UITableViewController {
 
     lazy var workManager: WorkManager = {
@@ -19,6 +24,11 @@ class TableViewController: UITableViewController {
         return appDelegate.workManager
     }()
 
+    //update the settings from disk? or use defaults
+    //for now create a default set
+    lazy var settings: Settings  = {
+        return Settings(hoursInWorkWeek: 40)
+    }()
 
     var array = [WorkDay]()
 
@@ -84,6 +94,10 @@ class TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         println("Called View for Header in Section")
         if let header = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.headerCell.rawValue) as UITableViewCell? {
+            let graph = header.contentView.subviews[0] as HeaderView
+            graph.hoursInWeek = settings.hoursInWorkWeek
+            graph.hoursWorked = workManager.hoursWorkedThisWeek
+
             return header
         } else {
             let defaultHeader = UIView()
