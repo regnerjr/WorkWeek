@@ -53,19 +53,6 @@ class TableViewController: UITableViewController {
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        // Get the new view controller using [segue destinationViewController].
-//        // Pass the selected object to the new view controller.
-//
-//        //we have 2 segues, SettingsSegue, and MapViewSegue
-//        if segue.identifier == StoryBoardSegues.Map.rawValue{
-//            println("transitioning to MapView")
-//        } else if segue.identifier == StoryBoardSegues.Settings.rawValue {
-//            println("transitioning to Settings")
-//        }
-    }
-
     @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
         println("unwinding: \(segue.identifier)")
     }
