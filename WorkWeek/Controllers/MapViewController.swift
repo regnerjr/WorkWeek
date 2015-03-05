@@ -139,3 +139,39 @@ extension MapViewController: MKMapViewDelegate {
 
 
 }
+
+extension MapViewController: UISearchBarDelegate {
+
+    func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
+        return true
+    }
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        println("search button clicked")
+        println("Query: \(searchBar.text)")
+        searchBar.resignFirstResponder()
+        if let searchString = searchBar.text {
+            if searchString != "" {
+
+                let request = MKLocalSearchRequest()
+                request.naturalLanguageQuery = searchBar.text ?? ""
+                request.region = mapView.region
+
+                let search = MKLocalSearch(request: request)
+                search.startWithCompletionHandler { [unowned self]
+                    response, error in
+                    if error != nil {
+                        //handl error
+                        println(error.localizedDescription)
+                        return
+                    }
+                    //We got a response look at the cool map items that we got back!
+                    let items = response.mapItems as [MKMapItem]
+                    let placemarks = items.map{$0.placemark}
+                    self.mapView.showAnnotations(placemarks, animated: true)
+                }
+
+            }
+        }
+    }
+    
+}
