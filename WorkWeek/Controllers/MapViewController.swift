@@ -2,10 +2,39 @@ import UIKit
 import MapKit
 import CoreLocation
 
+struct OverlayColor {
+    static let Fill   = UIColor(red:0.78, green:0.47, blue:0.62, alpha:0.4)
+    static let Stroke = UIColor(red:0.78, green:0.47, blue:0.62, alpha:0.7)
+}
+
+struct MapRegionIdentifiers {
+    static let work = "WorkRegion"
+}
+
+struct RegionRadius {
+    static let value = 150.0
+}
+
 class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchBar: UISearchBar!
+
+    var workLocation: CLCircularRegion? = {
+        let ad = UIApplication.sharedApplication().delegate as AppDelegate
+        if let regions = ad.locationManager.monitoredRegions? as NSSet? {
+            if regions.count > 0 {
+                for region in regions {
+                    let typedRegion = region as CLCircularRegion
+                    if typedRegion.identifier == MapRegionIdentifiers.work {
+                        return typedRegion
+                    }
+                }
+            }
+
+        }
+        return nil
+    }()
 
     lazy var locationManager:CLLocationManager = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -14,13 +43,11 @@ class MapViewController: UIViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        println("Prepare for segue to: \(segue.destinationViewController)")
+        //draw the current work location if it is not nil
+        if let work = workLocation {
+            let workOverlay = MKCircle(centerCoordinate: work.center, radius: RegionRadius.value)
+            mapView.addOverlay(workOverlay)
+        }
     }
 
     // MARK: - My Geofence
@@ -62,21 +89,32 @@ class MapViewController: UIViewController {
                 ad.workManager.addArrival(NSDate())
             }
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
 }
 
 // MARK: - MapViewDelegate
-
 extension MapViewController: MKMapViewDelegate {
 
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
-        println("MapViewDelegate: didUpdateUserLocation")
-        //zoom the map to the users location
-        let coords = userLocation.location.coordinate
-        let region = MKCoordinateRegion(center: coords, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        mapView.setRegion(region, animated: true)
+        let userCoordinates = userLocation.location.coordinate
+
+        if let overlays = mapView.overlays {
+            //zoom the map so it shows the user and the overlays
+
+            if let overlay = overlays.first as? MKCircle {
+                let a = MKMapPointForCoordinate(userCoordinates)
+                let b = MKMapPointForCoordinate(overlay.coordinate)
+                let maprect = MKMapRectMake(min(a.x, b.x), min(a.y,b.y), abs(a.x - b.x), abs(a.y-b.y))
+                mapView.setVisibleMapRect(maprect, edgePadding: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20),animated: true)
+            }
+
+        } else {
+            //zoom the map to the users location
+            //not sure how far away from work the person is, so give them a good zoom 2km
+            let region = MKCoordinateRegionMakeWithDistance(userCoordinates, 2000, 2000)
+            mapView.setRegion(region, animated: true)
+        }
 
         //once we have the users location on the map, stop looking or location updates
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
