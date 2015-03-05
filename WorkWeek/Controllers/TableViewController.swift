@@ -46,22 +46,35 @@ class TableViewController: UITableViewController {
         tableView.reloadData()
     }
 
-    // MARK: - Table view data source
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        // Get the new view controller using [segue destinationViewController].
+//        // Pass the selected object to the new view controller.
+//
+//        //we have 2 segues, SettingsSegue, and MapViewSegue
+//        if segue.identifier == StoryBoardSegues.Map.rawValue{
+//            println("transitioning to MapView")
+//        } else if segue.identifier == StoryBoardSegues.Settings.rawValue {
+//            println("transitioning to Settings")
+//        }
+    }
+
+    @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
+        println("unwinding: \(segue.identifier)")
+    }
+}
+
+//MARK: - TableViewDataSource
+extension TableViewController: UITableViewDataSource {
+
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return array.count
-    }
-
-
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 150
-    }
-
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 80
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -76,6 +89,19 @@ class TableViewController: UITableViewController {
         cell.departureTime.text = workItem.departureTime
 
         return cell
+    }
+
+}
+
+//MARK: - TableViewDelegate
+extension TableViewController: UITableViewDelegate {
+
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 150
+    }
+
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 80
     }
 
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -107,26 +133,9 @@ class TableViewController: UITableViewController {
         }
     }
 
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-
-        //we have 2 segues, SettingsSegue, and MapViewSegue
-        if segue.identifier == StoryBoardSegues.Map.rawValue{
-            println("transitioning to MapView")
-        } else if segue.identifier == StoryBoardSegues.Settings.rawValue {
-            println("transitioning to Settings")
-        }
-    }
-
-    @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
-        println("unwinding: \(segue.identifier)")
-    }
 }
 
+//MARK: - Location Manager Delegate
 extension TableViewController: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
