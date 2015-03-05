@@ -99,8 +99,23 @@ extension TableViewController: UITableViewDelegate {
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         println("Called View For Footer in Section")
         if let footer = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.footerCell.rawValue) as UITableViewCell? {
-
-            footer.textLabel?.text = workManager.isAtWork() ? "Working :(" : "Enjoying a Balanced Life"
+            if workManager.isAtWork() {
+                //get the current work time
+                if let lastArrival = workManager.eventsForTheWeek.last {
+                    if lastArrival.inOrOut == .Arrival {
+                        let currentWorkTime = hoursMinutesFromDate(date: lastArrival.date, toDate: NSDate())
+                        println(currentWorkTime)
+                        let workHours = Double(currentWorkTime.hours) + (Double(currentWorkTime.minutes) / 60)
+                        let formatter = NSNumberFormatter()
+                        formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+                        footer.textLabel?.text = lastArrival.date.dayOfWeek
+                        footer.detailTextLabel?.text = formatter.stringFromNumber(workHours)
+                    }
+                }
+            } else {
+                footer.textLabel?.text = ""
+                footer.detailTextLabel?.text = ""
+            }
             return footer
         } else {
             let defaultfooter = UIView()
