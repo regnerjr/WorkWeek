@@ -57,8 +57,8 @@
                                             <color key="textColor" red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Sun: 8 Hours 12 Min" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDS-T3-eJK">
-                                            <rect key="frame" x="206" y="31" width="189" height="26"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Sun: 8.2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDS-T3-eJK">
+                                            <rect key="frame" x="262" y="31" width="77" height="26"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -228,39 +228,21 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHY-C8-aJ7">
-                                <rect key="frame" x="197" y="20" width="207" height="37"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="37" id="Jtp-pV-NtV"/>
-                                    <constraint firstAttribute="width" constant="207" id="cdZ-XC-tmW"/>
-                                </constraints>
-                                <size key="titleShadowOffset" width="1" height="1"/>
-                                <state key="normal" title="Set Work Location">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <state key="selected" title="Set Work Location">
-                                    <color key="titleColor" red="0.97058475378787878" green="0.32502235229281096" blue="0.41755804717845058" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" red="0.21223958333333337" green="0.071073245644369787" blue="0.091308199108599553" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="setWorkLocation:" destination="9Q0-cl-wKy" eventType="touchUpInside" id="Twm-CY-S1G"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="oHY-C8-aJ7" firstAttribute="centerX" secondItem="Jlk-3Y-FcJ" secondAttribute="centerX" id="2nh-Nr-VT5"/>
-                            <constraint firstItem="VMW-M3-NRE" firstAttribute="centerX" secondItem="oHY-C8-aJ7" secondAttribute="centerX" id="4C9-gw-rr6"/>
-                            <constraint firstItem="eoO-Fi-auT" firstAttribute="leading" secondItem="Jlk-3Y-FcJ" secondAttribute="leading" id="9yU-bT-gPY"/>
-                            <constraint firstItem="VMW-M3-NRE" firstAttribute="trailing" secondItem="eoO-Fi-auT" secondAttribute="trailing" id="Ltb-bD-pyY"/>
-                            <constraint firstItem="VMW-M3-NRE" firstAttribute="bottom" secondItem="eoO-Fi-auT" secondAttribute="top" id="cFw-p2-fuX"/>
-                            <constraint firstItem="VMW-M3-NRE" firstAttribute="leading" secondItem="eoO-Fi-auT" secondAttribute="leading" id="g4R-GE-xKC"/>
-                            <constraint firstItem="VMW-M3-NRE" firstAttribute="top" secondItem="d8t-3T-j73" secondAttribute="bottom" id="lEj-l1-bsJ"/>
-                            <constraint firstItem="oHY-C8-aJ7" firstAttribute="top" secondItem="Jlk-3Y-FcJ" secondAttribute="top" constant="20" symbolic="YES" id="pPO-t3-oBB"/>
+                            <constraint firstItem="VMW-M3-NRE" firstAttribute="top" secondItem="d8t-3T-j73" secondAttribute="bottom" id="JTk-bz-kjJ"/>
+                            <constraint firstItem="eoO-Fi-auT" firstAttribute="top" secondItem="VMW-M3-NRE" secondAttribute="bottom" id="OZy-sy-dui"/>
+                            <constraint firstAttribute="trailing" secondItem="VMW-M3-NRE" secondAttribute="trailing" id="l5f-lS-5OM"/>
+                            <constraint firstAttribute="trailing" secondItem="eoO-Fi-auT" secondAttribute="trailing" id="ldT-Cm-0Vk"/>
+                            <constraint firstItem="VMW-M3-NRE" firstAttribute="leading" secondItem="Jlk-3Y-FcJ" secondAttribute="leading" id="nng-Ww-XFV"/>
                             <constraint firstItem="eoO-Fi-auT" firstAttribute="bottom" secondItem="MbH-la-jFa" secondAttribute="top" id="uRP-gS-yTR"/>
+                            <constraint firstItem="eoO-Fi-auT" firstAttribute="leading" secondItem="Jlk-3Y-FcJ" secondAttribute="leading" id="ytR-8j-SWA"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="OE7-Ld-yTJ" appends="YES" id="Nd0-dd-InK"/>
+                        </connections>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
@@ -269,6 +251,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rgr-3I-wWf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="xfb-w4-g08" userLabel="Exit" sceneMemberID="exit"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="OE7-Ld-yTJ">
+                    <connections>
+                        <action selector="handleLongPress:" destination="9Q0-cl-wKy" id="Mxa-mg-Mmu"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1171" y="1161"/>
         </scene>
