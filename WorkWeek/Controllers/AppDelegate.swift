@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         manager.distanceFilter = 300
-        manager.pausesLocationUpdatesAutomatically = true
         return manager
     }()
 
