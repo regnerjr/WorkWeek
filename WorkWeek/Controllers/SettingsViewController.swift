@@ -37,18 +37,25 @@ class SettingsViewController: UIViewController {
 
     @IBOutlet weak var workHoursTextField: UITextField!
     @IBOutlet weak var lunchTimeField: UITextField!
+    @IBOutlet weak var stepper: UIStepper!
+
+    var defaultWorkHours: Int {
+        get { return NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.hoursInWorkWeek) }
+        set { NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: SettingsKey.hoursInWorkWeek) }
+    }
+
+    var defaultLunchTime: Double {
+        get {return NSUserDefaults.standardUserDefaults().doubleForKey(SettingsKey.unpaidLunchTime) }
+        set { NSUserDefaults.standardUserDefaults().setDouble(newValue, forKey: SettingsKey.unpaidLunchTime) }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         //populate fields with data from defaults
-        let workHoursDefault = NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.hoursInWorkWeek)
-        println("Work Hours Default: \(workHoursDefault)")
-        workHoursTextField.text = intFormatter.stringFromNumber(workHoursDefault)
-        let lunchTimeDouble = NSUserDefaults.standardUserDefaults().doubleForKey(SettingsKey.unpaidLunchTime)
-        println("LunchTimeDouble \(lunchTimeDouble)")
-        lunchTimeField.text = doubleFormatter.stringFromNumber(lunchTimeDouble)
-        println("Done withViewDid Load")
+        workHoursTextField.text = intFormatter.stringFromNumber(defaultWorkHours)
+        lunchTimeField.text = doubleFormatter.stringFromNumber(defaultLunchTime)
+        stepper.value = Double(defaultWorkHours)
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,25 +68,27 @@ class SettingsViewController: UIViewController {
     }
     @IBAction func stepWorkHours(sender: UIStepper) {
         //change the value stored in the label
-        println(sender.value)
-        //save the new value as an int
+        workHoursTextField.text = intFormatter.stringFromNumber(sender.value)
+        defaultWorkHours = Int(sender.value)
     }
 
-    @IBAction func textFieldDoneEditing(sender: UITextField) {
+    @IBAction func workHoursDoneEditing(sender: UITextField) {
         println(sender.text)
         if sender.text == "" {
-            //put in default value
+            sender.text = intFormatter.stringFromNumber(defaultWorkHours)
         } else {
-            //save new default
+            //save the new work hours, or default to 40 if could not be read for some reason...?
+            defaultWorkHours = Int(intFormatter.numberFromString(sender.text) ?? 40 ) 
         }
     }
 
     @IBAction func lunchFieldDoneEditing(sender: UITextField) {
         println(sender.text)
         if sender.text == "" {
-            //put in default value
+            sender.text = doubleFormatter.stringFromNumber(defaultLunchTime)
         } else {
-            //save new default
+            //save new lunch time or default
+            defaultLunchTime = Double(doubleFormatter.numberFromString(sender.text) ?? 0.5 )
         }
     }
 

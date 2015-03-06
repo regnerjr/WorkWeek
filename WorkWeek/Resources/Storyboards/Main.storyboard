@@ -154,7 +154,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
-                                    <action selector="textFieldDoneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="0R2-Nz-tc6"/>
+                                    <action selector="workHoursDoneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="gkt-YF-0Nj"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYV-eK-RQy">
@@ -231,6 +231,7 @@
                     </view>
                     <connections>
                         <outlet property="lunchTimeField" destination="aRe-Nm-uQD" id="AfO-MC-D0k"/>
+                        <outlet property="stepper" destination="nhu-Fy-DdY" id="Jts-73-Z4d"/>
                         <outlet property="workHoursTextField" destination="fNh-QF-z7P" id="Vr5-Yo-35g"/>
                     </connections>
                 </viewController>
