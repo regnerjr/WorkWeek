@@ -10,7 +10,6 @@
 		229CAFF7DED38B3E1FF05521 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CF0ED90738128E08E03CC2 /* AppDelegate.swift */; };
 		52084F1B1A9FFEA10015F544 /* home.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 52084F1A1A9FFEA10015F544 /* home.gpx */; };
 		5210E3C91AA7AE770061BCF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5210E3C81AA7AE770061BCF6 /* HeaderView.swift */; };
-		52146CBA1A9E648E00F40A87 /* WorkManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */; };
 		5217633E1A61A5FA009661ED /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5217633D1A61A5FA009661ED /* TableViewController.swift */; };
 		521763441A61B368009661ED /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763431A61B368009661ED /* MapKit.framework */; };
 		521763461A61BABA009661ED /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521763451A61BABA009661ED /* MapViewController.swift */; };
@@ -19,9 +18,7 @@
 		5281A8261AA79AD500C4F154 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281A8251AA79AD500C4F154 /* SettingsViewController.swift */; };
 		52C565BB1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C565BA1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift */; };
 		52F40A521A9E7E1800FA02C6 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A511A9E7E1800FA02C6 /* Event.swift */; };
-		52F40A551A9E7E7400FA02C6 /* EventTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A541A9E7E7400FA02C6 /* EventTest.swift */; };
 		52F40A571A9E803C00FA02C6 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A561A9E803C00FA02C6 /* NSDateExtensions.swift */; };
-		52F40A5A1A9E808B00FA02C6 /* NSDateExtensionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A591A9E808B00FA02C6 /* NSDateExtensionsTest.swift */; };
 		DA806D9C0720182851F5EADB /* Main.storyboard in Sources */ = {isa = PBXBuildFile; fileRef = 39F3BE244B7296584727EAC5 /* Main.storyboard */; };
 		E65CE64206D775D006BBE953 /* LaunchScreen.xib in Sources */ = {isa = PBXBuildFile; fileRef = 49B3D806C300C55550FD0FA7 /* LaunchScreen.xib */; };
 		F191B23CC45B08C69746EFD2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA5035B079F37F07486CB30 /* Foundation.framework */; };
@@ -373,7 +370,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nFILE_EXTENSIONS=\"h|m|mm|c|cpp\"\nfind -E \"${SRCROOT}\" -ipath \"${SRCROOT}/pods\" -prune -o \\( -regex \".*\\.($FILE_EXTENSIONS)$\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"\n";
+			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nFILE_EXTENSIONS=\"h|m|mm|c|cpp|swift\"\nfind -E \"${SRCROOT}\" -ipath \"${SRCROOT}/pods\" -prune -o \\( -regex \".*\\.($FILE_EXTENSIONS)$\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"\n";
 		};
 		521763421A61AED3009661ED /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -415,9 +412,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52F40A551A9E7E7400FA02C6 /* EventTest.swift in Sources */,
-				52F40A5A1A9E808B00FA02C6 /* NSDateExtensionsTest.swift in Sources */,
-				52146CBA1A9E648E00F40A87 /* WorkManagerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
