@@ -1,20 +1,98 @@
 import UIKit
 
+struct SettingsKey {
+    static let hoursInWorkWeek = "hoursInWorkWeekPrefKey"
+    static let unpaidLunchTime = "unpaidLunchTimePrefKey"
+}
+
 class SettingsViewController: UIViewController {
+
+    lazy var doubleFormatter: NSNumberFormatter = {
+        let doubleFormatter = NSNumberFormatter()
+        doubleFormatter.numberStyle = .DecimalStyle
+        doubleFormatter.minimum = 0.1
+        doubleFormatter.maximum = 9.9
+        doubleFormatter.minimumIntegerDigits = 1
+        doubleFormatter.maximumIntegerDigits = 1
+        doubleFormatter.minimumFractionDigits = 1
+        doubleFormatter.maximumFractionDigits = 1
+        doubleFormatter.roundingIncrement = 0.1
+        doubleFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundUp
+        return doubleFormatter
+    }()
+
+    lazy var intFormatter: NSNumberFormatter = {
+        let intFormatter = NSNumberFormatter()
+        intFormatter.numberStyle = NSNumberFormatterStyle.NoStyle
+        intFormatter.minimum = 1
+        intFormatter.maximum = 99
+        intFormatter.minimumIntegerDigits = 1
+        intFormatter.maximumIntegerDigits = 2
+        intFormatter.minimumFractionDigits = 0
+        intFormatter.maximumFractionDigits = 0
+        intFormatter.roundingIncrement = 1
+        intFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundUp
+        return intFormatter
+    }()
+
+    @IBOutlet weak var workHoursTextField: UITextField!
+    @IBOutlet weak var lunchTimeField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        //populate fields with data from defaults
+        let workHoursDefault = NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.hoursInWorkWeek)
+        println("Work Hours Default: \(workHoursDefault)")
+        workHoursTextField.text = intFormatter.stringFromNumber(workHoursDefault)
+        let lunchTimeDouble = NSUserDefaults.standardUserDefaults().doubleForKey(SettingsKey.unpaidLunchTime)
+        println("LunchTimeDouble \(lunchTimeDouble)")
+        lunchTimeField.text = doubleFormatter.stringFromNumber(lunchTimeDouble)
+        println("Done withViewDid Load")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        println("Received MemoryWarning")
     }
 
     @IBAction func launchSystemSettings(sender: UIButton) {
         UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
     }
+    @IBAction func stepWorkHours(sender: UIStepper) {
+        //change the value stored in the label
+        println(sender.value)
+        //save the new value as an int
+    }
 
+    @IBAction func textFieldDoneEditing(sender: UITextField) {
+        println(sender.text)
+        if sender.text == "" {
+            //put in default value
+        } else {
+            //save new default
+        }
+    }
+
+    @IBAction func lunchFieldDoneEditing(sender: UITextField) {
+        println(sender.text)
+        if sender.text == "" {
+            //put in default value
+        } else {
+            //save new default
+        }
+    }
+
+    @IBAction func screenTapGesture(sender: UITapGestureRecognizer) {
+        println("ScreenTapped")
+        if workHoursTextField.isFirstResponder() == true {
+            println("Work hours is editing")
+            workHoursTextField.endEditing(true)
+        }else if lunchTimeField.isFirstResponder() {
+            println("Lunch time is editing")
+            lunchTimeField.endEditing(true)
+        }
+        println("resigning first responder")
+        resignFirstResponder()
+    }
 }

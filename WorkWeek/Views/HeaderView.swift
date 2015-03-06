@@ -5,6 +5,11 @@ class HeaderView: UIView {
 
     @IBInspectable
     var hoursInWeek: Int = 40
+
+    var hoursComputed: Int {
+        let hoursfromdefault = NSUserDefaults.standardUserDefaults()
+        return 0
+    }
     @IBInspectable
     var hoursWorked: Int = 20
 

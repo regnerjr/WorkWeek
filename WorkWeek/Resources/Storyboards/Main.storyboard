@@ -120,7 +120,7 @@
                                 <segue destination="9Q0-cl-wKy" kind="presentation" identifier="MapViewSegue" id="SKK-6g-xWN"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="6ca-VR-QOt">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="6ca-VR-QOt">
                             <connections>
                                 <segue destination="WIA-yz-lfT" kind="presentation" identifier="settingsSegue" id="NA1-vi-5Rf"/>
                             </connections>
@@ -149,13 +149,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="nhu-Fy-DdY">
-                                <rect key="frame" x="179" y="57" width="94" height="29"/>
-                            </stepper>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="40" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fNh-QF-z7P">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="40" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fNh-QF-z7P">
                                 <rect key="frame" x="281" y="57" width="37" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="textFieldDoneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="0R2-Nz-tc6"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYV-eK-RQy">
                                 <rect key="frame" x="326" y="61" width="46" height="21"/>
@@ -169,10 +169,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.5" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aRe-Nm-uQD">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.5" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aRe-Nm-uQD">
                                 <rect key="frame" x="213" y="187" width="159" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" keyboardAppearance="alert" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="lunchFieldDoneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="VFF-hy-dRa"/>
+                                </connections>
                             </textField>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TI-eM-xkr">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
@@ -193,8 +196,15 @@
                                     <action selector="launchSystemSettings:" destination="WIA-yz-lfT" eventType="touchUpInside" id="Sue-R0-tUa"/>
                                 </connections>
                             </button>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="40" maximumValue="99" translatesAutoresizingMaskIntoConstraints="NO" id="nhu-Fy-DdY">
+                                <rect key="frame" x="179" y="57" width="94" height="29"/>
+                                <connections>
+                                    <action selector="stepWorkHours:" destination="WIA-yz-lfT" eventType="valueChanged" id="6yk-qr-loV"/>
+                                </connections>
+                            </stepper>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="fNh-QF-z7P" secondAttribute="centerX" constant="0.5" id="06e-jU-oPw"/>
                             <constraint firstItem="aRe-Nm-uQD" firstAttribute="leading" secondItem="0Jb-dw-FkH" secondAttribute="leading" id="1OC-5q-tth"/>
@@ -215,10 +225,22 @@
                             <constraint firstAttribute="centerX" secondItem="8XR-bn-yhO" secondAttribute="centerX" id="ufr-pu-0Vh"/>
                             <constraint firstItem="wYV-eK-RQy" firstAttribute="leading" secondItem="fNh-QF-z7P" secondAttribute="trailing" constant="8" id="vbr-I6-yot"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="cXH-tk-Xvo" appends="YES" id="OYS-KT-5qv"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="lunchTimeField" destination="aRe-Nm-uQD" id="AfO-MC-D0k"/>
+                        <outlet property="workHoursTextField" destination="fNh-QF-z7P" id="Vr5-Yo-35g"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lWP-jg-0PC" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Cyw-Ik-mOo" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="cXH-tk-Xvo">
+                    <connections>
+                        <action selector="screenTapGesture:" destination="WIA-yz-lfT" id="hnT-Bz-n07"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1914" y="413"/>
         </scene>
