@@ -24,12 +24,6 @@ class TableViewController: UITableViewController {
         return appDelegate.workManager
     }()
 
-    //update the settings from disk? or use defaults
-    //for now create a default set
-    lazy var settings: Settings  = {
-        return Settings(hoursInWorkWeek: 40)
-    }()
-
     var array = [WorkDay]()
 
     override func viewDidLoad() {
@@ -50,8 +44,6 @@ class TableViewController: UITableViewController {
         //print the nsuserdefaults for testing
         let workHours = NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.hoursInWorkWeek)
         let lunchHours = NSUserDefaults.standardUserDefaults().doubleForKey(SettingsKey.unpaidLunchTime)
-
-        println("WorkHours: \(workHours), LunchTime: \(lunchHours)")
         array = workManager.allItems()
         tableView.reloadData()
     }
@@ -136,7 +128,7 @@ extension TableViewController: UITableViewDelegate {
         println("Called View for Header in Section")
         if let header = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.headerCell.rawValue) as UITableViewCell? {
             let graph = header.contentView.subviews[0] as HeaderView
-            graph.hoursInWeek = settings.hoursInWorkWeek
+            graph.hoursInWeek = NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.hoursInWorkWeek)
             graph.hoursWorked = Int(workManager.hoursWorkedThisWeek) //loss of precision to draw the graph using only hour marks.
 
             return header

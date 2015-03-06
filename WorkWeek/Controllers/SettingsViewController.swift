@@ -3,6 +3,8 @@ import UIKit
 struct SettingsKey {
     static let hoursInWorkWeek = "hoursInWorkWeekPrefKey"
     static let unpaidLunchTime = "unpaidLunchTimePrefKey"
+    static let resetDay        = "resetDayPrefKey"
+    static let resetHour       = "resetHourPrefKey"
 }
 
 class SettingsViewController: UIViewController {
@@ -38,6 +40,9 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var workHoursTextField: UITextField!
     @IBOutlet weak var lunchTimeField: UITextField!
     @IBOutlet weak var stepper: UIStepper!
+    @IBOutlet weak var picker: UIPickerView!
+
+    let pickerSource = DayTimePicker()
 
     var defaultWorkHours: Int {
         get { return NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.hoursInWorkWeek) }
@@ -48,9 +53,22 @@ class SettingsViewController: UIViewController {
         get {return NSUserDefaults.standardUserDefaults().doubleForKey(SettingsKey.unpaidLunchTime) }
         set { NSUserDefaults.standardUserDefaults().setDouble(newValue, forKey: SettingsKey.unpaidLunchTime) }
     }
+    var defaultResetDay: Int {
+        get { return NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.resetDay) }
+        set { NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: SettingsKey.resetDay) }
+    }
+    var defaultResetHour: Int {
+        get { return NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.resetHour) }
+        set { NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey:SettingsKey.resetHour) }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        picker.delegate = pickerSource
+        picker.dataSource = pickerSource
+        //set up picker based on defaults
+        picker.selectRow(defaultResetDay, inComponent: 0, animated: false)
+        picker.selectRow(defaultResetHour, inComponent: 1, animated: false)
 
         //populate fields with data from defaults
         workHoursTextField.text = intFormatter.stringFromNumber(defaultWorkHours)
@@ -58,6 +76,11 @@ class SettingsViewController: UIViewController {
         stepper.value = Double(defaultWorkHours)
     }
 
+    override func viewWillDisappear(animated: Bool) {
+        //update the pickerDefaults and set up the notification
+        defaultResetDay = picker.selectedRowInComponent(0)
+        defaultResetHour = picker.selectedRowInComponent(1)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         println("Received MemoryWarning")

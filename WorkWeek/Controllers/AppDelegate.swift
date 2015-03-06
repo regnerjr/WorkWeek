@@ -23,6 +23,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+        //register some defaults
+        let fourAMSundayMorning = NSDate()
+        let defaults: [NSObject: AnyObject] = [
+            SettingsKey.hoursInWorkWeek: NSNumber(int: 40),
+            SettingsKey.unpaidLunchTime: NSNumber(double: 0.5),
+            SettingsKey.resetDay: NSNumber(int: 0),
+            SettingsKey.resetHour: NSNumber(int: 4),
+        ]
+        NSUserDefaults.standardUserDefaults().registerDefaults(defaults)
+
         return true
     }
 
