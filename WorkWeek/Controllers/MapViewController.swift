@@ -87,6 +87,15 @@ class MapViewController: UIViewController {
             let workRegion = CLCircularRegion(center: coordinate, radius: RegionRadius.value, identifier: MapRegionIdentifiers.work)
             locationManager.startMonitoringForRegion(workRegion)
 
+            //setUpLocalNotifications for the region
+            let workRegionNotifier = UILocalNotification()
+            workRegionNotifier.region = workRegion
+            workRegionNotifier.alertBody = "You have entered or exited the work area"
+            workRegionNotifier.alertAction = "Take Action"
+            workRegionNotifier.applicationIconBadgeNumber = 1
+            workRegionNotifier.soundName = UILocalNotificationDefaultSoundName
+            UIApplication.sharedApplication().scheduleLocalNotification(workRegionNotifier)
+
             //if you are currently at work add an arrival right now.
             if workRegion.containsCoordinate(locationManager.location.coordinate) {
                 workManager.addArrival(NSDate())
