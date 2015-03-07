@@ -96,7 +96,6 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func workHoursDoneEditing(sender: UITextField) {
-        println(sender.text)
         if sender.text == "" {
             sender.text = intFormatter.stringFromNumber(defaultWorkHours)
         } else {
@@ -106,7 +105,6 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func lunchFieldDoneEditing(sender: UITextField) {
-        println(sender.text)
         if sender.text == "" {
             sender.text = doubleFormatter.stringFromNumber(defaultLunchTime)
         } else {
@@ -116,15 +114,11 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func screenTapGesture(sender: UITapGestureRecognizer) {
-        println("ScreenTapped")
         if workHoursTextField.isFirstResponder() == true {
-            println("Work hours is editing")
             workHoursTextField.endEditing(true)
         }else if lunchTimeField.isFirstResponder() {
-            println("Lunch time is editing")
             lunchTimeField.endEditing(true)
         }
-        println("resigning first responder")
         resignFirstResponder()
     }
 }

@@ -34,7 +34,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         NSUserDefaults.standardUserDefaults().registerDefaults(defaults)
 
+        //register for notifications
+       application.registerUserNotificationSettings(
+        UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
+        // types are UIUserNotificationType members
+
         return true
+    }
+
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        println("Got a local notification, while in foreground")
+        //setting badge number to 0
+        application.applicationIconBadgeNumber = 0
+    }
+
+    func applicationDidBecomeActive(application: UIApplication) {
+        println("Became Active")
+        //clearing the app badge here too
+        application.applicationIconBadgeNumber = 0
     }
 
 }

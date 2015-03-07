@@ -51,7 +51,6 @@ class TableViewController: UITableViewController {
     // MARK: - Navigation
 
     @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
-        println("unwinding: \(segue.identifier)")
     }
 }
 
@@ -96,14 +95,12 @@ extension TableViewController: UITableViewDelegate {
     }
 
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        println("Called View For Footer in Section")
         if let footer = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.footerCell.rawValue) as UITableViewCell? {
             if workManager.isAtWork() {
                 //get the current work time
                 if let lastArrival = workManager.eventsForTheWeek.last {
                     if lastArrival.inOrOut == .Arrival {
                         let currentWorkTime = hoursMinutesFromDate(date: lastArrival.date, toDate: NSDate())
-                        println(currentWorkTime)
                         let workHours = Double(currentWorkTime.hours) + (Double(currentWorkTime.minutes) / 60)
                         let formatter = NSNumberFormatter()
                         formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
@@ -125,7 +122,7 @@ extension TableViewController: UITableViewDelegate {
     }
 
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        println("Called View for Header in Section")
+
         if let header = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.headerCell.rawValue) as UITableViewCell? {
             let graph = header.contentView.subviews[0] as HeaderView
             graph.hoursInWeek = NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.hoursInWorkWeek)

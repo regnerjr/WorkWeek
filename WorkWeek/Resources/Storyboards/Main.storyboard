@@ -85,7 +85,8 @@
                                 <connections>
                                     <outlet property="arrivalTime" destination="We7-ar-0Pi" id="Zhd-EW-U2J"/>
                                     <outlet property="departureTime" destination="UKe-VI-UpV" id="Gpt-5X-bCF"/>
-                                    <outlet property="workTIme" destination="dDS-T3-eJK" id="AsH-59-tXh"/>
+                                    <outlet property="workDate" destination="2Nl-8g-P06" id="inK-xD-upc"/>
+                                    <outlet property="workTime" destination="dDS-T3-eJK" id="8Xo-JG-Fio"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="footerView" textLabel="mKf-zB-GKT" detailTextLabel="gyZ-Qk-gUj" rowHeight="88" style="IBUITableViewCellStyleValue2" id="fXt-WZ-HEc" customClass="WorkDayCellTableViewCell" customModule="WorkWeek" customModuleProvider="target">

@@ -62,7 +62,6 @@ class WorkManagerTest: XCTestCase {
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
         manager.workDays = manager.processEvents(manager.eventsForTheWeek)
         XCTAssertEqual(manager.workDays.count, 1, "One arrival and one Departure makes 1 WorkHours")
-        println(manager.workDays)
 
         manager.addArrival(NSDate(timeIntervalSinceNow: 60*60*24))
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*(24+8)))
