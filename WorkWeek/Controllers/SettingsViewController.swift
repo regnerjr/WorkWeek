@@ -5,6 +5,7 @@ struct SettingsKey {
     static let unpaidLunchTime = "unpaidLunchTimePrefKey"
     static let resetDay        = "resetDayPrefKey"
     static let resetHour       = "resetHourPrefKey"
+    static let workRadius      = "workRadiusPrefKey"
 }
 
 class SettingsViewController: UIViewController {
@@ -23,7 +24,7 @@ class SettingsViewController: UIViewController {
         return doubleFormatter
     }()
 
-    lazy var intFormatter: NSNumberFormatter = {
+    lazy var workHoursFormatter: NSNumberFormatter = {
         let intFormatter = NSNumberFormatter()
         intFormatter.numberStyle = NSNumberFormatterStyle.NoStyle
         intFormatter.minimum = 1
@@ -37,10 +38,25 @@ class SettingsViewController: UIViewController {
         return intFormatter
     }()
 
+    lazy var workRadiusFormatter: NSNumberFormatter = {
+        let radiusFormatter = NSNumberFormatter()
+        radiusFormatter.numberStyle = NSNumberFormatterStyle.NoStyle
+        radiusFormatter.minimum = 50 //allow workRadius to be between 50 and 999 meters
+        radiusFormatter.maximum = 999
+        radiusFormatter.minimumIntegerDigits = 2
+        radiusFormatter.maximumIntegerDigits = 3
+        radiusFormatter.minimumFractionDigits = 0
+        radiusFormatter.maximumFractionDigits = 0
+        radiusFormatter.roundingIncrement = 1
+        radiusFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundUp
+        return radiusFormatter
+    }()
+
     @IBOutlet weak var workHoursTextField: UITextField!
     @IBOutlet weak var lunchTimeField: UITextField!
     @IBOutlet weak var stepper: UIStepper!
     @IBOutlet weak var picker: UIPickerView!
+    @IBOutlet weak var workRadius: UITextField!
 
     let pickerSource = DayTimePicker()
 
@@ -48,7 +64,6 @@ class SettingsViewController: UIViewController {
         get { return NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.hoursInWorkWeek) }
         set { NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: SettingsKey.hoursInWorkWeek) }
     }
-
     var defaultLunchTime: Double {
         get {return NSUserDefaults.standardUserDefaults().doubleForKey(SettingsKey.unpaidLunchTime) }
         set { NSUserDefaults.standardUserDefaults().setDouble(newValue, forKey: SettingsKey.unpaidLunchTime) }
@@ -61,6 +76,10 @@ class SettingsViewController: UIViewController {
         get { return NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.resetHour) }
         set { NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey:SettingsKey.resetHour) }
     }
+    var defautlWorkRadius: Int {
+        get{ return NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.workRadius) }
+        set{ NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: SettingsKey.workRadius) }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,13 +90,15 @@ class SettingsViewController: UIViewController {
         picker.selectRow(defaultResetHour, inComponent: 1, animated: false)
 
         //populate fields with data from defaults
-        workHoursTextField.text = intFormatter.stringFromNumber(defaultWorkHours)
+        workHoursTextField.text = workHoursFormatter.stringFromNumber(defaultWorkHours)
         lunchTimeField.text = doubleFormatter.stringFromNumber(defaultLunchTime)
         stepper.value = Double(defaultWorkHours)
+        workRadius.text = workRadiusFormatter.stringFromNumber(defautlWorkRadius)
     }
 
     override func viewWillDisappear(animated: Bool) {
         //update the pickerDefaults and set up the notification
+        //could handle these in the delegate, but it is easier here, and the logic is small
         defaultResetDay = picker.selectedRowInComponent(0)
         defaultResetHour = picker.selectedRowInComponent(1)
     }
@@ -89,18 +110,19 @@ class SettingsViewController: UIViewController {
     @IBAction func launchSystemSettings(sender: UIButton) {
         UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
     }
+
     @IBAction func stepWorkHours(sender: UIStepper) {
         //change the value stored in the label
-        workHoursTextField.text = intFormatter.stringFromNumber(sender.value)
+        workHoursTextField.text = workHoursFormatter.stringFromNumber(sender.value)
         defaultWorkHours = Int(sender.value)
     }
 
     @IBAction func workHoursDoneEditing(sender: UITextField) {
         if sender.text == "" {
-            sender.text = intFormatter.stringFromNumber(defaultWorkHours)
+            sender.text = workHoursFormatter.stringFromNumber(defaultWorkHours)
         } else {
             //save the new work hours, or default to 40 if could not be read for some reason...?
-            defaultWorkHours = Int(intFormatter.numberFromString(sender.text) ?? 40 ) 
+            defaultWorkHours = Int(workHoursFormatter.numberFromString(sender.text) ?? 40 ) 
         }
     }
 
@@ -112,12 +134,21 @@ class SettingsViewController: UIViewController {
             defaultLunchTime = Double(doubleFormatter.numberFromString(sender.text) ?? 0.5 )
         }
     }
+    @IBAction func workRadiusDoneEditing(sender: UITextField) {
+        if sender.text == "" {
+            sender.text = workRadiusFormatter.stringFromNumber(defautlWorkRadius)
+        } else {
+            defautlWorkRadius = Int(workRadiusFormatter.numberFromString(sender.text) ?? 200)
+        }
+    }
 
     @IBAction func screenTapGesture(sender: UITapGestureRecognizer) {
-        if workHoursTextField.isFirstResponder() == true {
+        if workHoursTextField.isFirstResponder() {
             workHoursTextField.endEditing(true)
         }else if lunchTimeField.isFirstResponder() {
             lunchTimeField.endEditing(true)
+        } else if workRadius.isFirstResponder() {
+            workRadius.endEditing(true)
         }
         resignFirstResponder()
     }

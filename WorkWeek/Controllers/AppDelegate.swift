@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SettingsKey.unpaidLunchTime: NSNumber(double: 0.5),
             SettingsKey.resetDay: NSNumber(int: 0),
             SettingsKey.resetHour: NSNumber(int: 4),
+            SettingsKey.workRadius: NSNumber(int: 200),
         ]
         NSUserDefaults.standardUserDefaults().registerDefaults(defaults)
 
