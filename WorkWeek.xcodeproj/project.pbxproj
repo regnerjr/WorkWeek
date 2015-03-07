@@ -14,12 +14,12 @@
 		521763441A61B368009661ED /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763431A61B368009661ED /* MapKit.framework */; };
 		521763461A61BABA009661ED /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521763451A61BABA009661ED /* MapViewController.swift */; };
 		521763491A61D0C5009661ED /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763481A61D0C5009661ED /* CoreLocation.framework */; };
+		522FB0231AAB5716001781D9 /* Main.storyboard in Sources */ = {isa = PBXBuildFile; fileRef = 522FB0251AAB5716001781D9 /* Main.storyboard */; };
 		5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5270F3AA1A61EABF007834AF /* WorkManager.swift */; };
 		5281A8261AA79AD500C4F154 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281A8251AA79AD500C4F154 /* SettingsViewController.swift */; };
 		52C565BB1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C565BA1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift */; };
 		52F40A521A9E7E1800FA02C6 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A511A9E7E1800FA02C6 /* Event.swift */; };
 		52F40A571A9E803C00FA02C6 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A561A9E803C00FA02C6 /* NSDateExtensions.swift */; };
-		DA806D9C0720182851F5EADB /* Main.storyboard in Sources */ = {isa = PBXBuildFile; fileRef = 39F3BE244B7296584727EAC5 /* Main.storyboard */; };
 		E65CE64206D775D006BBE953 /* LaunchScreen.xib in Sources */ = {isa = PBXBuildFile; fileRef = 49B3D806C300C55550FD0FA7 /* LaunchScreen.xib */; };
 		F191B23CC45B08C69746EFD2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA5035B079F37F07486CB30 /* Foundation.framework */; };
 		FE2FB851CFA2EDC690983CFD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30E265B519BC5E1BC3D618FE /* Images.xcassets */; };
@@ -38,7 +38,6 @@
 /* Begin PBXFileReference section */
 		20CF0ED90738128E08E03CC2 /* AppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30E265B519BC5E1BC3D618FE /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		39F3BE244B7296584727EAC5 /* Main.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		49B3D806C300C55550FD0FA7 /* LaunchScreen.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		52084F1A1A9FFEA10015F544 /* home.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = home.gpx; sourceTree = "<group>"; };
 		5210E3C81AA7AE770061BCF6 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -48,6 +47,8 @@
 		521763431A61B368009661ED /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		521763451A61BABA009661ED /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		521763481A61D0C5009661ED /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		522FB0241AAB5716001781D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
+		522FB0261AAB5746001781D9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = fr; path = fr.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5270F3AA1A61EABF007834AF /* WorkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkManager.swift; sourceTree = "<group>"; };
 		5281A8251AA79AD500C4F154 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		52C565BA1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkDayCellTableViewCell.swift; sourceTree = "<group>"; };
@@ -86,7 +87,7 @@
 		085A19FEDA9CAF13F8507F80 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				39F3BE244B7296584727EAC5 /* Main.storyboard */,
+				522FB0251AAB5716001781D9 /* Main.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -326,6 +327,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				fr,
 			);
 			mainGroup = C14C4A6AE12787F2C3174306;
 			productRefGroup = C740559F46680DFE7DDF715A /* Products */;
@@ -396,7 +398,7 @@
 			files = (
 				52F40A571A9E803C00FA02C6 /* NSDateExtensions.swift in Sources */,
 				229CAFF7DED38B3E1FF05521 /* AppDelegate.swift in Sources */,
-				DA806D9C0720182851F5EADB /* Main.storyboard in Sources */,
+				522FB0231AAB5716001781D9 /* Main.storyboard in Sources */,
 				5281A8261AA79AD500C4F154 /* SettingsViewController.swift in Sources */,
 				5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */,
 				52F40A521A9E7E1800FA02C6 /* Event.swift in Sources */,
@@ -424,6 +426,18 @@
 			targetProxy = 7A5B724AAC263625C737A57A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		522FB0251AAB5716001781D9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				522FB0241AAB5716001781D9 /* en */,
+				522FB0261AAB5746001781D9 /* fr */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		0DA760EEADA6149EAD38C637 /* Release */ = {
