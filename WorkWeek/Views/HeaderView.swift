@@ -5,6 +5,11 @@ class HeaderView: UIView {
 
     @IBInspectable
     var hoursInWeek: Int = 40
+
+    var hoursComputed: Int {
+        let hoursfromdefault = NSUserDefaults.standardUserDefaults()
+        return 0
+    }
     @IBInspectable
     var hoursWorked: Int = 20
 
@@ -18,7 +23,6 @@ class HeaderView: UIView {
         let context = UIGraphicsGetCurrentContext()
 
         let viewRect = self.bounds
-        println("ViewRect: \(viewRect)")
         let viewOutline = CGPathCreateWithRect(viewRect, nil)
         CGContextAddPath(context, viewOutline)
 
@@ -27,7 +31,6 @@ class HeaderView: UIView {
 
         let percentage = CGRect(origin: viewRect.origin, size: CGSize(width: viewRect.width * (CGFloat(hoursWorked) / CGFloat(hoursInWeek)), height: viewRect.height))
         let percentRect = CGPathCreateWithRect(percentage, nil)
-        println("PercentRect : \(percentage)")
         CGContextAddPath(context, percentRect)
 
         UIColor.blueColor().setFill()

@@ -109,6 +109,7 @@ class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
 
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
+        println("Updated User Location")
         let userCoordinates = userLocation.location.coordinate
 
         if let overlays = mapView.overlays {
@@ -126,10 +127,12 @@ extension MapViewController: MKMapViewDelegate {
             //not sure how far away from work the person is, so give them a good zoom 2km
             let region = MKCoordinateRegionMakeWithDistance(userCoordinates, 2000, 2000)
             mapView.setRegion(region, animated: true)
+
         }
 
         //once we have the users location on the map, stop looking or location updates
         locationManager.stopUpdatingLocation() //better for user battery
+        println("Done Updating Location")
     }
 
 
@@ -155,8 +158,7 @@ extension MapViewController: UISearchBarDelegate {
         return true
     }
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        println("search button clicked")
-        println("Query: \(searchBar.text)")
+
         searchBar.resignFirstResponder()
         if let searchString = searchBar.text {
             if searchString != "" {

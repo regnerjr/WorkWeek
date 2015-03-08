@@ -85,7 +85,8 @@
                                 <connections>
                                     <outlet property="arrivalTime" destination="We7-ar-0Pi" id="Zhd-EW-U2J"/>
                                     <outlet property="departureTime" destination="UKe-VI-UpV" id="Gpt-5X-bCF"/>
-                                    <outlet property="workTIme" destination="dDS-T3-eJK" id="AsH-59-tXh"/>
+                                    <outlet property="workDate" destination="2Nl-8g-P06" id="inK-xD-upc"/>
+                                    <outlet property="workTime" destination="dDS-T3-eJK" id="8Xo-JG-Fio"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="footerView" textLabel="mKf-zB-GKT" detailTextLabel="gyZ-Qk-gUj" rowHeight="88" style="IBUITableViewCellStyleValue2" id="fXt-WZ-HEc" customClass="WorkDayCellTableViewCell" customModule="WorkWeek" customModuleProvider="target">
@@ -120,7 +121,7 @@
                                 <segue destination="9Q0-cl-wKy" kind="presentation" identifier="MapViewSegue" id="SKK-6g-xWN"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="6ca-VR-QOt">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="6ca-VR-QOt">
                             <connections>
                                 <segue destination="WIA-yz-lfT" kind="presentation" identifier="settingsSegue" id="NA1-vi-5Rf"/>
                             </connections>
@@ -149,13 +150,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="nhu-Fy-DdY">
-                                <rect key="frame" x="179" y="57" width="94" height="29"/>
-                            </stepper>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="40" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fNh-QF-z7P">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="40" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fNh-QF-z7P">
                                 <rect key="frame" x="281" y="57" width="37" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="workHoursDoneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="gkt-YF-0Nj"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYV-eK-RQy">
                                 <rect key="frame" x="326" y="61" width="46" height="21"/>
@@ -169,10 +170,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.5" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aRe-Nm-uQD">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.5" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aRe-Nm-uQD">
                                 <rect key="frame" x="213" y="187" width="159" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" keyboardAppearance="alert" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="lunchFieldDoneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="VFF-hy-dRa"/>
+                                </connections>
                             </textField>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TI-eM-xkr">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
@@ -193,34 +197,76 @@
                                     <action selector="launchSystemSettings:" destination="WIA-yz-lfT" eventType="touchUpInside" id="Sue-R0-tUa"/>
                                 </connections>
                             </button>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="40" maximumValue="99" translatesAutoresizingMaskIntoConstraints="NO" id="nhu-Fy-DdY">
+                                <rect key="frame" x="179" y="57" width="94" height="29"/>
+                                <connections>
+                                    <action selector="stepWorkHours:" destination="WIA-yz-lfT" eventType="valueChanged" id="6yk-qr-loV"/>
+                                </connections>
+                            </stepper>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UJh-hL-rL3">
+                                <rect key="frame" x="16" y="225" width="568" height="162"/>
+                            </pickerView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="200" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kY1-SH-PX2">
+                                <rect key="frame" x="270" y="488" width="45" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monitoring Size (m)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGg-Ev-887">
+                                <rect key="frame" x="218" y="459" width="148" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="fNh-QF-z7P" secondAttribute="centerX" constant="0.5" id="06e-jU-oPw"/>
                             <constraint firstItem="aRe-Nm-uQD" firstAttribute="leading" secondItem="0Jb-dw-FkH" secondAttribute="leading" id="1OC-5q-tth"/>
                             <constraint firstItem="fNh-QF-z7P" firstAttribute="top" secondItem="CNx-Ip-Fvi" secondAttribute="bottom" constant="8" id="2gm-SL-0Sh"/>
                             <constraint firstItem="CNx-Ip-Fvi" firstAttribute="top" secondItem="zoW-Ps-2fd" secondAttribute="bottom" constant="8" id="95o-1k-i7L"/>
+                            <constraint firstItem="8XR-bn-yhO" firstAttribute="top" secondItem="kY1-SH-PX2" secondAttribute="bottom" constant="8" id="Bov-5e-h3d"/>
                             <constraint firstItem="fNh-QF-z7P" firstAttribute="centerY" secondItem="wYV-eK-RQy" secondAttribute="centerY" constant="0.5" id="Fuh-wx-xQP"/>
                             <constraint firstItem="4TI-eM-xkr" firstAttribute="centerX" secondItem="CNx-Ip-Fvi" secondAttribute="centerX" id="GAZ-c6-sQI"/>
+                            <constraint firstItem="UJh-hL-rL3" firstAttribute="trailing" secondItem="FMN-PH-qyi" secondAttribute="trailingMargin" id="KpV-eC-Nw4"/>
                             <constraint firstItem="0Jb-dw-FkH" firstAttribute="top" secondItem="fNh-QF-z7P" secondAttribute="bottom" constant="70.5" id="MTt-0R-Ern"/>
                             <constraint firstItem="4TI-eM-xkr" firstAttribute="bottom" secondItem="09f-ol-pP0" secondAttribute="top" id="NEE-j7-Tt2"/>
                             <constraint firstItem="aRe-Nm-uQD" firstAttribute="trailing" secondItem="0Jb-dw-FkH" secondAttribute="trailing" id="Ngd-NB-qSR"/>
                             <constraint firstAttribute="centerX" secondItem="0Jb-dw-FkH" secondAttribute="centerX" constant="7.75" id="U9c-p2-ZoA"/>
+                            <constraint firstItem="UJh-hL-rL3" firstAttribute="top" secondItem="aRe-Nm-uQD" secondAttribute="bottom" constant="8" id="UQT-NW-bPB"/>
                             <constraint firstItem="aRe-Nm-uQD" firstAttribute="top" secondItem="0Jb-dw-FkH" secondAttribute="bottom" constant="8" symbolic="YES" id="WUm-4X-8JJ"/>
                             <constraint firstItem="fNh-QF-z7P" firstAttribute="centerY" secondItem="nhu-Fy-DdY" secondAttribute="centerY" constant="0.5" id="YNl-U2-NWk"/>
                             <constraint firstItem="fNh-QF-z7P" firstAttribute="leading" secondItem="nhu-Fy-DdY" secondAttribute="trailing" constant="8" id="ZCc-7b-A0i"/>
+                            <constraint firstAttribute="centerX" secondItem="kY1-SH-PX2" secondAttribute="centerX" constant="7.5" id="axa-4s-gPx"/>
                             <constraint firstAttribute="centerX" secondItem="CNx-Ip-Fvi" secondAttribute="centerX" id="fJY-Qu-ggJ"/>
+                            <constraint firstItem="kY1-SH-PX2" firstAttribute="top" secondItem="DGg-Ev-887" secondAttribute="bottom" constant="8" id="hUr-gE-oiX"/>
                             <constraint firstItem="4TI-eM-xkr" firstAttribute="leading" secondItem="FMN-PH-qyi" secondAttribute="leading" id="lVc-6B-EXj"/>
                             <constraint firstItem="4TI-eM-xkr" firstAttribute="top" secondItem="8XR-bn-yhO" secondAttribute="bottom" id="min-99-WwI"/>
+                            <constraint firstAttribute="centerX" secondItem="DGg-Ev-887" secondAttribute="centerX" constant="8" id="p9I-ae-Ctd"/>
+                            <constraint firstItem="UJh-hL-rL3" firstAttribute="leading" secondItem="FMN-PH-qyi" secondAttribute="leadingMargin" id="sbE-g3-oV3"/>
                             <constraint firstAttribute="centerX" secondItem="8XR-bn-yhO" secondAttribute="centerX" id="ufr-pu-0Vh"/>
                             <constraint firstItem="wYV-eK-RQy" firstAttribute="leading" secondItem="fNh-QF-z7P" secondAttribute="trailing" constant="8" id="vbr-I6-yot"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="cXH-tk-Xvo" appends="YES" id="OYS-KT-5qv"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="lunchTimeField" destination="aRe-Nm-uQD" id="AfO-MC-D0k"/>
+                        <outlet property="picker" destination="UJh-hL-rL3" id="3TJ-TI-dSS"/>
+                        <outlet property="stepper" destination="nhu-Fy-DdY" id="Jts-73-Z4d"/>
+                        <outlet property="workHoursTextField" destination="fNh-QF-z7P" id="Vr5-Yo-35g"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lWP-jg-0PC" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Cyw-Ik-mOo" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="cXH-tk-Xvo">
+                    <connections>
+                        <action selector="screenTapGesture:" destination="WIA-yz-lfT" id="hnT-Bz-n07"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1914" y="413"/>
+            <point key="canvasLocation" x="1884" y="413"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="cNR-ho-hZn">
