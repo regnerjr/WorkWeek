@@ -210,6 +210,9 @@
                                 <rect key="frame" x="270" y="488" width="45" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="workRadiusDoneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="PVA-ap-2nN"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monitoring Size (m)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGg-Ev-887">
                                 <rect key="frame" x="218" y="459" width="148" height="21"/>
@@ -256,6 +259,7 @@
                         <outlet property="picker" destination="UJh-hL-rL3" id="3TJ-TI-dSS"/>
                         <outlet property="stepper" destination="nhu-Fy-DdY" id="Jts-73-Z4d"/>
                         <outlet property="workHoursTextField" destination="fNh-QF-z7P" id="Vr5-Yo-35g"/>
+                        <outlet property="workRadius" destination="kY1-SH-PX2" id="Wvp-tq-3L2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lWP-jg-0PC" userLabel="First Responder" sceneMemberID="firstResponder"/>

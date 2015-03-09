@@ -43,10 +43,7 @@ class SettingsViewController: UIViewController {
         workHoursTextField.text = Formatter.workHours.stringFromNumber(defaultWorkHours)
         lunchTimeField.text = Formatter.double.stringFromNumber(defaultLunchTime)
         stepper.value = Double(defaultWorkHours)
-        println("Setting the Work radius")
-        println("Formatter: \(Formatter.workRadius.stringFromNumber(defaultWorkRadius))")
-//        workRadius.text = Formatter.workRadius.stringFromNumber(defaultWorkRadius)
-//        println("Finshed setting the work radius")
+        workRadius.text = Formatter.workRadius.stringFromNumber(defaultWorkRadius)
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -89,21 +86,21 @@ class SettingsViewController: UIViewController {
         }
     }
 
-//    @IBAction func workRadiusDoneEditing(sender: UITextField) {
-//        if sender.text == "" {
-//            sender.text = Formatter.workRadius.stringFromNumber(defaultWorkRadius)
-//        } else {
-//            defaultWorkRadius = Int(Formatter.workRadius.numberFromString(sender.text) ?? 200)
-//        }
-//    }
+    @IBAction func workRadiusDoneEditing(sender: UITextField) {
+        if sender.text == "" {
+            sender.text = Formatter.workRadius.stringFromNumber(defaultWorkRadius)
+        } else {
+            defaultWorkRadius = Int(Formatter.workRadius.numberFromString(sender.text) ?? 200)
+        }
+    }
 
     @IBAction func screenTapGesture(sender: UITapGestureRecognizer) {
         if workHoursTextField.isFirstResponder() {
             workHoursTextField.endEditing(true)
         }else if lunchTimeField.isFirstResponder() {
             lunchTimeField.endEditing(true)
-//        } else if workRadius.isFirstResponder() {
-//            workRadius.endEditing(true)
+        } else if workRadius.isFirstResponder() {
+            workRadius.endEditing(true)
         }
         resignFirstResponder()
     }
