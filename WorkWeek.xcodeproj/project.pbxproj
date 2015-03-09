@@ -51,7 +51,6 @@
 		521763451A61BABA009661ED /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		521763481A61D0C5009661ED /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		522FB0241AAB5716001781D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
-		522FB0261AAB5746001781D9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = fr; path = fr.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5270F3AA1A61EABF007834AF /* WorkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkManager.swift; sourceTree = "<group>"; };
 		5281A8251AA79AD500C4F154 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		529B8F2D1AAA5C5100EED298 /* DayTimePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayTimePicker.swift; sourceTree = "<group>"; };
@@ -444,7 +443,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				522FB0241AAB5716001781D9 /* en */,
-				522FB0261AAB5746001781D9 /* fr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

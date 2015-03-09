@@ -6,6 +6,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var lunchTimeField: UITextField!
     @IBOutlet weak var stepper: UIStepper!
     @IBOutlet weak var picker: UIPickerView!
+    @IBOutlet weak var workRadius: UITextField!
 
     let pickerSource = DayTimePicker()
 
