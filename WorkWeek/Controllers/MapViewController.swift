@@ -11,15 +11,12 @@ struct MapRegionIdentifiers {
     static let work = "WorkRegion"
 }
 
-struct RegionRadius {
-    static let value = 150.0
-}
-
 class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchBar: UISearchBar!
 
+    var regionRadius: Double { return Double(NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.workRadius)) }
 
     lazy var locationManager: CLLocationManager = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -50,7 +47,7 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         //draw the current work location if it is not nil
         if let work = workLocation {
-            let workOverlay = MKCircle(centerCoordinate: work.center, radius: RegionRadius.value)
+            let workOverlay = MKCircle(centerCoordinate: work.center, radius: regionRadius)
             mapView.addOverlay(workOverlay)
         }
     }
@@ -70,7 +67,7 @@ class MapViewController: UIViewController {
                 mapView.removeOverlays(existingOverlays)
             }
             //add a circle over lay where the user pressed
-            let circle = MKCircle(centerCoordinate: coordinate, radius: RegionRadius.value)
+            let circle = MKCircle(centerCoordinate: coordinate, radius: regionRadius)
             mapView.addOverlay(circle) //make sure to draw this overlay in the delegate
 
         } else if sender.state == UIGestureRecognizerState.Ended {
@@ -84,7 +81,7 @@ class MapViewController: UIViewController {
             //also if setting a new work location, we need to clear the existing work history
             workManager.clearEvents()
 
-            let workRegion = CLCircularRegion(center: coordinate, radius: RegionRadius.value, identifier: MapRegionIdentifiers.work)
+            let workRegion = CLCircularRegion(center: coordinate, radius: regionRadius, identifier: MapRegionIdentifiers.work)
             locationManager.startMonitoringForRegion(workRegion)
 
             //setUpLocalNotifications for the region

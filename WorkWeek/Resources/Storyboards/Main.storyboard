@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VyB-Nf-Eby">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VyB-Nf-Eby">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -284,12 +284,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMW-M3-NRE">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
-                                <connections>
-                                    <outlet property="delegate" destination="9Q0-cl-wKy" id="obP-SZ-OTh"/>
-                                </connections>
-                            </mapView>
                             <searchBar contentMode="redraw" prompt="Where do you work?" placeholder="Library" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECW-rw-mnH">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="75"/>
                                 <color key="tintColor" red="0.78431372549019607" green="0.47058823529411764" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -313,12 +307,18 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMW-M3-NRE">
+                                <rect key="frame" x="0.0" y="75" width="600" height="481"/>
+                                <connections>
+                                    <outlet property="delegate" destination="9Q0-cl-wKy" id="obP-SZ-OTh"/>
+                                </connections>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" red="0.78431372549019607" green="0.47058823529411764" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="ECW-rw-mnH" firstAttribute="top" secondItem="d8t-3T-j73" secondAttribute="bottom" id="2um-Cy-eOu"/>
-                            <constraint firstItem="VMW-M3-NRE" firstAttribute="top" secondItem="d8t-3T-j73" secondAttribute="bottom" id="JTk-bz-kjJ"/>
+                            <constraint firstItem="VMW-M3-NRE" firstAttribute="top" secondItem="ECW-rw-mnH" secondAttribute="bottom" id="4yP-iQ-6vt"/>
                             <constraint firstItem="eoO-Fi-auT" firstAttribute="top" secondItem="VMW-M3-NRE" secondAttribute="bottom" id="OZy-sy-dui"/>
                             <constraint firstAttribute="trailing" secondItem="ECW-rw-mnH" secondAttribute="trailing" id="YDa-ei-mD2"/>
                             <constraint firstAttribute="trailing" secondItem="VMW-M3-NRE" secondAttribute="trailing" id="l5f-lS-5OM"/>
