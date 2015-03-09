@@ -1,6 +1,6 @@
 import UIKit
 import MapKit
-import CoreLocation
+//import CoreLocation
 
 struct OverlayColor {
     static let Fill   = UIColor(red:0.78, green:0.47, blue:0.62, alpha:0.4)

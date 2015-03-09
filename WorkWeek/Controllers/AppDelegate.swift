@@ -8,8 +8,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var locationManager:CLLocationManager = {
         var manager = CLLocationManager()
         let auth = CLLocationManager.authorizationStatus()
-//        if auth != CLAuthorizationStatus.AuthorizedAlways {
-        if auth != CLAuthorizationStatus.Authorized {
+        if auth != CLAuthorizationStatus.AuthorizedAlways {
             manager.requestAlwaysAuthorization()
         }
         manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
