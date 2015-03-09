@@ -21,6 +21,8 @@
 		52C565BB1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C565BA1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift */; };
 		52F40A521A9E7E1800FA02C6 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A511A9E7E1800FA02C6 /* Event.swift */; };
 		52F40A571A9E803C00FA02C6 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A561A9E803C00FA02C6 /* NSDateExtensions.swift */; };
+		52FA6CE01AADDBCB000E63DE /* NSUserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA6CDF1AADDBCB000E63DE /* NSUserDefaultsKeys.swift */; };
+		52FA6CE21AADDC42000E63DE /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA6CE11AADDC42000E63DE /* Formatter.swift */; };
 		E65CE64206D775D006BBE953 /* LaunchScreen.xib in Sources */ = {isa = PBXBuildFile; fileRef = 49B3D806C300C55550FD0FA7 /* LaunchScreen.xib */; };
 		F191B23CC45B08C69746EFD2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA5035B079F37F07486CB30 /* Foundation.framework */; };
 		FE2FB851CFA2EDC690983CFD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30E265B519BC5E1BC3D618FE /* Images.xcassets */; };
@@ -58,6 +60,8 @@
 		52F40A541A9E7E7400FA02C6 /* EventTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTest.swift; sourceTree = "<group>"; };
 		52F40A561A9E803C00FA02C6 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
 		52F40A591A9E808B00FA02C6 /* NSDateExtensionsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensionsTest.swift; sourceTree = "<group>"; };
+		52FA6CDF1AADDBCB000E63DE /* NSUserDefaultsKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSUserDefaultsKeys.swift; path = WorkWeek/Extensions/NSUserDefaultsKeys.swift; sourceTree = SOURCE_ROOT; };
+		52FA6CE11AADDC42000E63DE /* Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		6219AAAD4B2D8CAFB333EB1B /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B5EA2E4B8F1C6F2451087C9 /* WorkWeek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkWeek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F81B384B6127F9E6F6561E8 /* UnitTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
@@ -177,7 +181,9 @@
 		749DF0AFEB6121917888A16B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				52FA6CE11AADDC42000E63DE /* Formatter.swift */,
 				52F40A561A9E803C00FA02C6 /* NSDateExtensions.swift */,
+				52FA6CDF1AADDBCB000E63DE /* NSUserDefaultsKeys.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -402,11 +408,13 @@
 				52F40A571A9E803C00FA02C6 /* NSDateExtensions.swift in Sources */,
 				529B8F2E1AAA5C5100EED298 /* DayTimePicker.swift in Sources */,
 				229CAFF7DED38B3E1FF05521 /* AppDelegate.swift in Sources */,
+				52FA6CE01AADDBCB000E63DE /* NSUserDefaultsKeys.swift in Sources */,
 				522FB0231AAB5716001781D9 /* Main.storyboard in Sources */,
 				5281A8261AA79AD500C4F154 /* SettingsViewController.swift in Sources */,
 				5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */,
 				52F40A521A9E7E1800FA02C6 /* Event.swift in Sources */,
 				E65CE64206D775D006BBE953 /* LaunchScreen.xib in Sources */,
+				52FA6CE21AADDC42000E63DE /* Formatter.swift in Sources */,
 				5210E3C91AA7AE770061BCF6 /* HeaderView.swift in Sources */,
 				521763461A61BABA009661ED /* MapViewController.swift in Sources */,
 				52C565BB1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift in Sources */,

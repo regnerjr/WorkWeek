@@ -69,12 +69,10 @@ extension TableViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.mainCell.rawValue, forIndexPath: indexPath) as WorkDayCellTableViewCell
 
         let workItem = array[indexPath.row]
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
         let decimalHoursWorked = Float(workItem.hoursWorked) +
                                  Float( workItem.minutesWorked / 60)
         cell.workDate?.text = workItem.weekDay
-        cell.workTime?.text = formatter.stringFromNumber( decimalHoursWorked ) ?? "" //leave it blank if nil
+        cell.workTime?.text = Formatter.double.stringFromNumber( decimalHoursWorked ) ?? "" //leave it blank if nil
         cell.arrivalTime.text = workItem.arrivalTime
         cell.departureTime.text = workItem.departureTime
 
@@ -102,10 +100,8 @@ extension TableViewController: UITableViewDelegate {
                     if lastArrival.inOrOut == .Arrival {
                         let currentWorkTime = hoursMinutesFromDate(date: lastArrival.date, toDate: NSDate())
                         let workHours = Double(currentWorkTime.hours) + (Double(currentWorkTime.minutes) / 60)
-                        let formatter = NSNumberFormatter()
-                        formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
                         footer.textLabel?.text = lastArrival.date.dayOfWeek
-                        footer.detailTextLabel?.text = formatter.stringFromNumber(workHours)
+                        footer.detailTextLabel?.text = Formatter.double.stringFromNumber(workHours)
                     }
                 }
             } else {

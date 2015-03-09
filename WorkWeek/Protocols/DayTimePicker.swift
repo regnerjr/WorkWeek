@@ -1,7 +1,7 @@
 import UIKit
 
 class DayTimePicker: NSObject {
-   
+
 }
 
 extension DayTimePicker: UIPickerViewDataSource {
@@ -24,6 +24,7 @@ extension DayTimePicker: UIPickerViewDataSource {
 extension DayTimePicker: UIPickerViewDelegate {
 
     func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
+
         switch component{
         case 0: return makeADayView(row, withLabel: UILabel(frame: CGRectZero))
         case 1: return makeAnHourView(row, withLabel: UILabel(frame: CGRectZero))
@@ -31,11 +32,6 @@ extension DayTimePicker: UIPickerViewDelegate {
             println("Something is wrong! asked for picker views for component: \(component)")
             return view //return the same view?
         }
-    }
-
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        //handle selections
-        //update user defaults
     }
 
     func makeADayView(row: Int, withLabel label: UILabel) -> UIView {

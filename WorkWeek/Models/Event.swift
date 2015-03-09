@@ -16,10 +16,7 @@ public struct Event {
     }
     
     var timeString: String {
-        let timeFormatter = NSDateFormatter()
-        timeFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        timeFormatter.dateStyle = NSDateFormatterStyle.NoStyle
-        return timeFormatter.stringFromDate(self.date)
+        return Formatter.shortTime.stringFromDate(self.date)
     }
 
 }

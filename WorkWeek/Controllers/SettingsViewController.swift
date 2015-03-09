@@ -1,62 +1,11 @@
 import UIKit
 
-struct SettingsKey {
-    static let hoursInWorkWeek = "hoursInWorkWeekPrefKey"
-    static let unpaidLunchTime = "unpaidLunchTimePrefKey"
-    static let resetDay        = "resetDayPrefKey"
-    static let resetHour       = "resetHourPrefKey"
-    static let workRadius      = "workRadiusPrefKey"
-}
-
 class SettingsViewController: UIViewController {
-
-    lazy var doubleFormatter: NSNumberFormatter = {
-        let doubleFormatter = NSNumberFormatter()
-        doubleFormatter.numberStyle = .DecimalStyle
-        doubleFormatter.minimum = 0.1
-        doubleFormatter.maximum = 9.9
-        doubleFormatter.minimumIntegerDigits = 1
-        doubleFormatter.maximumIntegerDigits = 1
-        doubleFormatter.minimumFractionDigits = 1
-        doubleFormatter.maximumFractionDigits = 1
-        doubleFormatter.roundingIncrement = 0.1
-        doubleFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundUp
-        return doubleFormatter
-    }()
-
-    lazy var workHoursFormatter: NSNumberFormatter = {
-        let intFormatter = NSNumberFormatter()
-        intFormatter.numberStyle = NSNumberFormatterStyle.NoStyle
-        intFormatter.minimum = 1
-        intFormatter.maximum = 99
-        intFormatter.minimumIntegerDigits = 1
-        intFormatter.maximumIntegerDigits = 2
-        intFormatter.minimumFractionDigits = 0
-        intFormatter.maximumFractionDigits = 0
-        intFormatter.roundingIncrement = 1
-        intFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundUp
-        return intFormatter
-    }()
-
-    lazy var workRadiusFormatter: NSNumberFormatter = {
-        let radiusFormatter = NSNumberFormatter()
-        radiusFormatter.numberStyle = NSNumberFormatterStyle.NoStyle
-        radiusFormatter.minimum = 50 //allow workRadius to be between 50 and 999 meters
-        radiusFormatter.maximum = 999
-        radiusFormatter.minimumIntegerDigits = 2
-        radiusFormatter.maximumIntegerDigits = 3
-        radiusFormatter.minimumFractionDigits = 0
-        radiusFormatter.maximumFractionDigits = 0
-        radiusFormatter.roundingIncrement = 1
-        radiusFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundUp
-        return radiusFormatter
-    }()
 
     @IBOutlet weak var workHoursTextField: UITextField!
     @IBOutlet weak var lunchTimeField: UITextField!
     @IBOutlet weak var stepper: UIStepper!
     @IBOutlet weak var picker: UIPickerView!
-    @IBOutlet weak var workRadius: UITextField!
 
     let pickerSource = DayTimePicker()
 
@@ -76,7 +25,7 @@ class SettingsViewController: UIViewController {
         get { return NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.resetHour) }
         set { NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey:SettingsKey.resetHour) }
     }
-    var defautlWorkRadius: Int {
+    var defaultWorkRadius: Int {
         get{ return NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.workRadius) }
         set{ NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: SettingsKey.workRadius) }
     }
@@ -90,10 +39,13 @@ class SettingsViewController: UIViewController {
         picker.selectRow(defaultResetHour, inComponent: 1, animated: false)
 
         //populate fields with data from defaults
-        workHoursTextField.text = workHoursFormatter.stringFromNumber(defaultWorkHours)
-        lunchTimeField.text = doubleFormatter.stringFromNumber(defaultLunchTime)
+        workHoursTextField.text = Formatter.workHours.stringFromNumber(defaultWorkHours)
+        lunchTimeField.text = Formatter.double.stringFromNumber(defaultLunchTime)
         stepper.value = Double(defaultWorkHours)
-        workRadius.text = workRadiusFormatter.stringFromNumber(defautlWorkRadius)
+        println("Setting the Work radius")
+        println("Formatter: \(Formatter.workRadius.stringFromNumber(defaultWorkRadius))")
+//        workRadius.text = Formatter.workRadius.stringFromNumber(defaultWorkRadius)
+//        println("Finshed setting the work radius")
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -102,6 +54,7 @@ class SettingsViewController: UIViewController {
         defaultResetDay = picker.selectedRowInComponent(0)
         defaultResetHour = picker.selectedRowInComponent(1)
     }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         println("Received MemoryWarning")
@@ -113,42 +66,43 @@ class SettingsViewController: UIViewController {
 
     @IBAction func stepWorkHours(sender: UIStepper) {
         //change the value stored in the label
-        workHoursTextField.text = workHoursFormatter.stringFromNumber(sender.value)
+        workHoursTextField.text = Formatter.workHours.stringFromNumber(sender.value)
         defaultWorkHours = Int(sender.value)
     }
 
     @IBAction func workHoursDoneEditing(sender: UITextField) {
         if sender.text == "" {
-            sender.text = workHoursFormatter.stringFromNumber(defaultWorkHours)
+            sender.text = Formatter.workHours.stringFromNumber(defaultWorkHours)
         } else {
             //save the new work hours, or default to 40 if could not be read for some reason...?
-            defaultWorkHours = Int(workHoursFormatter.numberFromString(sender.text) ?? 40 ) 
+            defaultWorkHours = Int(Formatter.workHours.numberFromString(sender.text) ?? 40 )
         }
     }
 
     @IBAction func lunchFieldDoneEditing(sender: UITextField) {
         if sender.text == "" {
-            sender.text = doubleFormatter.stringFromNumber(defaultLunchTime)
+            sender.text = Formatter.double.stringFromNumber(defaultLunchTime)
         } else {
             //save new lunch time or default
-            defaultLunchTime = Double(doubleFormatter.numberFromString(sender.text) ?? 0.5 )
+            defaultLunchTime = Double(Formatter.double.numberFromString(sender.text) ?? 0.5 )
         }
     }
-    @IBAction func workRadiusDoneEditing(sender: UITextField) {
-        if sender.text == "" {
-            sender.text = workRadiusFormatter.stringFromNumber(defautlWorkRadius)
-        } else {
-            defautlWorkRadius = Int(workRadiusFormatter.numberFromString(sender.text) ?? 200)
-        }
-    }
+
+//    @IBAction func workRadiusDoneEditing(sender: UITextField) {
+//        if sender.text == "" {
+//            sender.text = Formatter.workRadius.stringFromNumber(defaultWorkRadius)
+//        } else {
+//            defaultWorkRadius = Int(Formatter.workRadius.numberFromString(sender.text) ?? 200)
+//        }
+//    }
 
     @IBAction func screenTapGesture(sender: UITapGestureRecognizer) {
         if workHoursTextField.isFirstResponder() {
             workHoursTextField.endEditing(true)
         }else if lunchTimeField.isFirstResponder() {
             lunchTimeField.endEditing(true)
-        } else if workRadius.isFirstResponder() {
-            workRadius.endEditing(true)
+//        } else if workRadius.isFirstResponder() {
+//            workRadius.endEditing(true)
         }
         resignFirstResponder()
     }
