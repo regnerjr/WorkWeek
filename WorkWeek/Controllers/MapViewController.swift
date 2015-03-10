@@ -63,44 +63,48 @@ class MapViewController: UIViewController {
         let coordinate = mapView.convertPoint(location, toCoordinateFromView: mapView)
 
         if sender.state == UIGestureRecognizerState.Began {
-
-            //remove existing overlays
-            if let overlays = mapView.overlays {
-                let existingOverlays = mapView.overlays
-                mapView.removeOverlays(existingOverlays)
-            }
-            //add a circle over lay where the user pressed
-            let circle = MKCircle(centerCoordinate: coordinate, radius: regionRadius)
-            mapView.addOverlay(circle) //make sure to draw this overlay in the delegate
-
+            addOverLayAtCoordinate(coordinate)
         } else if sender.state == UIGestureRecognizerState.Ended {
+           startMonitoringOneRegionAtCoordinate(coordinate)
+           addArrivalIfAtWork()
+        }
+    }
 
-            //current limitation: Only one location may be used!!!
-            let currentRegions = locationManager.monitoredRegions as NSSet
-            for region in currentRegions {
-                locationManager.stopMonitoringForRegion(region as CLRegion)
-            }
+    func addOverLayAtCoordinate(coord: CLLocationCoordinate2D){ //remove existing overlays
+        if let overlays = mapView.overlays {
+            let existingOverlays = mapView.overlays
+            mapView.removeOverlays(existingOverlays)
+        }
+        //add a circle over lay where the user pressed
+        let circle = MKCircle(centerCoordinate: coord, radius: regionRadius)
+        mapView.addOverlay(circle) //make sure to draw this overlay in the delegate
+    }
 
-            //also if setting a new work location, we need to clear the existing work history
-            workManager.clearEvents()
+    func startMonitoringOneRegionAtCoordinate(coord: CLLocationCoordinate2D) {
+        //current limitation: Only one location may be used!!!
+        let currentRegions = locationManager.monitoredRegions as NSSet
+        for region in currentRegions {
+            locationManager.stopMonitoringForRegion(region as CLRegion)
+        }
 
-            let workRegion = CLCircularRegion(center: coordinate, radius: regionRadius, identifier: MapRegionIdentifiers.work)
-            locationManager.startMonitoringForRegion(workRegion)
+        //also if setting a new work location, we need to clear the existing work history
+        workManager.clearEvents()
 
-            //setUpLocalNotifications for the region
-            let workRegionNotifier = UILocalNotification()
-            workRegionNotifier.region = workRegion
-            workRegionNotifier.alertBody = "You have entered or exited the work area"
-            workRegionNotifier.alertAction = "Take Action"
-            workRegionNotifier.applicationIconBadgeNumber = 1
-            workRegionNotifier.soundName = UILocalNotificationDefaultSoundName
-            UIApplication.sharedApplication().scheduleLocalNotification(workRegionNotifier)
+        let workRegion = CLCircularRegion(center: coord, radius: regionRadius, identifier: MapRegionIdentifiers.work)
+        locationManager.startMonitoringForRegion(workRegion)
+    }
 
-            //if you are currently at work add an arrival right now.
-            if workRegion.containsCoordinate(locationManager.location.coordinate) {
-                workManager.addArrival(NSDate())
+    func addArrivalIfAtWork(){
+        //if you are currently at work add an arrival right now.
+        for region in locationManager.monitoredRegions {
+            if region.identifier == MapRegionIdentifiers.work{
+                let workregion = region as CLCircularRegion
+                if workregion.containsCoordinate(locationManager.location.coordinate) {
+                    workManager.addArrival(NSDate())
+                }
             }
         }
+
     }
 
 }
@@ -147,6 +151,13 @@ extension MapViewController: MKMapViewDelegate {
         } else {
             return MKOverlayRenderer(overlay: overlay) //just return a default unconfigured renderer
         }
+    }
+
+    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+        println("Selected annotation, gonna set a region on this annotation")
+        addOverLayAtCoordinate(view.annotation.coordinate)
+        startMonitoringOneRegionAtCoordinate(view.annotation.coordinate)
+        addArrivalIfAtWork()
     }
 
 
