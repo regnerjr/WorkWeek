@@ -3,8 +3,11 @@ import MapKit
 //import CoreLocation
 
 struct OverlayColor {
-    static let Fill   = UIColor(red:0.78, green:0.47, blue:0.62, alpha:0.4)
-    static let Stroke = UIColor(red:0.78, green:0.47, blue:0.62, alpha:0.7)
+    static let Fill   = UIColor(red:0.18, green:0.71, blue:0.73, alpha:0.4)
+    static let Stroke = UIColor(red:0.18, green:0.71, blue:0.73, alpha:1)
+
+struct Counter {
+    static var count = 0
 }
 
 struct MapRegionIdentifiers {
