@@ -5,8 +5,6 @@ public class WorkManager {
     public var eventsForTheWeek: [Event] = []
     public var workDays: [WorkDay] = []
     public var hoursWorkedThisWeek: Double {
-        //TODO: Fix this so it accounts for minutes as well as hours, mayge it will round up but we should be adding the minutes and see if they add up to another hour or more
-        // Should maybe return a float?
         let hoursWorked = workDays.reduce(0, combine: {$0 + $1.hoursWorked})
         let hourFractions = workDays.reduce(0, combine: {$0 + $1.minutesWorked})
         return Double(hoursWorked) + Double(hourFractions) / 60.0

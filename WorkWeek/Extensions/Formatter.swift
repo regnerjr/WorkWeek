@@ -1,7 +1,14 @@
 import Foundation
+/** 
+    Formatter is a wrapper around NSNumberFormatter and NSDateFormatter. 
+    Available formatters are double, workHours, workRadius, and shortTime.
 
+    Having these formatters defined here allows use without the tedious setup
+    as well as allowing consistent formatting of numbers and dates throughout the app
+*/
 struct Formatter {
-
+    /// Formatter.double is for numbers between 0.1 and 9.9
+    /// only one decimal and one fractional digit is shown
     static var double: NSNumberFormatter = {
         let doubleFormatter = NSNumberFormatter()
         doubleFormatter.numberStyle = .DecimalStyle
@@ -15,7 +22,7 @@ struct Formatter {
         doubleFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundUp
         return doubleFormatter
     }()
-
+    /// Formatter.workHours is for 1 to 2 digit integers
     static var workHours: NSNumberFormatter = {
         let intFormatter = NSNumberFormatter()
         intFormatter.numberStyle = NSNumberFormatterStyle.NoStyle
@@ -29,7 +36,7 @@ struct Formatter {
         intFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundUp
         return intFormatter
     }()
-
+    /// Formatter.workRadius is for showing a work radius 50 to 999 integers only
     static var workRadius: NSNumberFormatter = {
         let radiusFormatter = NSNumberFormatter()
         radiusFormatter.numberStyle = NSNumberFormatterStyle.NoStyle
@@ -44,6 +51,8 @@ struct Formatter {
         return radiusFormatter
     }()
 
+    /// Formatter.shortTime date formatter set to short Time style
+    /// and no dateStyle.NoStyle
     static var shortTime: NSDateFormatter  = {
         let timeFormatter = NSDateFormatter()
         timeFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
