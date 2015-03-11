@@ -14,8 +14,17 @@
 		521763441A61B368009661ED /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763431A61B368009661ED /* MapKit.framework */; };
 		521763461A61BABA009661ED /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521763451A61BABA009661ED /* MapViewController.swift */; };
 		521763491A61D0C5009661ED /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763481A61D0C5009661ED /* CoreLocation.framework */; };
+		5239B0D41AB0ECC8002C4523 /* LunchTimeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D31AB0ECC8002C4523 /* LunchTimeTextField.swift */; };
+		5239B0D61AB0ED1D002C4523 /* WorkHoursTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D51AB0ED1D002C4523 /* WorkHoursTextField.swift */; };
+		5239B0D81AB0ED7D002C4523 /* WorkRadiusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D71AB0ED7D002C4523 /* WorkRadiusTextField.swift */; };
+		5239B0DA1AB0FA9B002C4523 /* Stepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D91AB0FA9B002C4523 /* Stepper.swift */; };
 		5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5270F3AA1A61EABF007834AF /* WorkManager.swift */; };
 		5281A8261AA79AD500C4F154 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281A8251AA79AD500C4F154 /* SettingsViewController.swift */; };
+		528F2C781AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528F2C771AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift */; };
+		528F2C7B1AB0AC9B005606C6 /* NSNumberFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528F2C791AB0ABFC005606C6 /* NSNumberFormatterTests.swift */; };
+		528F2C7C1AB0AC9F005606C6 /* NSDateExtensionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A591A9E808B00FA02C6 /* NSDateExtensionsTest.swift */; };
+		528F2C7D1AB0ACA2005606C6 /* EventTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A541A9E7E7400FA02C6 /* EventTest.swift */; };
+		528F2C7E1AB0ACA6005606C6 /* WorkManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */; };
 		529B8F2E1AAA5C5100EED298 /* DayTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529B8F2D1AAA5C5100EED298 /* DayTimePicker.swift */; };
 		52C565BB1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C565BA1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift */; };
 		52C8A9BE1AAE062100099E62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52C8A9BD1AAE062100099E62 /* Main.storyboard */; };
@@ -51,8 +60,14 @@
 		521763431A61B368009661ED /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		521763451A61BABA009661ED /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		521763481A61D0C5009661ED /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5239B0D31AB0ECC8002C4523 /* LunchTimeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LunchTimeTextField.swift; sourceTree = "<group>"; };
+		5239B0D51AB0ED1D002C4523 /* WorkHoursTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkHoursTextField.swift; sourceTree = "<group>"; };
+		5239B0D71AB0ED7D002C4523 /* WorkRadiusTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkRadiusTextField.swift; sourceTree = "<group>"; };
+		5239B0D91AB0FA9B002C4523 /* Stepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stepper.swift; sourceTree = "<group>"; };
 		5270F3AA1A61EABF007834AF /* WorkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkManager.swift; sourceTree = "<group>"; };
 		5281A8251AA79AD500C4F154 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		528F2C771AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNumberFormatterExtensions.swift; sourceTree = "<group>"; };
+		528F2C791AB0ABFC005606C6 /* NSNumberFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNumberFormatterTests.swift; sourceTree = "<group>"; };
 		529B8F2D1AAA5C5100EED298 /* DayTimePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayTimePicker.swift; sourceTree = "<group>"; };
 		52C565BA1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkDayCellTableViewCell.swift; sourceTree = "<group>"; };
 		52C8A9BD1AAE062100099E62 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -183,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				52FA6CE11AADDC42000E63DE /* Formatter.swift */,
+				528F2C771AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift */,
 				52F40A561A9E803C00FA02C6 /* NSDateExtensions.swift */,
 				52FA6CDF1AADDBCB000E63DE /* NSUserDefaultsKeys.swift */,
 			);
@@ -251,6 +267,7 @@
 				52F40A591A9E808B00FA02C6 /* NSDateExtensionsTest.swift */,
 				52F40A541A9E7E7400FA02C6 /* EventTest.swift */,
 				52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */,
+				528F2C791AB0ABFC005606C6 /* NSNumberFormatterTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -266,6 +283,10 @@
 		FDFD1D7FE2A9D8A2C5471B62 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5239B0D91AB0FA9B002C4523 /* Stepper.swift */,
+				5239B0D31AB0ECC8002C4523 /* LunchTimeTextField.swift */,
+				5239B0D51AB0ED1D002C4523 /* WorkHoursTextField.swift */,
+				5239B0D71AB0ED7D002C4523 /* WorkRadiusTextField.swift */,
 				5210E3C81AA7AE770061BCF6 /* HeaderView.swift */,
 				52C565BA1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift */,
 			);
@@ -409,17 +430,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5239B0D61AB0ED1D002C4523 /* WorkHoursTextField.swift in Sources */,
 				52F40A571A9E803C00FA02C6 /* NSDateExtensions.swift in Sources */,
 				529B8F2E1AAA5C5100EED298 /* DayTimePicker.swift in Sources */,
 				229CAFF7DED38B3E1FF05521 /* AppDelegate.swift in Sources */,
 				52FA6CE01AADDBCB000E63DE /* NSUserDefaultsKeys.swift in Sources */,
 				5281A8261AA79AD500C4F154 /* SettingsViewController.swift in Sources */,
 				5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */,
+				5239B0DA1AB0FA9B002C4523 /* Stepper.swift in Sources */,
 				52F40A521A9E7E1800FA02C6 /* Event.swift in Sources */,
+				5239B0D81AB0ED7D002C4523 /* WorkRadiusTextField.swift in Sources */,
 				E65CE64206D775D006BBE953 /* LaunchScreen.xib in Sources */,
 				52FA6CE21AADDC42000E63DE /* Formatter.swift in Sources */,
 				5210E3C91AA7AE770061BCF6 /* HeaderView.swift in Sources */,
 				521763461A61BABA009661ED /* MapViewController.swift in Sources */,
+				5239B0D41AB0ECC8002C4523 /* LunchTimeTextField.swift in Sources */,
+				528F2C781AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift in Sources */,
 				52C565BB1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift in Sources */,
 				5217633E1A61A5FA009661ED /* TableViewController.swift in Sources */,
 			);
@@ -429,6 +455,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				528F2C7D1AB0ACA2005606C6 /* EventTest.swift in Sources */,
+				528F2C7C1AB0AC9F005606C6 /* NSDateExtensionsTest.swift in Sources */,
+				528F2C7E1AB0ACA6005606C6 /* WorkManagerTest.swift in Sources */,
+				528F2C7B1AB0AC9B005606C6 /* NSNumberFormatterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

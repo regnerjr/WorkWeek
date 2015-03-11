@@ -22,15 +22,22 @@
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DcH-z5-Hvi" customClass="HeaderView" customModule="WorkWeek" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="88"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="40" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ape-8Z-Lm9">
+                                                    <rect key="frame" x="278" y="20" width="44" height="48"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="hoursInWeek">
-                                                    <integer key="value" value="40"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="hoursWorked">
-                                                    <integer key="value" value="15"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="Ape-8Z-Lm9" secondAttribute="centerY" constant="0.5" id="KY2-ZU-aUW"/>
+                                                <constraint firstAttribute="centerX" secondItem="Ape-8Z-Lm9" secondAttribute="centerX" id="aee-1k-tE1"/>
+                                            </constraints>
+                                            <connections>
+                                                <outlet property="hoursLabel" destination="Ape-8Z-Lm9" id="Xq5-1O-Cgi"/>
+                                            </connections>
                                         </view>
                                     </subviews>
                                     <constraints>
@@ -61,13 +68,13 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="8.2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDS-T3-eJK">
                                             <rect key="frame" x="312" y="31" width="29" height="26"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sun" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Nl-8g-P06">
                                             <rect key="frame" x="263" y="31" width="37" height="26"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -89,24 +96,10 @@
                                     <outlet property="workTime" destination="dDS-T3-eJK" id="8Xo-JG-Fio"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="footerView" textLabel="mKf-zB-GKT" detailTextLabel="gyZ-Qk-gUj" rowHeight="88" style="IBUITableViewCellStyleValue2" id="fXt-WZ-HEc" customClass="WorkDayCellTableViewCell" customModule="WorkWeek" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="footerView" rowHeight="88" id="fXt-WZ-HEc" customClass="WorkDayCellTableViewCell" customModule="WorkWeek" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fXt-WZ-HEc" id="g8G-Oz-9Jh">
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mKf-zB-GKT">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                            <color key="textColor" red="0.7843137255" green="0.47058823529999999" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gyZ-Qk-gUj">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
                                     <color key="tintColor" red="0.18039215689999999" green="0.71372549019999998" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -145,40 +138,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Length of Work Week" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNx-Ip-Fvi">
-                                <rect key="frame" x="218" y="28" width="164" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="40" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fNh-QF-z7P">
-                                <rect key="frame" x="281" y="57" width="37" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                <connections>
-                                    <action selector="workHoursDoneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="gkt-YF-0Nj"/>
-                                </connections>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYV-eK-RQy">
-                                <rect key="frame" x="326" y="61" width="46" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unpaid Lunch (Daily)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Jb-dw-FkH">
-                                <rect key="frame" x="213" y="158" width="159" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.5" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aRe-Nm-uQD">
-                                <rect key="frame" x="213" y="187" width="159" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                <connections>
-                                    <action selector="lunchFieldDoneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="VFF-hy-dRa"/>
-                                </connections>
-                            </textField>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TI-eM-xkr">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
@@ -189,6 +148,15 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="749" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="200" translatesAutoresizingMaskIntoConstraints="NO" id="UJh-hL-rL3">
+                                <rect key="frame" x="16" y="328" width="568" height="180"/>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unpaid Lunch (Daily)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Jb-dw-FkH">
+                                <rect key="frame" x="308" y="28" width="159" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8XR-bn-yhO">
                                 <rect key="frame" x="217" y="526" width="167" height="30"/>
                                 <state key="normal" title="Launch System Settings">
@@ -198,59 +166,85 @@
                                     <action selector="launchSystemSettings:" destination="WIA-yz-lfT" eventType="touchUpInside" id="Sue-R0-tUa"/>
                                 </connections>
                             </button>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="40" maximumValue="99" translatesAutoresizingMaskIntoConstraints="NO" id="nhu-Fy-DdY">
-                                <rect key="frame" x="179" y="57" width="94" height="29"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.5" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aRe-Nm-uQD" customClass="LunchTimeTextField" customModule="WorkWeek" customModuleProvider="target">
+                                <rect key="frame" x="366" y="57" width="42" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="doneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="4Ck-rM-ZZ6"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNx-Ip-Fvi">
+                                <rect key="frame" x="206" y="28" width="94" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monitoring Size (m)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGg-Ev-887">
+                                <rect key="frame" x="226" y="132" width="148" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="200" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kY1-SH-PX2" customClass="WorkRadiusTextField" customModule="WorkWeek" customModuleProvider="target">
+                                <rect key="frame" x="226" y="161" width="148" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="doneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="mDf-x0-erl"/>
+                                </connections>
+                            </textField>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="40" maximumValue="99" translatesAutoresizingMaskIntoConstraints="NO" id="nhu-Fy-DdY" customClass="Stepper" customModule="WorkWeek" customModuleProvider="target">
+                                <rect key="frame" x="206" y="57" width="94" height="29"/>
                                 <connections>
                                     <action selector="stepWorkHours:" destination="WIA-yz-lfT" eventType="valueChanged" id="6yk-qr-loV"/>
                                 </connections>
                             </stepper>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UJh-hL-rL3">
-                                <rect key="frame" x="16" y="225" width="568" height="162"/>
-                            </pickerView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="200" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kY1-SH-PX2">
-                                <rect key="frame" x="270" y="488" width="45" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="40" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fNh-QF-z7P" customClass="WorkHoursTextField" customModule="WorkWeek" customModuleProvider="target">
+                                <rect key="frame" x="206" y="94" width="94" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
-                                    <action selector="workRadiusDoneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="PVA-ap-2nN"/>
+                                    <action selector="doneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="o4G-8F-hLy"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monitoring Size (m)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGg-Ev-887">
-                                <rect key="frame" x="218" y="459" width="148" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="fNh-QF-z7P" secondAttribute="centerX" constant="0.5" id="06e-jU-oPw"/>
-                            <constraint firstItem="aRe-Nm-uQD" firstAttribute="leading" secondItem="0Jb-dw-FkH" secondAttribute="leading" id="1OC-5q-tth"/>
-                            <constraint firstItem="fNh-QF-z7P" firstAttribute="top" secondItem="CNx-Ip-Fvi" secondAttribute="bottom" constant="8" id="2gm-SL-0Sh"/>
-                            <constraint firstItem="CNx-Ip-Fvi" firstAttribute="top" secondItem="zoW-Ps-2fd" secondAttribute="bottom" constant="8" id="95o-1k-i7L"/>
-                            <constraint firstItem="8XR-bn-yhO" firstAttribute="top" secondItem="kY1-SH-PX2" secondAttribute="bottom" constant="8" id="Bov-5e-h3d"/>
-                            <constraint firstItem="fNh-QF-z7P" firstAttribute="centerY" secondItem="wYV-eK-RQy" secondAttribute="centerY" constant="0.5" id="Fuh-wx-xQP"/>
-                            <constraint firstItem="4TI-eM-xkr" firstAttribute="centerX" secondItem="CNx-Ip-Fvi" secondAttribute="centerX" id="GAZ-c6-sQI"/>
-                            <constraint firstItem="UJh-hL-rL3" firstAttribute="trailing" secondItem="FMN-PH-qyi" secondAttribute="trailingMargin" id="KpV-eC-Nw4"/>
-                            <constraint firstItem="0Jb-dw-FkH" firstAttribute="top" secondItem="fNh-QF-z7P" secondAttribute="bottom" constant="70.5" id="MTt-0R-Ern"/>
+                            <constraint firstItem="0Jb-dw-FkH" firstAttribute="top" secondItem="zoW-Ps-2fd" secondAttribute="bottom" constant="8" id="1po-Le-EZ9"/>
+                            <constraint firstAttribute="trailing" secondItem="4TI-eM-xkr" secondAttribute="trailing" id="43C-wH-SAt"/>
+                            <constraint firstItem="8XR-bn-yhO" firstAttribute="top" secondItem="UJh-hL-rL3" secondAttribute="bottom" constant="8" id="5kD-fc-V9J"/>
+                            <constraint firstAttribute="centerX" secondItem="8XR-bn-yhO" secondAttribute="centerX" constant="-0.5" id="5ub-YX-lop"/>
+                            <constraint firstItem="09f-ol-pP0" firstAttribute="top" secondItem="8XR-bn-yhO" secondAttribute="bottom" constant="44" id="Dra-gi-rgb"/>
+                            <constraint firstItem="UJh-hL-rL3" firstAttribute="trailing" secondItem="FMN-PH-qyi" secondAttribute="trailingMargin" id="EkR-sM-eY2"/>
                             <constraint firstItem="4TI-eM-xkr" firstAttribute="bottom" secondItem="09f-ol-pP0" secondAttribute="top" id="NEE-j7-Tt2"/>
-                            <constraint firstItem="aRe-Nm-uQD" firstAttribute="trailing" secondItem="0Jb-dw-FkH" secondAttribute="trailing" id="Ngd-NB-qSR"/>
-                            <constraint firstAttribute="centerX" secondItem="0Jb-dw-FkH" secondAttribute="centerX" constant="7.75" id="U9c-p2-ZoA"/>
-                            <constraint firstItem="UJh-hL-rL3" firstAttribute="top" secondItem="aRe-Nm-uQD" secondAttribute="bottom" constant="8" id="UQT-NW-bPB"/>
-                            <constraint firstItem="aRe-Nm-uQD" firstAttribute="top" secondItem="0Jb-dw-FkH" secondAttribute="bottom" constant="8" symbolic="YES" id="WUm-4X-8JJ"/>
-                            <constraint firstItem="fNh-QF-z7P" firstAttribute="centerY" secondItem="nhu-Fy-DdY" secondAttribute="centerY" constant="0.5" id="YNl-U2-NWk"/>
-                            <constraint firstItem="fNh-QF-z7P" firstAttribute="leading" secondItem="nhu-Fy-DdY" secondAttribute="trailing" constant="8" id="ZCc-7b-A0i"/>
-                            <constraint firstAttribute="centerX" secondItem="kY1-SH-PX2" secondAttribute="centerX" constant="7.5" id="axa-4s-gPx"/>
-                            <constraint firstAttribute="centerX" secondItem="CNx-Ip-Fvi" secondAttribute="centerX" id="fJY-Qu-ggJ"/>
-                            <constraint firstItem="kY1-SH-PX2" firstAttribute="top" secondItem="DGg-Ev-887" secondAttribute="bottom" constant="8" id="hUr-gE-oiX"/>
+                            <constraint firstItem="0Jb-dw-FkH" firstAttribute="leading" secondItem="CNx-Ip-Fvi" secondAttribute="trailing" constant="8" id="NVl-UW-b1T"/>
+                            <constraint firstItem="fNh-QF-z7P" firstAttribute="bottom" secondItem="DGg-Ev-887" secondAttribute="top" constant="8" symbolic="YES" id="OBo-pR-ITe"/>
+                            <constraint firstItem="0Jb-dw-FkH" firstAttribute="centerX" secondItem="aRe-Nm-uQD" secondAttribute="centerX" constant="0.5" id="PJQ-Zj-5eH"/>
+                            <constraint firstItem="nhu-Fy-DdY" firstAttribute="centerX" secondItem="CNx-Ip-Fvi" secondAttribute="centerX" id="UGW-zd-cZe"/>
+                            <constraint firstItem="nhu-Fy-DdY" firstAttribute="width" secondItem="fNh-QF-z7P" secondAttribute="width" id="UJT-Tp-pSt"/>
+                            <constraint firstItem="kY1-SH-PX2" firstAttribute="top" secondItem="DGg-Ev-887" secondAttribute="bottom" constant="8" id="XsI-Qf-nxg"/>
+                            <constraint firstItem="nhu-Fy-DdY" firstAttribute="width" secondItem="CNx-Ip-Fvi" secondAttribute="width" id="ba9-sP-Ygv"/>
+                            <constraint firstItem="nhu-Fy-DdY" firstAttribute="height" secondItem="aRe-Nm-uQD" secondAttribute="height" id="h6Q-Qt-qQ9"/>
+                            <constraint firstItem="CNx-Ip-Fvi" firstAttribute="top" secondItem="zoW-Ps-2fd" secondAttribute="bottom" constant="8" id="j5N-ly-tfU"/>
+                            <constraint firstItem="fNh-QF-z7P" firstAttribute="top" secondItem="nhu-Fy-DdY" secondAttribute="bottom" constant="8" id="jQe-fc-Ssx"/>
                             <constraint firstItem="4TI-eM-xkr" firstAttribute="leading" secondItem="FMN-PH-qyi" secondAttribute="leading" id="lVc-6B-EXj"/>
-                            <constraint firstItem="4TI-eM-xkr" firstAttribute="top" secondItem="8XR-bn-yhO" secondAttribute="bottom" id="min-99-WwI"/>
-                            <constraint firstAttribute="centerX" secondItem="DGg-Ev-887" secondAttribute="centerX" constant="8" id="p9I-ae-Ctd"/>
-                            <constraint firstItem="UJh-hL-rL3" firstAttribute="leading" secondItem="FMN-PH-qyi" secondAttribute="leadingMargin" id="sbE-g3-oV3"/>
-                            <constraint firstAttribute="centerX" secondItem="8XR-bn-yhO" secondAttribute="centerX" id="ufr-pu-0Vh"/>
-                            <constraint firstItem="wYV-eK-RQy" firstAttribute="leading" secondItem="fNh-QF-z7P" secondAttribute="trailing" constant="8" id="vbr-I6-yot"/>
+                            <constraint firstItem="nhu-Fy-DdY" firstAttribute="top" secondItem="CNx-Ip-Fvi" secondAttribute="bottom" constant="8" id="mcO-ux-ldF"/>
+                            <constraint firstItem="aRe-Nm-uQD" firstAttribute="top" secondItem="0Jb-dw-FkH" secondAttribute="bottom" constant="8" id="o66-NJ-U12"/>
+                            <constraint firstItem="kY1-SH-PX2" firstAttribute="width" secondItem="DGg-Ev-887" secondAttribute="width" id="q8f-sB-fQN"/>
+                            <constraint firstItem="nhu-Fy-DdY" firstAttribute="centerX" secondItem="fNh-QF-z7P" secondAttribute="centerX" constant="-0.5" id="rQJ-qa-sLA"/>
+                            <constraint firstItem="kY1-SH-PX2" firstAttribute="centerX" secondItem="DGg-Ev-887" secondAttribute="centerX" id="tOM-bJ-N1I"/>
+                            <constraint firstItem="UJh-hL-rL3" firstAttribute="leading" secondItem="FMN-PH-qyi" secondAttribute="leadingMargin" id="tkH-v1-d4q"/>
+                            <constraint firstAttribute="centerX" secondItem="CNx-Ip-Fvi" secondAttribute="trailing" id="uuy-ef-Imu"/>
+                            <constraint firstItem="DGg-Ev-887" firstAttribute="top" secondItem="fNh-QF-z7P" secondAttribute="bottom" constant="8" id="wrJ-43-xWd"/>
+                            <constraint firstAttribute="centerX" secondItem="kY1-SH-PX2" secondAttribute="centerX" id="xnI-ar-CY8"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="OBo-pR-ITe"/>
+                            </mask>
+                        </variation>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="cXH-tk-Xvo" appends="YES" id="OYS-KT-5qv"/>
                         </connections>
@@ -271,7 +265,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1884" y="413"/>
+            <point key="canvasLocation" x="1891" y="413"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="cNR-ho-hZn">
@@ -308,7 +302,7 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMW-M3-NRE">
+                            <mapView clipsSubviews="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMW-M3-NRE">
                                 <rect key="frame" x="0.0" y="75" width="600" height="481"/>
                                 <connections>
                                     <outlet property="delegate" destination="9Q0-cl-wKy" id="obP-SZ-OTh"/>
