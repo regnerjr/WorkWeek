@@ -12,25 +12,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             manager.requestAlwaysAuthorization()
         }
         manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        manager.distanceFilter = 300
+        manager.distanceFilter = 200
+        manager.pausesLocationUpdatesAutomatically = true
         return manager
     }()
 
     lazy var workManager: WorkManager = {
+        //TODO: Must implement this so that when the app terminates the data is not lost.
         //read from a store, maybe later
         return WorkManager()
     }()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
+        if let options = launchOptions {
+            if let locationOptions  = options[UIApplicationLaunchOptionsLocationKey] as? NSNumber {
+                println("\(locationOptions)")
+
+                //spin up a location delegate and point the location Manager to it.
+                //move the location delegate to its own class
+                let locationDelegate = TableViewController()
+                locationManager.delegate = locationDelegate
+                locationManager.startUpdatingLocation()
+            }
+        }
+
         //register some defaults
-        let fourAMSundayMorning = NSDate()
         let defaults: [NSObject: AnyObject] = [
-            SettingsKey.hoursInWorkWeek: NSNumber(int: 40),
-            SettingsKey.unpaidLunchTime: NSNumber(double: 0.5),
-            SettingsKey.resetDay: NSNumber(int: 0),
-            SettingsKey.resetHour: NSNumber(int: 4),
-            SettingsKey.workRadius: NSNumber(int: 200),
+            SettingsKey.hoursInWorkWeek.rawValue : NSNumber(int: 40),    // 40 hour work week
+            SettingsKey.unpaidLunchTime.rawValue: NSNumber(double: 0.5), // Half Hour for lunch
+            SettingsKey.resetDay.rawValue: NSNumber(int: 0),             // Sunday
+            SettingsKey.resetHour.rawValue: NSNumber(int: 4),            // 4 am
+            SettingsKey.workRadius.rawValue: NSNumber(int: 200),         // 200m work radius
         ]
         NSUserDefaults.standardUserDefaults().registerDefaults(defaults)
 
