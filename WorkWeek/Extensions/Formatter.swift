@@ -6,10 +6,11 @@ import Foundation
     Having these formatters defined here allows use without the tedious setup
     as well as allowing consistent formatting of numbers and dates throughout the app
 */
-struct Formatter {
-    /// Formatter.double is for numbers between 0.1 and 9.9
+public struct Formatter {
+
+    /// For numbers between 0.1 and 9.9
     /// only one decimal and one fractional digit is shown
-    static var double: NSNumberFormatter = {
+    public static var double: NSNumberFormatter = {
         let doubleFormatter = NSNumberFormatter()
         doubleFormatter.numberStyle = .DecimalStyle
         doubleFormatter.minimum = 0.1
@@ -19,11 +20,12 @@ struct Formatter {
         doubleFormatter.minimumFractionDigits = 1
         doubleFormatter.maximumFractionDigits = 1
         doubleFormatter.roundingIncrement = 0.1
-        doubleFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundUp
+        doubleFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundHalfUp
         return doubleFormatter
     }()
-    /// Formatter.workHours is for 1 to 2 digit integers
-    static var workHours: NSNumberFormatter = {
+
+    /// 1 to 2 digit integers
+    public static var workHours: NSNumberFormatter = {
         let intFormatter = NSNumberFormatter()
         intFormatter.numberStyle = NSNumberFormatterStyle.NoStyle
         intFormatter.minimum = 1
@@ -36,8 +38,9 @@ struct Formatter {
         intFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundUp
         return intFormatter
     }()
-    /// Formatter.workRadius is for showing a work radius 50 to 999 integers only
-    static var workRadius: NSNumberFormatter = {
+
+    /// For showing a work radius 50 to 999 integers only
+    public static var workRadius: NSNumberFormatter = {
         let radiusFormatter = NSNumberFormatter()
         radiusFormatter.numberStyle = NSNumberFormatterStyle.NoStyle
         radiusFormatter.minimum = 50 //allow workRadius to be between 50 and 999 meters
@@ -51,9 +54,9 @@ struct Formatter {
         return radiusFormatter
     }()
 
-    /// Formatter.shortTime date formatter set to short Time style
+    /// Date formatter set to short Time style
     /// and no dateStyle.NoStyle
-    static var shortTime: NSDateFormatter  = {
+    public static var shortTime: NSDateFormatter  = {
         let timeFormatter = NSDateFormatter()
         timeFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
         timeFormatter.dateStyle = NSDateFormatterStyle.NoStyle
