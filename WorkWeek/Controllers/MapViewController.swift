@@ -19,7 +19,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchBar: UISearchBar!
 
-    var regionRadius: Double { return Double(NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.workRadius)) }
+    var regionRadius: Double { return Double(Defaults.standard.integerForKey(SettingsKey.workRadius)) }
 
     lazy var locationManager: CLLocationManager = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -48,6 +48,7 @@ class MapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         //draw the current work location if it is not nil
         if let work = workLocation {
             let workOverlay = MKCircle(centerCoordinate: work.center, radius: regionRadius)
@@ -168,6 +169,7 @@ extension MapViewController: UISearchBarDelegate {
     func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
         return true
     }
+
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
 
         searchBar.resignFirstResponder()

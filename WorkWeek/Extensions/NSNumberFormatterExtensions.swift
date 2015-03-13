@@ -7,6 +7,7 @@ import Foundation
     an optional. Not sure how to cause this behavior. Guess I am OK with force unwrapping this here.
 */
 public extension NSNumberFormatter {
+
     /// Takes an Int and passes it along to stringFromNumber()
     func stringFromInt(value: Int) -> String {
         return stringFromNumber(value)!
@@ -16,4 +17,5 @@ public extension NSNumberFormatter {
     func stringFromDouble(value: Double) -> String {
         return stringFromNumber(value)!
     }
+    
 }

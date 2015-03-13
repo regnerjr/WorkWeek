@@ -12,28 +12,23 @@ enum ReuseIdentifiers: String {
     case footerCell = "footerView"
 }
 
-
-struct Settings {
-    let hoursInWorkWeek: Int
-}
-
 class TableViewController: UITableViewController {
 
     lazy var workManager: WorkManager = {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        return appDelegate.workManager
+        return self.appDelegate.workManager
     }()
 
     var array = [WorkDay]()
+    let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
 
     override func viewDidLoad() {
         navigationController?.title = "WorkWeek"
 
         //set ourselves as the location Manager delegate
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.locationManager.delegate = self
 
-        //check if at least one location is monitored, else we should transition to the map view so that the user can set a work location and begin using the app
+        // check if at least one location is monitored, else we should 
+        // transition to the map view so that the user can set a work location and begin using the app
         if appDelegate.locationManager.monitoredRegions.count == 0 {
             performSegueWithIdentifier(StoryBoardSegues.Map.rawValue, sender: self)
         }
@@ -42,8 +37,8 @@ class TableViewController: UITableViewController {
 
     override func viewWillAppear(animated: Bool) {
         //print the nsuserdefaults for testing
-        let workHours = NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.hoursInWorkWeek)
-        let lunchHours = NSUserDefaults.standardUserDefaults().doubleForKey(SettingsKey.unpaidLunchTime)
+        let workHours = Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek)
+        let lunchHours = Defaults.standard.doubleForKey(SettingsKey.unpaidLunchTime)
         array = workManager.allItems()
         tableView.reloadData()
     }
@@ -108,8 +103,9 @@ extension TableViewController: UITableViewDelegate {
                 footer.textLabel?.text = ""
                 footer.detailTextLabel?.text = ""
             }
+
             return footer
-        } else {
+        } else { //if we can't deque a Reusable Cell, just fail gracefully with a View with a white background
             let defaultfooter = UIView()
             defaultfooter.backgroundColor = UIColor.whiteColor()
             return defaultfooter
@@ -121,7 +117,7 @@ extension TableViewController: UITableViewDelegate {
 
         if let header = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.headerCell.rawValue) as UITableViewCell? {
             let graph = header.contentView.subviews[0] as HeaderView
-            graph.hoursInWeek = NSUserDefaults.standardUserDefaults().integerForKey(SettingsKey.hoursInWorkWeek)
+            graph.hoursInWeek = Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek)
             graph.hoursWorked = Int(workManager.hoursWorkedThisWeek) //loss of precision to draw the graph using only hour marks.
 
             return header
