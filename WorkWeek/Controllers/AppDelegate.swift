@@ -45,26 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SettingsKey.resetHour.rawValue: NSNumber(int: 4),            // 4 am
             SettingsKey.workRadius.rawValue: NSNumber(int: 200),         // 200m work radius
         ]
-        NSUserDefaults.standardUserDefaults().registerDefaults(defaults)
-
-        //register for notifications
-       application.registerUserNotificationSettings(
-        UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
-        // types are UIUserNotificationType members
+        Defaults.standard.registerDefaults(defaults)
 
         return true
     }
-
-    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        println("Got a local notification, while in foreground")
-        //setting badge number to 0
-        application.applicationIconBadgeNumber = 0
-    }
-
-    func applicationDidBecomeActive(application: UIApplication) {
-        println("Became Active")
-        //clearing the app badge here too
-        application.applicationIconBadgeNumber = 0
-    }
-
 }
