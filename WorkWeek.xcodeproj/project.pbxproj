@@ -19,6 +19,7 @@
 		5239B0D81AB0ED7D002C4523 /* WorkRadiusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D71AB0ED7D002C4523 /* WorkRadiusTextField.swift */; };
 		5239B0DA1AB0FA9B002C4523 /* Stepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D91AB0FA9B002C4523 /* Stepper.swift */; };
 		5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5270F3AA1A61EABF007834AF /* WorkManager.swift */; };
+		527790461AB13622000D0E90 /* FormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527790451AB13622000D0E90 /* FormatterTests.swift */; };
 		5281A8261AA79AD500C4F154 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281A8251AA79AD500C4F154 /* SettingsViewController.swift */; };
 		528F2C781AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528F2C771AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift */; };
 		528F2C7B1AB0AC9B005606C6 /* NSNumberFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528F2C791AB0ABFC005606C6 /* NSNumberFormatterTests.swift */; };
@@ -65,6 +66,7 @@
 		5239B0D71AB0ED7D002C4523 /* WorkRadiusTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkRadiusTextField.swift; sourceTree = "<group>"; };
 		5239B0D91AB0FA9B002C4523 /* Stepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stepper.swift; sourceTree = "<group>"; };
 		5270F3AA1A61EABF007834AF /* WorkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkManager.swift; sourceTree = "<group>"; };
+		527790451AB13622000D0E90 /* FormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterTests.swift; sourceTree = "<group>"; };
 		5281A8251AA79AD500C4F154 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		528F2C771AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNumberFormatterExtensions.swift; sourceTree = "<group>"; };
 		528F2C791AB0ABFC005606C6 /* NSNumberFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNumberFormatterTests.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 		F51E11A88905048A10793377 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				527790451AB13622000D0E90 /* FormatterTests.swift */,
 				52F40A591A9E808B00FA02C6 /* NSDateExtensionsTest.swift */,
 				52F40A541A9E7E7400FA02C6 /* EventTest.swift */,
 				52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */,
@@ -457,6 +460,7 @@
 			files = (
 				528F2C7D1AB0ACA2005606C6 /* EventTest.swift in Sources */,
 				528F2C7C1AB0AC9F005606C6 /* NSDateExtensionsTest.swift in Sources */,
+				527790461AB13622000D0E90 /* FormatterTests.swift in Sources */,
 				528F2C7E1AB0ACA6005606C6 /* WorkManagerTest.swift in Sources */,
 				528F2C7B1AB0AC9B005606C6 /* NSNumberFormatterTests.swift in Sources */,
 			);
