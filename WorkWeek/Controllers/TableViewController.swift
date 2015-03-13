@@ -33,6 +33,7 @@ class TableViewController: UITableViewController {
             performSegueWithIdentifier(StoryBoardSegues.Map.rawValue, sender: self)
         }
 
+       appDelegate.locationManager.startUpdatingLocation()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -87,6 +88,10 @@ extension TableViewController: UITableViewDelegate {
         return 80
     }
 
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 80
+    }
+
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if let footer = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.footerCell.rawValue) as UITableViewCell? {
             if workManager.isAtWork() {
@@ -95,7 +100,7 @@ extension TableViewController: UITableViewDelegate {
                     if lastArrival.inOrOut == .Arrival {
                         let currentWorkTime = hoursMinutesFromDate(date: lastArrival.date, toDate: NSDate())
                         let workHours = Double(currentWorkTime.hours) + (Double(currentWorkTime.minutes) / 60)
-                        footer.textLabel?.text = lastArrival.date.dayOfWeek
+                        footer.textLabel?.text = "At Work: " + lastArrival.date.dayOfWeek
                         footer.detailTextLabel?.text = Formatter.double.stringFromNumber(workHours)
                     }
                 }
@@ -119,7 +124,7 @@ extension TableViewController: UITableViewDelegate {
             let graph = header.contentView.subviews[0] as HeaderView
             graph.hoursInWeek = Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek)
             graph.hoursWorked = Int(workManager.hoursWorkedThisWeek) //loss of precision to draw the graph using only hour marks.
-
+            graph.hoursLabel.text = String(graph.hoursWorked)
             return header
         } else {
             let defaultHeader = UIView()
