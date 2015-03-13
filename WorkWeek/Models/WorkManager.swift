@@ -38,6 +38,7 @@ public class WorkManager {
         workDays = processEvents(eventsForTheWeek)
         return workDays
     }
+
     //What we need is a loop to process the events and turn them into workdays
     public func processEvents(var events: [Event]) -> [WorkDay]{
         var workTimes = [WorkDay]()
