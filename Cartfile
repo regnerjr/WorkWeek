@@ -1,11 +1,2 @@
-# Include Argo
-github "thoughtbot/Argo"
-
-# Thoughtbot/Runes
-github "thoughtbot/Runes"
-
-# Either
-github "robrix/Either"
-
-#Prelude
-github "robrix/Prelude"
+# Microfiche
+github "regnerjr/Microfiche" == 0.2
