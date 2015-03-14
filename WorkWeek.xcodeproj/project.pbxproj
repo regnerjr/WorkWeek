@@ -142,8 +142,6 @@
 		4AA5892E8CB787E807D6F4D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				521763481A61D0C5009661ED /* CoreLocation.framework */,
-				521763431A61B368009661ED /* MapKit.framework */,
 				EA494A91110D31044A9C38F5 /* iOS */,
 			);
 			name = Frameworks;
@@ -258,6 +256,8 @@
 		EA494A91110D31044A9C38F5 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				521763481A61D0C5009661ED /* CoreLocation.framework */,
+				521763431A61B368009661ED /* MapKit.framework */,
 				FCA5035B079F37F07486CB30 /* Foundation.framework */,
 			);
 			name = iOS;
@@ -519,7 +519,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -537,6 +537,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -571,6 +572,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -639,7 +641,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
