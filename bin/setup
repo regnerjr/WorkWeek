@@ -2,3 +2,4 @@
 
 bundle install
 pod install
+carthage bootstrap

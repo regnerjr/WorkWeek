@@ -1,16 +1,59 @@
 import Foundation
 
-public class WorkManager {
+private struct Archive {
+    static var path: String? {
+        let documentsDirectories = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true) as? [String]
+        let documentDirectory = documentsDirectories?.first
+        if let dir = documentDirectory {
+            let documentPath = dir + "/items.archive"
+            return documentPath
+        }
+        return nil
+    }
+}
 
-    public var eventsForTheWeek: [Event] = []
-    public var workDays: [WorkDay] = []
+public class WorkManager {
+    //had acutal build errors if i did not give this an initial value
+   // yes I know I SHOULD be able to leave this uninitialize as long as it gets a value by the end of the initialize but that junk was not working 
+    public var eventsForTheWeek: Array<Event> = Array<Event>() {
+        willSet( currentEvents ) {
+            saveNewArchive(currentEvents)
+        }
+    }
+
+    public var workDays: [WorkDay] = Array<WorkDay>()
     public var hoursWorkedThisWeek: Double {
         let hoursWorked = workDays.reduce(0, combine: {$0 + $1.hoursWorked})
         let hourFractions = workDays.reduce(0, combine: {$0 + $1.minutesWorked})
         return Double(hoursWorked) + Double(hourFractions) / 60.0
     }
 
-    public init(){}
+    public init(){
+        let eventArchive = restoreArchivedEvents()
+        map(eventArchive, {
+            self.eventsForTheWeek = $0
+        })
+    }
+
+    func restoreArchivedEvents() -> [Event]? {
+        if let path = Archive.path {
+            if let restoredData = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as NSMutableArray? {
+                let restoredEvents: Array<Event> = restoreArrayFromArchiveArray(restoredData)
+                return restoredEvents
+            }
+        }
+        return nil
+    }
+
+    func saveNewArchive(events : [Event]) -> Bool{
+        //return false for archiving failed
+        if let path = Archive.path {
+            let arrayForArchive = convertCollectionToArrayOfData(events)
+            let success = NSKeyedArchiver.archiveRootObject(arrayForArchive, toFile: path)
+        return success
+        }
+        return false
+    }
     
     public func addArrival(date: NSDate){
         let newArrival = Event(inOrOut: .Arrival, date: date)
