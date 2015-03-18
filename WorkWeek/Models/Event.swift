@@ -6,7 +6,7 @@ public enum AD: String {
 }
 
 
-public struct Event {
+public class Event: NSObject, NSCoding{
     public let inOrOut: AD
     public let date: NSDate
 
@@ -19,6 +19,20 @@ public struct Event {
         return Formatter.shortTime.stringFromDate(self.date)
     }
 
+    public func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.inOrOut.rawValue, forKey: "inOrOut")
+        aCoder.encodeObject(self.date, forKey: "date")
+    }
+    required public init(coder aDecoder: NSCoder) {
+//        self.inOrOut = aDecoder.decodeObjectForKey("inOrOut")
+        let inOutString = aDecoder.decodeObjectForKey("inOrOut") as String
+        switch inOutString {
+        case "Arrival": self.inOrOut = .Arrival
+        case "Departure": self.inOrOut = .Departure
+        default: fatalError("UnArchiving inOrOut failed with string unknown string \(inOutString)")
+        }
+        self.date = aDecoder.decodeObjectForKey("date") as NSDate
+    }
 }
 
 

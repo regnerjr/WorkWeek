@@ -96,7 +96,7 @@ extension TableViewController: UITableViewDelegate {
         if let footer = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.footerCell.rawValue) as UITableViewCell? {
             if workManager.isAtWork() {
                 //get the current work time
-                if let lastArrival = workManager.eventsForTheWeek.last {
+                if let lastArrival = workManager.eventsForTheWeek.lastObject as? Event {
                     if lastArrival.inOrOut == .Arrival {
                         let currentWorkTime = hoursMinutesFromDate(date: lastArrival.date, toDate: NSDate())
                         let workHours = Double(currentWorkTime.hours) + (Double(currentWorkTime.minutes) / 60)

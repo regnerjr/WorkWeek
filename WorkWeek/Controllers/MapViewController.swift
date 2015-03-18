@@ -153,7 +153,7 @@ extension MapViewController: MKMapViewDelegate {
     }
 
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
-        println("Selected annotation, gonna set a region on this annotation")
+        println("Selected annotation, Setting region on this annotation")
         addOverLayAtCoordinate(view.annotation.coordinate)
         startMonitoringOneRegionAtCoordinate(view.annotation.coordinate)
         addArrivalIfAtWork()

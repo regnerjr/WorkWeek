@@ -15,8 +15,9 @@ class WorkManagerTest: XCTestCase {
         let date = NSDate()
         let arrival = AD.Arrival
         manager.addArrival(date)
-        XCTAssertEqual(manager.eventsForTheWeek[0].date, date, "Date is stored in new arrival event")
-        XCTAssertEqual(manager.eventsForTheWeek[0].inOrOut, arrival, "Arrival is stored as arrival")
+        let event = manager.eventsForTheWeek.objectAtIndex(0) as Event
+        XCTAssertEqual(event.date, date, "Date is stored in new arrival event")
+        XCTAssertEqual(event.inOrOut, arrival, "Arrival is stored as arrival")
     }
 
     func testAddDeparture(){
@@ -24,8 +25,9 @@ class WorkManagerTest: XCTestCase {
         let date = NSDate()
         let arrival = AD.Departure
         manager.addDeparture(date)
-        XCTAssertEqual(manager.eventsForTheWeek[0].date, date, "Date is stored in new Departure event")
-        XCTAssertEqual(manager.eventsForTheWeek[0].inOrOut, AD.Departure, "Departure is stored as departure")
+        let event = manager.eventsForTheWeek.objectAtIndex(0) as Event
+        XCTAssertEqual(event.date, date, "Date is stored in new Departure event")
+        XCTAssertEqual(event.inOrOut, AD.Departure, "Departure is stored as departure")
     }
 
 

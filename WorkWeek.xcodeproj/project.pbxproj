@@ -30,7 +30,6 @@
 		52C565BB1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C565BA1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift */; };
 		52C8A9BE1AAE062100099E62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52C8A9BD1AAE062100099E62 /* Main.storyboard */; };
 		52CE2EA71AAE482D0062E91A /* Devils_Lake_Climbing.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 52CE2EA61AAE482D0062E91A /* Devils_Lake_Climbing.gpx */; };
-		52DC7CFD1AB5F94D00F820BD /* Microfiche.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DC7CFC1AB5F94D00F820BD /* Microfiche.swift */; };
 		52F40A521A9E7E1800FA02C6 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A511A9E7E1800FA02C6 /* Event.swift */; };
 		52F40A571A9E803C00FA02C6 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A561A9E803C00FA02C6 /* NSDateExtensions.swift */; };
 		52FA6CE01AADDBCB000E63DE /* NSUserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA6CDF1AADDBCB000E63DE /* NSUserDefaultsKeys.swift */; };
@@ -75,7 +74,6 @@
 		52C565BA1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkDayCellTableViewCell.swift; sourceTree = "<group>"; };
 		52C8A9BD1AAE062100099E62 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		52CE2EA61AAE482D0062E91A /* Devils_Lake_Climbing.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Devils_Lake_Climbing.gpx; sourceTree = "<group>"; };
-		52DC7CFC1AB5F94D00F820BD /* Microfiche.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Microfiche.swift; sourceTree = "<group>"; };
 		52F40A511A9E7E1800FA02C6 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		52F40A541A9E7E7400FA02C6 /* EventTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTest.swift; sourceTree = "<group>"; };
 		52F40A561A9E803C00FA02C6 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 		1F52DF3C54D858B305E3A96A /* Other-Sources */ = {
 			isa = PBXGroup;
 			children = (
-				52DC7CFC1AB5F94D00F820BD /* Microfiche.swift */,
 				E2890406E0AF1B4ACCD11648 /* Info.plist */,
 			);
 			path = "Other-Sources";
@@ -429,7 +426,6 @@
 				5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */,
 				5239B0DA1AB0FA9B002C4523 /* Stepper.swift in Sources */,
 				52F40A521A9E7E1800FA02C6 /* Event.swift in Sources */,
-				52DC7CFD1AB5F94D00F820BD /* Microfiche.swift in Sources */,
 				5239B0D81AB0ED7D002C4523 /* WorkRadiusTextField.swift in Sources */,
 				E65CE64206D775D006BBE953 /* LaunchScreen.xib in Sources */,
 				52FA6CE21AADDC42000E63DE /* Formatter.swift in Sources */,
