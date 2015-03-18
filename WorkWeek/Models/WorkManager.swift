@@ -25,7 +25,7 @@ public class WorkManager {
         return Double(hoursWorked) + Double(hourFractions) / 60.0
     }
 
-    init(){
+    public init(){
         // if we have archived events restore them
         let eventArchive = restoreArchivedEvents()
         map(eventArchive, { events -> Void in
