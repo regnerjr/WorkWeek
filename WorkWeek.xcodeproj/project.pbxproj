@@ -11,6 +11,7 @@
 		520069791AC05904007030BE /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520069781AC05904007030BE /* TableViewDataSource.swift */; };
 		52084F1B1A9FFEA10015F544 /* home.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 52084F1A1A9FFEA10015F544 /* home.gpx */; };
 		5210E3C91AA7AE770061BCF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5210E3C81AA7AE770061BCF6 /* HeaderView.swift */; };
+		521608E01AC200C700075608 /* OverlayColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521608DF1AC200C700075608 /* OverlayColor.swift */; };
 		5217633E1A61A5FA009661ED /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5217633D1A61A5FA009661ED /* TableViewController.swift */; };
 		521763441A61B368009661ED /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763431A61B368009661ED /* MapKit.framework */; };
 		521763461A61BABA009661ED /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521763451A61BABA009661ED /* MapViewController.swift */; };
@@ -58,6 +59,7 @@
 		52084F1A1A9FFEA10015F544 /* home.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = home.gpx; sourceTree = "<group>"; };
 		5210E3C81AA7AE770061BCF6 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkManagerTest.swift; sourceTree = "<group>"; };
+		521608DF1AC200C700075608 /* OverlayColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayColor.swift; sourceTree = "<group>"; };
 		5217633C1A61A5FA009661ED /* UnitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		5217633D1A61A5FA009661ED /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		521763431A61B368009661ED /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -203,6 +205,7 @@
 				528F2C771AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift */,
 				52F40A561A9E803C00FA02C6 /* NSDateExtensions.swift */,
 				52FA6CDF1AADDBCB000E63DE /* NSUserDefaultsKeys.swift */,
+				521608DF1AC200C700075608 /* OverlayColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				229CAFF7DED38B3E1FF05521 /* AppDelegate.swift in Sources */,
 				52FA6CE01AADDBCB000E63DE /* NSUserDefaultsKeys.swift in Sources */,
 				5281A8261AA79AD500C4F154 /* SettingsViewController.swift in Sources */,
+				521608E01AC200C700075608 /* OverlayColor.swift in Sources */,
 				520069791AC05904007030BE /* TableViewDataSource.swift in Sources */,
 				5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */,
 				5239B0DA1AB0FA9B002C4523 /* Stepper.swift in Sources */,

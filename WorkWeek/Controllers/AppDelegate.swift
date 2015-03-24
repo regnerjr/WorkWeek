@@ -17,11 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return manager
     }()
 
-    lazy var workManager: WorkManager = {
-        //TODO: Must implement this so that when the app terminates the data is not lost.
-        //read from a store, maybe later
-        return WorkManager()
-    }()
+    let workManager = WorkManager()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
@@ -30,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 println("\(locationOptions)")
 
                 //spin up a location delegate and point the location Manager to it.
-                //move the location delegate to its own class
+                //TODO: move the location delegate to its own class
                 let locationDelegate = TableViewController()
                 locationManager.delegate = locationDelegate
                 locationManager.startUpdatingLocation()
