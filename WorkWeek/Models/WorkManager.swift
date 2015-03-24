@@ -27,6 +27,7 @@ public class WorkManager {
 
     public init(){
         // if we have archived events restore them
+        println("Initializing WorkManager")
         let eventArchive = restoreArchivedEvents()
         map(eventArchive, { events -> Void in
             self.eventsForTheWeek = events
@@ -50,7 +51,7 @@ public class WorkManager {
         }
         return false
     }
-    
+
     public func addArrival(date: NSDate){
         let newArrival = Event(inOrOut: .Arrival, date: date)
         eventsForTheWeek.addObject(newArrival)
@@ -115,9 +116,9 @@ public class WorkManager {
                     events.removeObjectAtIndex(0) //remove the departure
                 }
             }
-            
+
         }
-        
+
         return workTimes
     }
 }

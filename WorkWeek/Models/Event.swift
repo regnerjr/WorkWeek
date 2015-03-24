@@ -50,6 +50,7 @@ public struct WorkDay {
     let minutesWorked: Int //counts minutes not included in the Hours
     let arrivalTime: String
     let departureTime: String
+
     init(weekDay:String, hoursWorked: Int, minutesWorked: Int,
          arrivalTime: String, departureTime: String) {
         self.weekDay = weekDay

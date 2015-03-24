@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		229CAFF7DED38B3E1FF05521 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CF0ED90738128E08E03CC2 /* AppDelegate.swift */; };
+		520069791AC05904007030BE /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520069781AC05904007030BE /* TableViewDataSource.swift */; };
 		52084F1B1A9FFEA10015F544 /* home.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 52084F1A1A9FFEA10015F544 /* home.gpx */; };
 		5210E3C91AA7AE770061BCF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5210E3C81AA7AE770061BCF6 /* HeaderView.swift */; };
 		5217633E1A61A5FA009661ED /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5217633D1A61A5FA009661ED /* TableViewController.swift */; };
@@ -53,6 +54,7 @@
 		20CF0ED90738128E08E03CC2 /* AppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30E265B519BC5E1BC3D618FE /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		49B3D806C300C55550FD0FA7 /* LaunchScreen.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		520069781AC05904007030BE /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
 		52084F1A1A9FFEA10015F544 /* home.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = home.gpx; sourceTree = "<group>"; };
 		5210E3C81AA7AE770061BCF6 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkManagerTest.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 		FC550672CEDE83F64EAEBCF5 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				520069781AC05904007030BE /* TableViewDataSource.swift */,
 				529B8F2D1AAA5C5100EED298 /* DayTimePicker.swift */,
 			);
 			path = Protocols;
@@ -423,6 +426,7 @@
 				229CAFF7DED38B3E1FF05521 /* AppDelegate.swift in Sources */,
 				52FA6CE01AADDBCB000E63DE /* NSUserDefaultsKeys.swift in Sources */,
 				5281A8261AA79AD500C4F154 /* SettingsViewController.swift in Sources */,
+				520069791AC05904007030BE /* TableViewDataSource.swift in Sources */,
 				5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */,
 				5239B0DA1AB0FA9B002C4523 /* Stepper.swift in Sources */,
 				52F40A521A9E7E1800FA02C6 /* Event.swift in Sources */,
