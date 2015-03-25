@@ -43,6 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         Defaults.standard.registerDefaults(defaults)
 
+        let settings = UIUserNotificationSettings(forTypes: UIUserNotificationType.Alert, categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+        
         return true
     }
 }

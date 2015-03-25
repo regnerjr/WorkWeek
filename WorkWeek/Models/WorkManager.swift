@@ -18,16 +18,17 @@ public class WorkManager {
     public var eventsForTheWeek: NSMutableArray = NSMutableArray()
 
     public var workDays: [WorkDay] = Array<WorkDay>()
-
     public var hoursWorkedThisWeek: Double {
         let hoursWorked = workDays.reduce(0, combine: {$0 + $1.hoursWorked})
         let hourFractions = workDays.reduce(0, combine: {$0 + $1.minutesWorked})
         return Double(hoursWorked) + Double(hourFractions) / 60.0
     }
+    var hoursInWorkWeek: Int {
+        return Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek)
+    }
 
     public init(){
         // if we have archived events restore them
-        println("Initializing WorkManager")
         let eventArchive = restoreArchivedEvents()
         map(eventArchive, { events -> Void in
             self.eventsForTheWeek = events
@@ -53,12 +54,15 @@ public class WorkManager {
     }
 
     public func addArrival(date: NSDate){
+        //set up a notification to fire at 40 hours
+        LocalNotifier.setupNotification(hoursWorkedThisWeek, total: hoursInWorkWeek)
         let newArrival = Event(inOrOut: .Arrival, date: date)
         eventsForTheWeek.addObject(newArrival)
         saveNewArchive(eventsForTheWeek)
     }
 
     public func addDeparture(date: NSDate){
+        LocalNotifier.cancelAllNotifications()
         let newDeparture = Event(inOrOut: .Departure, date: date)
         eventsForTheWeek.addObject(newDeparture)
         saveNewArchive(eventsForTheWeek)
