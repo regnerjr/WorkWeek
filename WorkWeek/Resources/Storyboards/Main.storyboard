@@ -96,7 +96,7 @@
                                     <outlet property="workTime" destination="dDS-T3-eJK" id="8Xo-JG-Fio"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="footerView" rowHeight="88" id="fXt-WZ-HEc" customClass="WorkDayCellTableViewCell" customModule="WorkWeek" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="footerView" rowHeight="88" id="fXt-WZ-HEc">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fXt-WZ-HEc" id="g8G-Oz-9Jh">
                                     <autoresizingMask key="autoresizingMask"/>

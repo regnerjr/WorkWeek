@@ -67,19 +67,16 @@ extension TableViewController: UITableViewDelegate {
 
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if let footer = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.footerCell.rawValue) as UITableViewCell? {
+            footer.contentView.backgroundColor = OverlayColor.Fill
             if workManager.isAtWork() {
                 //get the current work time
                 if let lastArrival = workManager.eventsForTheWeek.lastObject as? Event {
                     if lastArrival.inOrOut == .Arrival {
-                        let currentWorkTime = hoursMinutesFromDate(date: lastArrival.date, toDate: NSDate())
-                        let workHours = Double(currentWorkTime.hours) + (Double(currentWorkTime.minutes) / 60)
                         footer.textLabel?.text = "At Work: " + lastArrival.date.dayOfWeek
-                        footer.detailTextLabel?.text = Formatter.double.stringFromNumber(workHours)
                     }
                 }
             } else {
                 footer.textLabel?.text = ""
-                footer.detailTextLabel?.text = ""
             }
 
             return footer

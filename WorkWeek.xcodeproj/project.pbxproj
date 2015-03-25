@@ -12,6 +12,9 @@
 		52084F1B1A9FFEA10015F544 /* home.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 52084F1A1A9FFEA10015F544 /* home.gpx */; };
 		5210E3C91AA7AE770061BCF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5210E3C81AA7AE770061BCF6 /* HeaderView.swift */; };
 		521608E01AC200C700075608 /* OverlayColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521608DF1AC200C700075608 /* OverlayColor.swift */; };
+		521608E21AC20AAB00075608 /* LocalNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521608E11AC20AAB00075608 /* LocalNotifier.swift */; };
+		521608E41AC20B2700075608 /* LocalNotifierTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521608E31AC20B2700075608 /* LocalNotifierTest.swift */; };
+		521608E61AC2416800075608 /* TableViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521608E51AC2416800075608 /* TableViewControllerTest.swift */; };
 		5217633E1A61A5FA009661ED /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5217633D1A61A5FA009661ED /* TableViewController.swift */; };
 		521763441A61B368009661ED /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763431A61B368009661ED /* MapKit.framework */; };
 		521763461A61BABA009661ED /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521763451A61BABA009661ED /* MapViewController.swift */; };
@@ -60,6 +63,9 @@
 		5210E3C81AA7AE770061BCF6 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkManagerTest.swift; sourceTree = "<group>"; };
 		521608DF1AC200C700075608 /* OverlayColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayColor.swift; sourceTree = "<group>"; };
+		521608E11AC20AAB00075608 /* LocalNotifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotifier.swift; sourceTree = "<group>"; };
+		521608E31AC20B2700075608 /* LocalNotifierTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotifierTest.swift; sourceTree = "<group>"; };
+		521608E51AC2416800075608 /* TableViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewControllerTest.swift; sourceTree = "<group>"; };
 		5217633C1A61A5FA009661ED /* UnitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		5217633D1A61A5FA009661ED /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		521763431A61B368009661ED /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -189,6 +195,7 @@
 		668C4FEC797AB83A0AC83487 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				521608E11AC20AAB00075608 /* LocalNotifier.swift */,
 				5281A8251AA79AD500C4F154 /* SettingsViewController.swift */,
 				521763451A61BABA009661ED /* MapViewController.swift */,
 				5217633D1A61A5FA009661ED /* TableViewController.swift */,
@@ -271,6 +278,8 @@
 		F51E11A88905048A10793377 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				521608E51AC2416800075608 /* TableViewControllerTest.swift */,
+				521608E31AC20B2700075608 /* LocalNotifierTest.swift */,
 				527790451AB13622000D0E90 /* FormatterTests.swift */,
 				52F40A591A9E808B00FA02C6 /* NSDateExtensionsTest.swift */,
 				52F40A541A9E7E7400FA02C6 /* EventTest.swift */,
@@ -441,6 +450,7 @@
 				521763461A61BABA009661ED /* MapViewController.swift in Sources */,
 				5239B0D41AB0ECC8002C4523 /* LunchTimeTextField.swift in Sources */,
 				528F2C781AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift in Sources */,
+				521608E21AC20AAB00075608 /* LocalNotifier.swift in Sources */,
 				52C565BB1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift in Sources */,
 				5217633E1A61A5FA009661ED /* TableViewController.swift in Sources */,
 			);
@@ -454,7 +464,9 @@
 				528F2C7C1AB0AC9F005606C6 /* NSDateExtensionsTest.swift in Sources */,
 				527790461AB13622000D0E90 /* FormatterTests.swift in Sources */,
 				528F2C7E1AB0ACA6005606C6 /* WorkManagerTest.swift in Sources */,
+				521608E61AC2416800075608 /* TableViewControllerTest.swift in Sources */,
 				528F2C7B1AB0AC9B005606C6 /* NSNumberFormatterTests.swift in Sources */,
+				521608E41AC20B2700075608 /* LocalNotifierTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
