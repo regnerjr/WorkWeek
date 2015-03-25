@@ -14,10 +14,8 @@ extension TableViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.mainCell.rawValue, forIndexPath: indexPath) as WorkDayCellTableViewCell
 
         let workItem = workManager.allItems()[indexPath.row]
-        let decimalHoursWorked = Float(workItem.hoursWorked) +
-            Float( workItem.minutesWorked / 60)
         cell.workDate?.text = workItem.weekDay
-        cell.workTime?.text = Formatter.double.stringFromNumber( decimalHoursWorked ) ?? "" //leave it blank if nil
+        cell.workTime?.text = workItem.decimalHoursWorked
         cell.arrivalTime.text = workItem.arrivalTime
         cell.departureTime.text = workItem.departureTime
 

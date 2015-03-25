@@ -15,6 +15,7 @@
 		521608E21AC20AAB00075608 /* LocalNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521608E11AC20AAB00075608 /* LocalNotifier.swift */; };
 		521608E41AC20B2700075608 /* LocalNotifierTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521608E31AC20B2700075608 /* LocalNotifierTest.swift */; };
 		521608E61AC2416800075608 /* TableViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521608E51AC2416800075608 /* TableViewControllerTest.swift */; };
+		521608E81AC3419F00075608 /* WorkHoursTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521608E71AC3419F00075608 /* WorkHoursTest.swift */; };
 		5217633E1A61A5FA009661ED /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5217633D1A61A5FA009661ED /* TableViewController.swift */; };
 		521763441A61B368009661ED /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763431A61B368009661ED /* MapKit.framework */; };
 		521763461A61BABA009661ED /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521763451A61BABA009661ED /* MapViewController.swift */; };
@@ -66,6 +67,7 @@
 		521608E11AC20AAB00075608 /* LocalNotifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotifier.swift; sourceTree = "<group>"; };
 		521608E31AC20B2700075608 /* LocalNotifierTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotifierTest.swift; sourceTree = "<group>"; };
 		521608E51AC2416800075608 /* TableViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewControllerTest.swift; sourceTree = "<group>"; };
+		521608E71AC3419F00075608 /* WorkHoursTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkHoursTest.swift; sourceTree = "<group>"; };
 		5217633C1A61A5FA009661ED /* UnitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		5217633D1A61A5FA009661ED /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		521763431A61B368009661ED /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -283,6 +285,7 @@
 				527790451AB13622000D0E90 /* FormatterTests.swift */,
 				52F40A591A9E808B00FA02C6 /* NSDateExtensionsTest.swift */,
 				52F40A541A9E7E7400FA02C6 /* EventTest.swift */,
+				521608E71AC3419F00075608 /* WorkHoursTest.swift */,
 				52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */,
 				528F2C791AB0ABFC005606C6 /* NSNumberFormatterTests.swift */,
 			);
@@ -462,6 +465,7 @@
 			files = (
 				528F2C7D1AB0ACA2005606C6 /* EventTest.swift in Sources */,
 				528F2C7C1AB0AC9F005606C6 /* NSDateExtensionsTest.swift in Sources */,
+				521608E81AC3419F00075608 /* WorkHoursTest.swift in Sources */,
 				527790461AB13622000D0E90 /* FormatterTests.swift in Sources */,
 				528F2C7E1AB0ACA6005606C6 /* WorkManagerTest.swift in Sources */,
 				521608E61AC2416800075608 /* TableViewControllerTest.swift in Sources */,

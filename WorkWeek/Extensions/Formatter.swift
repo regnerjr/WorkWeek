@@ -14,13 +14,13 @@ public struct Formatter {
         let doubleFormatter = NSNumberFormatter()
         doubleFormatter.numberStyle = .DecimalStyle
         doubleFormatter.minimum = 0.1
-        doubleFormatter.maximum = 9.9
+        doubleFormatter.maximum = 99.9
         doubleFormatter.minimumIntegerDigits = 1
-        doubleFormatter.maximumIntegerDigits = 1
+        doubleFormatter.maximumIntegerDigits = 2
         doubleFormatter.minimumFractionDigits = 1
         doubleFormatter.maximumFractionDigits = 1
         doubleFormatter.roundingIncrement = 0.1
-        doubleFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundHalfUp
+        doubleFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundHalfDown
         return doubleFormatter
     }()
 

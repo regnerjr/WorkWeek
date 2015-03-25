@@ -50,8 +50,17 @@ public struct WorkDay {
     let minutesWorked: Int //counts minutes not included in the Hours
     let arrivalTime: String
     let departureTime: String
+    public var decimalHoursWorked : String {
+        func calc(hours: Int, min: Int) -> Double {
+            let dbl = Double(min)
+            let roundedMin = (dbl / 60.0)
+            let flr = floor(roundedMin * 10 ) / 10
+            return Double(hours) + floor(roundedMin * 10) / 10
+        }
+        return Formatter.double.stringFromDouble( calc(hoursWorked, minutesWorked) )
+    }
 
-    init(weekDay:String, hoursWorked: Int, minutesWorked: Int,
+    public init(weekDay:String, hoursWorked: Int, minutesWorked: Int,
          arrivalTime: String, departureTime: String) {
         self.weekDay = weekDay
         self.hoursWorked = hoursWorked
