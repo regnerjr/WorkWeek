@@ -10,7 +10,7 @@ class Stepper: UIStepper {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         minimumValue = 1
-        minimumValue = 100
+        maximumValue = 100
         stepValue = 1
     }
 }

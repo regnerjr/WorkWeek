@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let options = launchOptions {
             if let locationOptions  = options[UIApplicationLaunchOptionsLocationKey] as? NSNumber {
-                println("\(locationOptions)")
 
                 //spin up a location delegate and point the location Manager to it.
                 //TODO: move the location delegate to its own class
