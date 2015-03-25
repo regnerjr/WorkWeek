@@ -37,9 +37,7 @@ class TableViewController: UITableViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
-        //print the nsuserdefaults for testing
-        let workHours = Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek)
-        let lunchHours = Defaults.standard.doubleForKey(SettingsKey.unpaidLunchTime)
+//        let workHours = Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek)
         array = workManager.allItems()
         tableView.reloadData()
     }

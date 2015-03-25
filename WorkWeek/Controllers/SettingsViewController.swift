@@ -3,7 +3,6 @@ import UIKit
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var workHoursTextField: WorkHoursTextField!
-    @IBOutlet weak var lunchTimeField: LunchTimeTextField!
     @IBOutlet weak var stepper: Stepper!
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var workRadiusField: WorkRadiusTextField!
@@ -14,10 +13,7 @@ class SettingsViewController: UIViewController {
         get { return Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek) }
         set { Defaults.standard.setInteger(newValue, forKey: SettingsKey.hoursInWorkWeek) }
     }
-    var defaultLunchTime: Double {
-        get {return Defaults.standard.doubleForKey(SettingsKey.unpaidLunchTime) }
-        set { Defaults.standard.setDouble(newValue, forKey: SettingsKey.unpaidLunchTime) }
-    }
+
     var defaultResetDay: Int {
         get { return Defaults.standard.integerForKey(SettingsKey.resetDay) }
         set { Defaults.standard.setInteger(newValue, forKey: SettingsKey.resetDay) }
@@ -42,7 +38,6 @@ class SettingsViewController: UIViewController {
 
         //populate fields with data from defaults
         workHoursTextField.workHours = defaultWorkHours
-        lunchTimeField.lunchTime = defaultLunchTime
         stepper.workHours = defaultWorkHours
         workRadiusField.workRadius = defaultWorkRadius
     }
@@ -66,7 +61,7 @@ class SettingsViewController: UIViewController {
 
     @IBAction func screenTapGesture(sender: UITapGestureRecognizer) {
         //find any fields that are editing, end editing then resign first responder
-        let fields = [workHoursTextField, lunchTimeField, workRadiusField ]
+        let fields = [workHoursTextField, workRadiusField ]
         fields.filter{ $0.isFirstResponder() }
               .map{$0.endEditing(true)}
         resignFirstResponder()
@@ -84,7 +79,6 @@ class SettingsViewController: UIViewController {
         switch sender {
         case let s as WorkHoursTextField : s.workHours = defaultWorkHours
         case let s as WorkRadiusTextField: s.workRadius = defaultWorkRadius
-        case let s as LunchTimeTextField: s.lunchTime = defaultLunchTime
         default: println("Something is wrong!!! Switching on a UITextField with unknown placeholder")
         }
     }
@@ -93,7 +87,6 @@ class SettingsViewController: UIViewController {
         switch sender {
         case let s as WorkHoursTextField:  defaultWorkHours = s.workHours
         case let s as WorkRadiusTextField: defaultWorkRadius = s.workRadius
-        case let s as LunchTimeTextField: defaultLunchTime = s.lunchTime
         default: println("Something is wrong!!! Switching on a UITextField with unknown placeholder")
         }
     }

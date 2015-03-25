@@ -20,7 +20,6 @@
 		521763441A61B368009661ED /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763431A61B368009661ED /* MapKit.framework */; };
 		521763461A61BABA009661ED /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521763451A61BABA009661ED /* MapViewController.swift */; };
 		521763491A61D0C5009661ED /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763481A61D0C5009661ED /* CoreLocation.framework */; };
-		5239B0D41AB0ECC8002C4523 /* LunchTimeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D31AB0ECC8002C4523 /* LunchTimeTextField.swift */; };
 		5239B0D61AB0ED1D002C4523 /* WorkHoursTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D51AB0ED1D002C4523 /* WorkHoursTextField.swift */; };
 		5239B0D81AB0ED7D002C4523 /* WorkRadiusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D71AB0ED7D002C4523 /* WorkRadiusTextField.swift */; };
 		5239B0DA1AB0FA9B002C4523 /* Stepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D91AB0FA9B002C4523 /* Stepper.swift */; };
@@ -73,7 +72,6 @@
 		521763431A61B368009661ED /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		521763451A61BABA009661ED /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		521763481A61D0C5009661ED /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		5239B0D31AB0ECC8002C4523 /* LunchTimeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LunchTimeTextField.swift; sourceTree = "<group>"; };
 		5239B0D51AB0ED1D002C4523 /* WorkHoursTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkHoursTextField.swift; sourceTree = "<group>"; };
 		5239B0D71AB0ED7D002C4523 /* WorkRadiusTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkRadiusTextField.swift; sourceTree = "<group>"; };
 		5239B0D91AB0FA9B002C4523 /* Stepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stepper.swift; sourceTree = "<group>"; };
@@ -305,7 +303,6 @@
 			isa = PBXGroup;
 			children = (
 				5239B0D91AB0FA9B002C4523 /* Stepper.swift */,
-				5239B0D31AB0ECC8002C4523 /* LunchTimeTextField.swift */,
 				5239B0D51AB0ED1D002C4523 /* WorkHoursTextField.swift */,
 				5239B0D71AB0ED7D002C4523 /* WorkRadiusTextField.swift */,
 				5210E3C81AA7AE770061BCF6 /* HeaderView.swift */,
@@ -451,7 +448,6 @@
 				52FA6CE21AADDC42000E63DE /* Formatter.swift in Sources */,
 				5210E3C91AA7AE770061BCF6 /* HeaderView.swift in Sources */,
 				521763461A61BABA009661ED /* MapViewController.swift in Sources */,
-				5239B0D41AB0ECC8002C4523 /* LunchTimeTextField.swift in Sources */,
 				528F2C781AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift in Sources */,
 				521608E21AC20AAB00075608 /* LocalNotifier.swift in Sources */,
 				52C565BB1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift in Sources */,

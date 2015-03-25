@@ -151,12 +151,6 @@
                             <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="749" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="200" translatesAutoresizingMaskIntoConstraints="NO" id="UJh-hL-rL3">
                                 <rect key="frame" x="16" y="328" width="568" height="180"/>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unpaid Lunch (Daily)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Jb-dw-FkH">
-                                <rect key="frame" x="308" y="28" width="159" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8XR-bn-yhO">
                                 <rect key="frame" x="217" y="526" width="167" height="30"/>
                                 <state key="normal" title="Launch System Settings">
@@ -166,16 +160,8 @@
                                     <action selector="launchSystemSettings:" destination="WIA-yz-lfT" eventType="touchUpInside" id="Sue-R0-tUa"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.5" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aRe-Nm-uQD" customClass="LunchTimeTextField" customModule="WorkWeek" customModuleProvider="target">
-                                <rect key="frame" x="366" y="57" width="42" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                <connections>
-                                    <action selector="doneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="4Ck-rM-ZZ6"/>
-                                </connections>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNx-Ip-Fvi">
-                                <rect key="frame" x="206" y="28" width="94" height="21"/>
+                                <rect key="frame" x="253" y="28" width="94" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -195,13 +181,13 @@
                                 </connections>
                             </textField>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="40" maximumValue="99" translatesAutoresizingMaskIntoConstraints="NO" id="nhu-Fy-DdY" customClass="Stepper" customModule="WorkWeek" customModuleProvider="target">
-                                <rect key="frame" x="206" y="57" width="94" height="29"/>
+                                <rect key="frame" x="253" y="57" width="94" height="29"/>
                                 <connections>
                                     <action selector="stepWorkHours:" destination="WIA-yz-lfT" eventType="valueChanged" id="6yk-qr-loV"/>
                                 </connections>
                             </stepper>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="40" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fNh-QF-z7P" customClass="WorkHoursTextField" customModule="WorkWeek" customModuleProvider="target">
-                                <rect key="frame" x="206" y="94" width="94" height="30"/>
+                                <rect key="frame" x="253" y="94" width="94" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
@@ -212,31 +198,26 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="0Jb-dw-FkH" firstAttribute="top" secondItem="zoW-Ps-2fd" secondAttribute="bottom" constant="8" id="1po-Le-EZ9"/>
                             <constraint firstAttribute="trailing" secondItem="4TI-eM-xkr" secondAttribute="trailing" id="43C-wH-SAt"/>
                             <constraint firstItem="8XR-bn-yhO" firstAttribute="top" secondItem="UJh-hL-rL3" secondAttribute="bottom" constant="8" id="5kD-fc-V9J"/>
                             <constraint firstAttribute="centerX" secondItem="8XR-bn-yhO" secondAttribute="centerX" constant="-0.5" id="5ub-YX-lop"/>
                             <constraint firstItem="09f-ol-pP0" firstAttribute="top" secondItem="8XR-bn-yhO" secondAttribute="bottom" constant="44" id="Dra-gi-rgb"/>
                             <constraint firstItem="UJh-hL-rL3" firstAttribute="trailing" secondItem="FMN-PH-qyi" secondAttribute="trailingMargin" id="EkR-sM-eY2"/>
                             <constraint firstItem="4TI-eM-xkr" firstAttribute="bottom" secondItem="09f-ol-pP0" secondAttribute="top" id="NEE-j7-Tt2"/>
-                            <constraint firstItem="0Jb-dw-FkH" firstAttribute="leading" secondItem="CNx-Ip-Fvi" secondAttribute="trailing" constant="8" id="NVl-UW-b1T"/>
                             <constraint firstItem="fNh-QF-z7P" firstAttribute="bottom" secondItem="DGg-Ev-887" secondAttribute="top" constant="8" symbolic="YES" id="OBo-pR-ITe"/>
-                            <constraint firstItem="0Jb-dw-FkH" firstAttribute="centerX" secondItem="aRe-Nm-uQD" secondAttribute="centerX" constant="0.5" id="PJQ-Zj-5eH"/>
                             <constraint firstItem="nhu-Fy-DdY" firstAttribute="centerX" secondItem="CNx-Ip-Fvi" secondAttribute="centerX" id="UGW-zd-cZe"/>
                             <constraint firstItem="nhu-Fy-DdY" firstAttribute="width" secondItem="fNh-QF-z7P" secondAttribute="width" id="UJT-Tp-pSt"/>
                             <constraint firstItem="kY1-SH-PX2" firstAttribute="top" secondItem="DGg-Ev-887" secondAttribute="bottom" constant="8" id="XsI-Qf-nxg"/>
                             <constraint firstItem="nhu-Fy-DdY" firstAttribute="width" secondItem="CNx-Ip-Fvi" secondAttribute="width" id="ba9-sP-Ygv"/>
-                            <constraint firstItem="nhu-Fy-DdY" firstAttribute="height" secondItem="aRe-Nm-uQD" secondAttribute="height" id="h6Q-Qt-qQ9"/>
                             <constraint firstItem="CNx-Ip-Fvi" firstAttribute="top" secondItem="zoW-Ps-2fd" secondAttribute="bottom" constant="8" id="j5N-ly-tfU"/>
                             <constraint firstItem="fNh-QF-z7P" firstAttribute="top" secondItem="nhu-Fy-DdY" secondAttribute="bottom" constant="8" id="jQe-fc-Ssx"/>
                             <constraint firstItem="4TI-eM-xkr" firstAttribute="leading" secondItem="FMN-PH-qyi" secondAttribute="leading" id="lVc-6B-EXj"/>
                             <constraint firstItem="nhu-Fy-DdY" firstAttribute="top" secondItem="CNx-Ip-Fvi" secondAttribute="bottom" constant="8" id="mcO-ux-ldF"/>
-                            <constraint firstItem="aRe-Nm-uQD" firstAttribute="top" secondItem="0Jb-dw-FkH" secondAttribute="bottom" constant="8" id="o66-NJ-U12"/>
                             <constraint firstItem="kY1-SH-PX2" firstAttribute="width" secondItem="DGg-Ev-887" secondAttribute="width" id="q8f-sB-fQN"/>
                             <constraint firstItem="nhu-Fy-DdY" firstAttribute="centerX" secondItem="fNh-QF-z7P" secondAttribute="centerX" constant="-0.5" id="rQJ-qa-sLA"/>
                             <constraint firstItem="kY1-SH-PX2" firstAttribute="centerX" secondItem="DGg-Ev-887" secondAttribute="centerX" id="tOM-bJ-N1I"/>
                             <constraint firstItem="UJh-hL-rL3" firstAttribute="leading" secondItem="FMN-PH-qyi" secondAttribute="leadingMargin" id="tkH-v1-d4q"/>
-                            <constraint firstAttribute="centerX" secondItem="CNx-Ip-Fvi" secondAttribute="trailing" id="uuy-ef-Imu"/>
+                            <constraint firstAttribute="centerX" secondItem="CNx-Ip-Fvi" secondAttribute="centerX" id="uuy-ef-Imu"/>
                             <constraint firstItem="DGg-Ev-887" firstAttribute="top" secondItem="fNh-QF-z7P" secondAttribute="bottom" constant="8" id="wrJ-43-xWd"/>
                             <constraint firstAttribute="centerX" secondItem="kY1-SH-PX2" secondAttribute="centerX" id="xnI-ar-CY8"/>
                         </constraints>
@@ -250,7 +231,6 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="lunchTimeField" destination="aRe-Nm-uQD" id="AfO-MC-D0k"/>
                         <outlet property="picker" destination="UJh-hL-rL3" id="3TJ-TI-dSS"/>
                         <outlet property="stepper" destination="nhu-Fy-DdY" id="Jts-73-Z4d"/>
                         <outlet property="workHoursTextField" destination="fNh-QF-z7P" id="Vr5-Yo-35g"/>

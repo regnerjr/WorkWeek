@@ -5,8 +5,6 @@ import Foundation
 */
 public enum SettingsKey : String{
 
-    /// Time to be subtracted for lunch every day
-    case unpaidLunchTime = "unpaidLunchTimePrefKey"
     /// Hours in a Work week an Int
     case hoursInWorkWeek = "hoursInWorkWeekPrefKey"
     /// The Day of the week to reset the

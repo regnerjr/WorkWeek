@@ -35,7 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //register some defaults
         let defaults: [NSObject: AnyObject] = [
             SettingsKey.hoursInWorkWeek.rawValue : NSNumber(int: 40),    // 40 hour work week
-            SettingsKey.unpaidLunchTime.rawValue: NSNumber(double: 0.5), // Half Hour for lunch
             SettingsKey.resetDay.rawValue: NSNumber(int: 0),             // Sunday
             SettingsKey.resetHour.rawValue: NSNumber(int: 4),            // 4 am
             SettingsKey.workRadius.rawValue: NSNumber(int: 200),         // 200m work radius
