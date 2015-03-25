@@ -1,10 +1,9 @@
 import UIKit
 import MapKit
 
-
-
-struct Counter {
-    static var count = 0
+//This global var is to ensure that the map view is only zoomed on time on initial load.
+struct MapViewState {
+    static var hasBeenZoomed = false
 }
 
 struct MapRegionIdentifiers {
@@ -44,7 +43,7 @@ class MapViewController: UIViewController {
     }
 
     override func viewDidLoad() {
-        Counter.count = 0 //reset the counter so we can zoom in on the user once, per page load
+        MapViewState.hasBeenZoomed = false //reset the state so we can zoom in on the user once, per page load
         super.viewDidLoad()
 
         //draw the current work location if it is not nil
@@ -113,8 +112,8 @@ extension MapViewController: MKMapViewDelegate {
 
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
         //only do this map zooming thing once
-        if Counter.count == 0 {
-            println("Updated User Location \(Counter.count++)")
+        if MapViewState.hasBeenZoomed == false {
+            MapViewState.hasBeenZoomed = true
             let userCoordinates = userLocation.location.coordinate
             //stoping location updates
             locationManager.stopUpdatingLocation()
