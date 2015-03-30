@@ -37,12 +37,12 @@ public class WorkManager {
 
     func restoreArchivedEvents() -> NSMutableArray? {
         // Get the archived events, nil if there are none
-        // if let path = Archive.path {
-        map(Archive.path) { path -> NSMutableArray? in
+        if let path = Archive.path {
             let restored = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as NSMutableArray?
             return restored // if restore failed `restored` will be nil
+        } else {
+            return nil
         }
-        return nil
     }
 
     func saveNewArchive(events : NSMutableArray) -> Bool{
@@ -78,6 +78,8 @@ public class WorkManager {
 
     public func clearEvents(){
         eventsForTheWeek = NSMutableArray()
+        //clear the archive as well
+        saveNewArchive(eventsForTheWeek)
     }
 
     public func allItems() -> [WorkDay]{
