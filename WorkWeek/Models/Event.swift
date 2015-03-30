@@ -51,13 +51,7 @@ public struct WorkDay {
     let arrivalTime: String
     let departureTime: String
     public var decimalHoursWorked : String {
-        func calc(hours: Int, min: Int) -> Double {
-            let dbl = Double(min)
-            let roundedMin = (dbl / 60.0)
-            let flr = floor(roundedMin * 10 ) / 10
-            return Double(hours) + floor(roundedMin * 10) / 10
-        }
-        return Formatter.double.stringFromDouble( calc(hoursWorked, minutesWorked) )
+        return Formatter.double.stringFromDouble( getDoubleFrom(hours: hoursWorked, min: minutesWorked) )
     }
 
     public init(weekDay:String, hoursWorked: Int, minutesWorked: Int,
@@ -68,4 +62,11 @@ public struct WorkDay {
         self.arrivalTime = arrivalTime
         self.departureTime = departureTime
     }
+}
+
+public func getDoubleFrom(#hours: Int, #min: Int) -> Double {
+    let dbl = Double(min)
+    let roundedMin = (dbl / 60.0)
+    let flr = floor(roundedMin * 10 ) / 10
+    return Double(hours) + floor(roundedMin * 10) / 10
 }
