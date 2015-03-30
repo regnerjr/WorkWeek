@@ -13,7 +13,7 @@ private struct Archive {
     }
 }
 
-public class WorkManager {
+public class WorkManager : NSObject{
 
     public var eventsForTheWeek: NSMutableArray = NSMutableArray()
 
@@ -27,7 +27,8 @@ public class WorkManager {
         return Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek)
     }
 
-    public init(){
+    public override init(){
+        super.init()
         // if we have archived events restore them
         let eventArchive = restoreArchivedEvents()
         map(eventArchive, { events -> Void in
