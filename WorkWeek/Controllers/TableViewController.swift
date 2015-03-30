@@ -27,15 +27,15 @@ class TableViewController: UITableViewController {
         //set ourselves as the location Manager delegate
         appDelegate.locationManager.delegate = self
 
+        appDelegate.locationManager.startUpdatingLocation()
+
+        configureTimerToReloadTheTableViewEverySixMinutes()
+
         // check if at least one location is monitored, else we should 
         // transition to the map view so that the user can set a work location and begin using the app
         if appDelegate.locationManager.monitoredRegions.count == 0 {
             performSegueWithIdentifier(StoryBoardSegues.Map.rawValue, sender: self)
         }
-
-       appDelegate.locationManager.startUpdatingLocation()
-
-        configureTimerToReloadTheTableViewEverySixMinutes()
     }
 
     override func viewWillAppear(animated: Bool) {
