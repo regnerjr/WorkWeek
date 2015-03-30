@@ -96,12 +96,54 @@
                                     <outlet property="workTime" destination="dDS-T3-eJK" id="8Xo-JG-Fio"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="footerView" rowHeight="88" id="fXt-WZ-HEc">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="footerView" rowHeight="88" id="fXt-WZ-HEc" customClass="FooterTableViewCell" customModule="WorkWeek" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fXt-WZ-HEc" id="g8G-Oz-9Jh">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AtWork: Tues" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5H1-0H-Fyi">
+                                            <rect key="frame" x="250" y="33" width="101" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arrived: 8:03" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIW-qj-wek">
+                                            <rect key="frame" x="8" y="59" width="98" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="8.2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Im-b6-6X0">
+                                            <rect key="frame" x="536" y="59" width="24" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="L5r-EW-sKJ">
+                                            <rect key="frame" x="568" y="59" width="24" height="21"/>
+                                            <color key="color" red="0.14901960784313725" green="0.60392156862745094" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </activityIndicatorView>
+                                    </subviews>
                                     <color key="tintColor" red="0.18039215689999999" green="0.71372549019999998" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="L5r-EW-sKJ" firstAttribute="bottom" secondItem="g8G-Oz-9Jh" secondAttribute="bottomMargin" id="C9f-vC-EOi"/>
+                                        <constraint firstItem="L5r-EW-sKJ" firstAttribute="width" secondItem="5Im-b6-6X0" secondAttribute="width" id="Dbm-w8-6Mb"/>
+                                        <constraint firstItem="L5r-EW-sKJ" firstAttribute="leading" secondItem="5Im-b6-6X0" secondAttribute="trailing" constant="8" id="I3a-0q-lNt"/>
+                                        <constraint firstAttribute="centerX" secondItem="5H1-0H-Fyi" secondAttribute="centerX" constant="-0.5" id="PUR-8v-vlh"/>
+                                        <constraint firstItem="uIW-qj-wek" firstAttribute="leading" secondItem="g8G-Oz-9Jh" secondAttribute="leadingMargin" id="RSf-Na-Aba"/>
+                                        <constraint firstItem="5Im-b6-6X0" firstAttribute="bottom" secondItem="g8G-Oz-9Jh" secondAttribute="bottomMargin" id="TaR-k4-Jah"/>
+                                        <constraint firstItem="uIW-qj-wek" firstAttribute="bottom" secondItem="g8G-Oz-9Jh" secondAttribute="bottomMargin" id="gzu-1S-ZHI"/>
+                                        <constraint firstItem="L5r-EW-sKJ" firstAttribute="trailing" secondItem="g8G-Oz-9Jh" secondAttribute="trailingMargin" id="h3Z-LD-BEG"/>
+                                        <constraint firstAttribute="centerY" secondItem="5H1-0H-Fyi" secondAttribute="centerY" constant="0.5" id="kBT-bn-B5C"/>
+                                        <constraint firstItem="L5r-EW-sKJ" firstAttribute="height" secondItem="5Im-b6-6X0" secondAttribute="height" id="r0x-n7-GaK"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="ArrivedTimeLabel" destination="uIW-qj-wek" id="B0u-W0-z1X"/>
+                                    <outlet property="AtWorkLabel" destination="5H1-0H-Fyi" id="H8g-AD-zHr"/>
+                                    <outlet property="activityIndicator" destination="L5r-EW-sKJ" id="A7M-jq-rOm"/>
+                                    <outlet property="timeSoFarLabel" destination="5Im-b6-6X0" id="iRW-xB-sCE"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
