@@ -1,8 +1,8 @@
 import UIKit
 
-public struct LocalNotifier {
+public class LocalNotifier {
 
-    public static func setupNotification(soFar: Double, total: Int){
+    public class func setupNotification(soFar: Double, total: Int){
         //schedule a notification to fire when 40 hours have been worked.
         //assume that the person will stay at work the rest of the week
 
@@ -21,7 +21,7 @@ public struct LocalNotifier {
         UIApplication.sharedApplication().scheduleLocalNotification(note)
     }
 
-    public static func cancelAllNotifications(){
+    public class func cancelAllNotifications(){
         UIApplication.sharedApplication().cancelAllLocalNotifications()
     }
 }

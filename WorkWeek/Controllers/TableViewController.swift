@@ -34,6 +34,8 @@ class TableViewController: UITableViewController {
         }
 
        appDelegate.locationManager.startUpdatingLocation()
+
+        configureTimerToReloadTheTableViewEverySixMinutes()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -45,6 +47,16 @@ class TableViewController: UITableViewController {
     // MARK: - Navigation
 
     @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
+        tableView.reloadData()
+    }
+
+    //MARK: - Helper Functions
+    func configureTimerToReloadTheTableViewEverySixMinutes(){
+        NSTimer.scheduledTimerWithTimeInterval(6 * 60.0, target: self, selector: "reloadTableView:", userInfo: nil, repeats: true)
+    }
+    func reloadTableView(timer: NSTimer){
+        NSLog("Reload TableTimerFired!")
+        self.tableView.reloadData()
     }
 }
 
@@ -60,21 +72,33 @@ extension TableViewController: UITableViewDelegate {
     }
 
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 80
+        if workManager.isAtWork() {
+            return 80
+        } else {
+            return 1
+        }
     }
 
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if let footer = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.footerCell.rawValue) as UITableViewCell? {
-            footer.contentView.backgroundColor = OverlayColor.Fill
+        if let footer = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.footerCell.rawValue) as FooterTableViewCell? {
+            NSLog("Got a new footer view")
             if workManager.isAtWork() {
+                footer.contentView.backgroundColor = OverlayColor.Fill
                 //get the current work time
                 if let lastArrival = workManager.eventsForTheWeek.lastObject as? Event {
                     if lastArrival.inOrOut == .Arrival {
-                        footer.textLabel?.text = "At Work: " + lastArrival.date.dayOfWeek
+                        footer.AtWorkLabel.text = "At Work: " + lastArrival.date.dayOfWeek
+                        footer.ArrivedTimeLabel.text = Formatter.shortTime.stringFromDate(lastArrival.date)
+                        footer.activityIndicator.startAnimating()
+                        let (h,m) = hoursMinutesFromDate(date: lastArrival.date, toDate: NSDate())
+                        footer.timeSoFarLabel.text = Formatter.double.stringFromDouble(getDoubleFrom(hours: h, min: m))
                     }
                 }
             } else {
-                footer.textLabel?.text = ""
+                footer.AtWorkLabel.text = ""
+                footer.ArrivedTimeLabel.text = ""
+                footer.timeSoFarLabel.text = ""
+                footer.activityIndicator.stopAnimating()
             }
 
             return footer
@@ -83,15 +107,14 @@ extension TableViewController: UITableViewDelegate {
             defaultfooter.backgroundColor = UIColor.whiteColor()
             return defaultfooter
         }
-
     }
 
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
+        NSLog("Getting a new Header, Hours: %f", workManager.hoursWorkedThisWeek + hoursSoFarToday() )
         if let header = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.headerCell.rawValue) as UITableViewCell? {
             let graph = header.contentView.subviews[0] as HeaderView
             graph.hoursInWeek = Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek)
-            graph.hoursWorked = Int(workManager.hoursWorkedThisWeek) //loss of precision to draw the graph using only hour marks.
+            graph.hoursWorked = Int(workManager.hoursWorkedThisWeek + hoursSoFarToday()) //loss of precision to draw the graph using only hour marks.
             graph.hoursLabel.text = String(graph.hoursWorked)
             return header
         } else {
@@ -99,6 +122,19 @@ extension TableViewController: UITableViewDelegate {
             defaultHeader.backgroundColor = UIColor.redColor()
             return defaultHeader
         }
+    }
+
+    func hoursSoFarToday() -> Double{
+        if let lastArrival = workManager.eventsForTheWeek.lastObject as? Event {
+            if lastArrival.inOrOut == .Arrival {
+                let (h,m) = hoursMinutesFromDate(date: lastArrival.date, toDate: NSDate())
+                println(h,m)
+                let hoursToday = getDoubleFrom(hours: h, min: m)
+                NSLog("HoursToday %f", hoursToday)
+                return hoursToday
+            }
+        }
+        return 0
     }
 
 }

@@ -7,11 +7,13 @@ class WorkManagerTest: XCTestCase {
 
     func testWorkManagerCreation(){
         let manager = WorkManager()
+        manager.clearEvents()
         XCTAssertNotNil(manager, "Manager is not nil")
     }
 
     func testAddArrival(){
         let manager = WorkManager()
+        manager.clearEvents()
         let date = NSDate()
         let arrival = AD.Arrival
         manager.addArrival(date)
@@ -22,6 +24,7 @@ class WorkManagerTest: XCTestCase {
 
     func testAddDeparture(){
         let manager = WorkManager()
+        manager.clearEvents()
         let date = NSDate()
         let arrival = AD.Departure
         manager.addDeparture(date)
@@ -33,6 +36,7 @@ class WorkManagerTest: XCTestCase {
 
     func testIsAtWork(){
         let manager = WorkManager()
+        manager.clearEvents()
 
         manager.addArrival(NSDate())
         XCTAssert(manager.isAtWork() == true, "User is at work after arriving")
@@ -42,6 +46,7 @@ class WorkManagerTest: XCTestCase {
 
     func testClearEvents(){
         let manager = WorkManager()
+        manager.clearEvents()
 
         manager.addArrival(NSDate())
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
@@ -60,6 +65,7 @@ class WorkManagerTest: XCTestCase {
     func testMangerProcessesEvents(){
 
         let manager = WorkManager()
+        manager.clearEvents()
         manager.addArrival(NSDate())
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
         manager.workDays = manager.processEvents(manager.eventsForTheWeek)
@@ -74,6 +80,7 @@ class WorkManagerTest: XCTestCase {
 
     func testProcessEventsExtended(){
         let manager = WorkManager()
+        manager.clearEvents()
         let startDate = NSDate()
         manager.addDeparture(startDate) //tets only having a departure, should show no work hours
         let workDays = manager.allItems()
@@ -103,6 +110,7 @@ class WorkManagerTest: XCTestCase {
 
     func testHoursWorkedThisWeek(){
         let manager = WorkManager()
+        manager.clearEvents()
         manager.addArrival(NSDate())
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
         XCTAssert(manager.hoursWorkedThisWeek == 8.0, "Worked 8 hours!")
