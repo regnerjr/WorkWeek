@@ -13,6 +13,8 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Application Lifecycle
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
+
         if let options = launchOptions {
             if let locationOptions  = options[UIApplicationLaunchOptionsLocationKey] as? NSNumber {
 
@@ -33,7 +35,6 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         Defaults.standard.registerDefaults(defaults)
 
-        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
 
         setupATimerToClearTheWeeklyResults()
 
@@ -41,7 +42,8 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     public func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        
+        //show an alertview if teh work week ends and we are in the foreground
+        let alert = UIAlertView(title: "Work Week is Over!", message: "Go Home", delegate: nil, cancelButtonTitle: nil)
     }
 
 

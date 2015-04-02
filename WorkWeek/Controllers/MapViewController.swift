@@ -86,7 +86,7 @@ class MapViewController: UIViewController {
         }
 
         //also if setting a new work location, we need to clear the existing work history
-        workManager.clearEvents()
+//        workManager.clearEvents()
 
         let workRegion = CLCircularRegion(center: coord, radius: regionRadius, identifier: MapRegionIdentifiers.work)
         locationManager.startMonitoringForRegion(workRegion)
