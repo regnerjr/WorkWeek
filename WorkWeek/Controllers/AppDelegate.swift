@@ -14,6 +14,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
+        NSLog("Registerd for all Notificaiton Types")
 
         if let options = launchOptions {
             if let locationOptions  = options[UIApplicationLaunchOptionsLocationKey] as? NSNumber {
@@ -23,6 +24,8 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 let locationDelegate = TableViewController()
                 locationManager.delegate = locationDelegate
                 locationManager.startUpdatingLocation()
+            } else if let localNotification = options[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
+                NSLog("Got awoked because of a local notification %@", localNotification)
             }
         }
 
@@ -35,7 +38,6 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         Defaults.standard.registerDefaults(defaults)
 
-
         setupATimerToClearTheWeeklyResults()
 
         return true
@@ -43,6 +45,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
 
     public func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         //show an alertview if teh work week ends and we are in the foreground
+        NSLog("Work Week Ended and we were in the foreground")
         let alert = UIAlertView(title: "Work Week is Over!", message: "Go Home", delegate: nil, cancelButtonTitle: nil)
     }
 
@@ -70,6 +73,8 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                                       0) {
 
             timer = NSTimer(fireDate: date, interval: week, target: workManager, selector: "clearEvents", userInfo: nil, repeats: true)
+            NSLog("Set up timer to clear weekly results %@: %@, ", timer, timer.fireDate)
+
             NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
         } else {
             NSLog("Could not get a reset day for %@, %@",

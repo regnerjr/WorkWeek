@@ -19,6 +19,7 @@ public class LocalNotifier {
         }
         note.alertTitle = "Your Work Week is Over!"
         UIApplication.sharedApplication().scheduleLocalNotification(note)
+        NSLog("Setup a Notification %@, with fire date %@", note, note.fireDate!)
     }
 
     public class func cancelAllNotifications(){
