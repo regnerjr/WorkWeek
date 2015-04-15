@@ -39,7 +39,7 @@ public class WorkManager : NSObject{
     func restoreArchivedEvents() -> NSMutableArray? {
         // Get the archived events, nil if there are none
         if let path = Archive.path {
-            let restored = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as NSMutableArray?
+            let restored = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as! NSMutableArray?
             return restored // if restore failed `restored` will be nil
         } else {
             return nil
@@ -91,7 +91,7 @@ public class WorkManager : NSObject{
     //What we need is a loop to process the events and turn them into workdays
     public func processEvents(inEvents:  NSMutableArray ) -> [WorkDay]{
         // make a copy so we can mutate this
-        let events = inEvents.mutableCopy() as NSMutableArray
+        let events = inEvents.mutableCopy() as! NSMutableArray
         var workTimes = [WorkDay]()
         //items should be paired, make sure first item is an arrival
         //if not drop it
@@ -107,8 +107,8 @@ public class WorkManager : NSObject{
 
             //still need to check length of the array
             if events.count >= 2 {
-                let first  = events.objectAtIndex(0) as Event
-                let second = events.objectAtIndex(1) as Event
+                let first  = events.objectAtIndex(0) as! Event
+                let second = events.objectAtIndex(1) as! Event
                 if first.inOrOut == .Arrival &&
                   second.inOrOut == .Departure {
                     //we have two paired items
@@ -132,8 +132,8 @@ public class WorkManager : NSObject{
 
 public func hoursMinutesFromDate(date date1: NSDate, toDate date2: NSDate ) -> (hours: Int, minutes: Int){
     let cal = NSCalendar.currentCalendar()
-    let hour = cal.components(NSCalendarUnit.HourCalendarUnit, fromDate: date1, toDate: date2, options: NSCalendarOptions.MatchStrictly).hour
+    let hour = cal.components(NSCalendarUnit.CalendarUnitHour, fromDate: date1, toDate: date2, options: NSCalendarOptions.MatchStrictly).hour
     //gets the minutes not already included in an hour
-    let min = cal.components(NSCalendarUnit.MinuteCalendarUnit, fromDate: date1, toDate: date2, options: NSCalendarOptions.MatchStrictly).minute % 60
+    let min = cal.components(NSCalendarUnit.CalendarUnitMinute, fromDate: date1, toDate: date2, options: NSCalendarOptions.MatchStrictly).minute % 60
     return (hour, min)
 }

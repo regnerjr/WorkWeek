@@ -11,7 +11,7 @@ extension TableViewController: UITableViewDataSource {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.mainCell.rawValue, forIndexPath: indexPath) as WorkDayCellTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.mainCell.rawValue, forIndexPath: indexPath) as! WorkDayCellTableViewCell
 
         let workItem = workManager.allItems()[indexPath.row]
         cell.workDate?.text = workItem.weekDay

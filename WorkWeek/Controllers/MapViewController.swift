@@ -18,20 +18,20 @@ class MapViewController: UIViewController {
     var regionRadius: Double { return Double(Defaults.standard.integerForKey(SettingsKey.workRadius)) }
 
     lazy var locationManager: CLLocationManager = {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         return appDelegate.locationManager
     }()
 
     lazy var workManager: WorkManager = {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         return appDelegate.workManager
     }()
 
     var workLocation: CLCircularRegion? {
-        if let regions = locationManager.monitoredRegions? as NSSet? {
+        if let regions = locationManager.monitoredRegions {
             if regions.count > 0 {
                 for region in regions {
-                    let typedRegion = region as CLCircularRegion
+                    let typedRegion = region as! CLCircularRegion
                     if typedRegion.identifier == MapRegionIdentifiers.work {
                         return typedRegion
                     }
@@ -83,7 +83,7 @@ class MapViewController: UIViewController {
         //current limitation: Only one location may be used!!!
         let currentRegions = locationManager.monitoredRegions as NSSet
         for region in currentRegions {
-            locationManager.stopMonitoringForRegion(region as CLRegion)
+            locationManager.stopMonitoringForRegion(region as! CLRegion)
         }
 
         //also if setting a new work location, we need to clear the existing work history
@@ -97,7 +97,7 @@ class MapViewController: UIViewController {
     func addArrivalIfAtWork(){
         print("Adding arrival if at work")
         //if you are currently at work add an arrival right now.
-        for region in locationManager.monitoredRegions {
+        for region in locationManager.monitoredRegions as! Set<CLCircularRegion> {
             if region.identifier == MapRegionIdentifiers.work{
                 println(" At Work")
                 let workregion = region as CLCircularRegion
@@ -143,7 +143,7 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
         //only one overlay so dont bother to check it just return a renderer
         if overlay is MKCircle{
-            let renderer = MKCircleRenderer(circle: overlay as MKCircle)
+            let renderer = MKCircleRenderer(circle: overlay as! MKCircle)
             renderer.fillColor = OverlayColor.Fill
             renderer.strokeColor = OverlayColor.Stroke
             renderer.lineWidth = 5
@@ -194,7 +194,7 @@ extension MapViewController: UISearchBarDelegate {
                         return
                     }
                     //We got a response look at the cool map items that we got back!
-                    let items = response.mapItems as [MKMapItem]
+                    let items = response.mapItems as! [MKMapItem]
                     let placemarks = items.map{$0.placemark}
                     self.mapView.showAnnotations(placemarks, animated: true)
                 }

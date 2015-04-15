@@ -19,7 +19,7 @@ class TableViewController: UITableViewController {
     }()
 
     var array = [WorkDay]()
-    let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
     override func viewDidLoad() {
         navigationController?.title = "WorkWeek"
@@ -80,7 +80,7 @@ extension TableViewController: UITableViewDelegate {
     }
 
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if let footer = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.footerCell.rawValue) as FooterTableViewCell? {
+        if let footer = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.footerCell.rawValue) as! FooterTableViewCell? {
             NSLog("Got a new footer view")
             if workManager.isAtWork() {
                 footer.contentView.backgroundColor = OverlayColor.Fill
@@ -111,8 +111,8 @@ extension TableViewController: UITableViewDelegate {
 
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         NSLog("Getting a new Header, Hours: %f", workManager.hoursWorkedThisWeek + hoursSoFarToday() )
-        if let header = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.headerCell.rawValue) as UITableViewCell? {
-            let graph = header.contentView.subviews[0] as HeaderView
+        if let header = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.headerCell.rawValue) as! UITableViewCell? {
+            let graph = header.contentView.subviews[0] as! HeaderView
             graph.hoursInWeek = Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek)
             graph.hoursWorked = Int(workManager.hoursWorkedThisWeek + hoursSoFarToday()) //loss of precision to draw the graph using only hour marks.
             graph.hoursLabel.text = String(graph.hoursWorked)

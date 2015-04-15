@@ -11,6 +11,7 @@ public enum SettingsKey : String{
     case resetDay        = "resetDayPrefKey"
     case resetHour       = "resetHourPrefKey"
     case workRadius      = "workRadiusPrefKey"
+    case nextResetDate   = "nextResetDate"
 
 }
 

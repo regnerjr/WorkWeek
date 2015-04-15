@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		229CAFF7DED38B3E1FF05521 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CF0ED90738128E08E03CC2 /* AppDelegate.swift */; };
 		520069791AC05904007030BE /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520069781AC05904007030BE /* TableViewDataSource.swift */; };
-		520619561AC7429A005D114B /* UILocalNotification_test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520619551AC7429A005D114B /* UILocalNotification_test.swift */; };
 		5210E3C91AA7AE770061BCF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5210E3C81AA7AE770061BCF6 /* HeaderView.swift */; };
 		521608E01AC200C700075608 /* OverlayColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521608DF1AC200C700075608 /* OverlayColor.swift */; };
 		521608E21AC20AAB00075608 /* LocalNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521608E11AC20AAB00075608 /* LocalNotifier.swift */; };
@@ -18,6 +17,7 @@
 		521763441A61B368009661ED /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763431A61B368009661ED /* MapKit.framework */; };
 		521763461A61BABA009661ED /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521763451A61BABA009661ED /* MapViewController.swift */; };
 		521763491A61D0C5009661ED /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521763481A61D0C5009661ED /* CoreLocation.framework */; };
+		521FFC2B1ADDCD5100E274E3 /* ClearWeeklyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521FFC2A1ADDCD5100E274E3 /* ClearWeeklyData.swift */; };
 		5239B0D61AB0ED1D002C4523 /* WorkHoursTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D51AB0ED1D002C4523 /* WorkHoursTextField.swift */; };
 		5239B0D81AB0ED7D002C4523 /* WorkRadiusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D71AB0ED7D002C4523 /* WorkRadiusTextField.swift */; };
 		5239B0DA1AB0FA9B002C4523 /* Stepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D91AB0FA9B002C4523 /* Stepper.swift */; };
@@ -56,7 +56,6 @@
 		30E265B519BC5E1BC3D618FE /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		49B3D806C300C55550FD0FA7 /* LaunchScreen.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		520069781AC05904007030BE /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
-		520619551AC7429A005D114B /* UILocalNotification_test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILocalNotification_test.swift; sourceTree = "<group>"; };
 		52084F1A1A9FFEA10015F544 /* home.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = home.gpx; sourceTree = "<group>"; };
 		5210E3C81AA7AE770061BCF6 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkManagerTest.swift; sourceTree = "<group>"; };
@@ -67,6 +66,7 @@
 		521763431A61B368009661ED /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		521763451A61BABA009661ED /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		521763481A61D0C5009661ED /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		521FFC2A1ADDCD5100E274E3 /* ClearWeeklyData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClearWeeklyData.swift; sourceTree = "<group>"; };
 		5239B0D51AB0ED1D002C4523 /* WorkHoursTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkHoursTextField.swift; sourceTree = "<group>"; };
 		5239B0D71AB0ED7D002C4523 /* WorkRadiusTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkRadiusTextField.swift; sourceTree = "<group>"; };
 		5239B0D91AB0FA9B002C4523 /* Stepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stepper.swift; sourceTree = "<group>"; };
@@ -272,7 +272,7 @@
 		F51E11A88905048A10793377 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				520619551AC7429A005D114B /* UILocalNotification_test.swift */,
+				521FFC2A1ADDCD5100E274E3 /* ClearWeeklyData.swift */,
 				52F40A591A9E808B00FA02C6 /* NSDateExtensionsTest.swift */,
 				52F40A541A9E7E7400FA02C6 /* EventTest.swift */,
 				521608E71AC3419F00075608 /* WorkHoursTest.swift */,
@@ -456,8 +456,8 @@
 			files = (
 				528F2C7D1AB0ACA2005606C6 /* EventTest.swift in Sources */,
 				528F2C7C1AB0AC9F005606C6 /* NSDateExtensionsTest.swift in Sources */,
+				521FFC2B1ADDCD5100E274E3 /* ClearWeeklyData.swift in Sources */,
 				521608E81AC3419F00075608 /* WorkHoursTest.swift in Sources */,
-				520619561AC7429A005D114B /* UILocalNotification_test.swift in Sources */,
 				528F2C7E1AB0ACA6005606C6 /* WorkManagerTest.swift in Sources */,
 				528F2C7B1AB0AC9B005606C6 /* NSNumberFormatterTests.swift in Sources */,
 			);

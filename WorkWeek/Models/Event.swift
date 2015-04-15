@@ -24,14 +24,13 @@ public class Event: NSObject, NSCoding{
         aCoder.encodeObject(self.date, forKey: "date")
     }
     required public init(coder aDecoder: NSCoder) {
-//        self.inOrOut = aDecoder.decodeObjectForKey("inOrOut")
-        let inOutString = aDecoder.decodeObjectForKey("inOrOut") as String
+        let inOutString = aDecoder.decodeObjectForKey("inOrOut") as! String? ?? ""
         switch inOutString {
         case "Arrival": self.inOrOut = .Arrival
         case "Departure": self.inOrOut = .Departure
         default: fatalError("UnArchiving inOrOut failed with string unknown string \(inOutString)")
         }
-        self.date = aDecoder.decodeObjectForKey("date") as NSDate
+        self.date = aDecoder.decodeObjectForKey("date") as! NSDate? ?? NSDate()
     }
 }
 

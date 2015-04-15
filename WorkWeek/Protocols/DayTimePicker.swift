@@ -36,7 +36,7 @@ extension DayTimePicker: UIPickerViewDelegate {
 
     func makeADayView(row: Int, withLabel label: UILabel) -> UIView {
         let dateFormatter = NSDateFormatter()
-        let days = dateFormatter.standaloneWeekdaySymbols as [String]
+        let days = dateFormatter.standaloneWeekdaySymbols as! [String]
         label.text = days[row]
         return label
     }

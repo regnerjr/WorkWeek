@@ -14,7 +14,7 @@ class SettingsViewController: UIViewController {
         set {
             Defaults.standard.setInteger(newValue, forKey: SettingsKey.hoursInWorkWeek)
             //If the number of work hours in a week changes, need to reschedule the end of the week Notification
-            let hoursWorked = (UIApplication.sharedApplication().delegate as AppDelegate).workManager.hoursWorkedThisWeek
+            let hoursWorked = (UIApplication.sharedApplication().delegate as! AppDelegate).workManager.hoursWorkedThisWeek
             let total = newValue
             LocalNotifier.setupNotification(hoursWorked, total: total)
         }
@@ -25,7 +25,7 @@ class SettingsViewController: UIViewController {
         set {
             Defaults.standard.setInteger(newValue, forKey: SettingsKey.resetDay)
             //configure the reset timer to use the new hour
-            let ad = UIApplication.sharedApplication().delegate as AppDelegate
+            let ad = UIApplication.sharedApplication().delegate as! AppDelegate
             ad.setupATimerToClearTheWeeklyResults()
         }
     }
@@ -34,7 +34,7 @@ class SettingsViewController: UIViewController {
         set {
             Defaults.standard.setInteger(newValue, forKey:SettingsKey.resetHour)
             //configure the reset timer to use the new hour
-            let ad = UIApplication.sharedApplication().delegate as AppDelegate
+            let ad = UIApplication.sharedApplication().delegate as! AppDelegate
             ad.setupATimerToClearTheWeeklyResults()
         }
     }

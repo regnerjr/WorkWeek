@@ -18,6 +18,10 @@ public class LocalNotifier {
             note.fireDate = nil //fire the notification now
         }
         note.alertTitle = "Your Work Week is Over!"
+
+        // Since this is our only notification we can just clear all of them and schedule this new one
+        UIApplication.sharedApplication().scheduledLocalNotifications = nil
+
         UIApplication.sharedApplication().scheduleLocalNotification(note)
         NSLog("Setup a Notification %@, with fire date %@", note, note.fireDate!)
     }

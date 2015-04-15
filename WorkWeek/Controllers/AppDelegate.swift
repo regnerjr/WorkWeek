@@ -8,13 +8,17 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Properties
     lazy var locationManager: CLLocationManager = self.configureLocationManager()
     let workManager = WorkManager()
-    var timer: NSTimer = NSTimer()
 
+    var endOfWeek: NSDate? = Defaults.standard.objectForKey(
+                                SettingsKey.nextResetDate.rawValue) as! NSDate?
     // MARK: - Application Lifecycle
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
         NSLog("Registerd for all Notificaiton Types")
+
+        //No Matter why you launched, see if it is time to clear last weeks data, clear it if it is time
+        clearLastWeeksData(endOfWeek)
 
         if let options = launchOptions {
             if let locationOptions  = options[UIApplicationLaunchOptionsLocationKey] as? NSNumber {
@@ -35,6 +39,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             SettingsKey.resetDay.rawValue: NSNumber(int: 0),             // Sunday
             SettingsKey.resetHour.rawValue: NSNumber(int: 4),            // 4 am
             SettingsKey.workRadius.rawValue: NSNumber(int: 200),         // 200m work radius
+            SettingsKey.nextResetDate.rawValue: NSDate(),
         ]
         Defaults.standard.registerDefaults(defaults)
 
@@ -65,17 +70,14 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     public func setupATimerToClearTheWeeklyResults(){
-        timer.invalidate() //invalidate the old Timer
         let week: NSTimeInterval = 7.0 * 24 * 60 * 60 // 7 days, 24 hours per day, 60 minutes, 60 seconds
         //get date from the settings
         if let date = getDateForReset(Defaults.standard.integerForKey(SettingsKey.resetDay),
                                       Defaults.standard.integerForKey(SettingsKey.resetHour),
-                                      0) {
-
-            timer = NSTimer(fireDate: date, interval: week, target: workManager, selector: "clearEvents", userInfo: nil, repeats: true)
-            NSLog("Set up timer to clear weekly results %@: %@, ", timer, timer.fireDate)
-
-            NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
+                                      0)
+        {
+            self.endOfWeek = date
+            NSLog("Set End of Week to be %@", date)
         } else {
             NSLog("Could not get a reset day for %@, %@",
                 Defaults.standard.integerForKey(SettingsKey.resetDay),
@@ -106,4 +108,11 @@ public func getDateForReset(day: Int, hour: Int, minute: Int) -> NSDate? {
         options: NSCalendarOptions.MatchNextTime)
 
     return date
+}
+/// Clears the weekly data if the app is launched after the previous week has expired
+///
+/// :param: clearDate The Date Configured in the settings screen, Default Sunday 4am
+/// :returns: Bool true for success, false for someting unexpected
+public func clearLastWeeksData(clearData: NSDate?) -> Bool{
+    return false
 }
