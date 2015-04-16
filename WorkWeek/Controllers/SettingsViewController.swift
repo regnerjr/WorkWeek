@@ -26,7 +26,7 @@ class SettingsViewController: UIViewController {
             Defaults.standard.setInteger(newValue, forKey: SettingsKey.resetDay)
             //configure the reset timer to use the new hour
             let ad = UIApplication.sharedApplication().delegate as! AppDelegate
-            ad.setupATimerToClearTheWeeklyResults()
+            ad.updateDefaultResetDate()
         }
     }
     var defaultResetHour: Int {
@@ -35,7 +35,7 @@ class SettingsViewController: UIViewController {
             Defaults.standard.setInteger(newValue, forKey:SettingsKey.resetHour)
             //configure the reset timer to use the new hour
             let ad = UIApplication.sharedApplication().delegate as! AppDelegate
-            ad.setupATimerToClearTheWeeklyResults()
+            ad.updateDefaultResetDate()
         }
     }
     var defaultWorkRadius: Int {

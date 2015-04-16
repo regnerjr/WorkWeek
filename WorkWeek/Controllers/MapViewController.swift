@@ -55,7 +55,6 @@ class MapViewController: UIViewController {
 
     // MARK: - My Geofence
     @IBAction func handleLongPress(sender: UILongPressGestureRecognizer) {
-        println("Got Long Press on map")
         let location = sender.locationInView(mapView)
         //make coordinated from where the user pressed
         let coordinate = mapView.convertPoint(location, toCoordinateFromView: mapView)
@@ -79,7 +78,6 @@ class MapViewController: UIViewController {
     }
 
     func startMonitoringOneRegionAtCoordinate(coord: CLLocationCoordinate2D) {
-        println("Starting Monitoring for region")
         //current limitation: Only one location may be used!!!
         let currentRegions = locationManager.monitoredRegions as NSSet
         for region in currentRegions {
@@ -95,17 +93,14 @@ class MapViewController: UIViewController {
     }
 
     func addArrivalIfAtWork(){
-        print("Adding arrival if at work")
         //if you are currently at work add an arrival right now.
         for region in locationManager.monitoredRegions as! Set<CLCircularRegion> {
             if region.identifier == MapRegionIdentifiers.work{
-                println(" At Work")
                 let workregion = region as CLCircularRegion
                 if workregion.containsCoordinate(locationManager.location.coordinate) {
                     workManager.addArrival(NSDate())
                 }
             }
-            println()
         }
 
     }
@@ -154,7 +149,6 @@ extension MapViewController: MKMapViewDelegate {
     }
 
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
-        println("Selected annotation, Setting region on this annotation")
         addOverLayAtCoordinate(view.annotation.coordinate)
         startMonitoringOneRegionAtCoordinate(view.annotation.coordinate)
         addArrivalIfAtWork()

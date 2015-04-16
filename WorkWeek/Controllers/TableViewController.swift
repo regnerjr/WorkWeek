@@ -29,7 +29,7 @@ class TableViewController: UITableViewController {
 
         appDelegate.locationManager.startUpdatingLocation()
 
-        configureTimerToReloadTheTableViewEverySixMinutes()
+        configureTimerToReloadTheTableViewEveryMinute()
 
         // check if at least one location is monitored, else we should 
         // transition to the map view so that the user can set a work location and begin using the app
@@ -50,12 +50,12 @@ class TableViewController: UITableViewController {
         tableView.reloadData()
     }
 
-    //MARK: - Helper Functions
-    func configureTimerToReloadTheTableViewEverySixMinutes(){
-        NSTimer.scheduledTimerWithTimeInterval(6 * 60.0, target: self, selector: "reloadTableView:", userInfo: nil, repeats: true)
+    // MARK: - Helper Functions
+    func configureTimerToReloadTheTableViewEveryMinute(){
+        NSTimer.scheduledTimerWithTimeInterval(60.0, target: self, selector: "reloadTableView:", userInfo: nil, repeats: true)
     }
+
     func reloadTableView(timer: NSTimer){
-        NSLog("Reload TableTimerFired!")
         self.tableView.reloadData()
     }
 }
@@ -81,7 +81,6 @@ extension TableViewController: UITableViewDelegate {
 
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if let footer = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.footerCell.rawValue) as! FooterTableViewCell? {
-            NSLog("Got a new footer view")
             if workManager.isAtWork() {
                 footer.contentView.backgroundColor = OverlayColor.Fill
                 //get the current work time
@@ -110,7 +109,6 @@ extension TableViewController: UITableViewDelegate {
     }
 
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        NSLog("Getting a new Header, Hours: %f", workManager.hoursWorkedThisWeek + hoursSoFarToday() )
         if let header = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.headerCell.rawValue) as! UITableViewCell? {
             let graph = header.contentView.subviews[0] as! HeaderView
             graph.hoursInWeek = Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek)
@@ -128,9 +126,7 @@ extension TableViewController: UITableViewDelegate {
         if let lastArrival = workManager.eventsForTheWeek.lastObject as? Event {
             if lastArrival.inOrOut == .Arrival {
                 let (h,m) = hoursMinutesFromDate(date: lastArrival.date, toDate: NSDate())
-                println(h,m)
                 let hoursToday = getDoubleFrom(hours: h, min: m)
-                NSLog("HoursToday %f", hoursToday)
                 return hoursToday
             }
         }

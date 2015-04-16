@@ -18,12 +18,17 @@ public class LocalNotifier {
             note.fireDate = nil //fire the notification now
         }
         note.alertTitle = "Your Work Week is Over!"
+        note.alertBody = "Your Work Week is Over!"
+        note.hasAction = false
+        note.repeatInterval = NSCalendarUnit.allZeros
+        note.applicationIconBadgeNumber = Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek)
+        note.soundName = UILocalNotificationDefaultSoundName
 
         // Since this is our only notification we can just clear all of them and schedule this new one
         UIApplication.sharedApplication().scheduledLocalNotifications = nil
 
         UIApplication.sharedApplication().scheduleLocalNotification(note)
-        NSLog("Setup a Notification %@, with fire date %@", note, note.fireDate!)
+        NSLog("Setup a Notification %@", note)
     }
 
     public class func cancelAllNotifications(){

@@ -9,16 +9,11 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var locationManager: CLLocationManager = self.configureLocationManager()
     let workManager = WorkManager()
 
-    var endOfWeek: NSDate? = Defaults.standard.objectForKey(
-                                SettingsKey.nextResetDate.rawValue) as! NSDate?
     // MARK: - Application Lifecycle
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
-        NSLog("Registerd for all Notificaiton Types")
-
-        //No Matter why you launched, see if it is time to clear last weeks data, clear it if it is time
-        clearLastWeeksData(endOfWeek)
+        registerDefaults()
 
         if let options = launchOptions {
             if let locationOptions  = options[UIApplicationLaunchOptionsLocationKey] as? NSNumber {
@@ -29,23 +24,40 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 locationManager.delegate = locationDelegate
                 locationManager.startUpdatingLocation()
             } else if let localNotification = options[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
-                NSLog("Got awoked because of a local notification %@", localNotification)
+                NSLog("Launched due to a local notification %@", localNotification)
             }
         }
 
-        //register some defaults
-        let defaults: [NSObject: AnyObject] = [
-            SettingsKey.hoursInWorkWeek.rawValue : NSNumber(int: 40),    // 40 hour work week
-            SettingsKey.resetDay.rawValue: NSNumber(int: 0),             // Sunday
-            SettingsKey.resetHour.rawValue: NSNumber(int: 4),            // 4 am
-            SettingsKey.workRadius.rawValue: NSNumber(int: 200),         // 200m work radius
-            SettingsKey.nextResetDate.rawValue: NSDate(),
-        ]
-        Defaults.standard.registerDefaults(defaults)
-
-        setupATimerToClearTheWeeklyResults()
-
         return true
+    }
+
+    public func applicationWillEnterForeground(application: UIApplication) {
+        NSLog("AppDelegate: Entering Foreground")
+        //if week has ended clear the work manages data
+        if let resetDate = Defaults.standard.objectForKey(SettingsKey.clearDate.rawValue) as! NSDate? {
+            NSLog("AppDelegate: Got reset Date  - %@", resetDate)
+            let now = NSDate()
+            let comparison = resetDate.compare(now)
+            NSLog("AppDelegate: Comparing Reset Date to now - %d", comparison.rawValue)
+            switch comparison {
+            case NSComparisonResult.OrderedSame:
+                println("Same! nice work. lets clear it anyway")
+                workManager.clearEvents()
+            case NSComparisonResult.OrderedAscending:
+                println("Week has lapsed, Clearing Data")
+                workManager.clearEvents()
+            case NSComparisonResult.OrderedDescending:
+                //time has not yet elapsed do nothing
+                println("Week has not yet finished, DO NOT Clear the data")
+            }
+        }
+
+        // Clear the badge if it is showing
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+    }
+
+    public func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        NSLog("Application Registered for User Notification Settings %@", notificationSettings)
     }
 
     public func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
@@ -69,20 +81,37 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         return manager
     }
 
-    public func setupATimerToClearTheWeeklyResults(){
-        let week: NSTimeInterval = 7.0 * 24 * 60 * 60 // 7 days, 24 hours per day, 60 minutes, 60 seconds
+
+    /// Called when the resetDay or resetHour changes in the Settings screen
+    public func updateDefaultResetDate(){
+        NSLog("Calling AppDelegate updateDefaultResetDate")
         //get date from the settings
         if let date = getDateForReset(Defaults.standard.integerForKey(SettingsKey.resetDay),
                                       Defaults.standard.integerForKey(SettingsKey.resetHour),
                                       0)
         {
-            self.endOfWeek = date
+            // Update the Default
+            Defaults.standard.setObject(date, forKey: SettingsKey.clearDate.rawValue)
+
             NSLog("Set End of Week to be %@", date)
         } else {
             NSLog("Could not get a reset day for %@, %@",
                 Defaults.standard.integerForKey(SettingsKey.resetDay),
                 Defaults.standard.integerForKey(SettingsKey.resetHour))
         }
+    }
+
+    /// Setup Default values in the NSUserDefaults
+    func registerDefaults(){
+        //register some defaults
+        let defaults: [NSObject: AnyObject] = [
+            SettingsKey.hoursInWorkWeek.rawValue : NSNumber(int: 40),    // 40 hour work week
+            SettingsKey.resetDay.rawValue: NSNumber(int: 0),             // Sunday
+            SettingsKey.resetHour.rawValue: NSNumber(int: 4),            // 4 am
+            SettingsKey.workRadius.rawValue: NSNumber(int: 200),         // 200m work radius
+            SettingsKey.clearDate.rawValue: getDateForReset(0, 4, 0) ?? NSDate(),
+        ]
+        Defaults.standard.registerDefaults(defaults)
     }
 }
 
