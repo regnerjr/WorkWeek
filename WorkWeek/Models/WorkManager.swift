@@ -119,9 +119,9 @@ public class WorkManager : NSObject{
                                         arrivalTime: first.timeString,
                                         departureTime: second.timeString)
                     workTimes.append(workDay)
-                    events.removeObjectAtIndex(0) //remove the arrival
-                    events.removeObjectAtIndex(0) //remove the departure
                 }
+                events.removeObjectAtIndex(0) //remove the arrival
+                events.removeObjectAtIndex(0) //remove the departure
             }
 
         }
