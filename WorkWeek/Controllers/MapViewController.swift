@@ -63,7 +63,7 @@ class MapViewController: UIViewController {
             addOverLayAtCoordinate(coordinate)
         } else if sender.state == UIGestureRecognizerState.Ended {
            startMonitoringOneRegionAtCoordinate(coordinate)
-           addArrivalIfAtWork()
+           addArrivalIfAtWork(locationManager, workManager)
         }
     }
 
@@ -91,8 +91,9 @@ class MapViewController: UIViewController {
         println("Monitoring new region \(workRegion)")
         locationManager.startMonitoringForRegion(workRegion)
     }
+}
 
-    func addArrivalIfAtWork(){
+public func addArrivalIfAtWork( locationManager: CLLocationManager, workManager: WorkManager ){
         //if you are currently at work add an arrival right now.
         for region in locationManager.monitoredRegions as! Set<CLCircularRegion> {
             if region.identifier == MapRegionIdentifiers.work{
@@ -106,8 +107,6 @@ class MapViewController: UIViewController {
         }
 
     }
-
-}
 
 // MARK: - MapViewDelegate
 extension MapViewController: MKMapViewDelegate {
@@ -153,7 +152,7 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         addOverLayAtCoordinate(view.annotation.coordinate)
         startMonitoringOneRegionAtCoordinate(view.annotation.coordinate)
-        addArrivalIfAtWork()
+        addArrivalIfAtWork(locationManager, workManager)
     }
 
     func mapRectToFitCoordinate(one: CLLocationCoordinate2D, andCoordinate two: CLLocationCoordinate2D) -> MKMapRect {

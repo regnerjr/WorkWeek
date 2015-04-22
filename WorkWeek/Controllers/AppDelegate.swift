@@ -49,11 +49,11 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             case NSComparisonResult.OrderedSame:
                 println("Same! nice work. lets clear it anyway")
                 workManager.clearEvents()
-                updateResetDateForNextWeek()
+                updateDefaultResetDate()
             case NSComparisonResult.OrderedAscending:
                 println("Week has lapsed, Clearing Data")
                 workManager.clearEvents()
-                updateResetDateForNextWeek()
+                updateDefaultResetDate()
             case NSComparisonResult.OrderedDescending:
                 //time has not yet elapsed do nothing
                 println("Week has not yet finished, DO NOT Clear the data")
@@ -68,7 +68,11 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     public func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         //show an alertview if teh work week ends and we are in the foreground
         NSLog("Work Week Ended and we were in the foreground")
-        let alert = UIAlertView(title: "Work Week is Over!", message: "Go Home", delegate: nil, cancelButtonTitle: nil)
+        let alert = UIAlertController(title: "WorkWeek", message: "Go Home!", preferredStyle: UIAlertControllerStyle.Alert)
+        let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        alert.addAction(defaultAction)
+        // Who presents this?
+
     }
 
 
@@ -143,18 +147,4 @@ public func getDateForReset(day: Int, hour: Int, minute: Int) -> NSDate? {
         options: NSCalendarOptions.MatchNextTime)
 
     return date
-}
-
-func updateResetDateForNextWeek(){
-    //get current reset date from defaults
-    if let resetDate = Defaults.standard.objectForKey(SettingsKey.resetDay.rawValue) as! NSDate? {
-        //now we just need to add a week to this date
-        let cal = NSCalendar.currentCalendar()
-        let comps = NSDateComponents()
-        comps.weekday = 7
-        let newReset = cal.dateByAddingComponents(comps, toDate: resetDate, options: NSCalendarOptions.MatchNextTime)
-    } else {
-        NSLog("Reset Date should never be nil")
-        //reset date should never be nil
-    }
 }
