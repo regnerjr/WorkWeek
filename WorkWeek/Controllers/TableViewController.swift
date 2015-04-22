@@ -39,7 +39,6 @@ class TableViewController: UITableViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
-//        let workHours = Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek)
         array = workManager.allItems()
         tableView.reloadData()
     }

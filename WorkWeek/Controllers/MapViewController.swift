@@ -99,6 +99,8 @@ class MapViewController: UIViewController {
                 let workregion = region as CLCircularRegion
                 if workregion.containsCoordinate(locationManager.location.coordinate) {
                     workManager.addArrival(NSDate())
+                } else {
+                    workManager.addDeparture(NSDate())
                 }
             }
         }

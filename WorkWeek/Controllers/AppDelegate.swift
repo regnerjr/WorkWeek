@@ -17,7 +17,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let options = launchOptions {
             if let locationOptions  = options[UIApplicationLaunchOptionsLocationKey] as? NSNumber {
-
+                resetDataIfNeeded()
                 //spin up a location delegate and point the location Manager to it.
                 //TODO: move the location delegate to its own class
                 let locationDelegate = TableViewController()
@@ -34,8 +34,14 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     public func applicationWillEnterForeground(application: UIApplication) {
         NSLog("AppDelegate: Entering Foreground")
         //if week has ended clear the work manages data
+        resetDataIfNeeded()
+
+        // Clear the badge if it is showing
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+    }
+
+    func resetDataIfNeeded() {
         if let resetDate = Defaults.standard.objectForKey(SettingsKey.clearDate.rawValue) as! NSDate? {
-            NSLog("AppDelegate: Got reset Date  - %@", resetDate)
             let now = NSDate()
             let comparison = resetDate.compare(now)
             NSLog("AppDelegate: Comparing Reset Date to now - %d", comparison.rawValue)
@@ -43,17 +49,16 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             case NSComparisonResult.OrderedSame:
                 println("Same! nice work. lets clear it anyway")
                 workManager.clearEvents()
+                updateResetDateForNextWeek()
             case NSComparisonResult.OrderedAscending:
                 println("Week has lapsed, Clearing Data")
                 workManager.clearEvents()
+                updateResetDateForNextWeek()
             case NSComparisonResult.OrderedDescending:
                 //time has not yet elapsed do nothing
                 println("Week has not yet finished, DO NOT Clear the data")
             }
         }
-
-        // Clear the badge if it is showing
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
     }
 
     public func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
@@ -84,7 +89,6 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
 
     /// Called when the resetDay or resetHour changes in the Settings screen
     public func updateDefaultResetDate(){
-        NSLog("Calling AppDelegate updateDefaultResetDate")
         //get date from the settings
         if let date = getDateForReset(Defaults.standard.integerForKey(SettingsKey.resetDay),
                                       Defaults.standard.integerForKey(SettingsKey.resetHour),
@@ -92,8 +96,6 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             // Update the Default
             Defaults.standard.setObject(date, forKey: SettingsKey.clearDate.rawValue)
-
-            NSLog("Set End of Week to be %@", date)
         } else {
             NSLog("Could not get a reset day for %@, %@",
                 Defaults.standard.integerForKey(SettingsKey.resetDay),
@@ -128,7 +130,11 @@ public func getDateForReset(day: Int, hour: Int, minute: Int) -> NSDate? {
     // This is where the real magic happens, How much time between now  and our reset time
     // in days hours minutes
     let resetComps = NSDateComponents()
-    resetComps.day    = day - todaysComps.day
+    if (day + 1) < todaysComps.weekday {  //adjust for week wrap.
+        resetComps.weekday = (day + 1) - todaysComps.weekday + 7
+    } else {
+        resetComps.weekday = (day + 1) - todaysComps.weekday
+    }
     resetComps.hour   = hour - todaysComps.hour
     resetComps.minute = minute - todaysComps.minute
 
@@ -138,10 +144,17 @@ public func getDateForReset(day: Int, hour: Int, minute: Int) -> NSDate? {
 
     return date
 }
-/// Clears the weekly data if the app is launched after the previous week has expired
-///
-/// :param: clearDate The Date Configured in the settings screen, Default Sunday 4am
-/// :returns: Bool true for success, false for someting unexpected
-public func clearLastWeeksData(clearData: NSDate?) -> Bool{
-    return false
+
+func updateResetDateForNextWeek(){
+    //get current reset date from defaults
+    if let resetDate = Defaults.standard.objectForKey(SettingsKey.resetDay.rawValue) as! NSDate? {
+        //now we just need to add a week to this date
+        let cal = NSCalendar.currentCalendar()
+        let comps = NSDateComponents()
+        comps.weekday = 7
+        let newReset = cal.dateByAddingComponents(comps, toDate: resetDate, options: NSCalendarOptions.MatchNextTime)
+    } else {
+        NSLog("Reset Date should never be nil")
+        //reset date should never be nil
+    }
 }
