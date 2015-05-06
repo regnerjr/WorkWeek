@@ -22,7 +22,7 @@ struct Defaults {
     static let standard = NSUserDefaults.standardUserDefaults()
 }
 
-// Wish I could break up the settings keys into classes whitch would constrain this so only the
+// Wish I could break up the settings keys into classes which would constrain this so only the
 // strings which control the double settings could be passes to doubleForKey
 extension NSUserDefaults {
     public func doubleForKey(defaultName: SettingsKey) ->Double {

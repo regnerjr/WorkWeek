@@ -20,7 +20,7 @@ public struct Formatter {
         doubleFormatter.minimumFractionDigits = 1
         doubleFormatter.maximumFractionDigits = 1
         doubleFormatter.roundingIncrement = 0.1
-        doubleFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundHalfDown
+        doubleFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundHalfUp
         return doubleFormatter
     }()
 
@@ -35,7 +35,7 @@ public struct Formatter {
         intFormatter.minimumFractionDigits = 0
         intFormatter.maximumFractionDigits = 0
         intFormatter.roundingIncrement = 1
-        intFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundUp
+        intFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundHalfUp
         return intFormatter
     }()
 
