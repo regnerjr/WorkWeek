@@ -12,16 +12,16 @@ enum ReuseIdentifiers: String {
     case footerCell = "footerView"
 }
 
-class TableViewController: UITableViewController {
+public class TableViewController: UITableViewController {
 
-    lazy var workManager: WorkManager = {
+    lazy public var workManager: WorkManager = {
         return self.appDelegate.workManager
     }()
 
     var array = [WorkDay]()
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         navigationController?.title = "WorkWeek"
 
         //set ourselves as the location Manager delegate
@@ -38,7 +38,7 @@ class TableViewController: UITableViewController {
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override public func viewWillAppear(animated: Bool) {
         array = workManager.allItems()
         if array.count == 0 {
             //no items to display, this is fine.... except if the user is at work now?
@@ -68,15 +68,18 @@ class TableViewController: UITableViewController {
 //MARK: - TableViewDelegate
 extension TableViewController: UITableViewDelegate {
 
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 150
     }
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 80
+    }
+    public override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 80
     }
 
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    override public func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if workManager.isAtWork() {
             return 80
         } else {
@@ -84,7 +87,7 @@ extension TableViewController: UITableViewDelegate {
         }
     }
 
-    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    override public func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if let footer = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.footerCell.rawValue) as! FooterTableViewCell? {
             if workManager.isAtWork() {
                 footer.contentView.backgroundColor = OverlayColor.Fill
@@ -113,7 +116,7 @@ extension TableViewController: UITableViewDelegate {
         }
     }
 
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let header = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.headerCell.rawValue) as! UITableViewCell? {
             let graph = header.contentView.subviews[0] as! HeaderView
             graph.hoursInWeek = Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek)
@@ -143,7 +146,7 @@ extension TableViewController: UITableViewDelegate {
 //MARK: - Location Manager Delegate
 extension TableViewController: CLLocationManagerDelegate {
     
-    func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
+    public func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
         if region.identifier == MapRegionIdentifiers.work {
             println( "Arrived at work")
             workManager.addArrival(NSDate())
@@ -151,7 +154,7 @@ extension TableViewController: CLLocationManagerDelegate {
             tableView.reloadData()
         }
     }
-    func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
+    public func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
         if region.identifier == MapRegionIdentifiers.work {
             println("Leaving work")
             workManager.addDeparture(NSDate())

@@ -1,10 +1,10 @@
 import UIKit
 
-class WorkDayCellTableViewCell: UITableViewCell {
+public class WorkDayCellTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var workTime: UILabel!
-    @IBOutlet weak var workDate: UILabel!
-    @IBOutlet weak var arrivalTime: UILabel!
-    @IBOutlet weak var departureTime: UILabel!
+    @IBOutlet weak public var workDate: UILabel!
+    @IBOutlet weak public var workTime: UILabel!
+    @IBOutlet weak public var arrivalTime: UILabel!
+    @IBOutlet weak public var departureTime: UILabel!
 
 }
