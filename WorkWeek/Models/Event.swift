@@ -1,28 +1,40 @@
 import Foundation
 
+/// Enum for tracking Arrivals and Departures
+/// These items are Mutually exclusive thus this amazing enum
 public enum AD: String {
      case Arrival = "Arrival"
      case Departure = "Departure"
 }
 
-
+///
+/// Event class is used for storing arrivals and departures
+/// Each event is either an arrival or a departure
+/// and each event has a specific absolute date on which it happened
+///
 public class Event: NSObject, NSCoding{
+    
     public let inOrOut: AD
     public let date: NSDate
 
+    /// timeString is a property which returns the short time for the event
+    /// i.e. 8:34 AM
+    var timeString: String {
+        return Formatter.shortTime.stringFromDate(date)
+    }
+
+    /// Create an event by passing AD.Arrival or AD.Departure, and an NSDate
     public init(inOrOut: AD, date: NSDate){
         self.inOrOut = inOrOut
         self.date = date
     }
-    
-    var timeString: String {
-        return Formatter.shortTime.stringFromDate(self.date)
-    }
 
+    // MARK: - NSCoding
     public func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(self.inOrOut.rawValue, forKey: "inOrOut")
         aCoder.encodeObject(self.date, forKey: "date")
     }
+
     required public init(coder aDecoder: NSCoder) {
         let inOutString = aDecoder.decodeObjectForKey("inOrOut") as! String? ?? ""
         switch inOutString {
@@ -34,33 +46,10 @@ public class Event: NSObject, NSCoding{
     }
 }
 
-
 // MARK: - Equatable
 extension Event: Equatable {}
 public func ==(lhs: Event, rhs: Event) -> Bool {
     return (lhs.inOrOut == rhs.inOrOut) && (lhs.date == rhs.date)
-}
-
-
-// MARK: - WorkHours
-public struct WorkDay {
-    let weekDay: String //string to store the weekday of the Arrival
-    let hoursWorked: Int //counts Hours worked from arrival to departure
-    let minutesWorked: Int //counts minutes not included in the Hours
-    let arrivalTime: String
-    let departureTime: String
-    public var decimalHoursWorked : String {
-        return Formatter.double.stringFromDouble( getDoubleFrom(hours: hoursWorked, min: minutesWorked) )
-    }
-
-    public init(weekDay:String, hoursWorked: Int, minutesWorked: Int,
-         arrivalTime: String, departureTime: String) {
-        self.weekDay = weekDay
-        self.hoursWorked = hoursWorked
-        self.minutesWorked = minutesWorked
-        self.arrivalTime = arrivalTime
-        self.departureTime = departureTime
-    }
 }
 
 public func getDoubleFrom(#hours: Int, #min: Int) -> Double {

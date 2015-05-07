@@ -30,5 +30,26 @@ class EventTest: XCTestCase {
         let event4 = Event(inOrOut: .Departure, date: NSDate(timeIntervalSinceReferenceDate: 0))
         XCTAssertFalse(event1 == event4, "Event equality is based on date")
     }
+
+    func testEventArchive(){
+
+        let Jan11970 = NSDate(timeIntervalSince1970: 0)
+        let newArrival = Event(inOrOut: .Arrival, date: Jan11970)
+
+
+        let data = NSMutableData(capacity: 300) //make a data
+        if let data = data {
+
+        let coder = NSKeyedArchiver(forWritingWithMutableData: data)
+        newArrival.encodeWithCoder(coder)
+        coder.finishEncoding()
+
+        let decoder = NSKeyedUnarchiver(forReadingWithData: data)
+        let restored = Event(coder: decoder)
+
+        XCTAssertEqual(restored, newArrival, "Restored Event is same as original event")
+
+        }
+    }
     
 }
