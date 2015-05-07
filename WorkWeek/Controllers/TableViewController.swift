@@ -80,7 +80,7 @@ extension TableViewController: UITableViewDelegate {
     }
 
     override public func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if workManager.isAtWork() {
+        if workManager.isAtWork {
             return 80
         } else {
             return 1
@@ -89,7 +89,7 @@ extension TableViewController: UITableViewDelegate {
 
     override public func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if let footer = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.footerCell.rawValue) as! FooterTableViewCell? {
-            if workManager.isAtWork() {
+            if workManager.isAtWork {
                 footer.contentView.backgroundColor = OverlayColor.Fill
                 //get the current work time
                 if let lastArrival = workManager.eventsForTheWeek.lastObject as? Event {

@@ -16,8 +16,7 @@ private struct Archive {
 public class WorkManager : NSObject{
 
     public var eventsForTheWeek: NSMutableArray = NSMutableArray()
-
-    public var workDays: [WorkDay] = Array<WorkDay>()
+    private var workDays = Array<WorkDay>()
     public var hoursWorkedThisWeek: Double {
         let hoursWorked = workDays.reduce(0, combine: {$0 + $1.hoursWorked})
         let hourFractions = workDays.reduce(0, combine: {$0 + $1.minutesWorked})
@@ -26,21 +25,26 @@ public class WorkManager : NSObject{
     var hoursInWorkWeek: Int {
         return Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek)
     }
+    public var isAtWork: Bool {
+        if let lastEvent = eventsForTheWeek.lastObject as? Event{
+            return lastEvent.inOrOut == .Arrival //if the last event was an arrival return true
+        }
+        return false // if no events then there has not been an arrival
+    }
 
+    // MARK: - Init
     public override init(){
         super.init()
         // if we have archived events restore them
-        let eventArchive = restoreArchivedEvents()
-        map(eventArchive, { events -> Void in
-            self.eventsForTheWeek = events
-        })
+        if let eventArchive = restoreArchivedEvents() {
+            self.eventsForTheWeek = eventArchive
+        }
     }
 
     func restoreArchivedEvents() -> NSMutableArray? {
         // Get the archived events, nil if there are none
         if let path = Archive.path {
-            let restored = NSKeyedUnarchiver.unarchiveObjectWithFile(path) as! NSMutableArray?
-            return restored // if restore failed `restored` will be nil
+            return NSKeyedUnarchiver.unarchiveObjectWithFile(path) as! NSMutableArray?
         } else {
             return nil
         }
@@ -68,13 +72,6 @@ public class WorkManager : NSObject{
         eventsForTheWeek.addObject(newDeparture)
         saveNewArchive(eventsForTheWeek)
         workDays = processEvents(eventsForTheWeek)
-    }
-
-    public func isAtWork() -> Bool {
-        if let lastEvent = eventsForTheWeek.lastObject as? Event{
-            return lastEvent.inOrOut == .Arrival //if the last event was an arrival return true
-        }
-        return false // if no events then there has not been an arrival
     }
 
     public func clearEvents(){

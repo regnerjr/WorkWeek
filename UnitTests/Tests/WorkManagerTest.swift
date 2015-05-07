@@ -3,17 +3,81 @@ import XCTest
 
 import WorkWeek
 
+class WorkManagerPropertiesTest: XCTestCase {
+
+    override func setUp() {
+        clearSavedEvents()
+        super.setUp()
+    }
+    override func tearDown() {
+        //remove any archived data
+        clearSavedEvents()
+        super.tearDown()
+    }
+
+    // Tests eventsForTheWeek, archiving and restoring
+    func testEventsEmptyWhenNothingIsArchived(){
+        let manager = WorkManager()
+        XCTAssertEqual(manager.eventsForTheWeek.count, 0, "No Events on a new manager")
+    }
+
+    func testEventsAreRestoredFromArchive(){
+        var manager: WorkManager! = WorkManager()
+        XCTAssertEqual(manager.eventsForTheWeek.count, 0, "No Events")
+        manager.addArrival(NSDate())
+        manager = nil
+        XCTAssertNil(manager, "Manager is Nil")
+        manager = WorkManager() // on creation restores archived events
+        XCTAssertEqual(manager.eventsForTheWeek.count, 1, "Has 1 event restored from disk")
+    }
+
+    func testHoursWorkedThisWeek(){
+        var manager = WorkManager()
+        manager.addArrival(NSDate())
+        manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
+        XCTAssert(manager.hoursWorkedThisWeek == 8.0, "Worked 8 hours!")
+
+        //add a second day
+        manager.addArrival(NSDate(timeIntervalSinceNow:   60*60*24))
+        manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*(24+8)))
+        XCTAssert(manager.hoursWorkedThisWeek == 16.0, "Worked 16 Hours")
+
+        //test fractions of an hour add 6 minutes and get 16.1
+        manager.addArrival(NSDate(timeIntervalSinceNow:   60*60*(24 + 8) + 1 ))
+        manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*(24 + 8) + 1 + 60 * 6))
+        XCTAssert(manager.hoursWorkedThisWeek == 16.1, "Worked 16 Hours and 6 minutes")
+    }
+
+    // MARK: - Helper Functions
+    func clearSavedEvents(){
+        let documentsDirectories = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory,
+            NSSearchPathDomainMask.UserDomainMask, true) as? [String]
+        let path = documentsDirectories!.first! + "/items.archive"
+        let fileManager = NSFileManager.defaultManager()
+        if fileManager.fileExistsAtPath(path) {
+        var error: NSError? = nil
+        fileManager.removeItemAtPath(path, error: &error)
+        }
+    }
+
+}
+
 class WorkManagerTest: XCTestCase {
 
-    func testWorkManagerCreation(){
-        let manager = WorkManager()
+    var manager: WorkManager!
+
+    override func setUp(){
+        super.setUp()
+        manager = WorkManager()
         manager.clearEvents()
-        XCTAssertNotNil(manager, "Manager is not nil")
+    }
+
+    override func tearDown(){
+        //teardown Here
+        super.tearDown()
     }
 
     func testAddArrival(){
-        let manager = WorkManager()
-        manager.clearEvents()
         let date = NSDate()
         let arrival = AD.Arrival
         manager.addArrival(date)
@@ -23,8 +87,6 @@ class WorkManagerTest: XCTestCase {
     }
 
     func testAddDeparture(){
-        let manager = WorkManager()
-        manager.clearEvents()
         let date = NSDate()
         let arrival = AD.Departure
         manager.addDeparture(date)
@@ -35,18 +97,14 @@ class WorkManagerTest: XCTestCase {
 
 
     func testIsAtWork(){
-        let manager = WorkManager()
-        manager.clearEvents()
 
         manager.addArrival(NSDate())
-        XCTAssert(manager.isAtWork() == true, "User is at work after arriving")
+        XCTAssert(manager.isAtWork == true, "User is at work after arriving")
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
-        XCTAssert(manager.isAtWork() == false, "User is NOT at work after departing")
+        XCTAssert(manager.isAtWork == false, "User is NOT at work after departing")
     }
 
     func testClearEvents(){
-        let manager = WorkManager()
-        manager.clearEvents()
 
         manager.addArrival(NSDate())
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
@@ -56,31 +114,28 @@ class WorkManagerTest: XCTestCase {
     }
 
     func testAllItems(){
-        //TODO: Why is this not implemented?
-        //calling all items shoud return an array of work hours objects ready 
-        //for placement into a cell in the tableview
-
+        manager.addArrival(NSDate())
+        manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
+        manager.addArrival(NSDate(timeIntervalSinceNow: 60*60*24))
+        manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*(24+8)))
+        let days = manager.allItems()
+        XCTAssertEqual(days.count, 2, "2 workDays are returned")
     }
 
     func testMangerProcessesEvents(){
 
-        let manager = WorkManager()
-        manager.clearEvents()
         manager.addArrival(NSDate())
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
-        manager.workDays = manager.processEvents(manager.eventsForTheWeek)
-        XCTAssertEqual(manager.workDays.count, 1, "One arrival and one Departure makes 1 WorkHours")
+        XCTAssertEqual(manager.allItems().count, 1, "One arrival and one Departure makes 1 WorkHours")
 
         manager.addArrival(NSDate(timeIntervalSinceNow: 60*60*24))
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*(24+8)))
-        manager.workDays = manager.processEvents(manager.eventsForTheWeek)
-        XCTAssertEqual(manager.workDays.count, 2, "2 workdays makes 2 WorkHours")
+        XCTAssertEqual(manager.allItems().count, 2, "2 workdays makes 2 WorkHours")
 
     }
 
     func testProcessEventsExtended(){
-        let manager = WorkManager()
-        manager.clearEvents()
+
         let startDate = NSDate()
         manager.addDeparture(startDate) //tets only having a departure, should show no work hours
         let workDays = manager.allItems()
@@ -96,6 +151,7 @@ class WorkManagerTest: XCTestCase {
     }
 
     func testHourMinuteCalculations(){
+
         let referenceDate = NSDate(timeIntervalSinceReferenceDate: 0)
         let twoHours = NSDate(timeIntervalSinceReferenceDate: 60*60*2)
         let timeDiff = hoursMinutesFromDate(date: referenceDate, toDate: twoHours)
@@ -108,21 +164,4 @@ class WorkManagerTest: XCTestCase {
         XCTAssert(timeDiff2.minutes == 30 , "Time diff of 2hour 30 minutes is calculated")
     }
 
-    func testHoursWorkedThisWeek(){
-        let manager = WorkManager()
-        manager.clearEvents()
-        manager.addArrival(NSDate())
-        manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
-        XCTAssert(manager.hoursWorkedThisWeek == 8.0, "Worked 8 hours!")
-
-        //add a second day
-        manager.addArrival(NSDate(timeIntervalSinceNow:   60*60*24))
-        manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*(24+8)))
-        XCTAssert(manager.hoursWorkedThisWeek == 16.0, "Worked 16 Hours")
-
-        //test fractions of an hour add 6 minutes and get 16.1
-        manager.addArrival(NSDate(timeIntervalSinceNow:   60*60*(24 + 8) + 1 ))
-        manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*(24 + 8) + 1 + 60 * 6))
-        XCTAssert(manager.hoursWorkedThisWeek == 16.1, "Worked 16 Hours and 6 minutes")
-    }
 }
