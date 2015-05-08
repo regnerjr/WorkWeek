@@ -13,7 +13,7 @@ private struct Archive {
     }
 }
 
-public class WorkManager : NSObject{
+public class WorkManager : NSObject {
 
     public var eventsForTheWeek: NSMutableArray = NSMutableArray()
     private var workDays = Array<WorkDay>()
@@ -50,14 +50,6 @@ public class WorkManager : NSObject{
         }
     }
 
-    func saveNewArchive(events : NSMutableArray) -> Bool{
-        map(Archive.path) { path -> Bool in
-            let result = NSKeyedArchiver.archiveRootObject(self.eventsForTheWeek, toFile: path)
-            return result
-        }
-        return false
-    }
-
     public func addArrival(date: NSDate){
         //set up a notification to fire at 40 hours
         LocalNotifier.setupNotification(hoursWorkedThisWeek, total: hoursInWorkWeek)
@@ -74,6 +66,13 @@ public class WorkManager : NSObject{
         workDays = processEvents(eventsForTheWeek)
     }
 
+    func saveNewArchive(events : NSMutableArray) -> Bool{
+        if let path = Archive.path {
+            return NSKeyedArchiver.archiveRootObject(self.eventsForTheWeek, toFile: path)
+        }
+        return false
+    }
+
     public func clearEvents(){
         eventsForTheWeek = NSMutableArray()
         //clear the archive as well
@@ -85,7 +84,6 @@ public class WorkManager : NSObject{
         return workDays
     }
 
-    //What we need is a loop to process the events and turn them into workdays
     public func processEvents(inEvents:  NSMutableArray ) -> [WorkDay]{
         // make a copy so we can mutate this
         let events = inEvents.mutableCopy() as! NSMutableArray

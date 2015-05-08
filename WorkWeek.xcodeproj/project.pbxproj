@@ -30,6 +30,7 @@
 		529B8F2E1AAA5C5100EED298 /* DayTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529B8F2D1AAA5C5100EED298 /* DayTimePicker.swift */; };
 		52AA92EE1AFAF94100DAE92A /* WorkDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AA92ED1AFAF94100DAE92A /* WorkDay.swift */; };
 		52AA92F01AFAFEE800DAE92A /* WorkDayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AA92EF1AFAFEE800DAE92A /* WorkDayTests.swift */; };
+		52AA93361AFC499400DAE92A /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AA93351AFC499400DAE92A /* AppDelegateTests.swift */; };
 		52C565BB1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C565BA1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift */; };
 		52C8A9BE1AAE062100099E62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52C8A9BD1AAE062100099E62 /* Main.storyboard */; };
 		52D66EA91AC4A2C000176397 /* FooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D66EA81AC4A2C000176397 /* FooterTableViewCell.swift */; };
@@ -79,6 +80,7 @@
 		529B8F2D1AAA5C5100EED298 /* DayTimePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayTimePicker.swift; sourceTree = "<group>"; };
 		52AA92ED1AFAF94100DAE92A /* WorkDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkDay.swift; sourceTree = "<group>"; };
 		52AA92EF1AFAFEE800DAE92A /* WorkDayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkDayTests.swift; sourceTree = "<group>"; };
+		52AA93351AFC499400DAE92A /* AppDelegateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
 		52C565BA1AA528C9005EBA44 /* WorkDayCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkDayCellTableViewCell.swift; sourceTree = "<group>"; };
 		52C8A9BD1AAE062100099E62 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		52CE2EA61AAE482D0062E91A /* Devils_Lake_Climbing.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Devils_Lake_Climbing.gpx; sourceTree = "<group>"; };
@@ -156,6 +158,17 @@
 				EA494A91110D31044A9C38F5 /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		52AA92F11AFBDB8C00DAE92A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				52F40A541A9E7E7400FA02C6 /* EventTest.swift */,
+				52AA92EF1AFAFEE800DAE92A /* WorkDayTests.swift */,
+				521608E71AC3419F00075608 /* WorkHoursTest.swift */,
+				52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		52E3859F1AFAA7F200C3847C /* Extensions */ = {
@@ -291,10 +304,8 @@
 			children = (
 				52E3859F1AFAA7F200C3847C /* Extensions */,
 				52E3859D1AFAA7DF00C3847C /* TableViewDataSourceTests.swift */,
-				52F40A541A9E7E7400FA02C6 /* EventTest.swift */,
-				52AA92EF1AFAFEE800DAE92A /* WorkDayTests.swift */,
-				521608E71AC3419F00075608 /* WorkHoursTest.swift */,
-				52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */,
+				52AA92F11AFBDB8C00DAE92A /* Model */,
+				52AA93351AFC499400DAE92A /* AppDelegateTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -473,6 +484,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				528F2C7D1AB0ACA2005606C6 /* EventTest.swift in Sources */,
+				52AA93361AFC499400DAE92A /* AppDelegateTests.swift in Sources */,
 				52AA92F01AFAFEE800DAE92A /* WorkDayTests.swift in Sources */,
 				52E3859E1AFAA7DF00C3847C /* TableViewDataSourceTests.swift in Sources */,
 				52E3859C1AFA9A1F00C3847C /* NSUserDefaultsKeysTest.swift in Sources */,
