@@ -12,7 +12,8 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Application Lifecycle
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
+        application.registerUserNotificationSettings(
+            UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
         registerDefaults()
 
         if let options = launchOptions {
@@ -20,8 +21,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 resetDataIfNeeded()
                 //spin up a location delegate and point the location Manager to it.
                 //TODO: move the location delegate to its own class
-                let locationDelegate = TableViewController()
-                locationManager.delegate = locationDelegate
+                locationManager.delegate = TableViewController()
                 locationManager.startUpdatingLocation()
             } else if let localNotification = options[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
                 NSLog("Launched due to a local notification %@", localNotification)
@@ -77,7 +77,6 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     // MARK: - Helper Functions
-
     func configureLocationManager() -> CLLocationManager{
         var manager = CLLocationManager()
         let auth = CLLocationManager.authorizationStatus()
@@ -94,11 +93,10 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     /// Called when the resetDay or resetHour changes in the Settings screen
     public func updateDefaultResetDate(){
         //get date from the settings
-        if let date = getDateForReset(Defaults.standard.integerForKey(SettingsKey.resetDay),
-                                      Defaults.standard.integerForKey(SettingsKey.resetHour),
-                                      0)
-        {
-            // Update the Default
+        if let date = getDateForReset(
+                Defaults.standard.integerForKey(SettingsKey.resetDay),
+                Defaults.standard.integerForKey(SettingsKey.resetHour),
+                0) {
             Defaults.standard.setObject(date, forKey: SettingsKey.clearDate.rawValue)
         } else {
             NSLog("Could not get a reset day for %@, %@",

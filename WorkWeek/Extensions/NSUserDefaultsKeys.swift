@@ -18,8 +18,8 @@ public enum SettingsKey : String{
 /// A simpler way to access the NSUserDefaults.StandardUserDefaults()
 /// Purely a convenience.
 ///
-struct Defaults {
-    static let standard = NSUserDefaults.standardUserDefaults()
+public struct Defaults {
+    public static let standard = NSUserDefaults.standardUserDefaults()
 }
 
 // Wish I could break up the settings keys into classes which would constrain this so only the
