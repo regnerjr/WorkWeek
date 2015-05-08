@@ -20,14 +20,14 @@ public struct Formatter {
         doubleFormatter.minimumFractionDigits = 1
         doubleFormatter.maximumFractionDigits = 1
         doubleFormatter.roundingIncrement = 0.1
-        doubleFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundHalfUp
+        doubleFormatter.roundingMode = .RoundHalfUp
         return doubleFormatter
     }()
 
     /// 1 to 2 digit integers
     public static var workHours: NSNumberFormatter = {
         let intFormatter = NSNumberFormatter()
-        intFormatter.numberStyle = NSNumberFormatterStyle.NoStyle
+        intFormatter.numberStyle = .NoStyle
         intFormatter.minimum = 1
         intFormatter.maximum = 99
         intFormatter.minimumIntegerDigits = 1
@@ -35,14 +35,14 @@ public struct Formatter {
         intFormatter.minimumFractionDigits = 0
         intFormatter.maximumFractionDigits = 0
         intFormatter.roundingIncrement = 1
-        intFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundHalfUp
+        intFormatter.roundingMode = .RoundHalfUp
         return intFormatter
     }()
 
     /// For showing a work radius 50 to 999 integers only
     public static var workRadius: NSNumberFormatter = {
         let radiusFormatter = NSNumberFormatter()
-        radiusFormatter.numberStyle = NSNumberFormatterStyle.NoStyle
+        radiusFormatter.numberStyle = .NoStyle
         radiusFormatter.minimum = 50 //allow workRadius to be between 50 and 999 meters
         radiusFormatter.maximum = 999
         radiusFormatter.minimumIntegerDigits = 2
@@ -50,7 +50,7 @@ public struct Formatter {
         radiusFormatter.minimumFractionDigits = 0
         radiusFormatter.maximumFractionDigits = 0
         radiusFormatter.roundingIncrement = 1
-        radiusFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundUp
+        radiusFormatter.roundingMode = .RoundUp
         return radiusFormatter
     }()
 
@@ -58,8 +58,8 @@ public struct Formatter {
     /// and no dateStyle.NoStyle
     public static var shortTime: NSDateFormatter  = {
         let timeFormatter = NSDateFormatter()
-        timeFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        timeFormatter.dateStyle = NSDateFormatterStyle.NoStyle
+        timeFormatter.timeStyle = .ShortStyle
+        timeFormatter.dateStyle = .NoStyle
         return timeFormatter
     }()
     
