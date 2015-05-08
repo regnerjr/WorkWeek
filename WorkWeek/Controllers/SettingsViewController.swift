@@ -10,9 +10,9 @@ class SettingsViewController: UIViewController {
     let pickerSource = DayTimePicker()
 
     var defaultWorkHours: Int {
-        get { return Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek) }
+        get { return Defaults.standard.integerForKey(.hoursInWorkWeek) }
         set {
-            Defaults.standard.setInteger(newValue, forKey: SettingsKey.hoursInWorkWeek)
+            Defaults.standard.setInteger(newValue, forKey: .hoursInWorkWeek)
             //If the number of work hours in a week changes, need to reschedule the end of the week Notification
             let hoursWorked = (UIApplication.sharedApplication().delegate as! AppDelegate).workManager.hoursWorkedThisWeek
             let total = newValue
@@ -21,26 +21,26 @@ class SettingsViewController: UIViewController {
     }
 
     var defaultResetDay: Int {
-        get { return Defaults.standard.integerForKey(SettingsKey.resetDay) }
+        get { return Defaults.standard.integerForKey(.resetDay) }
         set {
-            Defaults.standard.setInteger(newValue, forKey: SettingsKey.resetDay)
+            Defaults.standard.setInteger(newValue, forKey: .resetDay)
             //configure the reset timer to use the new hour
             let ad = UIApplication.sharedApplication().delegate as! AppDelegate
             ad.updateDefaultResetDate()
         }
     }
     var defaultResetHour: Int {
-        get { return Defaults.standard.integerForKey(SettingsKey.resetHour) }
+        get { return Defaults.standard.integerForKey(.resetHour) }
         set {
-            Defaults.standard.setInteger(newValue, forKey:SettingsKey.resetHour)
+            Defaults.standard.setInteger(newValue, forKey:.resetHour)
             //configure the reset timer to use the new hour
             let ad = UIApplication.sharedApplication().delegate as! AppDelegate
             ad.updateDefaultResetDate()
         }
     }
     var defaultWorkRadius: Int {
-        get{ return Defaults.standard.integerForKey(SettingsKey.workRadius) }
-        set{ Defaults.standard.setInteger(newValue, forKey: SettingsKey.workRadius) }
+        get{ return Defaults.standard.integerForKey(.workRadius) }
+        set{ Defaults.standard.setInteger(newValue, forKey: .workRadius) }
     }
 
     override func viewDidLoad() {
@@ -91,9 +91,9 @@ class SettingsViewController: UIViewController {
         }
     }
 
-    func resetTextFieldWithDefault(sender : UITextField){
+    func resetTextFieldWithDefault(sender: UITextField){
         switch sender {
-        case let s as WorkHoursTextField : s.workHours = defaultWorkHours
+        case let s as WorkHoursTextField: s.workHours = defaultWorkHours
         case let s as WorkRadiusTextField: s.workRadius = defaultWorkRadius
         default: println("Something is wrong!!! Switching on a UITextField with unknown placeholder")
         }

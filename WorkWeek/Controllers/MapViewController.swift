@@ -15,7 +15,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchBar: UISearchBar!
 
-    var regionRadius: Double { return Double(Defaults.standard.integerForKey(SettingsKey.workRadius)) }
+    var regionRadius: Double { return Double(Defaults.standard.integerForKey(.workRadius)) }
 
     lazy var locationManager: CLLocationManager = {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -59,9 +59,9 @@ class MapViewController: UIViewController {
         //make coordinated from where the user pressed
         let coordinate = mapView.convertPoint(location, toCoordinateFromView: mapView)
 
-        if sender.state == UIGestureRecognizerState.Began {
+        if sender.state == .Began {
             addOverLayAtCoordinate(coordinate)
-        } else if sender.state == UIGestureRecognizerState.Ended {
+        } else if sender.state == .Ended {
            startMonitoringOneRegionAtCoordinate(coordinate)
            addArrivalIfAtWork(locationManager, workManager)
         }
@@ -184,7 +184,7 @@ extension MapViewController: UISearchBarDelegate {
                 search.startWithCompletionHandler { [unowned self]
                     response, error in
                     if error != nil {
-                        //handl error
+                        //handle error
                         println(error.localizedDescription)
                         return
                     }

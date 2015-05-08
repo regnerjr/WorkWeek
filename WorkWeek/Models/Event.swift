@@ -31,18 +31,18 @@ public class Event: NSObject, NSCoding{
 
     // MARK: - NSCoding
     public func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self.inOrOut.rawValue, forKey: "inOrOut")
-        aCoder.encodeObject(self.date, forKey: "date")
+        aCoder.encodeObject(inOrOut.rawValue, forKey: "inOrOut")
+        aCoder.encodeObject(date, forKey: "date")
     }
 
     required public init(coder aDecoder: NSCoder) {
         let inOutString = aDecoder.decodeObjectForKey("inOrOut") as! String? ?? ""
         switch inOutString {
-        case "Arrival": self.inOrOut = .Arrival
-        case "Departure": self.inOrOut = .Departure
+        case "Arrival": inOrOut = .Arrival
+        case "Departure": inOrOut = .Departure
         default: fatalError("UnArchiving inOrOut failed with string unknown string \(inOutString)")
         }
-        self.date = aDecoder.decodeObjectForKey("date") as! NSDate? ?? NSDate()
+        date = aDecoder.decodeObjectForKey("date") as! NSDate? ?? NSDate()
     }
 }
 

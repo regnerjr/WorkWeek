@@ -80,7 +80,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     func configureLocationManager() -> CLLocationManager{
         var manager = CLLocationManager()
         let auth = CLLocationManager.authorizationStatus()
-        if auth != CLAuthorizationStatus.AuthorizedAlways {
+        if auth != .AuthorizedAlways {
             manager.requestAlwaysAuthorization()
         }
         manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -94,14 +94,14 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     public func updateDefaultResetDate(){
         //get date from the settings
         if let date = getDateForReset(
-                Defaults.standard.integerForKey(SettingsKey.resetDay),
-                Defaults.standard.integerForKey(SettingsKey.resetHour),
+                Defaults.standard.integerForKey(.resetDay),
+                Defaults.standard.integerForKey(.resetHour),
                 0) {
-            Defaults.standard.setObject(date, forKey: SettingsKey.clearDate.rawValue)
+            Defaults.standard.setObject(date, forKey: .clearDate)
         } else {
             NSLog("Could not get a reset day for %@, %@",
-                Defaults.standard.integerForKey(SettingsKey.resetDay),
-                Defaults.standard.integerForKey(SettingsKey.resetHour))
+                Defaults.standard.integerForKey(.resetDay),
+                Defaults.standard.integerForKey(.resetHour))
         }
     }
 
@@ -123,9 +123,9 @@ public func getDateForReset(day: Int, hour: Int, minute: Int) -> NSDate? {
     // Get the Calendar in use
     let cal = NSCalendar.currentCalendar()
     // Get the current day, Hour, Minute
-    let todaysComps = cal.components(NSCalendarUnit.CalendarUnitWeekday |
-                                     NSCalendarUnit.CalendarUnitHour |
-                                     NSCalendarUnit.CalendarUnitMinute
+    let todaysComps = cal.components(.CalendarUnitWeekday |
+                                     .CalendarUnitHour |
+                                     .CalendarUnitMinute
                                      , fromDate: NSDate())
 
     // Get the relative components,
@@ -142,7 +142,7 @@ public func getDateForReset(day: Int, hour: Int, minute: Int) -> NSDate? {
 
     // Taking the above differences, add them to now
     let date = cal.dateByAddingComponents(resetComps, toDate: NSDate(),
-        options: NSCalendarOptions.MatchNextTime)
+        options: .MatchNextTime)
 
     return date
 }

@@ -1,6 +1,5 @@
 import Foundation
 
-
 /// WorkDay is the combination of an Arrival Event and a Departure Event
 /// Even if you arrive and depart work multiple times per day, 
 /// each of these is considered a work day. 

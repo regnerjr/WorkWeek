@@ -2,12 +2,11 @@ import Foundation
 
 private struct Archive {
     static var path: String? {
-        let documentsDirectories = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory,
-                                        NSSearchPathDomainMask.UserDomainMask, true) as? [String]
+        let documentsDirectories = NSSearchPathForDirectoriesInDomains(
+                                    .DocumentDirectory, .UserDomainMask, true) as? [String]
         let documentDirectory = documentsDirectories?.first
         if let dir = documentDirectory {
-            let documentPath = dir + "/items.archive"
-            return documentPath
+            return dir + "/items.archive"
         }
         return nil
     }
@@ -15,7 +14,7 @@ private struct Archive {
 
 public class WorkManager : NSObject {
 
-    public var eventsForTheWeek: NSMutableArray = NSMutableArray()
+    public var eventsForTheWeek = NSMutableArray()
     private var workDays = Array<WorkDay>()
     public var hoursWorkedThisWeek: Double {
         let hoursWorked = workDays.reduce(0, combine: {$0 + $1.hoursWorked})
@@ -23,7 +22,7 @@ public class WorkManager : NSObject {
         return Double(hoursWorked) + Double(hourFractions) / 60.0
     }
     var hoursInWorkWeek: Int {
-        return Defaults.standard.integerForKey(SettingsKey.hoursInWorkWeek)
+        return Defaults.standard.integerForKey(.hoursInWorkWeek)
     }
     public var isAtWork: Bool {
         if let lastEvent = eventsForTheWeek.lastObject as? Event{
@@ -127,8 +126,8 @@ public class WorkManager : NSObject {
 
 public func hoursMinutesFromDate(date date1: NSDate, toDate date2: NSDate ) -> (hours: Int, minutes: Int){
     let cal = NSCalendar.currentCalendar()
-    let hour = cal.components(NSCalendarUnit.CalendarUnitHour, fromDate: date1, toDate: date2, options: NSCalendarOptions.MatchStrictly).hour
+    let hour = cal.components(.CalendarUnitHour, fromDate: date1, toDate: date2, options: .MatchStrictly).hour
     //gets the minutes not already included in an hour
-    let min = cal.components(NSCalendarUnit.CalendarUnitMinute, fromDate: date1, toDate: date2, options: NSCalendarOptions.MatchStrictly).minute % 60
+    let min = cal.components(.CalendarUnitMinute, fromDate: date1, toDate: date2, options: .MatchStrictly).minute % 60
     return (hour, min)
 }

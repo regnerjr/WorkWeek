@@ -37,4 +37,7 @@ extension NSUserDefaults {
     public func setInteger(value: Int, forKey defaultName: SettingsKey){
         setInteger(value, forKey: defaultName.rawValue)
     }
+    public func setObject(object: AnyObject, forKey key: SettingsKey){
+        setObject(object, forKey: key.rawValue)
+    }
 }

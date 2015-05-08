@@ -1,19 +1,17 @@
 import UIKit
 
 class DayTimePicker: NSObject {
-
 }
 
 extension DayTimePicker: UIPickerViewDataSource {
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        //Sunday - Saturday, Hour
-        return 2
+        return 2 //Weekday, Hour
     }
 
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
-        case 0: return 7 //sunday - Saturday
-        case 1: return 24 // 24 hours in a day
+        case 0: return NSCalendar.currentCalendar().maximumRangeOfUnit(.CalendarUnitWeekday).length
+        case 1: return NSCalendar.currentCalendar().maximumRangeOfUnit(.CalendarUnitHour).length
         default:
             println("Something is wrong")
             return 0

@@ -26,9 +26,7 @@ public class TableViewController: UITableViewController {
 
         //set ourselves as the location Manager delegate
         appDelegate.locationManager.delegate = self
-
         appDelegate.locationManager.startUpdatingLocation()
-
         configureTimerToReloadTheTableViewEveryMinute()
 
         // check if at least one location is monitored, else we should 
@@ -102,9 +100,6 @@ extension TableViewController: UITableViewDelegate {
                     }
                 }
             } else {
-                footer.AtWorkLabel.text = ""
-                footer.ArrivedTimeLabel.text = ""
-                footer.timeSoFarLabel.text = ""
                 footer.activityIndicator.stopAnimating()
             }
 
@@ -125,7 +120,7 @@ extension TableViewController: UITableViewDelegate {
             return header
         } else {
             let defaultHeader = UIView()
-            defaultHeader.backgroundColor = UIColor.redColor()
+            defaultHeader.backgroundColor = .redColor()
             return defaultHeader
         }
     }

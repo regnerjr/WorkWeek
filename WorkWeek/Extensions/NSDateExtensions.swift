@@ -7,7 +7,7 @@ public extension NSDate{
 
         // "E" is for short weekday Tue for Tuesday, use EEEE for full weekday
         weekdayFmt.dateFormat = NSDateFormatter.dateFormatFromTemplate("E",
-            options: 0, locale: NSLocale.currentLocale())
+            options: 0, locale: .currentLocale())
         return weekdayFmt.stringFromDate(self)
     }
 
