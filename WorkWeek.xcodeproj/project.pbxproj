@@ -36,6 +36,8 @@
 		52D66EA91AC4A2C000176397 /* FooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D66EA81AC4A2C000176397 /* FooterTableViewCell.swift */; };
 		52E3859C1AFA9A1F00C3847C /* NSUserDefaultsKeysTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E3859B1AFA9A1F00C3847C /* NSUserDefaultsKeysTest.swift */; };
 		52E3859E1AFAA7DF00C3847C /* TableViewDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E3859D1AFAA7DF00C3847C /* TableViewDataSourceTests.swift */; };
+		52F309101B012BFD00D08E0A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F3090F1B012BFD00D08E0A /* LocationManager.swift */; };
+		52F309121B012C1400D08E0A /* LocationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F309111B012C1400D08E0A /* LocationManagerTests.swift */; };
 		52F40A521A9E7E1800FA02C6 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A511A9E7E1800FA02C6 /* Event.swift */; };
 		52F40A571A9E803C00FA02C6 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A561A9E803C00FA02C6 /* NSDateExtensions.swift */; };
 		52FA6CE01AADDBCB000E63DE /* NSUserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA6CDF1AADDBCB000E63DE /* NSUserDefaultsKeys.swift */; };
@@ -87,6 +89,8 @@
 		52D66EA81AC4A2C000176397 /* FooterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FooterTableViewCell.swift; sourceTree = "<group>"; };
 		52E3859B1AFA9A1F00C3847C /* NSUserDefaultsKeysTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsKeysTest.swift; sourceTree = "<group>"; };
 		52E3859D1AFAA7DF00C3847C /* TableViewDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSourceTests.swift; sourceTree = "<group>"; };
+		52F3090F1B012BFD00D08E0A /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		52F309111B012C1400D08E0A /* LocationManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagerTests.swift; sourceTree = "<group>"; };
 		52F40A511A9E7E1800FA02C6 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		52F40A541A9E7E7400FA02C6 /* EventTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTest.swift; sourceTree = "<group>"; };
 		52F40A561A9E803C00FA02C6 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 		52AA92F11AFBDB8C00DAE92A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				52F309111B012C1400D08E0A /* LocationManagerTests.swift */,
 				52F40A541A9E7E7400FA02C6 /* EventTest.swift */,
 				52AA92EF1AFAFEE800DAE92A /* WorkDayTests.swift */,
 				521608E71AC3419F00075608 /* WorkHoursTest.swift */,
@@ -243,6 +248,7 @@
 		8CCF5699F90307DD07BD5177 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				52F3090F1B012BFD00D08E0A /* LocationManager.swift */,
 				52F40A511A9E7E1800FA02C6 /* Event.swift */,
 				52AA92ED1AFAF94100DAE92A /* WorkDay.swift */,
 				5270F3AA1A61EABF007834AF /* WorkManager.swift */,
@@ -461,6 +467,7 @@
 				52FA6CE01AADDBCB000E63DE /* NSUserDefaultsKeys.swift in Sources */,
 				5281A8261AA79AD500C4F154 /* SettingsViewController.swift in Sources */,
 				521608E01AC200C700075608 /* OverlayColor.swift in Sources */,
+				52F309101B012BFD00D08E0A /* LocationManager.swift in Sources */,
 				520069791AC05904007030BE /* TableViewDataSource.swift in Sources */,
 				5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */,
 				52AA92EE1AFAF94100DAE92A /* WorkDay.swift in Sources */,
@@ -485,6 +492,7 @@
 			files = (
 				528F2C7D1AB0ACA2005606C6 /* EventTest.swift in Sources */,
 				52AA93361AFC499400DAE92A /* AppDelegateTests.swift in Sources */,
+				52F309121B012C1400D08E0A /* LocationManagerTests.swift in Sources */,
 				52AA92F01AFAFEE800DAE92A /* WorkDayTests.swift in Sources */,
 				52E3859E1AFAA7DF00C3847C /* TableViewDataSourceTests.swift in Sources */,
 				52E3859C1AFA9A1F00C3847C /* NSUserDefaultsKeysTest.swift in Sources */,
