@@ -56,7 +56,7 @@ class AppDelegateTests: XCTestCase {
         Defaults.standard.setInteger(2, forKey: SettingsKey.resetDay)
         Defaults.standard.setInteger(9, forKey: SettingsKey.resetHour)
 
-        appDelegate.updateDefaultResetDate()
+        updateDefaultResetDate()
         let savedDate = Defaults.standard.objectForKey(SettingsKey.clearDate.rawValue) as! NSDate
 
         //how to test that this is the monday at 9 time?

@@ -2,15 +2,15 @@ import UIKit
 import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
+public class AppDelegate: UIResponder, UIApplicationDelegate {
+    public var window: UIWindow?
 
     // MARK: - Properties
     lazy var locationManager: CLLocationManager = self.configureLocationManager()
     let workManager = WorkManager()
 
     // MARK: - Application Lifecycle
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         application.registerUserNotificationSettings(
             UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    public func applicationWillEnterForeground(application: UIApplication) {
         NSLog("AppDelegate: Entering Foreground")
         //if week has ended clear the work manages data
         resetDataIfNeeded()
@@ -61,11 +61,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+    public func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
         NSLog("Application Registered for User Notification Settings %@", notificationSettings)
     }
 
-    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+    public func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         //show an alertview if teh work week ends and we are in the foreground
         NSLog("Work Week Ended and we were in the foreground")
         let alert = UIAlertController(title: "WorkWeek", message: "Go Home!", preferredStyle: UIAlertControllerStyle.Alert)
