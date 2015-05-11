@@ -21,17 +21,19 @@ public class TableViewController: UITableViewController {
     var array = [WorkDay]()
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
+    var locationManager: LocationManager?
+
     override public func viewDidLoad() {
         navigationController?.title = "WorkWeek"
 
         //set ourselves as the location Manager delegate
-        appDelegate.locationManager.delegate = self
-        appDelegate.locationManager.startUpdatingLocation()
+//        appDelegate.locationManager.delegate = self
+        locationManager?.manager?.startUpdatingLocation()
         configureTimerToReloadTheTableViewEveryMinute()
 
         // check if at least one location is monitored, else we should 
         // transition to the map view so that the user can set a work location and begin using the app
-        if appDelegate.locationManager.monitoredRegions.count == 0 {
+        if locationManager!.monitoredRegions?.count == 0 {
             performSegueWithIdentifier(StoryBoardSegues.Map.rawValue, sender: self)
         }
     }
@@ -42,7 +44,7 @@ public class TableViewController: UITableViewController {
             //no items to display, this is fine.... except if the user is at work now?
             //then we will force an arrival
             let ad = UIApplication.sharedApplication().delegate as! AppDelegate
-            addArrivalIfAtWork(ad.locationManager, ad.workManager)
+            addArrivalIfAtWork(locationManager!.manager!, ad.workManager)
         }
         tableView.reloadData()
     }

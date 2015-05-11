@@ -17,10 +17,7 @@ class MapViewController: UIViewController {
 
     var regionRadius: Double { return Double(Defaults.standard.integerForKey(.workRadius)) }
 
-    lazy var locationManager: CLLocationManager = {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        return appDelegate.locationManager
-    }()
+    var locationManager: LocationManager?
 
     lazy var workManager: WorkManager = {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -28,7 +25,7 @@ class MapViewController: UIViewController {
     }()
 
     var workLocation: CLCircularRegion? {
-        if let regions = locationManager.monitoredRegions {
+        if let regions = locationManager?.monitoredRegions {
             if regions.count > 0 {
                 for region in regions {
                     let typedRegion = region as! CLCircularRegion
@@ -63,7 +60,7 @@ class MapViewController: UIViewController {
             addOverLayAtCoordinate(coordinate)
         } else if sender.state == .Ended {
            startMonitoringOneRegionAtCoordinate(coordinate)
-           addArrivalIfAtWork(locationManager, workManager)
+           addArrivalIfAtWork(locationManager!.manager!, workManager)
         }
     }
 
@@ -79,9 +76,8 @@ class MapViewController: UIViewController {
 
     func startMonitoringOneRegionAtCoordinate(coord: CLLocationCoordinate2D) {
         //current limitation: Only one location may be used!!!
-        let currentRegions = locationManager.monitoredRegions as NSSet
-        for region in currentRegions {
-            locationManager.stopMonitoringForRegion(region as! CLRegion)
+        for region in locationManager!.monitoredRegions! {
+            locationManager!.manager?.stopMonitoringForRegion(region)
         }
 
         //also if setting a new work location, we need to clear the existing work history
@@ -89,7 +85,7 @@ class MapViewController: UIViewController {
 
         let workRegion = CLCircularRegion(center: coord, radius: regionRadius, identifier: MapRegionIdentifiers.work)
         println("Monitoring new region \(workRegion)")
-        locationManager.startMonitoringForRegion(workRegion)
+        locationManager!.manager!.startMonitoringForRegion(workRegion)
     }
 }
 
@@ -117,7 +113,7 @@ extension MapViewController: MKMapViewDelegate {
             MapViewState.hasBeenZoomed = true
             let userCoordinates = userLocation.location.coordinate
             //stoping location updates
-            locationManager.stopUpdatingLocation()
+            locationManager!.manager!.stopUpdatingLocation()
 
             if let overlays = mapView.overlays {
 
@@ -152,7 +148,7 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         addOverLayAtCoordinate(view.annotation.coordinate)
         startMonitoringOneRegionAtCoordinate(view.annotation.coordinate)
-        addArrivalIfAtWork(locationManager, workManager)
+        addArrivalIfAtWork(locationManager!.manager!, workManager)
     }
 
     func mapRectToFitCoordinate(one: CLLocationCoordinate2D, andCoordinate two: CLLocationCoordinate2D) -> MKMapRect {

@@ -1,28 +1,25 @@
 import UIKit
-import CoreLocation
+//import CoreLocation
 
 @UIApplicationMain
 public class AppDelegate: UIResponder, UIApplicationDelegate {
     public var window: UIWindow?
 
     // MARK: - Properties
-    lazy var locationManager: CLLocationManager = self.configureLocationManager()
     let workManager = WorkManager()
 
     // MARK: - Application Lifecycle
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         application.registerUserNotificationSettings(
-            UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
+                        UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
         registerDefaults()
 
         if let options = launchOptions {
             if let locationOptions  = options[UIApplicationLaunchOptionsLocationKey] as? NSNumber {
                 resetDataIfNeeded()
-                //spin up a location delegate and point the location Manager to it.
-                //TODO: move the location delegate to its own class
-                locationManager.delegate = TableViewController()
-                locationManager.startUpdatingLocation()
+                let locationManager = LocationManager()
+                locationManager.manager?.startUpdatingLocation()
             } else if let localNotification = options[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
                 NSLog("Launched due to a local notification %@", localNotification)
             }
@@ -75,19 +72,6 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
 
     }
 
-
-    // MARK: - Helper Functions
-    func configureLocationManager() -> CLLocationManager{
-        var manager = CLLocationManager()
-        let auth = CLLocationManager.authorizationStatus()
-        if auth != .AuthorizedAlways {
-            manager.requestAlwaysAuthorization()
-        }
-        manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        manager.distanceFilter = 200
-        manager.pausesLocationUpdatesAutomatically = true
-        return manager
-    }
 
 
 
