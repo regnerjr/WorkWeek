@@ -2,15 +2,15 @@ import UIKit
 import CoreLocation
 
 @UIApplicationMain
-public class AppDelegate: UIResponder, UIApplicationDelegate {
-    public var window: UIWindow?
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
 
     // MARK: - Properties
     lazy var locationManager: CLLocationManager = self.configureLocationManager()
     let workManager = WorkManager()
 
     // MARK: - Application Lifecycle
-    public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         application.registerUserNotificationSettings(
             UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))
@@ -31,7 +31,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    public func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(application: UIApplication) {
         NSLog("AppDelegate: Entering Foreground")
         //if week has ended clear the work manages data
         resetDataIfNeeded()
@@ -61,11 +61,11 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    public func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
         NSLog("Application Registered for User Notification Settings %@", notificationSettings)
     }
 
-    public func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         //show an alertview if teh work week ends and we are in the foreground
         NSLog("Work Week Ended and we were in the foreground")
         let alert = UIAlertController(title: "WorkWeek", message: "Go Home!", preferredStyle: UIAlertControllerStyle.Alert)
@@ -90,20 +90,6 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
-    /// Called when the resetDay or resetHour changes in the Settings screen
-    public func updateDefaultResetDate(){
-        //get date from the settings
-        if let date = getDateForReset(
-                Defaults.standard.integerForKey(.resetDay),
-                Defaults.standard.integerForKey(.resetHour),
-                0) {
-            Defaults.standard.setObject(date, forKey: .clearDate)
-        } else {
-            NSLog("Could not get a reset day for %@, %@",
-                Defaults.standard.integerForKey(.resetDay),
-                Defaults.standard.integerForKey(.resetHour))
-        }
-    }
 
     /// Setup Default values in the NSUserDefaults
     func registerDefaults(){
@@ -116,6 +102,21 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             SettingsKey.clearDate.rawValue: getDateForReset(0, 4, 0) ?? NSDate(),
         ]
         Defaults.standard.registerDefaults(defaults)
+    }
+}
+
+/// Called when the resetDay or resetHour changes in the Settings screen
+public func updateDefaultResetDate(){
+    //get date from the settings
+    if let date = getDateForReset(
+        Defaults.standard.integerForKey(.resetDay),
+        Defaults.standard.integerForKey(.resetHour),
+        0) {
+            Defaults.standard.setObject(date, forKey: .clearDate)
+    } else {
+        NSLog("Could not get a reset day for %@, %@",
+            Defaults.standard.integerForKey(.resetDay),
+            Defaults.standard.integerForKey(.resetHour))
     }
 }
 
