@@ -21,19 +21,21 @@ public class TableViewController: UITableViewController {
     var array = [WorkDay]()
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
-    var locationManager: LocationManager?
+     var locationManager: LocationManager {
+        return appDelegate.locationManager
+    }
 
     override public func viewDidLoad() {
         navigationController?.title = "WorkWeek"
 
         //set ourselves as the location Manager delegate
 //        appDelegate.locationManager.delegate = self
-        locationManager?.manager?.startUpdatingLocation()
+        locationManager.manager.startUpdatingLocation()
         configureTimerToReloadTheTableViewEveryMinute()
 
         // check if at least one location is monitored, else we should 
         // transition to the map view so that the user can set a work location and begin using the app
-        if locationManager!.monitoredRegions?.count == 0 {
+        if locationManager.monitoredRegions?.count == 0 {
             performSegueWithIdentifier(StoryBoardSegues.Map.rawValue, sender: self)
         }
     }
@@ -44,7 +46,7 @@ public class TableViewController: UITableViewController {
             //no items to display, this is fine.... except if the user is at work now?
             //then we will force an arrival
             let ad = UIApplication.sharedApplication().delegate as! AppDelegate
-            addArrivalIfAtWork(locationManager!.manager!, ad.workManager)
+            addArrivalIfAtWork(locationManager.manager, ad.workManager)
         }
         tableView.reloadData()
     }
@@ -138,25 +140,4 @@ extension TableViewController: UITableViewDelegate {
         return 0
     }
 
-}
-
-//MARK: - Location Manager Delegate
-extension TableViewController: CLLocationManagerDelegate {
-    
-    public func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
-        if region.identifier == MapRegionIdentifiers.work {
-            println( "Arrived at work")
-            workManager.addArrival(NSDate())
-            array = workManager.allItems()
-            tableView.reloadData()
-        }
-    }
-    public func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
-        if region.identifier == MapRegionIdentifiers.work {
-            println("Leaving work")
-            workManager.addDeparture(NSDate())
-            array = workManager.allItems()
-            tableView.reloadData()
-        }
-    }
 }
