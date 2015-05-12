@@ -38,10 +38,12 @@ public class LocationManager: NSObject {
 extension LocationManager: CLLocationManagerDelegate {
     public func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
         //perhaps this should post a notification since this may be a useful time to update some use and such
+        //TODO: Add NSNotification Center Here!
         workManager?.addArrival(NSDate())
     }
     public func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
         //perhaps this should post a notification since this may be a useful time to update some use and such
+        //TODO: Add NSNotification Center Here!
         workManager?.addDeparture(NSDate())
     }
 }
