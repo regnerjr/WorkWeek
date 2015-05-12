@@ -1,17 +1,32 @@
 import UIKit
 
-class DayTimePicker: NSObject {
+public class DayTimePicker: NSObject {
+    lazy var dateFormatter: NSDateFormatter = {
+        return NSDateFormatter()
+    }()
+    private let calendar: NSCalendar
+    public init(calendar: NSCalendar = NSCalendar.currentCalendar()){
+        self.calendar = calendar
+    }
 }
 
 extension DayTimePicker: UIPickerViewDataSource {
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+
+    var numberOfWeekdays: Int {
+        return calendar.maximumRangeOfUnit(.CalendarUnitWeekday).length
+    }
+    var numberOfHoursInDay: Int {
+        return calendar.maximumRangeOfUnit(.CalendarUnitHour).length
+    }
+
+    public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 2 //Weekday, Hour
     }
 
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
-        case 0: return NSCalendar.currentCalendar().maximumRangeOfUnit(.CalendarUnitWeekday).length
-        case 1: return NSCalendar.currentCalendar().maximumRangeOfUnit(.CalendarUnitHour).length
+        case 0: return numberOfWeekdays
+        case 1: return numberOfHoursInDay
         default:
             println("Something is wrong")
             return 0
@@ -21,9 +36,9 @@ extension DayTimePicker: UIPickerViewDataSource {
 
 extension DayTimePicker: UIPickerViewDelegate {
 
-    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
+    public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
 
-        switch component{
+        switch component {
         case 0: return makeADayView(row, withLabel: UILabel(frame: CGRectZero))
         case 1: return makeAnHourView(row, withLabel: UILabel(frame: CGRectZero))
         default:
@@ -32,20 +47,22 @@ extension DayTimePicker: UIPickerViewDelegate {
         }
     }
 
+
     func makeADayView(row: Int, withLabel label: UILabel) -> UIView {
-        let dateFormatter = NSDateFormatter()
         let days = dateFormatter.standaloneWeekdaySymbols as! [String]
-        label.text = days[row]
+        if row < days.count {
+            label.text = days[row]
+        }
         return label
     }
 
     func makeAnHourView(row: Int, withLabel label: UILabel) -> UIView {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        let cal = NSCalendar.currentCalendar()
-        let comp = NSDateComponents()
-        comp.hour = row
-        label.text = dateFormatter.stringFromDate(cal.dateFromComponents(comp)!)
+        if row < numberOfHoursInDay {
+            dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+            let comp = NSDateComponents()
+            comp.hour = row
+            label.text = dateFormatter.stringFromDate(calendar.dateFromComponents(comp)!)
+        }
         return label
     }
 

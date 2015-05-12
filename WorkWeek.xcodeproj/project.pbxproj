@@ -20,6 +20,7 @@
 		5239B0D61AB0ED1D002C4523 /* WorkHoursTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D51AB0ED1D002C4523 /* WorkHoursTextField.swift */; };
 		5239B0D81AB0ED7D002C4523 /* WorkRadiusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D71AB0ED7D002C4523 /* WorkRadiusTextField.swift */; };
 		5239B0DA1AB0FA9B002C4523 /* Stepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D91AB0FA9B002C4523 /* Stepper.swift */; };
+		523FEEED1B019567005EF228 /* DayTimePickerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523FEEEC1B019567005EF228 /* DayTimePickerTests.swift */; };
 		5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5270F3AA1A61EABF007834AF /* WorkManager.swift */; };
 		5281A8261AA79AD500C4F154 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281A8251AA79AD500C4F154 /* SettingsViewController.swift */; };
 		528F2C781AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528F2C771AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift */; };
@@ -75,6 +76,7 @@
 		5239B0D51AB0ED1D002C4523 /* WorkHoursTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkHoursTextField.swift; sourceTree = "<group>"; };
 		5239B0D71AB0ED7D002C4523 /* WorkRadiusTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkRadiusTextField.swift; sourceTree = "<group>"; };
 		5239B0D91AB0FA9B002C4523 /* Stepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stepper.swift; sourceTree = "<group>"; };
+		523FEEEC1B019567005EF228 /* DayTimePickerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayTimePickerTests.swift; sourceTree = "<group>"; };
 		5270F3AA1A61EABF007834AF /* WorkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkManager.swift; sourceTree = "<group>"; };
 		5281A8251AA79AD500C4F154 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		528F2C771AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNumberFormatterExtensions.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 		F51E11A88905048A10793377 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				523FEEEC1B019567005EF228 /* DayTimePickerTests.swift */,
 				52E3859F1AFAA7F200C3847C /* Extensions */,
 				52E3859D1AFAA7DF00C3847C /* TableViewDataSourceTests.swift */,
 				52AA92F11AFBDB8C00DAE92A /* Model */,
@@ -494,6 +497,7 @@
 				52AA93361AFC499400DAE92A /* AppDelegateTests.swift in Sources */,
 				52F309121B012C1400D08E0A /* LocationManagerTests.swift in Sources */,
 				52AA92F01AFAFEE800DAE92A /* WorkDayTests.swift in Sources */,
+				523FEEED1B019567005EF228 /* DayTimePickerTests.swift in Sources */,
 				52E3859E1AFAA7DF00C3847C /* TableViewDataSourceTests.swift in Sources */,
 				52E3859C1AFA9A1F00C3847C /* NSUserDefaultsKeysTest.swift in Sources */,
 				528F2C7C1AB0AC9F005606C6 /* NSDateExtensionsTest.swift in Sources */,
