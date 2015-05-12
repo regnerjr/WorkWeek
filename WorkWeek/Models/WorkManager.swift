@@ -122,6 +122,27 @@ public class WorkManager : NSObject {
 
         return workTimes
     }
+
+    func resetDataIfNeeded(defaults: NSUserDefaults = Defaults.standard) {
+        if let resetDate = defaults.objectForKey(SettingsKey.clearDate.rawValue) as! NSDate? {
+            let now = NSDate()
+            let comparison = resetDate.compare(now)
+            NSLog("WorkManager: Comparing Reset Date to now - %d", comparison.rawValue)
+            switch comparison {
+            case NSComparisonResult.OrderedSame:
+                println("Same! nice work. lets clear it anyway")
+                clearEvents()
+                updateDefaultResetDate()
+            case NSComparisonResult.OrderedAscending:
+                println("Week has lapsed, Clearing Data")
+                clearEvents()
+                updateDefaultResetDate()
+            case NSComparisonResult.OrderedDescending:
+                //time has not yet elapsed do nothing
+                println("Week has not yet finished, DO NOT Clear the data")
+            }
+        }
+    }
 }
 
 public func hoursMinutesFromDate(date date1: NSDate, toDate date2: NSDate ) -> (hours: Int, minutes: Int){
