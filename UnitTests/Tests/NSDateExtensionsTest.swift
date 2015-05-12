@@ -33,7 +33,6 @@ class NSDateExtensionsTest: XCTestCase {
             NSCalendarUnit.CalendarUnitHour |
             NSCalendarUnit.CalendarUnitMinute,
             fromDate: resetDate!)
-        println("\(resetDate)")
         XCTAssertEqual(resetComps.weekday, 1, "Reset day set to sunday")
         XCTAssertEqual(resetComps.hour, 4, "Reset hour is 4 am ")
         let comparison = NSDate().compare(resetDate!)

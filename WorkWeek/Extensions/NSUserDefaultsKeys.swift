@@ -40,6 +40,9 @@ extension NSUserDefaults {
     public func setObject(object: AnyObject, forKey key: SettingsKey){
         setObject(object, forKey: key.rawValue)
     }
+    public func objectForKey(defaultName: SettingsKey) -> AnyObject?{
+        return objectForKey(defaultName.rawValue)
+    }
 }
 
 
@@ -49,7 +52,7 @@ public func updateDefaultResetDate( defaults: NSUserDefaults = Defaults.standard
         defaults.integerForKey(.resetDay),
         defaults.integerForKey(.resetHour),
         0) {
-            Defaults.standard.setObject(date, forKey: .clearDate)
+            defaults.setObject(date, forKey: .clearDate)
     } else {
         NSLog("Could not get a reset day for %@, %@",
             defaults.integerForKey(.resetDay),
