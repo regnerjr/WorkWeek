@@ -144,11 +144,3 @@ public class WorkManager : NSObject {
         }
     }
 }
-
-public func hoursMinutesFromDate(date date1: NSDate, toDate date2: NSDate ) -> (hours: Int, minutes: Int){
-    let cal = NSCalendar.currentCalendar()
-    let hour = cal.components(.CalendarUnitHour, fromDate: date1, toDate: date2, options: .MatchStrictly).hour
-    //gets the minutes not already included in an hour
-    let min = cal.components(.CalendarUnitMinute, fromDate: date1, toDate: date2, options: .MatchStrictly).minute % 60
-    return (hour, min)
-}

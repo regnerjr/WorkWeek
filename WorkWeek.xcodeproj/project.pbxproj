@@ -141,6 +141,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		523FEEEE1B01A25B005EF228 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				52E3859D1AFAA7DF00C3847C /* TableViewDataSourceTests.swift */,
+				523FEEEC1B019567005EF228 /* DayTimePickerTests.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
 		52AA92F11AFBDB8C00DAE92A /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,9 +292,8 @@
 		F51E11A88905048A10793377 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				523FEEEC1B019567005EF228 /* DayTimePickerTests.swift */,
 				52E3859F1AFAA7F200C3847C /* Extensions */,
-				52E3859D1AFAA7DF00C3847C /* TableViewDataSourceTests.swift */,
+				523FEEEE1B01A25B005EF228 /* Protocols */,
 				52AA92F11AFBDB8C00DAE92A /* Model */,
 				52AA93351AFC499400DAE92A /* AppDelegateTests.swift */,
 			);

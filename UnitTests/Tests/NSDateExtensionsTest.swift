@@ -43,4 +43,18 @@ class NSDateExtensionsTest: XCTestCase {
 
 
     }
+
+    func testHourMinuteCalculations(){
+
+        let referenceDate = NSDate(timeIntervalSinceReferenceDate: 0)
+        let twoHours = NSDate(timeIntervalSinceReferenceDate: 60*60*2)
+        let timeDiff = hoursMinutesFromDate(date: referenceDate, toDate: twoHours)
+        XCTAssert(timeDiff.hours == 2, "Time difference of 2 hours is calculated correctly")
+        XCTAssert(timeDiff.minutes == 0, "Time difference of 2 hours is calculated correctly")
+
+        let twoAndAHalf = NSDate(timeIntervalSinceReferenceDate: 60*60*2 + 60*30)
+        let timeDiff2 = hoursMinutesFromDate(date: referenceDate, toDate: twoAndAHalf)
+        XCTAssert(timeDiff2.hours == 2, "Time diff of 2hour 30 minutes is calculated")
+        XCTAssert(timeDiff2.minutes == 30 , "Time diff of 2hour 30 minutes is calculated")
+    }
 }

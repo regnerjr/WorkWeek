@@ -40,3 +40,17 @@ public func getDateForReset(day: Int, hour: Int, minute: Int) -> NSDate? {
 
     return date
 }
+
+/// Calculates the amount of time between two given dates
+///
+/// :param: date The first Date
+/// :param: toDate The second Date
+/// :returns: A tuple (hours, minutes) containing the elapsed time
+///
+public func hoursMinutesFromDate(date date1: NSDate, toDate date2: NSDate ) -> (hours: Int, minutes: Int){
+    let cal = NSCalendar.currentCalendar()
+    let hour = cal.components(.CalendarUnitHour, fromDate: date1, toDate: date2, options: .MatchStrictly).hour
+    //gets the minutes not already included in an hour
+    let min = cal.components(.CalendarUnitMinute, fromDate: date1, toDate: date2, options: .MatchStrictly).minute % 60
+    return (hour, min)
+}
