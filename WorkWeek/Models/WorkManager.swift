@@ -38,6 +38,12 @@ public class WorkManager : NSObject {
         if let eventArchive = restoreArchivedEvents() {
             self.eventsForTheWeek = eventArchive
         }
+
+        observeNotifications()
+    }
+
+    deinit{
+        stopObservingNotifications()
     }
 
     func restoreArchivedEvents() -> NSMutableArray? {
@@ -49,7 +55,7 @@ public class WorkManager : NSObject {
         }
     }
 
-    public func addArrival(date: NSDate){
+    public func addArrival(date: NSDate = NSDate()){
         //set up a notification to fire at 40 hours
         LocalNotifier.setupNotification(hoursWorkedThisWeek, total: hoursInWorkWeek)
         let newArrival = Event(inOrOut: .Arrival, date: date)
@@ -57,7 +63,7 @@ public class WorkManager : NSObject {
         saveNewArchive(eventsForTheWeek)
     }
 
-    public func addDeparture(date: NSDate){
+    public func addDeparture(date: NSDate = NSDate()){
         LocalNotifier.cancelAllNotifications()
         let newDeparture = Event(inOrOut: .Departure, date: date)
         eventsForTheWeek.addObject(newDeparture)
