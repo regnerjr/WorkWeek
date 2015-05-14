@@ -6,7 +6,11 @@ public enum AD: String {
      case Arrival = "Arrival"
      case Departure = "Departure"
 }
-
+/// Struct to hold the keys used for NSCoding
+struct RestorationKey {
+    static var inOrOut: String { return "inOrOut" }
+    static var date: String { return "date" }
+}
 ///
 /// Event class is used for storing arrivals and departures
 /// Each event is either an arrival or a departure
@@ -31,18 +35,18 @@ public class Event: NSObject, NSCoding{
 
     // MARK: - NSCoding
     public func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(inOrOut.rawValue, forKey: "inOrOut")
-        aCoder.encodeObject(date, forKey: "date")
+        aCoder.encodeObject(inOrOut.rawValue, forKey: RestorationKey.inOrOut)
+        aCoder.encodeObject(date, forKey: RestorationKey.date)
     }
 
     required public init(coder aDecoder: NSCoder) {
-        let inOutString = aDecoder.decodeObjectForKey("inOrOut") as! String? ?? ""
+        let inOutString = aDecoder.decodeObjectForKey( RestorationKey.inOrOut) as! String? ?? ""
         switch inOutString {
         case "Arrival": inOrOut = .Arrival
         case "Departure": inOrOut = .Departure
         default: fatalError("UnArchiving inOrOut failed with string unknown string \(inOutString)")
         }
-        date = aDecoder.decodeObjectForKey("date") as! NSDate? ?? NSDate()
+        date = aDecoder.decodeObjectForKey(RestorationKey.date) as! NSDate? ?? NSDate()
     }
 }
 

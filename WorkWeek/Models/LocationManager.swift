@@ -4,12 +4,15 @@ import CoreLocation
 /// A manager for handling location realted functions.
 public class LocationManager: NSObject {
     /// The actual CLLocationManager
-    private var center = NSNotificationCenter.defaultCenter()
+    private let center: NSNotificationCenter
     public let manager: CLLocationManager
 
     /// Dependency Inject Auth Status and Manager for testing
-    public init(workManager: WorkManager, authStatus: CLAuthorizationStatus = CLLocationManager.authorizationStatus(), manager: CLLocationManager = CLLocationManager()){
+    public init(authStatus: CLAuthorizationStatus = CLLocationManager.authorizationStatus(),
+                manager: CLLocationManager = CLLocationManager(),
+                center: NSNotificationCenter = NSNotificationCenter.defaultCenter()){
         self.manager = manager
+        self.center = center
         super.init()
         if authStatus != .AuthorizedAlways {
             manager.requestAlwaysAuthorization()

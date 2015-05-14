@@ -31,10 +31,6 @@ class MapViewController: UIViewController {
         if let regions = locationManager.monitoredRegions {
             if regions.count > 0 {
                 return map(regions){ $0 as! CLCircularRegion }
-//                for region in regions {
-//                    let typedRegion = region as! CLCircularRegion
-//                    return typedRegion
-//                }
             }
 
         }
@@ -101,9 +97,9 @@ public func addArrivalIfAtWork( locationManager: CLLocationManager, workManager:
             if region.identifier == MapRegionIdentifiers.work{
                 let workregion = region as CLCircularRegion
                 if workregion.containsCoordinate(locationManager.location.coordinate) {
-                    workManager.addArrival(NSDate())
+                    workManager.addArrival()
                 } else {
-                    workManager.addDeparture(NSDate())
+                    workManager.addDeparture()
                 }
             }
         }

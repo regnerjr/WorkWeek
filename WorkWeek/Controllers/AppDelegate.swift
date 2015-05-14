@@ -7,7 +7,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Properties
     let workManager = WorkManager()
-    lazy var locationManager: LocationManager = { LocationManager(workManager: self.workManager ) }()
+    let locationManager = LocationManager()
 
     // MARK: - Application Lifecycle
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {

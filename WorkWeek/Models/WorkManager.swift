@@ -55,7 +55,7 @@ public class WorkManager : NSObject {
         }
     }
 
-    public func addArrival(date: NSDate = NSDate()){
+    public func addArrival(_ date: NSDate = NSDate()){
         //set up a notification to fire at 40 hours
         LocalNotifier.setupNotification(hoursWorkedThisWeek, total: hoursInWorkWeek)
         let newArrival = Event(inOrOut: .Arrival, date: date)
@@ -63,7 +63,7 @@ public class WorkManager : NSObject {
         saveNewArchive(eventsForTheWeek)
     }
 
-    public func addDeparture(date: NSDate = NSDate()){
+    public func addDeparture(_ date: NSDate = NSDate()){
         LocalNotifier.cancelAllNotifications()
         let newDeparture = Event(inOrOut: .Departure, date: date)
         eventsForTheWeek.addObject(newDeparture)

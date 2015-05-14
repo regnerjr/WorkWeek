@@ -55,8 +55,8 @@ class WorkManagerPropertiesTest: XCTestCase {
         let path = documentsDirectories!.first! + "/items.archive"
         let fileManager = NSFileManager.defaultManager()
         if fileManager.fileExistsAtPath(path) {
-        var error: NSError? = nil
-        fileManager.removeItemAtPath(path, error: &error)
+            var error: NSError? = nil
+            fileManager.removeItemAtPath(path, error: &error)
         }
     }
 
