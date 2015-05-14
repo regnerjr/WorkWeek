@@ -1,5 +1,9 @@
 import Foundation
 
+
+/// A struct with one static member to compute the Path to use when archiving data
+///
+/// Just call Archive.path to get a String? to use for archiving
 private struct Archive {
     static var path: String? {
         let documentsDirectories = NSSearchPathForDirectoriesInDomains(
@@ -14,7 +18,7 @@ private struct Archive {
 
 public class WorkManager : NSObject {
 
-    public var eventsForTheWeek = NSMutableArray()
+    public private(set) var eventsForTheWeek = NSMutableArray()
     private var workDays = Array<WorkDay>()
     public var hoursWorkedThisWeek: Double {
         let hoursWorked = workDays.reduce(0, combine: {$0 + $1.hoursWorked})
@@ -35,24 +39,12 @@ public class WorkManager : NSObject {
     public override init(){
         super.init()
         // if we have archived events restore them
-        if let eventArchive = restoreArchivedEvents() {
-            self.eventsForTheWeek = eventArchive
-        }
-
+        eventsForTheWeek = restoreArchivedEvents() ?? NSMutableArray()
         observeNotifications()
     }
 
     deinit{
         stopObservingNotifications()
-    }
-
-    func restoreArchivedEvents() -> NSMutableArray? {
-        // Get the archived events, nil if there are none
-        if let path = Archive.path {
-            return NSKeyedUnarchiver.unarchiveObjectWithFile(path) as! NSMutableArray?
-        } else {
-            return nil
-        }
     }
 
     public func addArrival(_ date: NSDate = NSDate()){
@@ -71,7 +63,12 @@ public class WorkManager : NSObject {
         workDays = processEvents(eventsForTheWeek)
     }
 
-    func saveNewArchive(events : NSMutableArray) -> Bool{
+    private func restoreArchivedEvents() -> NSMutableArray? {
+        // Get the archived events, nil if there are none
+        return NSKeyedUnarchiver.unarchiveMutableArrayWithFile(Archive.path)
+    }
+
+    private func saveNewArchive(events : NSMutableArray) -> Bool{
         if let path = Archive.path {
             return NSKeyedArchiver.archiveRootObject(self.eventsForTheWeek, toFile: path)
         }
@@ -95,6 +92,27 @@ public class WorkManager : NSObject {
         var workTimes = [WorkDay]()
         //items should be paired, make sure first item is an arrival
         //if not drop it
+        removeFirstObjectIfDeparture(events)
+
+        while events.count >= 2 { //loop through events pairing them
+
+            let first  = events.objectAtIndex(0) as! Event
+            let second = events.objectAtIndex(1) as! Event
+            if first.inOrOut == .Arrival &&
+              second.inOrOut == .Departure {
+                //we have two paired items
+                let day = makeWorkDayFrom(event1: first, event2: second)
+                workTimes.append(day)
+            }
+            events.removeObjectAtIndex(0) //remove the arrival
+            events.removeObjectAtIndex(0) //remove the departure
+        }
+
+        return workTimes
+
+    }
+
+    private func removeFirstObjectIfDeparture(events: NSMutableArray){
         if events.count > 0  {
             if let first = events[0] as? Event {
                 if first.inOrOut == .Departure {
@@ -102,32 +120,18 @@ public class WorkManager : NSObject {
                 }
             }
         }
-
-        while events.count >= 2 { //loop through events pairing them
-
-            //still need to check length of the array
-            if events.count >= 2 {
-                let first  = events.objectAtIndex(0) as! Event
-                let second = events.objectAtIndex(1) as! Event
-                if first.inOrOut == .Arrival &&
-                  second.inOrOut == .Departure {
-                    //we have two paired items
-                    let hoursMinutes = hoursMinutesFromDate(date: first.date, toDate: second.date)
-                    let workDay = WorkDay(weekDay: events[0].date.dayOfWeek,
-                                        hoursWorked: hoursMinutes.hours,
-                                        minutesWorked: hoursMinutes.minutes,
-                                        arrivalTime: first.timeString,
-                                        departureTime: second.timeString)
-                    workTimes.append(workDay)
-                }
-                events.removeObjectAtIndex(0) //remove the arrival
-                events.removeObjectAtIndex(0) //remove the departure
-            }
-
-        }
-
-        return workTimes
     }
+
+    private func makeWorkDayFrom(event1 first: Event, event2 second: Event) -> WorkDay{
+        let hoursMinutes = hoursMinutesFromDate(date: first.date, toDate: second.date)
+        let workDay = WorkDay(weekDay: first.date.dayOfWeek,
+                            hoursWorked: hoursMinutes.hours,
+                            minutesWorked: hoursMinutes.minutes,
+                            arrivalTime: first.timeString,
+                            departureTime: second.timeString)
+        return workDay
+    }
+
 
     func resetDataIfNeeded(defaults: NSUserDefaults = Defaults.standard) {
         if let resetDate = defaults.objectForKey(SettingsKey.clearDate.rawValue) as! NSDate? {
