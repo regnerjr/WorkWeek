@@ -59,8 +59,8 @@ class MapViewController: UIViewController {
         if sender.state == .Began {
             addOverLayAtCoordinate(coordinate)
         } else if sender.state == .Ended {
-           startMonitoringOneRegionAtCoordinate(coordinate)
-           addArrivalIfAtWork(locationManager.manager, workManager)
+           locationManager.startMonitoringRegionAtCoordinate(coordinate, withRadius: regionRadius)
+           workManager.addArrivalIfAtWork(locationManager)
         }
     }
 
@@ -74,37 +74,9 @@ class MapViewController: UIViewController {
         mapView.addOverlay(circle) //make sure to draw this overlay in the delegate
     }
 
-    func startMonitoringOneRegionAtCoordinate(coord: CLLocationCoordinate2D) {
-        //current limitation: Only one location may be used!!!
-        if let regions = locationManager.monitoredRegions {
-            for region in regions {
-                locationManager.manager.stopMonitoringForRegion(region)
-            }
-        }
-
-        //also if setting a new work location, we need to clear the existing work history
-//        workManager.clearEvents()
-
-        let workRegion = CLCircularRegion(center: coord, radius: regionRadius, identifier: MapRegionIdentifiers.work)
-        println("Monitoring new region \(workRegion)")
-        locationManager.manager.startMonitoringForRegion(workRegion)
-    }
 }
 
-public func addArrivalIfAtWork( locationManager: CLLocationManager, workManager: WorkManager ){
-        //if you are currently at work add an arrival right now.
-        for region in locationManager.monitoredRegions as! Set<CLCircularRegion> {
-            if region.identifier == MapRegionIdentifiers.work{
-                let workregion = region as CLCircularRegion
-                if workregion.containsCoordinate(locationManager.location.coordinate) {
-                    workManager.addArrival()
-                } else {
-                    workManager.addDeparture()
-                }
-            }
-        }
 
-    }
 
 // MARK: - MapViewDelegate
 extension MapViewController: MKMapViewDelegate {
@@ -113,23 +85,24 @@ extension MapViewController: MKMapViewDelegate {
         //only do this map zooming thing once
         if MapViewState.hasBeenZoomed == false {
             MapViewState.hasBeenZoomed = true
-            let userCoordinates = userLocation.location.coordinate
-            //stoping location updates
-            locationManager.manager.stopUpdatingLocation()
+            if let userCoordinates = userLocation.location?.coordinate {
+                //stoping location updates
+                locationManager.manager.stopUpdatingLocation()
 
-            if let overlays = mapView.overlays {
+                if let overlays = mapView.overlays {
 
-                //zoom the map so it shows the user and the overlays
-                if let overlay = overlays.first as? MKCircle {
-                    let mapRect = mapRectToFitCoordinate(userCoordinates, andCoordinate: overlay.coordinate)
-                    mapView.setVisibleMapRect(mapRect, edgePadding: UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40), animated: true)
+                    //zoom the map so it shows the user and the overlays
+                    if let overlay = overlays.first as? MKCircle {
+                        let mapRect = mapRectToFitCoordinate(userCoordinates, andCoordinate: overlay.coordinate)
+                        mapView.setVisibleMapRect(mapRect, edgePadding: UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40), animated: true)
+                    }
+
+                } else {
+                    //zoom the map to the users location
+                    //not sure how far away from work the person is, so give them a good zoom 2km
+                    let region = MKCoordinateRegionMakeWithDistance(userCoordinates, 2000, 2000)
+                    mapView.setRegion(region, animated: true)
                 }
-
-            } else {
-                //zoom the map to the users location
-                //not sure how far away from work the person is, so give them a good zoom 2km
-                let region = MKCoordinateRegionMakeWithDistance(userCoordinates, 2000, 2000)
-                mapView.setRegion(region, animated: true)
             }
         }
     }
@@ -149,8 +122,8 @@ extension MapViewController: MKMapViewDelegate {
 
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         addOverLayAtCoordinate(view.annotation.coordinate)
-        startMonitoringOneRegionAtCoordinate(view.annotation.coordinate)
-        addArrivalIfAtWork(locationManager.manager, workManager)
+        locationManager.startMonitoringRegionAtCoordinate(view.annotation.coordinate, withRadius: regionRadius)
+        workManager.addArrivalIfAtWork(locationManager)
     }
 
     func mapRectToFitCoordinate(one: CLLocationCoordinate2D, andCoordinate two: CLLocationCoordinate2D) -> MKMapRect {

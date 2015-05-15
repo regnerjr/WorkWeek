@@ -9,6 +9,11 @@ class FakeLocationManager: CLLocationManager {
     override func requestAlwaysAuthorization() {
         requestedAuthorization = true
     }
+    var customLocation: CLLocation! = nil
+    override var location: CLLocation {
+        get { return customLocation }
+        set { customLocation = newValue}
+    }
 }
 
 class FakeNotificationCenter: NSNotificationCenter {
@@ -86,4 +91,35 @@ class LocationManagerTests: XCTestCase {
         XCTAssert(fakeNotificationCenter.note.name == "DepartureNotificationKey", "Note is posted")
     }
 
+}
+
+class LocationManagerAtWorkTests: XCTestCase {
+
+    var manager: LocationManager!
+
+    override func setUp() {
+        manager = LocationManager(authStatus: CLAuthorizationStatus.AuthorizedAlways)
+        super.setUp()
+    }
+    override func tearDown() {
+        super.tearDown()
+        manager = nil
+    }
+    func testNotAtWorkWhenNoRegionsAreDefined(){
+        XCTAssertFalse(manager.atWork(), "At Work returns false when no regions are defined")
+    }
+    func testNotAtWorkWhenLocationNotAuthorized(){
+        //use a not authorized Manager
+        manager = LocationManager(authStatus: CLAuthorizationStatus.Denied)
+        XCTAssertFalse(manager.atWork(), "Not at work when location services are off")
+
+        manager = LocationManager(authStatus: CLAuthorizationStatus.NotDetermined)
+        XCTAssertFalse(manager.atWork(), "Not at work when location services are off")
+
+        manager = LocationManager(authStatus: CLAuthorizationStatus.Restricted)
+        XCTAssertFalse(manager.atWork(), "Not at work when location services are off")
+    }
+    func testAtWorkWhenUserLocationInMonitoredRegion(){
+        
+    }
 }

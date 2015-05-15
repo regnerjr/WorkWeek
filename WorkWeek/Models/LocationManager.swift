@@ -33,6 +33,41 @@ public class LocationManager: NSObject {
         manager.pausesLocationUpdatesAutomatically = true
     }
 
+    public func atWork() -> Bool {
+        // Convert monitoredRegions: Set<CLRegion>? => circleRegions: Set<CLCircularRegion>
+        // The check each circleRegion to see if we are in it
+        if let regions = monitoredRegions, circleRegions = regions as? Set<CLCircularRegion> {
+            let inIt = map(circleRegions) { circle -> Bool in
+                if let whereAreWeNow = self.manager.location {
+                    if circle.containsCoordinate(whereAreWeNow.coordinate) {
+                        return true
+                    }
+                    return false
+                }
+                return false
+            }
+            for item in inIt {
+                if item == true {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    func startMonitoringRegionAtCoordinate(coord: CLLocationCoordinate2D, withRadius regionRadius: CLLocationDistance) {
+        //current limitation: Only one location may be used!!!
+        if let regions = monitoredRegions {
+            for region in regions {
+                manager.stopMonitoringForRegion(region)
+            }
+        }
+
+        let workRegion = CLCircularRegion(center: coord, radius: regionRadius, identifier: MapRegionIdentifiers.work)
+        println("Monitoring new region \(workRegion)")
+        manager.startMonitoringForRegion(workRegion)
+    }
+
 }
 
 extension LocationManager: CLLocationManagerDelegate {

@@ -63,6 +63,15 @@ public class WorkManager : NSObject {
         workDays = processEvents(eventsForTheWeek)
     }
 
+    public func addArrivalIfAtWork(locationManager: LocationManager){
+        //if you are currently at work add an arrival right now.
+        if locationManager.atWork(){
+            addArrival()
+        } else {
+            addDeparture()
+        }
+    }
+    
     private func restoreArchivedEvents() -> NSMutableArray? {
         // Get the archived events, nil if there are none
         return NSKeyedUnarchiver.unarchiveMutableArrayWithFile(Archive.path)

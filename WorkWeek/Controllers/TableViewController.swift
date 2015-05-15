@@ -14,22 +14,18 @@ enum ReuseIdentifiers: String {
 
 public class TableViewController: UITableViewController {
 
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     lazy public var workManager: WorkManager = {
         return self.appDelegate.workManager
     }()
-
-    var array = [WorkDay]()
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-
-     var locationManager: LocationManager {
+    var locationManager: LocationManager {
         return appDelegate.locationManager
     }
+    var array = [WorkDay]()
 
     override public func viewDidLoad() {
         navigationController?.title = "WorkWeek"
 
-        //set ourselves as the location Manager delegate
-//        appDelegate.locationManager.delegate = self
         locationManager.manager.startUpdatingLocation()
         configureTimerToReloadTheTableViewEveryMinute()
 
@@ -45,14 +41,12 @@ public class TableViewController: UITableViewController {
         if array.count == 0 {
             //no items to display, this is fine.... except if the user is at work now?
             //then we will force an arrival
-            let ad = UIApplication.sharedApplication().delegate as! AppDelegate
-            addArrivalIfAtWork(locationManager.manager, ad.workManager)
+            workManager.addArrivalIfAtWork(locationManager)
         }
         tableView.reloadData()
     }
 
     // MARK: - Navigation
-
     @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
         tableView.reloadData()
     }
