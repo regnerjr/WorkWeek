@@ -137,7 +137,6 @@ public class WorkManager : NSObject {
         if let resetDate = defaults.objectForKey(SettingsKey.clearDate.rawValue) as! NSDate? {
             let now = NSDate()
             let comparison = resetDate.compare(now)
-            NSLog("WorkManager: Comparing Reset Date to now - %d", comparison.rawValue)
             switch comparison {
             case NSComparisonResult.OrderedSame:
                 println("Same! nice work. lets clear it anyway")

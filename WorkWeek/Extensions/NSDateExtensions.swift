@@ -1,7 +1,7 @@
 import Foundation
 
 public extension NSDate{
-
+    /// A simple computed Property of NSDate which returns the short weekday for a given NSDate
     var dayOfWeek: String {
         let weekdayFmt = NSDateFormatter()
 
@@ -13,6 +13,13 @@ public extension NSDate{
 
 }
 
+/// Calculates the next NSDate which matches the given components
+///
+/// :param: day An Int indicating which day of the week is requested. 
+/// :param:
+/// :param:
+/// :returns:
+///
 public func getDateForReset(day: Int, hour: Int, minute: Int) -> NSDate? {
     // Get the Calendar in use
     let cal = NSCalendar.currentCalendar()
