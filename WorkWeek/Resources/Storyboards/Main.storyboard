@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VyB-Nf-Eby">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VyB-Nf-Eby">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -236,6 +236,12 @@
                                     <action selector="doneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="o4G-8F-hLy"/>
                                 </connections>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset Weekly Data on:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqE-yT-fhT">
+                                <rect key="frame" x="16" y="289" width="568" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -245,12 +251,16 @@
                             <constraint firstAttribute="centerX" secondItem="8XR-bn-yhO" secondAttribute="centerX" constant="-0.5" id="5ub-YX-lop"/>
                             <constraint firstItem="09f-ol-pP0" firstAttribute="top" secondItem="8XR-bn-yhO" secondAttribute="bottom" constant="44" id="Dra-gi-rgb"/>
                             <constraint firstItem="UJh-hL-rL3" firstAttribute="trailing" secondItem="FMN-PH-qyi" secondAttribute="trailingMargin" id="EkR-sM-eY2"/>
+                            <constraint firstItem="UJh-hL-rL3" firstAttribute="leading" secondItem="JqE-yT-fhT" secondAttribute="leading" id="MZ7-uw-29c"/>
                             <constraint firstItem="4TI-eM-xkr" firstAttribute="bottom" secondItem="09f-ol-pP0" secondAttribute="top" id="NEE-j7-Tt2"/>
                             <constraint firstItem="fNh-QF-z7P" firstAttribute="bottom" secondItem="DGg-Ev-887" secondAttribute="top" constant="8" symbolic="YES" id="OBo-pR-ITe"/>
+                            <constraint firstItem="UJh-hL-rL3" firstAttribute="top" secondItem="JqE-yT-fhT" secondAttribute="bottom" constant="8" symbolic="YES" id="Rxr-ng-k8G"/>
                             <constraint firstItem="nhu-Fy-DdY" firstAttribute="centerX" secondItem="CNx-Ip-Fvi" secondAttribute="centerX" id="UGW-zd-cZe"/>
                             <constraint firstItem="nhu-Fy-DdY" firstAttribute="width" secondItem="fNh-QF-z7P" secondAttribute="width" id="UJT-Tp-pSt"/>
+                            <constraint firstItem="UJh-hL-rL3" firstAttribute="trailing" secondItem="JqE-yT-fhT" secondAttribute="trailing" id="UXc-dN-sCR"/>
                             <constraint firstItem="kY1-SH-PX2" firstAttribute="top" secondItem="DGg-Ev-887" secondAttribute="bottom" constant="8" id="XsI-Qf-nxg"/>
                             <constraint firstItem="nhu-Fy-DdY" firstAttribute="width" secondItem="CNx-Ip-Fvi" secondAttribute="width" id="ba9-sP-Ygv"/>
+                            <constraint firstAttribute="centerX" secondItem="JqE-yT-fhT" secondAttribute="centerX" id="ie5-AO-5GW"/>
                             <constraint firstItem="CNx-Ip-Fvi" firstAttribute="top" secondItem="zoW-Ps-2fd" secondAttribute="bottom" constant="8" id="j5N-ly-tfU"/>
                             <constraint firstItem="fNh-QF-z7P" firstAttribute="top" secondItem="nhu-Fy-DdY" secondAttribute="bottom" constant="8" id="jQe-fc-Ssx"/>
                             <constraint firstItem="4TI-eM-xkr" firstAttribute="leading" secondItem="FMN-PH-qyi" secondAttribute="leading" id="lVc-6B-EXj"/>
