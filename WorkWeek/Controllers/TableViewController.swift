@@ -79,7 +79,7 @@ extension TableViewController: UITableViewDelegate {
         if workManager.isAtWork {
             return 80
         } else {
-            return 1
+            return 0
         }
     }
 
