@@ -122,16 +122,4 @@ extension TableViewController: UITableViewDelegate {
             return defaultHeader
         }
     }
-
-    func hoursSoFarToday() -> Double{
-        if let lastArrival = workManager.eventsForTheWeek.lastObject as? Event {
-            if lastArrival.inOrOut == .Arrival {
-                let (h,m) = hoursMinutesFromDate(date: lastArrival.date, toDate: NSDate())
-                let hoursToday = getDoubleFrom(hours: h, min: m)
-                return hoursToday
-            }
-        }
-        return 0
-    }
-
 }

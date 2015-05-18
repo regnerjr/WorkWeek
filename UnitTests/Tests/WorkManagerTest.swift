@@ -150,6 +150,21 @@ class WorkManagerTest: XCTestCase {
         XCTAssert(workDays2.count == 1, "Dep, arriv, dep makes 1 work day")
     }
 
+    func testHoursSoFarToday(){
+        manager.addArrival(NSDate(timeInterval: -(60 * 60), sinceDate: NSDate())) // an hour ago
+        let hoursToday = manager.hoursSoFarToday()
+        XCTAssertEqual(hoursToday, 1.0, "One Hour since arrival")
+    }
+
+    func testHoursSoFarToday_notAtWork(){
+        manager.addArrival(NSDate(timeInterval: -(60*60), sinceDate: NSDate()))
+        // arrived an hour ago
+        manager.addDeparture(NSDate(timeInterval: -(15*60), sinceDate: NSDate()))
+        //departed 15 minutes ago
+        let hoursToday = manager.hoursSoFarToday()
+        XCTAssertEqual(hoursToday, 0, "No hours today if not at work")
+
+    }
 
 
 }
