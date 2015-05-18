@@ -43,7 +43,7 @@ public struct Formatter {
     public static var workRadius: NSNumberFormatter = {
         let radiusFormatter = NSNumberFormatter()
         radiusFormatter.numberStyle = .NoStyle
-        radiusFormatter.minimum = 50 //allow workRadius to be between 50 and 999 meters
+        radiusFormatter.minimum = 0
         radiusFormatter.maximum = 999
         radiusFormatter.minimumIntegerDigits = 2
         radiusFormatter.maximumIntegerDigits = 3
