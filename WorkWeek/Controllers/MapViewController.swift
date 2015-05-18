@@ -22,6 +22,7 @@ class MapViewController: UIViewController {
         return appDelegate.locationManager
     }
 
+    //TODO: Remove this property after doing the other recommended Refactorings See TODO below
     lazy var workManager: WorkManager = {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         return appDelegate.workManager
@@ -59,12 +60,15 @@ class MapViewController: UIViewController {
         if sender.state == .Began {
             addOverLayAtCoordinate(coordinate)
         } else if sender.state == .Ended {
-           locationManager.startMonitoringRegionAtCoordinate(coordinate, withRadius: regionRadius)
-           workManager.addArrivalIfAtWork(locationManager)
+            locationManager.startMonitoringRegionAtCoordinate(coordinate, withRadius: regionRadius)
+            //TODO: Change this to do a check if user is on location then send a Notification for arrived at work
+            //this will remove the need for the workManager
+            workManager.addArrivalIfAtWork(locationManager)
         }
     }
 
-    func addOverLayAtCoordinate(coord: CLLocationCoordinate2D){ //remove existing overlays
+    func addOverLayAtCoordinate(coord: CLLocationCoordinate2D){
+        //remove existing overlays
         if let overlays = mapView.overlays {
             let existingOverlays = mapView.overlays
             mapView.removeOverlays(existingOverlays)
@@ -123,6 +127,7 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         addOverLayAtCoordinate(view.annotation.coordinate)
         locationManager.startMonitoringRegionAtCoordinate(view.annotation.coordinate, withRadius: regionRadius)
+        //TODO: Check with location manager if user is in radius of new region, then send an Arrival Notification
         workManager.addArrivalIfAtWork(locationManager)
     }
 
@@ -144,28 +149,28 @@ extension MapViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
 
         searchBar.resignFirstResponder()
-        if let searchString = searchBar.text {
-            if searchString != "" {
+        if let searchString = searchBar.text where searchString != ""{
+//            if searchString != "" {
 
-                let request = MKLocalSearchRequest()
-                request.naturalLanguageQuery = searchBar.text ?? ""
-                request.region = mapView.region
+            let request = MKLocalSearchRequest()
+            request.naturalLanguageQuery = searchBar.text ?? ""
+            request.region = mapView.region
 
-                let search = MKLocalSearch(request: request)
-                search.startWithCompletionHandler { [unowned self]
-                    response, error in
-                    if error != nil {
-                        //handle error
-                        println(error.localizedDescription)
-                        return
-                    }
-                    //We got a response look at the cool map items that we got back!
-                    let items = response.mapItems as! [MKMapItem]
-                    let placemarks = items.map{$0.placemark}
-                    self.mapView.showAnnotations(placemarks, animated: true)
+            let search = MKLocalSearch(request: request)
+            search.startWithCompletionHandler { [unowned self]
+                response, error in
+                if error != nil {
+                    //handle error
+                    println(error.localizedDescription)
+                    return
                 }
-
+                //We got a response look at the cool map items that we got back!
+                let items = response.mapItems as! [MKMapItem]
+                let placemarks = items.map{$0.placemark}
+                self.mapView.showAnnotations(placemarks, animated: true)
             }
+
+//            }
         }
     }
     

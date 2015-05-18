@@ -302,7 +302,7 @@
         <!--Map View Controller-->
         <scene sceneID="cNR-ho-hZn">
             <objects>
-                <viewController id="9Q0-cl-wKy" customClass="MapViewController" customModule="WorkWeek" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" id="9Q0-cl-wKy" customClass="MapViewController" customModule="WorkWeek" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="d8t-3T-j73"/>
                         <viewControllerLayoutGuide type="bottom" id="MbH-la-jFa"/>

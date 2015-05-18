@@ -38,7 +38,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     public func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        //show an alertview if teh work week ends and we are in the foreground
+        //show an alertview if the work week ends and we are in the foreground
         NSLog("Work Week Ended and we were in the foreground")
         let alert = UIAlertController(title: "WorkWeek", message: "Go Home!", preferredStyle: UIAlertControllerStyle.Alert)
         let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
@@ -60,4 +60,3 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         standardDefaults.registerDefaults(defaults)
     }
 }
-

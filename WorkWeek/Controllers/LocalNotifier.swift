@@ -28,7 +28,7 @@ public class LocalNotifier {
         UIApplication.sharedApplication().scheduledLocalNotifications = nil
 
         UIApplication.sharedApplication().scheduleLocalNotification(note)
-        NSLog("Setup a Notification %@", note)
+//        NSLog("Setup a Notification %@", note)
     }
 
     public class func cancelAllNotifications(){

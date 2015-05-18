@@ -143,7 +143,7 @@ public class WorkManager : NSObject {
 
 
     func resetDataIfNeeded(defaults: NSUserDefaults = Defaults.standard) {
-        if let resetDate = defaults.objectForKey(SettingsKey.clearDate.rawValue) as! NSDate? {
+        if let resetDate = defaults.objectForKey(.clearDate) as? NSDate {
             let now = NSDate()
             let comparison = resetDate.compare(now)
             switch comparison {
