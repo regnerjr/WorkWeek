@@ -33,7 +33,7 @@ public func getDateForReset(day: Int, hour: Int, minute: Int) -> NSDate? {
     // This is where the real magic happens, How much time between now  and our reset time
     // in days hours minutes
     let resetComps = NSDateComponents()
-    if (day + 1) < todaysComps.weekday {  //adjust for week wrap.
+    if (day + 1) <= todaysComps.weekday {  //adjust for week wrap.
         resetComps.weekday = (day + 1) - todaysComps.weekday + 7
     } else {
         resetComps.weekday = (day + 1) - todaysComps.weekday
