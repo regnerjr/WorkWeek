@@ -103,7 +103,7 @@
 		52FA6CE11AADDC42000E63DE /* Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		6219AAAD4B2D8CAFB333EB1B /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B5EA2E4B8F1C6F2451087C9 /* WorkWeek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkWeek.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9F81B384B6127F9E6F6561E8 /* UnitTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
+		9F81B384B6127F9E6F6561E8 /* UnitTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "UnitTests-Info.plist"; path = "Resources/UnitTests-Info.plist"; sourceTree = "<group>"; };
 		E2890406E0AF1B4ACCD11648 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Other-Sources/Info.plist"; sourceTree = "<group>"; };
 		FCA5035B079F37F07486CB30 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -134,7 +134,8 @@
 			children = (
 				52C8A9BD1AAE062100099E62 /* Main.storyboard */,
 			);
-			path = Storyboards;
+			name = Storyboards;
+			path = Resources/Storyboards;
 			sourceTree = "<group>";
 		};
 		4AA5892E8CB787E807D6F4D2 /* Frameworks */ = {
@@ -179,11 +180,12 @@
 		535532DFF0F16EC023159453 /* WorkWeek */ = {
 			isa = PBXGroup;
 			children = (
+				085A19FEDA9CAF13F8507F80 /* Storyboards */,
+				FDFD1D7FE2A9D8A2C5471B62 /* Views */,
+				668C4FEC797AB83A0AC83487 /* Controllers */,
 				749DF0AFEB6121917888A16B /* Extensions */,
 				FC550672CEDE83F64EAEBCF5 /* Protocols */,
 				8CCF5699F90307DD07BD5177 /* Models */,
-				668C4FEC797AB83A0AC83487 /* Controllers */,
-				FDFD1D7FE2A9D8A2C5471B62 /* Views */,
 				58437E8786010ACFF6EBA352 /* Resources */,
 			);
 			path = WorkWeek;
@@ -194,7 +196,6 @@
 			children = (
 				30E265B519BC5E1BC3D618FE /* Images.xcassets */,
 				E2890406E0AF1B4ACCD11648 /* Info.plist */,
-				085A19FEDA9CAF13F8507F80 /* Storyboards */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -202,8 +203,7 @@
 		5C8F223530E23502684ED33A /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				B3AB740D738495805E313DA2 /* Resources */,
-				BE5CC4E819E77E9A0DA3A939 /* Helpers */,
+				9F81B384B6127F9E6F6561E8 /* UnitTests-Info.plist */,
 				F51E11A88905048A10793377 /* Tests */,
 			);
 			path = UnitTests;
@@ -244,21 +244,6 @@
 				52B7105B1B03946400E3172B /* NotificationCenter.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		B3AB740D738495805E313DA2 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				9F81B384B6127F9E6F6561E8 /* UnitTests-Info.plist */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		BE5CC4E819E77E9A0DA3A939 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helpers;
 			sourceTree = "<group>";
 		};
 		C14C4A6AE12787F2C3174306 = {
