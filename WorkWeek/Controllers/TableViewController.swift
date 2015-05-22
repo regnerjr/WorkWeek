@@ -34,6 +34,23 @@ public class TableViewController: UITableViewController {
         if locationManager.monitoredRegions?.count == 0 {
             performSegueWithIdentifier(StoryBoardSegues.Map.rawValue, sender: self)
         }
+        listenForNotifications()
+    }
+
+    deinit {
+        stopListeningToNotifications()
+    }
+
+    func listenForNotifications(center: NSNotificationCenter = NSNotificationCenter.defaultCenter()){
+        center.addObserver(self, selector: "reloadTableViewNotification", name: "WorkWeekUpdated", object: nil)
+    }
+    func stopListeningToNotifications(center: NSNotificationCenter = NSNotificationCenter.defaultCenter()){
+        center.removeObserver(self)
+    }
+
+    func reloadTableViewNotification(){
+        println("Reloading TableView Due to Notification")
+        tableView.reloadData()
     }
 
     override public func viewWillAppear(animated: Bool) {
@@ -41,7 +58,8 @@ public class TableViewController: UITableViewController {
         if array.count == 0 {
             //no items to display, this is fine.... except if the user is at work now?
             //then we will force an arrival
-            workManager.addArrivalIfAtWork(locationManager)
+            // force an ar
+//            workManager.addArrivalIfAtWork(locationManager)
         }
         tableView.reloadData()
     }
@@ -57,6 +75,7 @@ public class TableViewController: UITableViewController {
     }
 
     func reloadTableView(timer: NSTimer){
+        println("Reloading table view due to timer")
         self.tableView.reloadData()
     }
 }

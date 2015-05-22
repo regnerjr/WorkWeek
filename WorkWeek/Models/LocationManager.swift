@@ -4,15 +4,16 @@ import CoreLocation
 /// A manager for handling location realted functions.
 public class LocationManager: NSObject {
     /// The actual CLLocationManager
-    private let center: NSNotificationCenter
     public let manager: CLLocationManager
+    //need an instance of the work manager, so that arrivals and departures can be triggered when the monitored regions are entered or left
+    private let workManager: WorkManager
 
     /// Dependency Inject Auth Status and Manager for testing
     public init(authStatus: CLAuthorizationStatus = CLLocationManager.authorizationStatus(),
                 manager: CLLocationManager = CLLocationManager(),
-                center: NSNotificationCenter = NSNotificationCenter.defaultCenter()){
+        workManager:WorkManager = WorkManager()){
         self.manager = manager
-        self.center = center
+        self.workManager = workManager
         super.init()
         if authStatus != .AuthorizedAlways {
             manager.requestAlwaysAuthorization()
@@ -74,14 +75,12 @@ extension LocationManager: CLLocationManagerDelegate {
 
     /// When a region is entered, an NSNotification is posted to the NSNotification Center
     public func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
-        let arrivalNotification = NSNotification(name: NotificationCenter.arrival, object: nil)
-        center.postNotification(arrivalNotification)
+        workManager.addArrival()
     }
 
     /// When a region is exited, an NSNotification is posted to the NSNotification Center
     public func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
-        let departureNotification = NSNotification(name: NotificationCenter.departure, object: nil)
-        center.postNotification(departureNotification)
+        workManager.addDeparture()
     }
 }
 

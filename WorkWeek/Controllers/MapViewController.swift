@@ -22,7 +22,6 @@ class MapViewController: UIViewController {
         return appDelegate.locationManager
     }
 
-    //TODO: Remove this property after doing the other recommended Refactorings See TODO below
     lazy var workManager: WorkManager = {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         return appDelegate.workManager
@@ -61,9 +60,8 @@ class MapViewController: UIViewController {
             addOverLayAtCoordinate(coordinate)
         } else if sender.state == .Ended {
             locationManager.startMonitoringRegionAtCoordinate(coordinate, withRadius: regionRadius)
-            //TODO: Change this to do a check if user is on location then send a Notification for arrived at work
-            //this will remove the need for the workManager
-            workManager.addArrivalIfAtWork(locationManager)
+            if locationManager.atWork() { workManager.addArrival() }
+            else { workManager.addDeparture() }
         }
     }
 

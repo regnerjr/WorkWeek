@@ -25,6 +25,7 @@ class FakeNotificationCenter: NSNotificationCenter {
         self.selector = aSelector
         super.addObserver(observer, selector: aSelector, name: aName, object: anObject)
     }
+
     override func postNotification(notification: NSNotification) {
         note = notification
         super.postNotification(notification)
@@ -55,41 +56,38 @@ class LocationManagerTests: XCTestCase {
     func testLocationManagerSetsUpAManagerIfAuthorized(){
 
         locationManager = LocationManager(authStatus: CLAuthorizationStatus.AuthorizedAlways,
-                                            manager: fakeLocationManager,
-                                            center: fakeNotificationCenter)
+                                            manager: fakeLocationManager)
         XCTAssertNotNil(locationManager, "LocationManagerIsAllocated if Authorized")
     }
 
     func testLocationManagerRequestsAlwaysIfNotAllowed(){
 
         locationManager = LocationManager(authStatus: CLAuthorizationStatus.AuthorizedWhenInUse,
-                                            manager: fakeLocationManager,
-                                            center: fakeNotificationCenter)
+                                            manager: fakeLocationManager)
         XCTAssert(fakeLocationManager.requestedAuthorization == true,
                   "Location Manager requests Always auth if not already granted")
 
         locationManager = LocationManager(authStatus: CLAuthorizationStatus.Denied,
-                                            manager: fakeLocationManager,
-                                            center: fakeNotificationCenter)
+                                            manager: fakeLocationManager)
         XCTAssert(fakeLocationManager.requestedAuthorization,
                   "Location Manager requests Always Auth if not already authorized")
     }
 
     //MARK: - Notifications are Posted on arrival and Departure
-    func testAddsEventPostsNotification(){
-        
-        XCTAssertNil(fakeNotificationCenter.observer, "Notificaiton observer is nil before it is posted")
-        locationManager = LocationManager(center: fakeNotificationCenter)
-        locationManager.locationManager(locationManager.manager, didEnterRegion: region)
-        XCTAssert(fakeNotificationCenter.note.name == "ArrivalNotificationKey", "Notification is posted if region is entered")
-    }
-
-    func testAddsEventToWorkManagerOnExitRegion(){
-        XCTAssertNil(fakeNotificationCenter.observer, "Notification observer is nil before it is posted")
-        locationManager = LocationManager(center: fakeNotificationCenter)
-        locationManager.locationManager(locationManager.manager, didExitRegion: region)
-        XCTAssert(fakeNotificationCenter.note.name == "DepartureNotificationKey", "Note is posted")
-    }
+//    func testAddsEventPostsNotification(){
+//        
+//        XCTAssertNil(fakeNotificationCenter.observer, "Notificaiton observer is nil before it is posted")
+//        locationManager = LocationManager(center: fakeNotificationCenter)
+//        locationManager.locationManager(locationManager.manager, didEnterRegion: region)
+//        XCTAssert(fakeNotificationCenter.note.name == "ArrivalNotificationKey", "Notification is posted if region is entered")
+//    }
+//
+//    func testAddsEventToWorkManagerOnExitRegion(){
+//        XCTAssertNil(fakeNotificationCenter.observer, "Notification observer is nil before it is posted")
+//        locationManager = LocationManager(center: fakeNotificationCenter)
+//        locationManager.locationManager(locationManager.manager, didExitRegion: region)
+//        XCTAssert(fakeNotificationCenter.note.name == "DepartureNotificationKey", "Note is posted")
+//    }
 
 }
 

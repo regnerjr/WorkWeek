@@ -19,6 +19,7 @@ private struct Archive {
 public class WorkManager : NSObject {
 
     public private(set) var eventsForTheWeek = NSMutableArray()
+
     private var workDays = Array<WorkDay>()
     public var hoursWorkedThisWeek: Double {
         let hoursWorked = workDays.reduce(0, combine: {$0 + $1.hoursWorked})
@@ -40,38 +41,53 @@ public class WorkManager : NSObject {
         super.init()
         // if we have archived events restore them
         eventsForTheWeek = restoreArchivedEvents() ?? NSMutableArray()
-        observeNotifications()
+//        observeNotifications()
     }
 
     deinit{
-        stopObservingNotifications()
+//        stopObservingNotifications()
     }
 
     public func addArrival(_ date: NSDate = NSDate()){
         //set up a notification to fire at 40 hours
         LocalNotifier.setupNotification(hoursWorkedThisWeek, total: hoursInWorkWeek)
         let newArrival = Event(inOrOut: .Arrival, date: date)
+        println("Adding a New Arrival, \(newArrival.inOrOut.rawValue), with date \(newArrival.date)")
         eventsForTheWeek.addObject(newArrival)
+        postNotification()
         saveNewArchive(eventsForTheWeek)
     }
 
     public func addDeparture(_ date: NSDate = NSDate()){
         LocalNotifier.cancelAllNotifications()
         let newDeparture = Event(inOrOut: .Departure, date: date)
+        println("Adding a New Departure, \(newDeparture.inOrOut.rawValue), with date \(newDeparture.date)")
         eventsForTheWeek.addObject(newDeparture)
+        postNotification()
         saveNewArchive(eventsForTheWeek)
         workDays = processEvents(eventsForTheWeek)
+    }
+
+    public func clearEvents(){
+        eventsForTheWeek = NSMutableArray()
+        postNotification()
+        //clear the archive as well
+        saveNewArchive(eventsForTheWeek)
     }
 
     public func addArrivalIfAtWork(locationManager: LocationManager){
         //if you are currently at work add an arrival right now.
         if locationManager.atWork(){
             addArrival()
-        } else {
-            addDeparture()
         }
     }
-    
+
+    func postNotification(center: NSNotificationCenter = NSNotificationCenter.defaultCenter()){
+        let note = NSNotification(name: "WorkWeekUpdated", object: nil)
+        println("Posting Notification: \(note)")
+        center.postNotification(note)
+    }
+
     private func restoreArchivedEvents() -> NSMutableArray? {
         // Get the archived events, nil if there are none
         return NSKeyedUnarchiver.unarchiveMutableArrayWithFile(Archive.path)
@@ -84,11 +100,6 @@ public class WorkManager : NSObject {
         return false
     }
 
-    public func clearEvents(){
-        eventsForTheWeek = NSMutableArray()
-        //clear the archive as well
-        saveNewArchive(eventsForTheWeek)
-    }
 
     public func allItems() -> [WorkDay]{
         workDays = processEvents(eventsForTheWeek)

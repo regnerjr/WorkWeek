@@ -76,8 +76,8 @@ class TableViewDataSourceTests: XCTestCase {
 
         XCTAssertEqual(workCell.workDate!.text!, "Mon", "")
         XCTAssertEqual(workCell.workTime!.text!, "8.0", "")
-        XCTAssertEqual(workCell.arrivalTime!.text!, "6:00 PM", "")
-        XCTAssertEqual(workCell.departureTime!.text!, "2:00 AM", "")
+        XCTAssertEqual(workCell.arrivalTime!.text!, "6:00 PM", "")  //NOTE: This test is flakey, does not pass on fresh install
+        XCTAssertEqual(workCell.departureTime!.text!, "2:00 AM", "")//      will pass when rerun.
 
     }
 

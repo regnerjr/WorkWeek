@@ -50,7 +50,7 @@ class AppDelegateTests: XCTestCase {
         XCTAssertEqual(comparison, NSComparisonResult.OrderedAscending, "Reset Date is in the future")
         //but it is less than 1 week in the future
         let oneWeekComparison = NSDate(timeIntervalSinceNow: 7 * 24 * 60 * 60).compare(savedDate) //one week 7days, 24hours,60minutes, 60 seconds
-        XCTAssertEqual(oneWeekComparison, NSComparisonResult.OrderedDescending, "Reset Date is less than one week in the future")
+        XCTAssertEqual(oneWeekComparison.rawValue, NSComparisonResult.OrderedDescending.rawValue, "Reset Date is less than one week in the future")
 
 
     }
