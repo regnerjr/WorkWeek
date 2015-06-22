@@ -3,6 +3,7 @@ import UIKit
 public class LocalNotifier {
 
     public class func setupNotification(soFar: Double, total: Int){
+        NSLog("Setting Up Notification:")
         //schedule a notification to fire when 40 hours have been worked.
         //assume that the person will stay at work the rest of the week
 
@@ -14,6 +15,7 @@ public class LocalNotifier {
             let hoursLeft = Double(total) - soFar //hours left will be of the form 5.2 hours
             let secondsLeft = convertDecimalHoursToSeconds(hoursLeft)
             note.fireDate = NSDate(timeIntervalSinceNow: secondsLeft)
+            NSLog("Configuring Notification with fire date %@", note.fireDate!)
         } else {
             note.fireDate = nil //fire the notification now
         }
@@ -28,7 +30,7 @@ public class LocalNotifier {
         UIApplication.sharedApplication().scheduledLocalNotifications = nil
 
         UIApplication.sharedApplication().scheduleLocalNotification(note)
-//        NSLog("Setup a Notification %@", note)
+        NSLog("Setup a Notification %@", note)
     }
 
     public class func cancelAllNotifications(){
