@@ -19,10 +19,7 @@ class MapViewController: UIViewController {
 
     var locationManager: LocationManager {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        if appDelegate.locationManager == nil {
-            appDelegate.locationManager = LocationManager()
-        }
-        return appDelegate.locationManager!
+        return appDelegate.locationManager
     }
 
     lazy var workManager: WorkManager = {

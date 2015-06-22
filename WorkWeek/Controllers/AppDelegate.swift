@@ -10,10 +10,10 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Properties
     let workManager = WorkManager()
     //don't stand up Location Manager if the onboarding screen has not been shown
-    lazy var locationManager: LocationManager? = {
-        if Defaults.standard.boolForKey(SettingsKey.onboardingShown.rawValue) == false {
-            return nil
-        }
+    lazy var locationManager: LocationManager = {
+//        if Defaults.standard.boolForKey(SettingsKey.onboardingShown.rawValue) == false {
+//            return nil
+//        }
         return LocationManager()
     }()
 
@@ -30,7 +30,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         if let options = launchOptions {
             if let locationOptions  = options[UIApplicationLaunchOptionsLocationKey] as? NSNumber {
                 workManager.resetDataIfNeeded()
-                locationManager?.manager.startUpdatingLocation()
+                locationManager.manager.startUpdatingLocation()
             } else if let localNotification = options[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
                 NSLog("Launched due to a local notification %@", localNotification)
             }
@@ -62,6 +62,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
 
     public func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         //show an alertview if the work week ends and we are in the foreground
+        println("__FUNCTION__ \(notification)")
         NSLog("Work Week Ended and we were in the foreground")
         let alert = UIAlertController(title: "WorkWeek", message: "Go Home!", preferredStyle: UIAlertControllerStyle.Alert)
         let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)

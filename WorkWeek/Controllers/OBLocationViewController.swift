@@ -25,16 +25,10 @@ class OBLocationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //Disable The Next Button
-        //enable it in the location access call back
-
-        //ensure location services are turned on if not pop up a dialog
-
     }
+
     override func viewDidAppear(animated: Bool) {
 
-        println("Location Services \(CLLocationManager.locationServicesEnabled())")
         if !CLLocationManager.locationServicesEnabled() {
             //show an alert
             //offer button to Settings.

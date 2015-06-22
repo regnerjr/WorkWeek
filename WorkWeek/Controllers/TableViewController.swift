@@ -15,14 +15,11 @@ enum ReuseIdentifiers: String {
 public class TableViewController: UITableViewController {
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-    lazy public var workManager: WorkManager = {
-        return self.appDelegate.workManager
-    }()
+    public var workManager: WorkManager {
+        return appDelegate.workManager
+    }
     var locationManager: LocationManager {
-        if appDelegate.locationManager == nil {
-            appDelegate.locationManager = LocationManager()
-        }
-        return appDelegate.locationManager!
+        return appDelegate.locationManager
     }
     var array = [WorkDay]()
 
@@ -87,6 +84,7 @@ public class TableViewController: UITableViewController {
 extension TableViewController: UITableViewDelegate {
 
     override public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        //TODO: Convert this to be a fraction of the screen height instead of a constant, This will help thing look better on smaller phones
         return 150
     }
 
