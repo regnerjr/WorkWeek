@@ -13,10 +13,10 @@ public class DayTimePicker: NSObject {
 extension DayTimePicker: UIPickerViewDataSource {
 
     var numberOfWeekdays: Int {
-        return calendar.maximumRangeOfUnit(.CalendarUnitWeekday).length
+        return calendar.maximumRangeOfUnit(.Weekday).length
     }
     var numberOfHoursInDay: Int {
-        return calendar.maximumRangeOfUnit(.CalendarUnitHour).length
+        return calendar.maximumRangeOfUnit(.Hour).length
     }
 
     public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -28,7 +28,7 @@ extension DayTimePicker: UIPickerViewDataSource {
         case 0: return numberOfWeekdays
         case 1: return numberOfHoursInDay
         default:
-            println("Something is wrong")
+            print("Something is wrong")
             return 0
         }
     }
@@ -36,20 +36,20 @@ extension DayTimePicker: UIPickerViewDataSource {
 
 extension DayTimePicker: UIPickerViewDelegate {
 
-    public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
+    public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
 
         switch component {
         case 0: return makeADayView(row, withLabel: UILabel(frame: CGRectZero))
         case 1: return makeAnHourView(row, withLabel: UILabel(frame: CGRectZero))
         default:
-            println("Something is wrong! asked for picker views for component: \(component)")
-            return view //return the same view?
+            print("Something is wrong! asked for picker views for component: \(component)")
+            return view ?? UIView() //return the same view?
         }
     }
 
 
     func makeADayView(row: Int, withLabel label: UILabel) -> UIView {
-        let days = dateFormatter.standaloneWeekdaySymbols as! [String]
+        let days = dateFormatter.standaloneWeekdaySymbols
         if row < days.count {
             label.text = days[row]
         }

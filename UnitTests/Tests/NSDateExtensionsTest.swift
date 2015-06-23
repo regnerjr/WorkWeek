@@ -26,12 +26,10 @@ class NSDateExtensionsTest: XCTestCase {
         let day = 0//sunday
         let hour = 4 // 4 am
         let minute = 0 //always zero
-        let resetDate = getDateForReset(day, hour, minute)
+        let resetDate = getDateForReset(day, hour: hour, minute: minute)
         // reset date should have components of sunday 4: 00 am
         let resetComps = NSCalendar.currentCalendar().components(
-            NSCalendarUnit.CalendarUnitWeekday |
-            NSCalendarUnit.CalendarUnitHour |
-            NSCalendarUnit.CalendarUnitMinute,
+            [NSCalendarUnit.Weekday, NSCalendarUnit.Hour, NSCalendarUnit.Minute],
             fromDate: resetDate!)
         XCTAssertEqual(resetComps.weekday, 1, "Reset day set to sunday")
         XCTAssertEqual(resetComps.hour, 4, "Reset hour is 4 am ")
@@ -46,15 +44,13 @@ class NSDateExtensionsTest: XCTestCase {
         NSTimeZone.setDefaultTimeZone(NSTimeZone(forSecondsFromGMT: 0))
         //set reset day to be same day as it is now. 
 
-        let day = NSCalendar.currentCalendar().components(.CalendarUnitWeekday, fromDate: NSDate()).weekday - 1
+        let day = NSCalendar.currentCalendar().components(.Weekday, fromDate: NSDate()).weekday - 1
         let hour = 4 // 4 am
         let minute = 0 //always zero
-        let resetDate = getDateForReset(day, hour, minute)
+        let resetDate = getDateForReset(day, hour: hour, minute: minute)
         // reset date should have components of sunday 4: 00 am
         let resetComps = NSCalendar.currentCalendar().components(
-            NSCalendarUnit.CalendarUnitWeekday |
-            NSCalendarUnit.CalendarUnitHour |
-            NSCalendarUnit.CalendarUnitMinute,
+            [NSCalendarUnit.Weekday, NSCalendarUnit.Hour, NSCalendarUnit.Minute],
             fromDate: resetDate!)
         XCTAssertEqual(resetComps.weekday, day + 1, "Reset day set to currentWeekday")
         XCTAssertEqual(resetComps.hour, 4, "Reset hour is 4 am ")

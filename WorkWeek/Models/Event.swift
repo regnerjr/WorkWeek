@@ -39,7 +39,7 @@ public class Event: NSObject, NSCoding{
         aCoder.encodeObject(date, forKey: RestorationKey.date)
     }
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         let inOutString = aDecoder.decodeObjectForKey( RestorationKey.inOrOut) as! String? ?? ""
         switch inOutString {
         case "Arrival": inOrOut = .Arrival
@@ -51,14 +51,14 @@ public class Event: NSObject, NSCoding{
 }
 
 // MARK: - Equatable
-extension Event: Equatable {}
+//extension Event: Equatable {}
 public func ==(lhs: Event, rhs: Event) -> Bool {
     return (lhs.inOrOut == rhs.inOrOut) && (lhs.date == rhs.date)
 }
 
-public func getDoubleFrom(#hours: Int, #min: Int) -> Double {
+public func getDoubleFrom(hours hours: Int, min: Int) -> Double {
     let dbl = Double(min)
     let roundedMin = (dbl / 60.0)
     let flr = floor(roundedMin * 10 ) / 10
-    return Double(hours) + floor(roundedMin * 10) / 10
+    return Double(hours) + flr
 }

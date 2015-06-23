@@ -47,7 +47,7 @@ class EventTest: XCTestCase {
         let decoder = NSKeyedUnarchiver(forReadingWithData: data)
         let restored = Event(coder: decoder)
 
-        XCTAssertEqual(restored, newArrival, "Restored Event is same as original event")
+        XCTAssertEqual(restored!, newArrival, "Restored Event is same as original event")
 
         }
     }

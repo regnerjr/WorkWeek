@@ -40,11 +40,9 @@ class AppDelegateTests: XCTestCase {
         //look at the components
 
         let resetComps = NSCalendar.currentCalendar().components(
-            NSCalendarUnit.CalendarUnitWeekday |
-            NSCalendarUnit.CalendarUnitHour |
-            NSCalendarUnit.CalendarUnitMinute,
+            [NSCalendarUnit.Weekday, NSCalendarUnit.Hour, NSCalendarUnit.Minute],
             fromDate: savedDate)
-        println("\(savedDate)")
+        print("\(savedDate)")
         XCTAssertEqual(resetComps.weekday, 3, "Reset day set to sunday")
         XCTAssertEqual(resetComps.hour, 9, "Reset hour is 4 am ")
         let comparison = NSDate().compare(savedDate)

@@ -83,7 +83,7 @@ class NSUserDefaultsKeysTest: XCTestCase {
     }
 
     func testUpdateDefaultResetDate(){
-        updateDefaultResetDate(defaults: defaults)
+        updateDefaultResetDate(defaults)
         XCTAssertEqual(defaults.setObjectKey, SettingsKey.clearDate.rawValue, "Sets a new clear date")
     }
 

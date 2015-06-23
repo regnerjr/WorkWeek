@@ -54,8 +54,8 @@ public func updateDefaultResetDate( defaults: NSUserDefaults = Defaults.standard
     //get date from the settings
     if let date = getDateForReset(
         defaults.integerForKey(.resetDay),
-        defaults.integerForKey(.resetHour),
-        0) {
+        hour: defaults.integerForKey(.resetHour),
+        minute: 0) {
             defaults.setObject(date, forKey: .clearDate)
     } else {
         NSLog("Could not get a reset day for %@, %@",

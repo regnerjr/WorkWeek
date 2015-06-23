@@ -24,7 +24,7 @@ public class LocationManager: NSObject {
 
     /// Returns the regions monitored by the CLLocationManager
     var monitoredRegions: Set<CLRegion>? {
-        return manager.monitoredRegions as! Set<CLRegion>?
+        return manager.monitoredRegions
     }
 
     /// Sets up the CLLocationManager with the correct defaults
@@ -38,7 +38,7 @@ public class LocationManager: NSObject {
         // Convert monitoredRegions: Set<CLRegion>? => circleRegions: Set<CLCircularRegion>
         // The check each circleRegion to see if we are in it
         if let regions = monitoredRegions, circleRegions = regions as? Set<CLCircularRegion> {
-            let inIt = map(circleRegions) { circle -> Bool in
+            let inIt = circleRegions.map { circle -> Bool in
                 if let whereAreWeNow = self.manager.location {
                     if circle.containsCoordinate(whereAreWeNow.coordinate) {
                         return true
@@ -65,7 +65,7 @@ public class LocationManager: NSObject {
         }
 
         let workRegion = CLCircularRegion(center: coord, radius: regionRadius, identifier: MapRegionIdentifiers.work)
-        println("Monitoring new region \(workRegion)")
+        print("Monitoring new region \(workRegion)")
         manager.startMonitoringForRegion(workRegion)
     }
 
@@ -74,12 +74,12 @@ public class LocationManager: NSObject {
 extension LocationManager: CLLocationManagerDelegate {
 
     /// When a region is entered, an NSNotification is posted to the NSNotification Center
-    public func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
+    public func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
         workManager.addArrival()
     }
 
     /// When a region is exited, an NSNotification is posted to the NSNotification Center
-    public func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
+    public func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
         workManager.addDeparture()
     }
 }

@@ -30,7 +30,7 @@ class MapViewController: UIViewController {
     var workLocations: [CLCircularRegion]? {
         if let regions = locationManager.monitoredRegions {
             if regions.count > 0 {
-                return map(regions){ $0 as! CLCircularRegion }
+                return regions.map{ $0 as! CLCircularRegion }
             }
 
         }
@@ -43,7 +43,7 @@ class MapViewController: UIViewController {
 
         //draw the current work locations if it is not nil
         if let locations = workLocations {
-            map(locations){ location -> Void in
+            locations.map{ location -> Void in
                 let workOverlay = MKCircle(centerCoordinate: location.center, radius: self.regionRadius)
                 self.mapView.addOverlay(workOverlay)
             }
@@ -71,10 +71,8 @@ class MapViewController: UIViewController {
 
     func addOverLayAtCoordinate(coord: CLLocationCoordinate2D){
         //remove existing overlays
-        if let overlays = mapView.overlays {
-            let existingOverlays = mapView.overlays
-            mapView.removeOverlays(existingOverlays)
-        }
+        let existingOverlays = mapView.overlays
+        mapView.removeOverlays(existingOverlays)
         //add a circle over lay where the user pressed
         let circle = MKCircle(centerCoordinate: coord, radius: regionRadius)
         mapView.addOverlay(circle) //make sure to draw this overlay in the delegate
@@ -86,7 +84,7 @@ class MapViewController: UIViewController {
 // MARK: - MapViewDelegate
 extension MapViewController: MKMapViewDelegate {
 
-    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
+    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
         //only do this map zooming thing once
         if MapViewState.hasBeenZoomed == false {
             MapViewState.hasBeenZoomed = true
@@ -94,10 +92,10 @@ extension MapViewController: MKMapViewDelegate {
                 //stoping location updates
                 locationManager.manager.stopUpdatingLocation()
 
-                if let overlays = mapView.overlays {
+                if mapView.overlays.count > 0 {
 
                     //zoom the map so it shows the user and the overlays
-                    if let overlay = overlays.first as? MKCircle {
+                    if let overlay = mapView.overlays.first as? MKCircle {
                         let mapRect = mapRectToFitCoordinate(userCoordinates, andCoordinate: overlay.coordinate)
                         mapView.setVisibleMapRect(mapRect, edgePadding: UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40), animated: true)
                     }
@@ -112,7 +110,7 @@ extension MapViewController: MKMapViewDelegate {
         }
     }
 
-    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         //only one overlay so dont bother to check it just return a renderer
         if overlay is MKCircle{
             let renderer = MKCircleRenderer(circle: overlay as! MKCircle)
@@ -125,9 +123,10 @@ extension MapViewController: MKMapViewDelegate {
         }
     }
 
-    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
-        addOverLayAtCoordinate(view.annotation.coordinate)
-        locationManager.startMonitoringRegionAtCoordinate(view.annotation.coordinate, withRadius: regionRadius)
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+        addOverLayAtCoordinate(view.annotation!.coordinate)
+        locationManager.startMonitoringRegionAtCoordinate(view.annotation!.coordinate, withRadius: regionRadius)
+        //TODO: Check with location manager if user is in radius of new region, then send an Arrival Notification
         workManager.addArrivalIfAtWork(locationManager)
     }
 
@@ -159,11 +158,11 @@ extension MapViewController: UISearchBarDelegate {
             search.startWithCompletionHandler { response, error in
                 if error != nil {
                     //handle error
-                    println(error.localizedDescription)
+                    print(error!.localizedDescription)
                     return
                 }
                 //We got a response look at the cool map items that we got back!
-                let items = response.mapItems as! [MKMapItem]
+                let items = response!.mapItems
                 let placemarks = items.map{$0.placemark}
                 self.mapView.showAnnotations(placemarks, animated: true)
             }

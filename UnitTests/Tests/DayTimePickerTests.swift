@@ -24,7 +24,7 @@ class DayTimePickerTests: XCTestCase {
     }
 
     func testComponentsForDayOfWeekAndHourOfDay() {
-        var comps = picker.numberOfComponentsInPickerView(pickerView)
+        let comps = picker.numberOfComponentsInPickerView(pickerView)
         XCTAssertEqual(comps, 2, "Two Components: 1 for the Day, 1 for the Hour")
     }
 
@@ -90,11 +90,15 @@ class DayTimePickerTests: XCTestCase {
             XCTFail("Not able to setup Calendar fail")
         }
     }
-//    func testPerformanceExample() {
-//        // This is an example of a performance test case.
-//        self.measureBlock() {
-//            // Put the code you want to measure the time of here.
-//        }
-//    }
+
+    func testInvalidComponentView(){
+        if let gregorianCalendar = NSCalendar(identifier: NSCalendarIdentifierGregorian){
+            let customPicker = DayTimePicker(calendar: gregorianCalendar)
+            let view = customPicker.pickerView(pickerView, viewForRow: 0, forComponent: 3, reusingView: nil)
+            XCTAssert(view == UIView()) //should just be an empty view
+        } else {
+            XCTFail("Not able to setup Calendar fail")
+        }
+    }
 
 }

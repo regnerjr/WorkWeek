@@ -57,13 +57,13 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func registerDefaults(standardDefaults: NSUserDefaults = Defaults.standard){
-        let defaults: [NSObject: AnyObject] = [
+        let defaults: [String: AnyObject] = [
             SettingsKey.onboardingComplete.rawValue : false,             //default settings screen is not shown
             SettingsKey.hoursInWorkWeek.rawValue : NSNumber(int: 40),    // 40 hour work week
             SettingsKey.resetDay.rawValue: NSNumber(int: 0),             // Sunday
             SettingsKey.resetHour.rawValue: NSNumber(int: 4),            // 4 am
             SettingsKey.workRadius.rawValue: NSNumber(int: 200),         // 200m work radius
-            SettingsKey.clearDate.rawValue: getDateForReset(0, 4, 0) ?? NSDate(),
+            SettingsKey.clearDate.rawValue: getDateForReset(0, hour: 4, minute: 0) ?? NSDate(),
         ]
         standardDefaults.registerDefaults(defaults)
     }

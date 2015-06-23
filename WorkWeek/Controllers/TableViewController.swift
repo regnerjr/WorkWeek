@@ -42,14 +42,15 @@ public class TableViewController: UITableViewController {
     }
 
     func listenForNotifications(center: NSNotificationCenter = NSNotificationCenter.defaultCenter()){
-        center.addObserver(self, selector: "reloadTableViewNotification", name: "WorkWeekUpdated", object: nil)
+        center.addObserver(self, selector: "reloadTableViewNotification:", name: "WorkWeekUpdated", object: nil)
     }
+
     func stopListeningToNotifications(center: NSNotificationCenter = NSNotificationCenter.defaultCenter()){
         center.removeObserver(self)
     }
 
-    func reloadTableViewNotification(){
-        println("Reloading TableView Due to Notification")
+    func reloadTableViewNotification(note: NSNotification){
+        print("Reloading TableView Due to Notification")
         tableView.reloadData()
     }
 
@@ -75,13 +76,13 @@ public class TableViewController: UITableViewController {
     }
 
     func reloadTableView(timer: NSTimer){
-        println("Reloading table view due to timer")
+        print("Reloading table view due to timer")
         self.tableView.reloadData()
     }
 }
 
 //MARK: - TableViewDelegate
-extension TableViewController: UITableViewDelegate {
+extension TableViewController {
 
     override public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         //TODO: Convert this to be a fraction of the screen height instead of a constant, This will help thing look better on smaller phones
@@ -130,7 +131,7 @@ extension TableViewController: UITableViewDelegate {
     }
 
     override public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let header = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.headerCell.rawValue) as! UITableViewCell? {
+        if let header = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.headerCell.rawValue) as UITableViewCell? {
             let graph = header.contentView.subviews[0] as! HeaderView
             graph.hoursInWeek = Defaults.standard.integerForKey(.hoursInWorkWeek)
             graph.hoursWorked = Int(workManager.hoursWorkedThisWeek + workManager.hoursSoFarToday()) //loss of precision to draw the graph using only hour marks.

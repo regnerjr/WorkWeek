@@ -32,7 +32,7 @@ class WorkManagerPropertiesTest: XCTestCase {
     }
 
     func testHoursWorkedThisWeek(){
-        var manager = WorkManager()
+        let manager = WorkManager()
         manager.addArrival(NSDate())
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
         XCTAssert(manager.hoursWorkedThisWeek == 8.0, "Worked 8 hours!")
@@ -51,12 +51,15 @@ class WorkManagerPropertiesTest: XCTestCase {
     // MARK: - Helper Functions
     func clearSavedEvents(){
         let documentsDirectories = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory,
-            NSSearchPathDomainMask.UserDomainMask, true) as? [String]
-        let path = documentsDirectories!.first! + "/items.archive"
+            NSSearchPathDomainMask.UserDomainMask, true)
+        let path = documentsDirectories.first! + "/items.archive"
         let fileManager = NSFileManager.defaultManager()
         if fileManager.fileExistsAtPath(path) {
-            var error: NSError? = nil
-            fileManager.removeItemAtPath(path, error: &error)
+            do {
+                try fileManager.removeItemAtPath(path)
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
         }
     }
 

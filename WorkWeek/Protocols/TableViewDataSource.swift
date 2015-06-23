@@ -1,6 +1,7 @@
 import UIKit
 
-extension TableViewController: UITableViewDataSource {
+//MARK: - UITableViewDataSource
+extension TableViewController {
 
     override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

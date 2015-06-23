@@ -10,25 +10,28 @@ class FakeLocationManager: CLLocationManager {
         requestedAuthorization = true
     }
     var customLocation: CLLocation! = nil
-    override var location: CLLocation {
+    override var location: CLLocation? {
         get { return customLocation }
         set { customLocation = newValue}
     }
 }
 
-class FakeNotificationCenter: NSNotificationCenter {
-    var observer: AnyObject! = nil
-    var selector: Selector = ""
-    var note: NSNotification! = nil
-    override func addObserver(observer: AnyObject, selector aSelector: Selector, name aName: String?, object anObject: AnyObject?) {
-        self.observer = observer
-        self.selector = aSelector
-        super.addObserver(observer, selector: aSelector, name: aName, object: anObject)
-    }
+protocol Notifier {
+    func addObserver(observer: AnyObject, selector aSelector: Selector,
+                     name aName: String?, object anObject: AnyObject?)
+    func postNotification(notification: NSNotification)
+}
 
-    override func postNotification(notification: NSNotification) {
-        note = notification
-        super.postNotification(notification)
+extension NSNotificationCenter : Notifier {}
+
+struct FakeNotificationCenter: Notifier {
+    var observerAdded: Bool = false;
+    func addObserver(observer: AnyObject, selector aSelector: Selector, name aName: String?, object anObject: AnyObject?) {
+        print("Added Observer \(observer) with Selector \(aSelector)")
+    }
+    var notePosted: NSNotification? = nil
+    func postNotification(notification: NSNotification) {
+        print("Posted Notification \(notification))")
     }
 }
 
@@ -36,13 +39,11 @@ class LocationManagerTests: XCTestCase {
 
     var locationManager: LocationManager!
     var fakeLocationManager: FakeLocationManager!
-    var fakeNotificationCenter: FakeNotificationCenter!
 
     let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), radius: 50, identifier: MapRegionIdentifiers.work)
 
     override func setUp() {
         fakeLocationManager = FakeLocationManager()
-        fakeNotificationCenter = FakeNotificationCenter()
         super.setUp()
     }
     
@@ -50,7 +51,6 @@ class LocationManagerTests: XCTestCase {
         super.tearDown()
         locationManager = nil
         fakeLocationManager = nil
-        fakeNotificationCenter = nil
     }
 
     func testLocationManagerSetsUpAManagerIfAuthorized(){
@@ -72,23 +72,6 @@ class LocationManagerTests: XCTestCase {
         XCTAssert(fakeLocationManager.requestedAuthorization,
                   "Location Manager requests Always Auth if not already authorized")
     }
-
-    //MARK: - Notifications are Posted on arrival and Departure
-//    func testAddsEventPostsNotification(){
-//        
-//        XCTAssertNil(fakeNotificationCenter.observer, "Notificaiton observer is nil before it is posted")
-//        locationManager = LocationManager(center: fakeNotificationCenter)
-//        locationManager.locationManager(locationManager.manager, didEnterRegion: region)
-//        XCTAssert(fakeNotificationCenter.note.name == "ArrivalNotificationKey", "Notification is posted if region is entered")
-//    }
-//
-//    func testAddsEventToWorkManagerOnExitRegion(){
-//        XCTAssertNil(fakeNotificationCenter.observer, "Notification observer is nil before it is posted")
-//        locationManager = LocationManager(center: fakeNotificationCenter)
-//        locationManager.locationManager(locationManager.manager, didExitRegion: region)
-//        XCTAssert(fakeNotificationCenter.note.name == "DepartureNotificationKey", "Note is posted")
-//    }
-
 }
 
 class LocationManagerAtWorkTests: XCTestCase {
@@ -118,6 +101,32 @@ class LocationManagerAtWorkTests: XCTestCase {
         XCTAssertFalse(manager.atWork(), "Not at work when location services are off")
     }
     func testAtWorkWhenUserLocationInMonitoredRegion(){
+        
+    }
+}
+
+class LocationNotificationTests: XCTestCase {
+
+    var locationManager: LocationManager!
+    var fakeLocationManager: FakeLocationManager!
+    var fakeNotificationCenter: FakeNotificationCenter
+
+    let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), radius: 50, identifier: MapRegionIdentifiers.work)
+
+    override func setUp() {
+        fakeLocationManager = FakeLocationManager()
+        fakeNotificationCenter = FakeNotificationCenter()
+        super.setUp()
+    }
+
+    override func tearDown() {
+        super.tearDown()
+        locationManager = nil
+        fakeLocationManager = nil
+        fakeNotificationCenter = nil
+    }
+
+    func testNotificationIsSentOnArrival(){
         
     }
 }

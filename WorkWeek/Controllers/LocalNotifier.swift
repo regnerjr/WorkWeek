@@ -6,10 +6,13 @@ public class LocalNotifier {
 
         let note = UILocalNotification()
         note.fireDate = calculateFireDate(hoursInFullWorkWeek, hoursWorkedSofar: hoursWorkedSoFarThisWeek)
-        note.alertTitle = "Your Work Week is Over!"
         note.alertBody = "Your Work Week is Over!"
+        if #available(iOS 8.2, *) {
+            note.alertTitle = "Your Work Week is Over!"
+        } else {
+        }
         note.hasAction = false
-        note.repeatInterval = .allZeros
+        note.repeatInterval = []
         note.applicationIconBadgeNumber = Defaults.standard.integerForKey(.hoursInWorkWeek)
         note.soundName = UILocalNotificationDefaultSoundName
 

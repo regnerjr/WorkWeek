@@ -103,7 +103,7 @@ class SettingsViewController: UIViewController {
         switch sender {
         case let s as WorkHoursTextField: s.workHours = defaultWorkHours
         case let s as WorkRadiusTextField: s.workRadius = defaultWorkRadius
-        default: println("Something is wrong!!! Switching on a UITextField with unknown placeholder")
+        default: print("Something is wrong!!! Switching on a UITextField with unknown placeholder")
         }
     }
 
@@ -111,7 +111,7 @@ class SettingsViewController: UIViewController {
         switch sender {
         case let s as WorkHoursTextField:  defaultWorkHours = s.workHours
         case let s as WorkRadiusTextField: defaultWorkRadius = s.workRadius
-        default: println("Something is wrong!!! Switching on a UITextField with unknown placeholder")
+        default: print("Something is wrong!!! Switching on a UITextField with unknown placeholder")
         }
     }
 }
