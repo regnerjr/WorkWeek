@@ -12,6 +12,7 @@ public enum SettingsKey : String{
     case resetHour       = "resetHourPrefKey"
     case workRadius      = "workRadiusPrefKey"
     case clearDate       = "clearDate"
+    case onboardingShown = "onboardingShown"
 }
 
 ///

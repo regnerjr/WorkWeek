@@ -19,7 +19,10 @@ public class TableViewController: UITableViewController {
         return self.appDelegate.workManager
     }()
     var locationManager: LocationManager {
-        return appDelegate.locationManager
+        if appDelegate.locationManager == nil {
+            appDelegate.locationManager = LocationManager()
+        }
+        return appDelegate.locationManager!
     }
     var array = [WorkDay]()
 

@@ -19,7 +19,10 @@ class MapViewController: UIViewController {
 
     var locationManager: LocationManager {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        return appDelegate.locationManager
+        if appDelegate.locationManager == nil {
+            appDelegate.locationManager = LocationManager()
+        }
+        return appDelegate.locationManager!
     }
 
     lazy var workManager: WorkManager = {
@@ -50,6 +53,10 @@ class MapViewController: UIViewController {
         }
     }
 
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+
     // MARK: - My Geofence
     @IBAction func handleLongPress(sender: UILongPressGestureRecognizer) {
         let location = sender.locationInView(mapView)
@@ -77,7 +84,6 @@ class MapViewController: UIViewController {
     }
 
 }
-
 
 
 // MARK: - MapViewDelegate
@@ -125,7 +131,6 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         addOverLayAtCoordinate(view.annotation.coordinate)
         locationManager.startMonitoringRegionAtCoordinate(view.annotation.coordinate, withRadius: regionRadius)
-        //TODO: Check with location manager if user is in radius of new region, then send an Arrival Notification
         workManager.addArrivalIfAtWork(locationManager)
     }
 

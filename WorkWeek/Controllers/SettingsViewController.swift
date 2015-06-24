@@ -77,9 +77,9 @@ class SettingsViewController: UIViewController {
 
     @IBAction func screenTapGesture(sender: UITapGestureRecognizer) {
         //find any fields that are editing, end editing then resign first responder
-        let fields = [workHoursTextField, workRadiusField ]
-        fields.filter{ $0.isFirstResponder() }
-              .map{$0.endEditing(true)}
+        [workHoursTextField, workRadiusField ]
+            .filter{ $0.isFirstResponder() }
+            .map{ $0.endEditing(true) }
         resignFirstResponder()
     }
 
@@ -89,6 +89,14 @@ class SettingsViewController: UIViewController {
         } else {
             saveNewValueInDefaults(sender)
         }
+    }
+
+    @IBAction func doneOnboarding(sender: UIBarButtonItem) {
+        //set done onboarding to true
+        //load main.storyboard
+        Defaults.standard.setBool(true, forKey: SettingsKey.onboardingShown.rawValue)
+        let ad = UIApplication.sharedApplication().delegate as? AppDelegate
+        ad?.loadInterface(AppDelegate.StoryBoard.Main)
     }
 
     func resetTextFieldWithDefault(sender: UITextField){
