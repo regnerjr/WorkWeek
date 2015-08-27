@@ -12,7 +12,7 @@ public enum SettingsKey : String{
     case resetHour       = "resetHourPrefKey"
     case workRadius      = "workRadiusPrefKey"
     case clearDate       = "clearDate"
-    case onboardingShown = "onboardingShown"
+    case onboardingComplete = "onboardingComplete"
 }
 
 ///
@@ -43,6 +43,9 @@ extension NSUserDefaults {
     }
     public func objectForKey(defaultName: SettingsKey) -> AnyObject?{
         return objectForKey(defaultName.rawValue)
+    }
+    public func boolForKey(defaultName: SettingsKey) -> Bool {
+        return boolForKey(defaultName.rawValue)
     }
 }
 

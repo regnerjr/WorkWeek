@@ -94,9 +94,9 @@ class SettingsViewController: UIViewController {
     @IBAction func doneOnboarding(sender: UIBarButtonItem) {
         //set done onboarding to true
         //load main.storyboard
-        Defaults.standard.setBool(true, forKey: SettingsKey.onboardingShown.rawValue)
+        Defaults.standard.setBool(true, forKey: SettingsKey.onboardingComplete.rawValue)
         let ad = UIApplication.sharedApplication().delegate as? AppDelegate
-        ad?.loadInterface(AppDelegate.StoryBoard.Main)
+        ad?.loadInterface()
     }
 
     func resetTextFieldWithDefault(sender: UITextField){
