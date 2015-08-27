@@ -3,7 +3,8 @@ import UIKit
 class WorkRadiusTextField: UITextField {
 
     var workRadius : Int {
-        get { return Int(Formatter.workRadius.numberFromString(text)!) }
+        get { let num = Formatter.workRadius.numberFromString(text ?? "0")
+            return Int(num ?? 0) }
         set { text = Formatter.workRadius.stringFromInt(newValue)      }
     }
 
