@@ -1,26 +1,14 @@
 import UIKit
-//import CoreLocation
-
-
 
 @UIApplicationMain
 public class AppDelegate: UIResponder, UIApplicationDelegate {
-    public var window: UIWindow?
 
-    // MARK: - Properties
+    public var window: UIWindow?
     let workManager = WorkManager()
-    //don't stand up Location Manager if the onboarding screen has not been shown
     lazy var locationManager: LocationManager = {
-//        if Defaults.standard.boolForKey(SettingsKey.onboardingShown.rawValue) == false {
-//            return nil
-//        }
         return LocationManager()
     }()
 
-    public enum StoryBoard: String {
-        case Main = "Main"
-        case Onboarding = "Onboarding"
-    }
 
     // MARK: - Application Lifecycle
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
