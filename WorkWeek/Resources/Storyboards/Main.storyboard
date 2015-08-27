@@ -199,7 +199,7 @@
                                 </items>
                             </toolbar>
                             <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="749" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="200" translatesAutoresizingMaskIntoConstraints="NO" id="UJh-hL-rL3">
-                                <rect key="frame" x="16" y="328" width="568" height="180"/>
+                                <rect key="frame" x="16" y="336" width="568" height="180"/>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8XR-bn-yhO">
                                 <rect key="frame" x="217" y="526" width="167" height="30"/>
@@ -236,12 +236,6 @@
                                     <action selector="stepWorkHours:" destination="WIA-yz-lfT" eventType="valueChanged" id="6yk-qr-loV"/>
                                 </connections>
                             </stepper>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset Weekly Data on:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqE-yT-fhT">
-                                <rect key="frame" x="16" y="289" width="568" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="40" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fNh-QF-z7P" customClass="WorkHoursTextField" customModule="WorkWeek" customModuleProvider="target">
                                 <rect key="frame" x="253" y="94" width="94" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -250,19 +244,24 @@
                                     <action selector="doneEditing:" destination="WIA-yz-lfT" eventType="editingDidEnd" id="o4G-8F-hLy"/>
                                 </connections>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset Weekly Data on:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqE-yT-fhT">
+                                <rect key="frame" x="16" y="336" width="568" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="4TI-eM-xkr" secondAttribute="trailing" id="43C-wH-SAt"/>
-                            <constraint firstItem="8XR-bn-yhO" firstAttribute="top" secondItem="UJh-hL-rL3" secondAttribute="bottom" constant="8" id="5kD-fc-V9J"/>
+                            <constraint firstItem="8XR-bn-yhO" firstAttribute="top" secondItem="UJh-hL-rL3" secondAttribute="bottom" id="5kD-fc-V9J"/>
                             <constraint firstAttribute="centerX" secondItem="8XR-bn-yhO" secondAttribute="centerX" constant="-0.5" id="5ub-YX-lop"/>
                             <constraint firstItem="09f-ol-pP0" firstAttribute="top" secondItem="8XR-bn-yhO" secondAttribute="bottom" constant="44" id="Dra-gi-rgb"/>
                             <constraint firstItem="UJh-hL-rL3" firstAttribute="trailing" secondItem="FMN-PH-qyi" secondAttribute="trailingMargin" id="EkR-sM-eY2"/>
+                            <constraint firstItem="UJh-hL-rL3" firstAttribute="top" secondItem="JqE-yT-fhT" secondAttribute="top" constant="-10" id="LDU-CX-O0P"/>
                             <constraint firstItem="UJh-hL-rL3" firstAttribute="leading" secondItem="JqE-yT-fhT" secondAttribute="leading" id="MZ7-uw-29c"/>
                             <constraint firstItem="4TI-eM-xkr" firstAttribute="bottom" secondItem="09f-ol-pP0" secondAttribute="top" id="NEE-j7-Tt2"/>
-                            <constraint firstItem="fNh-QF-z7P" firstAttribute="bottom" secondItem="DGg-Ev-887" secondAttribute="top" constant="8" symbolic="YES" id="OBo-pR-ITe"/>
-                            <constraint firstItem="UJh-hL-rL3" firstAttribute="top" secondItem="JqE-yT-fhT" secondAttribute="bottom" constant="8" symbolic="YES" id="Rxr-ng-k8G"/>
                             <constraint firstItem="nhu-Fy-DdY" firstAttribute="centerX" secondItem="CNx-Ip-Fvi" secondAttribute="centerX" id="UGW-zd-cZe"/>
                             <constraint firstItem="nhu-Fy-DdY" firstAttribute="width" secondItem="fNh-QF-z7P" secondAttribute="width" id="UJT-Tp-pSt"/>
                             <constraint firstItem="UJh-hL-rL3" firstAttribute="trailing" secondItem="JqE-yT-fhT" secondAttribute="trailing" id="UXc-dN-sCR"/>
@@ -281,11 +280,6 @@
                             <constraint firstItem="DGg-Ev-887" firstAttribute="top" secondItem="fNh-QF-z7P" secondAttribute="bottom" constant="8" id="wrJ-43-xWd"/>
                             <constraint firstAttribute="centerX" secondItem="kY1-SH-PX2" secondAttribute="centerX" id="xnI-ar-CY8"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="OBo-pR-ITe"/>
-                            </mask>
-                        </variation>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="cXH-tk-Xvo" appends="YES" id="OYS-KT-5qv"/>
                         </connections>
@@ -305,7 +299,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1891" y="413"/>
+            <point key="canvasLocation" x="1834" y="404"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="cNR-ho-hZn">
