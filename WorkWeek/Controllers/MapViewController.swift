@@ -147,18 +147,16 @@ extension MapViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-
         searchBar.resignFirstResponder()
-        if let searchString = searchBar.text where searchString != ""{
-//            if searchString != "" {
+        handleSearch(searchBar.text)
+    }
 
-            let request = MKLocalSearchRequest()
-            request.naturalLanguageQuery = searchBar.text ?? ""
-            request.region = mapView.region
+    func handleSearch(string: String?){
+        if let searchString = searchBar.text where searchString != "" {
+            let request = configureRequest(searchString)
 
             let search = MKLocalSearch(request: request)
-            search.startWithCompletionHandler { [unowned self]
-                response, error in
+            search.startWithCompletionHandler { response, error in
                 if error != nil {
                     //handle error
                     println(error.localizedDescription)
@@ -170,8 +168,14 @@ extension MapViewController: UISearchBarDelegate {
                 self.mapView.showAnnotations(placemarks, animated: true)
             }
 
-//            }
         }
+    }
+
+    func configureRequest(searchText: String) -> MKLocalSearchRequest {
+        let request = MKLocalSearchRequest()
+        request.naturalLanguageQuery = searchText
+        request.region = mapView.region
+        return request
     }
     
 }

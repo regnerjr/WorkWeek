@@ -7,6 +7,7 @@ class AppDelegateTests: XCTestCase {
 
     var appDelegate: AppDelegate!
     var app: UIApplication!
+
     override func setUp() {
         super.setUp()
         app = UIApplication.sharedApplication()

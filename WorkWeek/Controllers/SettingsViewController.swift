@@ -24,8 +24,6 @@ class SettingsViewController: UIViewController {
         get { return Defaults.standard.integerForKey(.resetDay) }
         set {
             Defaults.standard.setInteger(newValue, forKey: .resetDay)
-            //configure the reset timer to use the new hour
-            let ad = UIApplication.sharedApplication().delegate as! AppDelegate
             updateDefaultResetDate()
         }
     }
@@ -33,8 +31,6 @@ class SettingsViewController: UIViewController {
         get { return Defaults.standard.integerForKey(.resetHour) }
         set {
             Defaults.standard.setInteger(newValue, forKey:.resetHour)
-            //configure the reset timer to use the new hour
-            let ad = UIApplication.sharedApplication().delegate as! AppDelegate
             updateDefaultResetDate()
         }
     }
@@ -45,28 +41,18 @@ class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        picker.delegate = pickerSource
-        picker.dataSource = pickerSource
-        //set up picker based on defaults
-        picker.selectRow(defaultResetDay, inComponent: 0, animated: false)
-        picker.selectRow(defaultResetHour, inComponent: 1, animated: false)
-
-        //populate fields with data from defaults
-        workHoursTextField.workHours = defaultWorkHours
-        stepper.workHours = defaultWorkHours
-        workRadiusField.workRadius = defaultWorkRadius
+        setPickerDelegateAndDataSource()
+        setPickerToDefaultRows()
+        setTextFieldsAndSteppersToDefauls()
     }
 
     override func viewWillDisappear(animated: Bool) {
-        //update the pickerDefaults and set up the notification
-        //could handle these in the delegate, but it is easier here, and the logic is small
         defaultResetDay = picker.selectedRowInComponent(0)
         defaultResetHour = picker.selectedRowInComponent(1)
     }
 
     @IBAction func launchSystemSettings(sender: UIButton) {
-        UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+        UIApplication.sharedApplication().openSettings()
     }
 
     @IBAction func stepWorkHours(sender: Stepper) {
@@ -92,11 +78,25 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func doneOnboarding(sender: UIBarButtonItem) {
-        //set done onboarding to true
-        //load main.storyboard
         Defaults.standard.setBool(true, forKey: SettingsKey.onboardingComplete.rawValue)
         let ad = UIApplication.sharedApplication().delegate as? AppDelegate
         ad?.loadInterface()
+    }
+
+    func setPickerDelegateAndDataSource(){
+        picker.delegate = pickerSource
+        picker.dataSource = pickerSource
+    }
+
+    func setPickerToDefaultRows(){
+        picker.selectRow(defaultResetDay, inComponent: 0, animated: false)
+        picker.selectRow(defaultResetHour, inComponent: 1, animated: false)
+    }
+
+    func setTextFieldsAndSteppersToDefauls(){
+        workHoursTextField.workHours = defaultWorkHours
+        stepper.workHours = defaultWorkHours
+        workRadiusField.workRadius = defaultWorkRadius
     }
 
     func resetTextFieldWithDefault(sender: UITextField){

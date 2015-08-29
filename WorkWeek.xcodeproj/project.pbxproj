@@ -22,6 +22,7 @@
 		5239B0D81AB0ED7D002C4523 /* WorkRadiusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D71AB0ED7D002C4523 /* WorkRadiusTextField.swift */; };
 		5239B0DA1AB0FA9B002C4523 /* Stepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239B0D91AB0FA9B002C4523 /* Stepper.swift */; };
 		523FEEED1B019567005EF228 /* DayTimePickerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523FEEEC1B019567005EF228 /* DayTimePickerTests.swift */; };
+		5241C7B51B8EA45B00112ADF /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5241C7B41B8EA45B00112ADF /* UIApplicationExtensions.swift */; };
 		525FD8C91B39ABDE0048822F /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 525FD8C81B39ABDE0048822F /* Onboarding.storyboard */; };
 		525FD8CD1B39CB1D0048822F /* OBLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525FD8CC1B39CB1D0048822F /* OBLocationViewController.swift */; };
 		5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5270F3AA1A61EABF007834AF /* WorkManager.swift */; };
@@ -82,6 +83,7 @@
 		5239B0D71AB0ED7D002C4523 /* WorkRadiusTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkRadiusTextField.swift; sourceTree = "<group>"; };
 		5239B0D91AB0FA9B002C4523 /* Stepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stepper.swift; sourceTree = "<group>"; };
 		523FEEEC1B019567005EF228 /* DayTimePickerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayTimePickerTests.swift; sourceTree = "<group>"; };
+		5241C7B41B8EA45B00112ADF /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIApplicationExtensions.swift; path = ../Controllers/UIApplicationExtensions.swift; sourceTree = "<group>"; };
 		525FD8C81B39ABDE0048822F /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		525FD8CC1B39CB1D0048822F /* OBLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OBLocationViewController.swift; sourceTree = "<group>"; };
 		5270F3AA1A61EABF007834AF /* WorkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkManager.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 		749DF0AFEB6121917888A16B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5241C7B41B8EA45B00112ADF /* UIApplicationExtensions.swift */,
 				52EACE9E1B8E913400EBFF97 /* Storyboard.swift */,
 				521A80951B055DC1001AB706 /* NSKeyedUnarchiverExtensions.swift */,
 				52FA6CE11AADDC42000E63DE /* Formatter.swift */,
@@ -451,6 +454,7 @@
 			files = (
 				5239B0D61AB0ED1D002C4523 /* WorkHoursTextField.swift in Sources */,
 				52F40A571A9E803C00FA02C6 /* NSDateExtensions.swift in Sources */,
+				5241C7B51B8EA45B00112ADF /* UIApplicationExtensions.swift in Sources */,
 				521A80961B055DC1001AB706 /* NSKeyedUnarchiverExtensions.swift in Sources */,
 				529B8F2E1AAA5C5100EED298 /* DayTimePicker.swift in Sources */,
 				229CAFF7DED38B3E1FF05521 /* AppDelegate.swift in Sources */,
@@ -565,10 +569,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/xcodeproj.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "WorkWeek/Resources/Other-Sources/Info.plist";
@@ -600,10 +601,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/xcodeproj.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -687,7 +685,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				INFOPLIST_FILE = "UnitTests/Resources/UnitTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -709,7 +706,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				INFOPLIST_FILE = "UnitTests/Resources/UnitTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
