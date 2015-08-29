@@ -4,7 +4,7 @@ import UIKit
 public class AppDelegate: UIResponder, UIApplicationDelegate {
 
     public var window: UIWindow?
-    let workManager = WorkManager()
+    public var workManager = WorkManager() //variable for testing
     lazy var locationManager: LocationManager = {
         return LocationManager()
     }()
@@ -32,6 +32,8 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // TODO: Ask about this at Coder Night?
         //Where do I display this alert?
+        //Fire off a notification and let each class handle it independeltly?
+        // just push a WorkWeekEnded VC onto window.rootviewController ... ? ... ?
 
     }
 

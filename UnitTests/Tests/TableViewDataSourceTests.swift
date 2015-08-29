@@ -8,12 +8,15 @@ class TableViewDataSourceTests: XCTestCase {
     var tableViewController: TableViewController!
     var tableView: UITableView!
     var manager: WorkManager!
+    var appDelegate: AppDelegate!
 
     override func setUp() {
         super.setUp()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         tableViewController = storyboard.instantiateViewControllerWithIdentifier("TableViewController") as! TableViewController
-        tableView = tableViewController.tableView
+//        tableView = tableViewController.tableView
+        tableView = tableViewController.view as! UITableView //load the view
+        appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         manager = WorkManager()
         manager.clearEvents()
     }
@@ -34,13 +37,13 @@ class TableViewDataSourceTests: XCTestCase {
         manager.addArrival(NSDate())
         manager.addDeparture(NSDate()) //added one item
 
-        tableViewController.workManager = manager
+        appDelegate.workManager = manager
         let rows = tableViewController.tableView(tableView, numberOfRowsInSection: 0)
         XCTAssertEqual(rows, 1, "1 row for one day of work")
 
         manager.addArrival(NSDate())
         manager.addDeparture(NSDate()) //add another entry
-        tableViewController.workManager = manager
+        appDelegate.workManager = manager
         let rows2 = tableViewController.tableView(tableView, numberOfRowsInSection: 0)
         XCTAssertEqual(rows2, 2, "1 row for one day of work")
 
@@ -50,7 +53,7 @@ class TableViewDataSourceTests: XCTestCase {
         manager.addArrival(NSDate())
         manager.addDeparture(NSDate())// add an item, should be displayed in section 0
 
-        tableViewController.workManager = manager
+        appDelegate.workManager = manager
 
         let rows = tableViewController.tableView(tableView, numberOfRowsInSection: 1)
         XCTAssertEqual(rows, 0, "Zero rows in undefined sections")
@@ -63,21 +66,23 @@ class TableViewDataSourceTests: XCTestCase {
     func testTableViewCellCreation(){
         //set timezone to get days and times correct
         NSTimeZone.setDefaultTimeZone(NSTimeZone(forSecondsFromGMT: 0))
-
-        manager.addArrival(NSDate(timeIntervalSinceReferenceDate: 0)) //jan 1 2001 at 12:00 AM
-        manager.addDeparture(NSDate(timeIntervalSinceReferenceDate: 8*60*60 )) // 8 hours later
-        tableViewController.workManager = manager
+        let arrivalTime = NSDate(timeIntervalSinceReferenceDate: 0) //jan 1 2001 at 12:00 AM
+        manager.addArrival(arrivalTime)
+        let departureTime = NSDate(timeIntervalSinceReferenceDate: 8*60*60 ) // 8 hours later
+        manager.addDeparture(departureTime)
+        appDelegate.workManager = manager
 
         //need an IndexPath to test this
-        let indexPath = NSIndexPath(forRow: 0, inSection: 0)//we only added one item so far, it will be in row 0 of section 0
-
+        let indexPath = NSIndexPath(forRow: 0, inSection: 0)//we only added one item so far, it will be in row 1 of section 1
+        tableView.reloadData()
         let cell = tableViewController.tableView(tableView, cellForRowAtIndexPath: indexPath)
         let workCell = cell as! WorkDayCellTableViewCell
 
         XCTAssertEqual(workCell.workDate!.text!, "Mon", "")
         XCTAssertEqual(workCell.workTime!.text!, "8.0", "")
-        XCTAssertEqual(workCell.arrivalTime!.text!, "6:00 PM", "")  //NOTE: This test is flakey, does not pass on fresh install
-        XCTAssertEqual(workCell.departureTime!.text!, "2:00 AM", "")//      will pass when rerun.
+        let timeFormatter = NSDateFormatter(); timeFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        XCTAssertEqual(workCell.arrivalTime!.text!, timeFormatter.stringFromDate(arrivalTime), "")
+        XCTAssertEqual(workCell.departureTime!.text!, timeFormatter.stringFromDate(departureTime), "")
 
     }
 
