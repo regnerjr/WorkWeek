@@ -25,7 +25,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     public func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        println("Work Week Ended and we were in the foreground")
+        print("Work Week Ended and we were in the foreground")
         let alert = UIAlertController(title: "WorkWeek", message: "Go Home!", preferredStyle: UIAlertControllerStyle.Alert)
         let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
         alert.addAction(defaultAction)
@@ -44,7 +44,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func getCorrectStoryboard(onboardingComplete: Bool ) -> UIViewController? {
         let storyboard = UIStoryboard.load(onboardingComplete ? .Main : .Onboarding)
-        return storyboard.instantiateInitialViewController() as? UIViewController
+        return storyboard.instantiateInitialViewController()
     }
 
     func handleLaunchOptions(options: [NSObject: AnyObject]?){
