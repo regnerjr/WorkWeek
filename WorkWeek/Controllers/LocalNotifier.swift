@@ -2,7 +2,7 @@ import UIKit
 
 public class LocalNotifier {
 
-    public class func setupNotification(hoursWorkedSoFarThisWeek: Double, hoursInFullWorkWeek: Int){
+    public func setupNotification(hoursWorkedSoFarThisWeek: Double, hoursInFullWorkWeek: Int){
 
         let note = UILocalNotification()
         note.fireDate = calculateFireDate(hoursInFullWorkWeek, hoursWorkedSofar: hoursWorkedSoFarThisWeek)
@@ -20,11 +20,11 @@ public class LocalNotifier {
         NSLog("Notification %@", note)
     }
 
-    public class func cancelAllNotifications(){
+    public func cancelAllNotifications(){
         UIApplication.sharedApplication().cancelAllLocalNotifications()
     }
 
-    class func calculateFireDate(hoursInFullWeek:Int, hoursWorkedSofar: Double) -> NSDate? {
+    func calculateFireDate(hoursInFullWeek:Int, hoursWorkedSofar: Double) -> NSDate? {
 
         if hoursWorkedSofar < Double(hoursInFullWeek) {
             let hoursLeft = Double(hoursInFullWeek) - hoursWorkedSofar //hours left will be of the form 5.2 hours

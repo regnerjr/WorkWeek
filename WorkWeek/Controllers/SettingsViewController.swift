@@ -15,7 +15,8 @@ class SettingsViewController: UIViewController {
             Defaults.standard.setInteger(hoursInFullWeek, forKey: .hoursInWorkWeek)
             //If the number of work hours in a week changes, need to reschedule the end of the week Notification
             let hoursWorked = (UIApplication.sharedApplication().delegate as! AppDelegate).workManager.hoursWorkedThisWeek
-            LocalNotifier.setupNotification(hoursWorked, hoursInFullWorkWeek: hoursInFullWeek)
+            let ad = UIApplication.sharedApplication().delegate as! AppDelegate
+            ad.workManager.localNotificationHandler.setupNotification(hoursWorked, hoursInFullWorkWeek: hoursInFullWeek)
         }
     }
 

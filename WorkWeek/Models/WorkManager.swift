@@ -19,6 +19,7 @@ private struct Archive {
 public class WorkManager : NSObject {
 
     public private(set) var eventsForTheWeek = NSMutableArray()
+    let localNotificationHandler = LocalNotifier()
 
     private var workDays = Array<WorkDay>()
     public var hoursWorkedThisWeek: Double {
@@ -50,7 +51,7 @@ public class WorkManager : NSObject {
 
     public func addArrival(_ date: NSDate = NSDate()){
         //set up a notification to fire at 40 hours
-        LocalNotifier.setupNotification(hoursWorkedThisWeek, hoursInFullWorkWeek: hoursInWorkWeek)
+        localNotificationHandler.setupNotification(hoursWorkedThisWeek, hoursInFullWorkWeek: hoursInWorkWeek)
         let newArrival = Event(inOrOut: .Arrival, date: date)
         println("Adding a New Arrival, \(newArrival.inOrOut.rawValue), with date \(newArrival.date)")
         eventsForTheWeek.addObject(newArrival)
@@ -59,7 +60,7 @@ public class WorkManager : NSObject {
     }
 
     public func addDeparture(_ date: NSDate = NSDate()){
-        LocalNotifier.cancelAllNotifications()
+        localNotificationHandler.cancelAllNotifications()
         let newDeparture = Event(inOrOut: .Departure, date: date)
         println("Adding a New Departure, \(newDeparture.inOrOut.rawValue), with date \(newDeparture.date)")
         eventsForTheWeek.addObject(newDeparture)
