@@ -25,6 +25,7 @@
 		5241C7B51B8EA45B00112ADF /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5241C7B41B8EA45B00112ADF /* UIApplicationExtensions.swift */; };
 		525FD8C91B39ABDE0048822F /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 525FD8C81B39ABDE0048822F /* Onboarding.storyboard */; };
 		525FD8CD1B39CB1D0048822F /* OBLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525FD8CC1B39CB1D0048822F /* OBLocationViewController.swift */; };
+		527076491B937DC2007CDA7F /* MapViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527076481B937DC2007CDA7F /* MapViewControllerTests.swift */; };
 		5270F3AB1A61EABF007834AF /* WorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5270F3AA1A61EABF007834AF /* WorkManager.swift */; };
 		5281A8261AA79AD500C4F154 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281A8251AA79AD500C4F154 /* SettingsViewController.swift */; };
 		528F2C781AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528F2C771AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift */; };
@@ -86,6 +87,7 @@
 		5241C7B41B8EA45B00112ADF /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIApplicationExtensions.swift; path = ../Controllers/UIApplicationExtensions.swift; sourceTree = "<group>"; };
 		525FD8C81B39ABDE0048822F /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		525FD8CC1B39CB1D0048822F /* OBLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OBLocationViewController.swift; sourceTree = "<group>"; };
+		527076481B937DC2007CDA7F /* MapViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewControllerTests.swift; sourceTree = "<group>"; };
 		5270F3AA1A61EABF007834AF /* WorkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkManager.swift; sourceTree = "<group>"; };
 		5281A8251AA79AD500C4F154 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		528F2C771AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNumberFormatterExtensions.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 		F51E11A88905048A10793377 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				527076481B937DC2007CDA7F /* MapViewControllerTests.swift */,
 				52E3859F1AFAA7F200C3847C /* Extensions */,
 				523FEEEE1B01A25B005EF228 /* Protocols */,
 				52AA92F11AFBDB8C00DAE92A /* Model */,
@@ -491,6 +494,7 @@
 				528F2C7D1AB0ACA2005606C6 /* EventTest.swift in Sources */,
 				52AA93361AFC499400DAE92A /* AppDelegateTests.swift in Sources */,
 				52F309121B012C1400D08E0A /* LocationManagerTests.swift in Sources */,
+				527076491B937DC2007CDA7F /* MapViewControllerTests.swift in Sources */,
 				52AA92F01AFAFEE800DAE92A /* WorkDayTests.swift in Sources */,
 				523FEEED1B019567005EF228 /* DayTimePickerTests.swift in Sources */,
 				52E3859E1AFAA7DF00C3847C /* TableViewDataSourceTests.swift in Sources */,

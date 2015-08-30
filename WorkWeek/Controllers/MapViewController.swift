@@ -10,9 +10,9 @@ public struct MapRegionIdentifiers {
     public static let work = "WorkRegion"
 }
 
-class MapViewController: UIViewController {
+public class MapViewController: UIViewController {
 
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet public weak var mapView: MKMapView!
     @IBOutlet weak var searchBar: UISearchBar!
 
     var regionRadius: Double { return Double(Defaults.standard.integerForKey(.workRadius)) }
@@ -28,33 +28,20 @@ class MapViewController: UIViewController {
     }()
 
     var workLocations: [CLCircularRegion]? {
-        if let regions = locationManager.monitoredRegions {
-            if regions.count > 0 {
-                return regions.map{ $0 as! CLCircularRegion }
-            }
-
-        }
-        return nil
+        return map(locationManager.monitoredRegions){
+            map($0) { $0 as! CLCircularRegion } }
     }
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         MapViewState.hasBeenZoomed = false //reset the state so we can zoom in on the user once, per page load
         super.viewDidLoad()
-
-        //draw the current work locations if it is not nil
-        if let locations = workLocations {
-            locations.map{ location -> Void in
-                let workOverlay = MKCircle(centerCoordinate: location.center, radius: self.regionRadius)
-                self.mapView.addOverlay(workOverlay)
-            }
-        }
+        drawWorkLocations(workLocations)
     }
 
-    override func prefersStatusBarHidden() -> Bool {
+    public override func prefersStatusBarHidden() -> Bool {
         return true
     }
 
-    // MARK: - My Geofence
     @IBAction func handleLongPress(sender: UILongPressGestureRecognizer) {
         let location = sender.locationInView(mapView)
         //make coordinated from where the user pressed
@@ -75,16 +62,24 @@ class MapViewController: UIViewController {
         mapView.removeOverlays(existingOverlays)
         //add a circle over lay where the user pressed
         let circle = MKCircle(centerCoordinate: coord, radius: regionRadius)
-        mapView.addOverlay(circle) //make sure to draw this overlay in the delegate
+        mapView.addOverlay(circle)
+    }
+
+    func drawWorkLocations( workLocations: [CLCircularRegion]?){
+        //draw the current work locations if it is not nil
+        map(workLocations){ locations in
+            locations.map{ location in
+                return MKCircle(centerCoordinate: location.center, radius: self.regionRadius)
+            }.map(mapView.addOverlay)
+        }
     }
 
 }
 
 
-// MARK: - MapViewDelegate
 extension MapViewController: MKMapViewDelegate {
 
-    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+    public func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
         //only do this map zooming thing once
         if MapViewState.hasBeenZoomed == false {
             MapViewState.hasBeenZoomed = true
@@ -110,23 +105,13 @@ extension MapViewController: MKMapViewDelegate {
         }
     }
 
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-        //only one overlay so dont bother to check it just return a renderer
-        if overlay is MKCircle{
-            let renderer = MKCircleRenderer(circle: overlay as! MKCircle)
-            renderer.fillColor = OverlayColor.Fill
-            renderer.strokeColor = OverlayColor.Stroke
-            renderer.lineWidth = 5
-            return renderer
-        } else {
-            return MKOverlayRenderer(overlay: overlay) //just return a default unconfigured renderer
-        }
+    public func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+        return (overlay as? MKCircle)?.defaultRenderer
     }
 
-    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        addOverLayAtCoordinate(view.annotation!.coordinate)
-        locationManager.startMonitoringRegionAtCoordinate(view.annotation!.coordinate, withRadius: regionRadius)
-        //TODO: Check with location manager if user is in radius of new region, then send an Arrival Notification
+    public func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+        addOverLayAtCoordinate(view.annotation.coordinate)
+        locationManager.startMonitoringRegionAtCoordinate(view.annotation.coordinate, withRadius: regionRadius)
         workManager.addArrivalIfAtWork(locationManager)
     }
 
@@ -139,13 +124,23 @@ extension MapViewController: MKMapViewDelegate {
 
 }
 
+extension MKCircle {
+    var defaultRenderer: MKCircleRenderer {
+        let renderer = MKCircleRenderer(circle: self)
+        renderer.fillColor = OverlayColor.Fill
+        renderer.strokeColor = OverlayColor.Stroke
+        renderer.lineWidth = 5
+        return renderer
+    }
+}
+
 extension MapViewController: UISearchBarDelegate {
 
-    func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
+    public func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
         return true
     }
 
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    public func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         handleSearch(searchBar.text)
     }
