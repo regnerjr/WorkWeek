@@ -48,7 +48,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func handleLaunchOptions(options: [NSObject: AnyObject]?){
-        if let locationOptions = options?[UIApplicationLaunchOptionsLocationKey] as? NSNumber {
+        if let _ = options?[UIApplicationLaunchOptionsLocationKey] as? NSNumber {
             workManager.resetDataIfNeeded()
             locationManager.manager.startUpdatingLocation()
         } else if let localNotification = options?[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
