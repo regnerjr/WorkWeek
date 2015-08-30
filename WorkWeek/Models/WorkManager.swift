@@ -50,7 +50,7 @@ public class WorkManager : NSObject {
 
     public func addArrival(_ date: NSDate = NSDate()){
         //set up a notification to fire at 40 hours
-        LocalNotifier.setupNotification(hoursWorkedThisWeek, total: hoursInWorkWeek)
+        LocalNotifier.setupNotification(hoursWorkedThisWeek, hoursInFullWorkWeek: hoursInWorkWeek)
         let newArrival = Event(inOrOut: .Arrival, date: date)
         println("Adding a New Arrival, \(newArrival.inOrOut.rawValue), with date \(newArrival.date)")
         eventsForTheWeek.addObject(newArrival)

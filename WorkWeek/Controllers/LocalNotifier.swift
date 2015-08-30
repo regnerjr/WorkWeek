@@ -2,23 +2,10 @@ import UIKit
 
 public class LocalNotifier {
 
-    public class func setupNotification(soFar: Double, total: Int){
-        NSLog("Setting Up Notification:")
-        //schedule a notification to fire when 40 hours have been worked.
-        //assume that the person will stay at work the rest of the week
+    public class func setupNotification(hoursWorkedSoFarThisWeek: Double, hoursInFullWorkWeek: Int){
 
-        //how far in the future do we need to schedule the notification
         let note = UILocalNotification()
-
-        // if we worked more than our 40 then notify once
-        if soFar < Double(total) {
-            let hoursLeft = Double(total) - soFar //hours left will be of the form 5.2 hours
-            let secondsLeft = convertDecimalHoursToSeconds(hoursLeft)
-            note.fireDate = NSDate(timeIntervalSinceNow: secondsLeft)
-            NSLog("Configuring Notification with fire date %@", note.fireDate!)
-        } else {
-            note.fireDate = nil //fire the notification now
-        }
+        note.fireDate = calculateFireDate(hoursInFullWorkWeek, hoursWorkedSofar: hoursWorkedSoFarThisWeek)
         note.alertTitle = "Your Work Week is Over!"
         note.alertBody = "Your Work Week is Over!"
         note.hasAction = false
@@ -27,15 +14,27 @@ public class LocalNotifier {
         note.soundName = UILocalNotificationDefaultSoundName
 
         // Since this is our only notification we can just clear all of them and schedule this new one
+        cancelAllNotifications()
         UIApplication.sharedApplication().scheduledLocalNotifications = nil
-
         UIApplication.sharedApplication().scheduleLocalNotification(note)
-        NSLog("Setup a Notification %@", note)
+        NSLog("Notification %@", note)
     }
 
     public class func cancelAllNotifications(){
         UIApplication.sharedApplication().cancelAllLocalNotifications()
     }
+
+    class func calculateFireDate(hoursInFullWeek:Int, hoursWorkedSofar: Double) -> NSDate? {
+
+        if hoursWorkedSofar < Double(hoursInFullWeek) {
+            let hoursLeft = Double(hoursInFullWeek) - hoursWorkedSofar //hours left will be of the form 5.2 hours
+            let secondsLeft = convertDecimalHoursToSeconds(hoursLeft)
+            return NSDate(timeIntervalSinceNow: secondsLeft)
+        } else {
+            return nil //fire the notification now
+        }
+    }
+
 }
 
 func convertDecimalHoursToSeconds(hours: Double) -> Double{
