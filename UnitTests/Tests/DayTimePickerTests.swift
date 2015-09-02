@@ -14,7 +14,7 @@ class DayTimePickerTests: XCTestCase {
 
     override func setUp() {
         picker = DayTimePicker()
-        pickerView = UIPickerView(frame: .zeroRect)
+        pickerView = UIPickerView(frame: .zero)
         super.setUp()
     }
     

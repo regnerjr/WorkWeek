@@ -56,12 +56,6 @@ public class TableViewController: UITableViewController {
 
     override public func viewWillAppear(animated: Bool) {
         array = workManager.allItems()
-        if array.count == 0 {
-            //no items to display, this is fine.... except if the user is at work now?
-            //then we will force an arrival
-            // force an ar
-//            workManager.addArrivalIfAtWork(locationManager)
-        }
         tableView.reloadData()
     }
 

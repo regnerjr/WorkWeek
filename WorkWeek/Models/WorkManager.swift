@@ -8,11 +8,7 @@ private struct Archive {
     static var path: String? {
         let documentsDirectories = NSSearchPathForDirectoriesInDomains(
                                     .DocumentDirectory, .UserDomainMask, true)
-        let documentDirectory = documentsDirectories.first
-        if let dir = documentDirectory {
-            return dir + "/items.archive"
-        }
-        return nil
+        return documentsDirectories.first.map{$0 + "/items.archive"}
     }
 }
 
@@ -57,13 +53,7 @@ public class WorkManager : NSObject {
     // MARK: - Init
     public override init() {
         super.init()
-        // if we have archived events restore them
         eventsForTheWeek = restoreArchivedEvents() ?? NSMutableArray()
-//        observeNotifications()
-    }
-
-    deinit{
-//        stopObservingNotifications()
     }
 
     public func addArrival(date: NSDate = NSDate()) {
@@ -76,7 +66,7 @@ public class WorkManager : NSObject {
         saveNewArchive(eventsForTheWeek)
     }
 
-    public func addDeparture(_ date: NSDate = NSDate()) {
+    public func addDeparture(date: NSDate = NSDate()) {
         localNotificationHandler.cancelAllNotifications()
         let newDeparture = Event(inOrOut: .Departure, date: date)
         print("Adding a New Departure, \(newDeparture.inOrOut.rawValue), with date \(newDeparture.date)")

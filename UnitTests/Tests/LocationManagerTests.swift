@@ -109,7 +109,7 @@ class LocationNotificationTests: XCTestCase {
 
     var locationManager: LocationManager!
     var fakeLocationManager: FakeLocationManager!
-    var fakeNotificationCenter: FakeNotificationCenter
+    var fakeNotificationCenter: FakeNotificationCenter!
 
     let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), radius: 50, identifier: MapRegionIdentifiers.work)
 

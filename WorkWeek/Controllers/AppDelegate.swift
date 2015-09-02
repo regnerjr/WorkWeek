@@ -63,7 +63,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             SettingsKey.resetDay.rawValue: NSNumber(int: 0),             // Sunday
             SettingsKey.resetHour.rawValue: NSNumber(int: 4),            // 4 am
             SettingsKey.workRadius.rawValue: NSNumber(int: 200),         // 200m work radius
-            SettingsKey.clearDate.rawValue: getDateForReset(0, hour: 4, minute: 0) ?? NSDate(),
+            SettingsKey.clearDate.rawValue: getDateForReset(0, hour: 4, minute: 0) ?? NSDate()
         ]
         standardDefaults.registerDefaults(defaults)
     }
