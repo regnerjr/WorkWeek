@@ -83,7 +83,7 @@ public class WorkManager : NSObject {
         saveNewArchive(eventsForTheWeek)
     }
 
-    public func addArrivalIfAtWork(locationManager: LocationManager) {
+    func addArrivalIfAtWork(locationManager: LocationManager) {
         //if you are currently at work add an arrival right now.
         if locationManager.atWork(){
             addArrival()
@@ -165,11 +165,9 @@ public class WorkManager : NSObject {
         if let resetDate = defaults.objectForKey(.clearDate) as? NSDate {
             switch resetDate.compare(NSDate()) {
             case .OrderedSame:
-                print("Same! nice work. lets clear it anyway")
                 clearEvents()
                 updateDefaultResetDate()
             case .OrderedAscending:
-                print("Week has lapsed, Clearing Data")
                 clearEvents()
                 updateDefaultResetDate()
             case .OrderedDescending:

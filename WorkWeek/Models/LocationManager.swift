@@ -2,14 +2,14 @@ import UIKit
 import CoreLocation
 
 /// A manager for handling location realted functions.
-public class LocationManager: NSObject {
+class LocationManager: NSObject {
     /// The actual CLLocationManager
-    public let manager: CLLocationManager
+    var manager: CLLocationManager
     //need an instance of the work manager, so that arrivals and departures can be triggered when the monitored regions are entered or left
     private let workManager: WorkManager
 
     /// Dependency Inject Auth Status and Manager for testing
-    public init(authStatus: CLAuthorizationStatus = CLLocationManager.authorizationStatus(),
+    init(authStatus: CLAuthorizationStatus = CLLocationManager.authorizationStatus(),
                 manager: CLLocationManager = CLLocationManager(),
         workManager:WorkManager = WorkManager()){
         self.manager = manager
@@ -27,6 +27,10 @@ public class LocationManager: NSObject {
         return manager.monitoredRegions
     }
 
+    func startUpdatingLocation(){
+        manager.startUpdatingLocation()
+    }
+
     /// Sets up the CLLocationManager with the correct defaults
     private func configureLocationManager( manager: CLLocationManager ) {
         manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -34,7 +38,7 @@ public class LocationManager: NSObject {
         manager.pausesLocationUpdatesAutomatically = true
     }
 
-    public func atWork() -> Bool {
+    func atWork() -> Bool {
         // Convert monitoredRegions: Set<CLRegion>? => circleRegions: Set<CLCircularRegion>
         // The check each circleRegion to see if we are in it
         if let regions = monitoredRegions, circleRegions = regions as? Set<CLCircularRegion> {
@@ -74,13 +78,12 @@ public class LocationManager: NSObject {
 extension LocationManager: CLLocationManagerDelegate {
 
     /// When a region is entered, an NSNotification is posted to the NSNotification Center
-    public func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
         workManager.addArrival()
     }
 
     /// When a region is exited, an NSNotification is posted to the NSNotification Center
-    public func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
         workManager.addDeparture()
     }
 }
-
