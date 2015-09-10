@@ -1,7 +1,7 @@
 import UIKit
 import XCTest
 
-import WorkWeek
+@testable import WorkWeek
 
 class MyCal: NSCalendar {
 
@@ -11,10 +11,13 @@ class DayTimePickerTests: XCTestCase {
 
     var picker: DayTimePicker!
     var pickerView: UIPickerView!
+    var customPicker: DayTimePicker!
 
     override func setUp() {
         picker = DayTimePicker()
         pickerView = UIPickerView(frame: .zero)
+        customPicker = DayTimePicker()
+        customPicker.calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)!
         super.setUp()
     }
     
@@ -42,63 +45,33 @@ class DayTimePickerTests: XCTestCase {
     }
 
     func testDayView(){
-        if let gregorianCalendar = NSCalendar(identifier: NSCalendarIdentifierGregorian) {
-            let customPicker = DayTimePicker(calendar: gregorianCalendar)
-            let dayView = customPicker.pickerView(pickerView, viewForRow: 0, forComponent: 0, reusingView: nil)
-            XCTAssertNotNil(dayView, "DayView is returned")
-            let daylabel = dayView as! UILabel
-            XCTAssertEqual(daylabel.text!, "Sunday", "Sunday is the first component in the day view (for Gregorian Calendar)")
-        } else {
-            XCTFail("Not Able to setup Calendar Fail")
-        }
+        let dayView = customPicker.pickerView(pickerView, viewForRow: 0, forComponent: 0, reusingView: nil)
+        XCTAssertNotNil(dayView, "DayView is returned")
+        let daylabel = dayView as! UILabel
+        XCTAssertEqual(daylabel.text!, "Sunday", "Sunday is the first component in the day view (for Gregorian Calendar)")
     }
 
     func testInvalidDayView(){
-        if let gregorianCalendar = NSCalendar(identifier: NSCalendarIdentifierGregorian) {
-            let customPicker = DayTimePicker(calendar: gregorianCalendar)
-            let dayView = customPicker.pickerView(pickerView, viewForRow: 100, forComponent: 0, reusingView: nil)
-            XCTAssertNotNil(dayView, "DayView is returned")
-            let daylabel = dayView as! UILabel
-            XCTAssertNotNil(daylabel, "DayLabel is not nil")
-            XCTAssertNil(daylabel.text, "Text is not set on invald items")
-        } else {
-            XCTFail("Not Able to setup Calendar Fail")
-        }
+        let dayView = customPicker.pickerView(pickerView, viewForRow: 100, forComponent: 0, reusingView: nil)
+        XCTAssertNotNil(dayView, "DayView is returned")
+        let daylabel = dayView as! UILabel
+        XCTAssertNotNil(daylabel, "DayLabel is not nil")
+        XCTAssertNil(daylabel.text, "Text is not set on invald items")
     }
 
     func testHourView(){
-        if let gregorianCalendar = NSCalendar(identifier: NSCalendarIdentifierGregorian){
-            let customPicker = DayTimePicker(calendar: gregorianCalendar)
-            let hourView = customPicker.pickerView(pickerView, viewForRow: 0, forComponent: 1, reusingView: nil)
-            XCTAssertNotNil(hourView, "Hour View is not Nil")
-            let hourLabel = hourView as! UILabel
-            XCTAssertEqual(hourLabel.text!, "12:00 AM", "First Hour is 12:00 AM")
-        } else {
-            XCTFail("Not able to setup Calendar fail")
-        }
+        let hourView = customPicker.pickerView(pickerView, viewForRow: 0, forComponent: 1, reusingView: nil)
+        XCTAssertNotNil(hourView, "Hour View is not Nil")
+        let hourLabel = hourView as! UILabel
+        XCTAssertEqual(hourLabel.text!, "12:00 AM", "First Hour is 12:00 AM")
     }
 
     func testInvalidHourView(){
-        if let gregorianCalendar = NSCalendar(identifier: NSCalendarIdentifierGregorian){
-            let customPicker = DayTimePicker(calendar: gregorianCalendar)
-            let hourView = customPicker.pickerView(pickerView, viewForRow: 100, forComponent: 1, reusingView: nil)
-            XCTAssertNotNil(hourView, "Hour View is not Nil")
-            let hourLabel = hourView as! UILabel
-            XCTAssertNotNil(hourLabel, "Hour Lable is not nil")
-            XCTAssertNil(hourLabel.text, "Text is not set on invald items")
-        } else {
-            XCTFail("Not able to setup Calendar fail")
-        }
-    }
-
-    func testInvalidComponentView(){
-        if let gregorianCalendar = NSCalendar(identifier: NSCalendarIdentifierGregorian){
-            let customPicker = DayTimePicker(calendar: gregorianCalendar)
-            let view = customPicker.pickerView(pickerView, viewForRow: 0, forComponent: 3, reusingView: nil)
-            XCTAssert(view == UIView()) //should just be an empty view
-        } else {
-            XCTFail("Not able to setup Calendar fail")
-        }
+        let hourView = customPicker.pickerView(pickerView, viewForRow: 100, forComponent: 1, reusingView: nil)
+        XCTAssertNotNil(hourView, "Hour View is not Nil")
+        let hourLabel = hourView as! UILabel
+        XCTAssertNotNil(hourLabel, "Hour Label is not nil")
+        XCTAssertNil(hourLabel.text, "Text is not set on invald items")
     }
 
 }

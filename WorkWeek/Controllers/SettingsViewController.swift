@@ -64,7 +64,7 @@ class SettingsViewController: UIViewController {
         //find any fields that are editing, end editing then resign first responder
         [workHoursTextField, workRadiusField ]
             .filter{ $0.isFirstResponder() }
-            .map{ $0.endEditing(true) }
+            .forEach{ $0.endEditing(true) }
         resignFirstResponder()
     }
 

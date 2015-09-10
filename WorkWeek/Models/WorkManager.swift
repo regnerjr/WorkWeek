@@ -1,10 +1,9 @@
 import Foundation
 
-
 /// A struct with one static member to compute the Path to use when archiving data
 ///
 /// Just call Archive.path to get a String? to use for archiving
-private struct Archive {
+struct Archive {
     static var path: String? {
         let documentsDirectories = NSSearchPathForDirectoriesInDomains(
                                     .DocumentDirectory, .UserDomainMask, true)
@@ -29,7 +28,7 @@ public class WorkManager : NSObject {
         }
     }
 
-    let localNotificationHandler = LocalNotifier()
+    var localNotificationHandler = LocalNotifier()
 
     private var workDays = Array<WorkDay>()
 
@@ -164,18 +163,16 @@ public class WorkManager : NSObject {
 
     func resetDataIfNeeded(defaults: NSUserDefaults = Defaults.standard) {
         if let resetDate = defaults.objectForKey(.clearDate) as? NSDate {
-            let now = NSDate()
-            let comparison = resetDate.compare(now)
-            switch comparison {
-            case NSComparisonResult.OrderedSame:
+            switch resetDate.compare(NSDate()) {
+            case .OrderedSame:
                 print("Same! nice work. lets clear it anyway")
                 clearEvents()
                 updateDefaultResetDate()
-            case NSComparisonResult.OrderedAscending:
+            case .OrderedAscending:
                 print("Week has lapsed, Clearing Data")
                 clearEvents()
                 updateDefaultResetDate()
-            case NSComparisonResult.OrderedDescending:
+            case .OrderedDescending:
                 //time has not yet elapsed do nothing
                 print("Week has not yet finished, DO NOT Clear the data")
             }

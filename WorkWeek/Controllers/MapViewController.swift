@@ -28,8 +28,7 @@ public class MapViewController: UIViewController {
     }()
 
     var workLocations: [CLCircularRegion]? {
-        return map(locationManager.monitoredRegions){
-            map($0) { $0 as! CLCircularRegion } }
+        return locationManager.monitoredRegions?.flatMap { $0 as? CLCircularRegion }
     }
 
     override public func viewDidLoad() {
@@ -67,15 +66,12 @@ public class MapViewController: UIViewController {
 
     func drawWorkLocations( workLocations: [CLCircularRegion]?){
         //draw the current work locations if it is not nil
-        map(workLocations){ locations in
-            locations.map{ location in
-                return MKCircle(centerCoordinate: location.center, radius: self.regionRadius)
-            }.map(mapView.addOverlay)
-        }
+        workLocations?.map{ location in
+            return MKCircle(centerCoordinate: location.center, radius: self.regionRadius)
+        }.forEach(mapView.addOverlay)
     }
 
 }
-
 
 extension MapViewController: MKMapViewDelegate {
 
@@ -105,13 +101,13 @@ extension MapViewController: MKMapViewDelegate {
         }
     }
 
-    public func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
-        return (overlay as? MKCircle)?.defaultRenderer
+    public func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        return (overlay as? MKCircle)?.defaultRenderer ?? MKCircle.clearRenderer(overlay.coordinate)
     }
 
-    public func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
-        addOverLayAtCoordinate(view.annotation.coordinate)
-        locationManager.startMonitoringRegionAtCoordinate(view.annotation.coordinate, withRadius: regionRadius)
+    public func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+        addOverLayAtCoordinate(view.annotation!.coordinate)
+        locationManager.startMonitoringRegionAtCoordinate(view.annotation!.coordinate, withRadius: regionRadius)
         workManager.addArrivalIfAtWork(locationManager)
     }
 
@@ -121,7 +117,6 @@ extension MapViewController: MKMapViewDelegate {
         return MKMapRectMake(min(a.x, b.x), min(a.y,b.y), abs(a.x - b.x), abs(a.y-b.y))
     }
 
-
 }
 
 extension MKCircle {
@@ -130,6 +125,12 @@ extension MKCircle {
         renderer.fillColor = OverlayColor.Fill
         renderer.strokeColor = OverlayColor.Stroke
         renderer.lineWidth = 5
+        renderer.alpha = 0.75
+        return renderer
+    }
+    static func clearRenderer(center: CLLocationCoordinate2D) -> MKCircleRenderer {
+        let renderer = MKCircleRenderer(circle: MKCircle(centerCoordinate: center, radius: 100))
+        renderer.alpha = 0.0
         return renderer
     }
 }

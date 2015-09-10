@@ -16,7 +16,7 @@ struct RestorationKey {
 /// Each event is either an arrival or a departure
 /// and each event has a specific absolute date on which it happened
 ///
-public class Event: NSObject, NSCoding{
+public class Event: NSObject, NSCoding {
     
     public let inOrOut: AD
     public let date: NSDate

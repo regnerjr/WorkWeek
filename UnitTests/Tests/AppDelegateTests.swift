@@ -20,13 +20,6 @@ class AppDelegateTests: XCTestCase {
         super.tearDown()
     }
 
-    func testExample() {
-        let options: [NSObject: AnyObject] = [UIApplicationLaunchOptionsLocalNotificationKey: NSNumber(integer: 0)]
-        //MARK: This crashes Xcode
-        // appDelegate.application(app, didFinishLaunchingWithOptions: options)
-        //hmm.....whap happens when we call this?
-    }
-
     func testUpdateDefaultResetDate(){
         //set new values in the NSUserDefaults, thn see what new date gets set in the NSUserDefaults
         //put in monday at 9 -> 2, 9

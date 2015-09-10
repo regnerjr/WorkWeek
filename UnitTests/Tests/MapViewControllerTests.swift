@@ -41,7 +41,8 @@ class MapViewControllerTests: XCTestCase {
         let polygon = MKPolygon(points: &mapPoints, count: mapPoints.count)
 
         let renderer = mapVC.mapView(mapVC.mapView, rendererForOverlay: polygon)
-        XCTAssertNil(renderer, "Renderer for non circles is nil")
+        XCTAssert(renderer is MKCircleRenderer, "Default renderer is circle")
+        XCTAssert(renderer.alpha == 0.0)
     }
 
 }

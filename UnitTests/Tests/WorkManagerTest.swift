@@ -1,28 +1,30 @@
 import UIKit
 import XCTest
 
-import WorkWeek
+@testable import WorkWeek
 
 class WorkManagerPropertiesTest: XCTestCase {
 
+    var manager: WorkManager!
+
     override func setUp() {
-        clearSavedEvents()
+        clearSavedEventsOnDisk()
+        manager = WorkManager()
         super.setUp()
     }
     override func tearDown() {
         //remove any archived data
-        clearSavedEvents()
+        manager = nil
+        clearSavedEventsOnDisk()
         super.tearDown()
     }
 
     // Tests eventsForTheWeek, archiving and restoring
     func testEventsEmptyWhenNothingIsArchived(){
-        let manager = WorkManager()
         XCTAssertEqual(manager.eventsForTheWeek.count, 0, "No Events on a new manager")
     }
 
     func testEventsAreRestoredFromArchive(){
-        var manager: WorkManager! = WorkManager()
         XCTAssertEqual(manager.eventsForTheWeek.count, 0, "No Events")
         manager.addArrival(NSDate())
         manager = nil
@@ -32,7 +34,6 @@ class WorkManagerPropertiesTest: XCTestCase {
     }
 
     func testHoursWorkedThisWeek(){
-        let manager = WorkManager()
         manager.addArrival(NSDate())
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
         XCTAssert(manager.hoursWorkedThisWeek == 8.0, "Worked 8 hours!")
@@ -49,16 +50,11 @@ class WorkManagerPropertiesTest: XCTestCase {
     }
 
     // MARK: - Helper Functions
-    func clearSavedEvents(){
-        let documentsDirectories = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory,
-            NSSearchPathDomainMask.UserDomainMask, true)
-        let path = documentsDirectories.first! + "/items.archive"
+    func clearSavedEventsOnDisk(){
         let fileManager = NSFileManager.defaultManager()
-        if fileManager.fileExistsAtPath(path) {
-            do {
-                try fileManager.removeItemAtPath(path)
-            } catch let error as NSError {
-                print(error.localizedDescription)
+        if let path = Archive.path {
+            if fileManager.fileExistsAtPath(path) {
+                try! fileManager.removeItemAtPath(path)
             }
         }
     }
