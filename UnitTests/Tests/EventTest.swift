@@ -1,7 +1,6 @@
-import UIKit
 import XCTest
 
-import WorkWeek
+@testable import WorkWeek
 
 class EventTest: XCTestCase {
 

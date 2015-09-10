@@ -1,9 +1,6 @@
-/// This file tests Formatter.swift and NSNumberFormatterExtensions.swift
-
-import UIKit
 import XCTest
 
-import WorkWeek
+@testable import WorkWeek
 
 class NSNumberFormatterTests: XCTestCase {
 

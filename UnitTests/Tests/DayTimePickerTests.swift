@@ -1,11 +1,6 @@
-import UIKit
 import XCTest
 
 @testable import WorkWeek
-
-class MyCal: NSCalendar {
-
-}
 
 class DayTimePickerTests: XCTestCase {
 

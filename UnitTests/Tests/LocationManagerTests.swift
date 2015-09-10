@@ -1,8 +1,7 @@
-import UIKit
 import XCTest
 
 import CoreLocation
-import WorkWeek
+@testable import WorkWeek
 
 class FakeLocationManager: CLLocationManager {
     var requestedAuthorization = false

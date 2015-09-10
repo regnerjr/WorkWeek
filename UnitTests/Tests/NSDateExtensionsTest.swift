@@ -1,7 +1,6 @@
-import Foundation
 import XCTest
 
-import WorkWeek
+@testable import WorkWeek
 
 class NSDateExtensionsTest: XCTestCase {
 

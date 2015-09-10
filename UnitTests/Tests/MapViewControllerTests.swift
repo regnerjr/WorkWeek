@@ -1,7 +1,7 @@
-import UIKit
-import MapKit
-import WorkWeek
 import XCTest
+
+import MapKit
+@testable import WorkWeek
 
 class MapViewControllerTests: XCTestCase {
 
