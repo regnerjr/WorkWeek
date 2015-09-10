@@ -1,17 +1,17 @@
 import UIKit
 
 @UIApplicationMain
-public class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    public var window: UIWindow?
-    public var workManager = WorkManager() //variable for testing
+    var window: UIWindow?
+    var workManager = WorkManager() //variable for testing
     lazy var locationManager: LocationManager = {
         return LocationManager()
     }()
 
 
     // MARK: - Application Lifecycle
-    public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         registerDefaults()
         handleLaunchOptions(launchOptions)
@@ -19,12 +19,12 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    public func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(application: UIApplication) {
         workManager.resetDataIfNeeded()
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
     }
 
-    public func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         print("Work Week Ended and we were in the foreground")
         let alert = UIAlertController(title: "WorkWeek", message: "Go Home!", preferredStyle: UIAlertControllerStyle.Alert)
         let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
