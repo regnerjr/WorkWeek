@@ -4,7 +4,16 @@ class DayTimePicker: NSObject {
     lazy var dateFormatter: NSDateFormatter = {
         return NSDateFormatter()
     }()
+    lazy var shortDateFmt: NSDateFormatter = {
+        let fmt = NSDateFormatter()
+        fmt.timeStyle = NSDateFormatterStyle.ShortStyle
+        fmt.dateStyle = NSDateFormatterStyle.ShortStyle
+        return fmt
+    }()
     var calendar = NSCalendar.currentCalendar()
+    
+    //TODO: Look at this awesome Hack?
+    weak var dateLabel: UILabel? = nil
 }
 
 extension NSCalendar {
@@ -46,23 +55,35 @@ extension DayTimePicker: UIPickerViewDelegate {
         }
     }
 
-
     func makeADayView(row: Int, withLabel label: UILabel) -> UIView {
         let days = dateFormatter.standaloneWeekdaySymbols
         if row < days.count {
             label.text = days[row]
         }
+        label.textAlignment = NSTextAlignment.Center
         return label
     }
 
     func makeAnHourView(row: Int, withLabel label: UILabel) -> UIView {
         if row < calendar.numberOfHoursInDay {
-            dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+            dateFormatter.timeStyle = .ShortStyle
             let comp = NSDateComponents()
             comp.hour = row
             label.text = dateFormatter.stringFromDate(calendar.dateFromComponents(comp)!)
         }
+        label.textAlignment = NSTextAlignment.Center
         return label
     }
+
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print("pickerview selecting New row")
+        if let dateLabel = dateLabel {
+            let day = pickerView.selectedRowInComponent(0)
+            let hour = pickerView.selectedRowInComponent(1)
+            let resetDate = getDateForReset(day, hour: hour, minute: 0)
+            dateLabel.text = shortDateFmt.stringFromDate(resetDate)
+        }
+    }
+
 
 }

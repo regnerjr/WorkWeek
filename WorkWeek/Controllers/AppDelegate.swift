@@ -9,12 +9,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return LocationManager()
     }()
 
-
-    // MARK: - Application Lifecycle
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-        registerDefaults()
-        handleLaunchOptions(launchOptions)
+        ADHelper.registerDefaults()
+        handleLaunchOptions(launchOptions, workManager: workManager)
         loadInterface()
         return true
     }
@@ -25,46 +23,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        print("Work Week Ended and we were in the foreground")
-        let alert = UIAlertController(title: "WorkWeek", message: "Go Home!", preferredStyle: UIAlertControllerStyle.Alert)
-        let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-        alert.addAction(defaultAction)
-
-        // TODO: Ask about this at Coder Night?
-        //Where do I display this alert?
-        //Fire off a notification and let each class handle it independeltly?
-        // just push a WorkWeekEnded VC onto window.rootviewController ... ? ... ?
-
+        ADHelper.showGoHomeAlertSheet(onViewController: window?.rootViewController)
     }
 
     func loadInterface(){
-        let onboardingHasCompleted = Defaults.standard.boolForKey(SettingsKey.onboardingComplete)
-        window?.rootViewController = getCorrectStoryboard( onboardingHasCompleted )
+        window?.rootViewController = ADHelper.loadInterface()
     }
 
-    func getCorrectStoryboard(onboardingComplete: Bool ) -> UIViewController? {
+    func handleLaunchOptions(options: [NSObject: AnyObject]?, workManager: WorkManager){
+        if let _ = options?[UIApplicationLaunchOptionsLocationKey] as? NSNumber {
+            workManager.resetDataIfNeeded()
+            locationManager.startUpdatingLocation()
+        }
+    }
+}
+
+class ADHelper {
+
+    static func loadInterface(defaults: NSUserDefaults = Defaults.standard) -> UIViewController? {
+        let onboardingHasCompleted = defaults.boolForKey(SettingsKey.onboardingComplete)
+        return getCorrectStoryboard( onboardingHasCompleted )
+    }
+
+    static func getCorrectStoryboard(onboardingComplete: Bool ) -> UIViewController? {
         let storyboard = UIStoryboard.load(onboardingComplete ? .Main : .Onboarding)
         return storyboard.instantiateInitialViewController()
     }
 
-    func handleLaunchOptions(options: [NSObject: AnyObject]?){
-        if let _ = options?[UIApplicationLaunchOptionsLocationKey] as? NSNumber {
-            workManager.resetDataIfNeeded()
-            locationManager.manager.startUpdatingLocation()
-        } else if let localNotification = options?[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
-            NSLog("Launched due to a local notification %@", localNotification)
-        }
+    static func showGoHomeAlertSheet(onViewController vc: UIViewController?){
+
+        guard let vc = vc else { return }
+        let alert = UIAlertController(title: "WorkWeek", message: "Go Home!", preferredStyle: UIAlertControllerStyle.Alert)
+        let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        alert.addAction(defaultAction)
+        vc.presentViewController(alert, animated: true, completion: nil)
     }
 
-    func registerDefaults(standardDefaults: NSUserDefaults = Defaults.standard){
+
+    static func registerDefaults(userDefaults: NSUserDefaults = Defaults.standard){
+        let defaultResetDate = getDateForReset(0, hour: 4, minute: 0)
+        print("Registering Reset Date: \(defaultResetDate)")
         let defaults: [String: AnyObject] = [
             SettingsKey.onboardingComplete.rawValue : false,             //default settings screen is not shown
-            SettingsKey.hoursInWorkWeek.rawValue : NSNumber(int: 40),    // 40 hour work week
-            SettingsKey.resetDay.rawValue: NSNumber(int: 0),             // Sunday
-            SettingsKey.resetHour.rawValue: NSNumber(int: 4),            // 4 am
-            SettingsKey.workRadius.rawValue: NSNumber(int: 200),         // 200m work radius
-            SettingsKey.clearDate.rawValue: getDateForReset(0, hour: 4, minute: 0) ?? NSDate()
+            SettingsKey.hoursInWorkWeek.rawValue : 40,    // 40 hour work week
+            SettingsKey.resetDay.rawValue: 0,             // Sunday
+            SettingsKey.resetHour.rawValue: 4,            // 4 am
+            SettingsKey.workRadius.rawValue: 200,         // 200m work radius
+            SettingsKey.clearDate.rawValue: defaultResetDate
         ]
-        standardDefaults.registerDefaults(defaults)
+        userDefaults.registerDefaults(defaults)
     }
+
 }

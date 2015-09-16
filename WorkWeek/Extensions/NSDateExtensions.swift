@@ -15,20 +15,19 @@ public extension NSDate{
 
 /// Calculates the next NSDate which matches the given components
 ///
-/// - parameter day: An Int indicating which day of the week is requested. 
+/// - parameter day: An Int indicating which day of the week is requested.
+/// - parameter hour: An Int indicating which hour of the day
+/// - parameter minute: An Int indicating which minute of the hour
 /// - returns:
 ///
-public func getDateForReset(day: Int, hour: Int, minute: Int) -> NSDate? {
+public func getDateForReset(day: Int, hour: Int, minute: Int, cal: NSCalendar = NSCalendar.currentCalendar()) -> NSDate {
     // Get the Calendar in use
-    let cal = NSCalendar.currentCalendar()
-    // Get the current day, Hour, Minute
-    let todaysComps = cal.components([.Weekday, .Hour, .Minute]
-        , fromDate: NSDate())
-
+    let todaysComps = cal.components([.Weekday, .Hour, .Minute], fromDate: NSDate())
     // Get the relative components,
     // This is where the real magic happens, How much time between now  and our reset time
     // in days hours minutes
     let resetComps = NSDateComponents()
+
     if (day + 1) <= todaysComps.weekday {  //adjust for week wrap.
         resetComps.weekday = (day + 1) - todaysComps.weekday + 7
     } else {
@@ -41,7 +40,7 @@ public func getDateForReset(day: Int, hour: Int, minute: Int) -> NSDate? {
     let date = cal.dateByAddingComponents(resetComps, toDate: NSDate(),
         options: .MatchNextTime)
 
-    return date
+    return date ?? NSDate()
 }
 
 /// Calculates the amount of time between two given dates

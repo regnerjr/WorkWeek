@@ -1,49 +1,139 @@
 import XCTest
+import CoreLocation
 
 @testable import WorkWeek
 
 class AppDelegateTests: XCTestCase {
 
-    var appDelegate: AppDelegate!
     var app: UIApplication!
+    var ad: AppDelegate!
 
+    class StubWorkManager: WorkManager {
+        var resetWasCalled = false
+        override func resetDataIfNeeded(defaults: NSUserDefaults = Defaults.standard) {
+            resetWasCalled = true
+        }
+    }
+    class StubLocationManager: LocationManager {
+        var startedUpdating = false
+        override func startUpdatingLocation(){
+            startedUpdating = true
+        }
+
+    }
     override func setUp() {
         super.setUp()
         app = UIApplication.sharedApplication()
-        appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-    }
-    
-    override func tearDown() {
-        app = nil
-        appDelegate = nil
-        super.tearDown()
+        ad = UIApplication.sharedApplication().delegate as! AppDelegate
     }
 
-    func testUpdateDefaultResetDate(){
-        //set new values in the NSUserDefaults, thn see what new date gets set in the NSUserDefaults
-        //put in monday at 9 -> 2, 9
-        Defaults.standard.setInteger(2, forKey: SettingsKey.resetDay)
-        Defaults.standard.setInteger(9, forKey: SettingsKey.resetHour)
+    func testDataIsResetWhenApplicationEntersForeground(){
 
-        updateDefaultResetDate()
-        let savedDate = Defaults.standard.objectForKey(SettingsKey.clearDate.rawValue) as! NSDate
+        let wm = StubWorkManager()
+        ad.workManager = wm
 
-        //how to test that this is the monday at 9 time?
-        //look at the components
+        ad.applicationWillEnterForeground(app)
+        XCTAssert(wm.resetWasCalled)
+    }
 
-        let resetComps = NSCalendar.currentCalendar().components(
-            [NSCalendarUnit.Weekday, NSCalendarUnit.Hour, NSCalendarUnit.Minute],
-            fromDate: savedDate)
-        print("\(savedDate)")
-        XCTAssertEqual(resetComps.weekday, 3, "Reset day set to sunday")
-        XCTAssertEqual(resetComps.hour, 9, "Reset hour is 4 am ")
-        let comparison = NSDate().compare(savedDate)
-        XCTAssertEqual(comparison, NSComparisonResult.OrderedAscending, "Reset Date is in the future")
-        //but it is less than 1 week in the future
-        let oneWeekComparison = NSDate(timeIntervalSinceNow: 7 * 24 * 60 * 60).compare(savedDate) //one week 7days, 24hours,60minutes, 60 seconds
-        XCTAssertEqual(oneWeekComparison.rawValue, NSComparisonResult.OrderedDescending.rawValue, "Reset Date is less than one week in the future")
+    func testApplicationBadgeIsClearedWhenAppEntersForeground(){
+
+        app.applicationIconBadgeNumber = 40
+        XCTAssert(app.applicationIconBadgeNumber > 0)
+
+        ad.applicationWillEnterForeground(app)
+        XCTAssert(app.applicationIconBadgeNumber == 0)
+    }
+
+    func testDidReceiveLocalNotificationShowsAlert(){
+        let vc = UIViewController()
+        ad.window?.rootViewController = vc //inject that junk
+        _ = vc.view //load view
+        XCTAssertNil(vc.presentedViewController)
+
+        ad.application(app, didReceiveLocalNotification: UILocalNotification())
+        XCTAssertNotNil(vc.presentedViewController)
+        XCTAssert(vc.presentedViewController?.dynamicType == UIAlertController.self)
+    }
+
+    func testLoadInterfaceReturnsCorrectStoryboardIfOnboardingIsNOTComplete(){
+        let def = NSUserDefaults(suiteName: "testDefaults")
+        def?.setBool(false, forKey: SettingsKey.onboardingComplete)
+        let onboardingVC = ADHelper.loadInterface(def!)
+
+        XCTAssert(onboardingVC?.restorationIdentifier == "OnboardingFirstScreen")
+    }
+
+    func testLoadInterfaceReturnsCorrectStoryboardIfOnboardingIsComplete(){
+        let def = NSUserDefaults(suiteName: "testDefaults")
+        def?.setBool(true, forKey: SettingsKey.onboardingComplete)
+        let onboardingVC = ADHelper.loadInterface(def!)
+
+        XCTAssert(onboardingVC?.restorationIdentifier == "MainStoryboardInitialVC")
+    }
+
+    func testShowGoHomeAlertSheet(){
+        let vc = UIViewController()//Must put VC in window hirearchy in order to present stuff
+        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = vc
+        XCTAssertNil(vc.presentedViewController)
+
+        ADHelper.showGoHomeAlertSheet(onViewController: vc)
+        XCTAssertNotNil(vc.presentedViewController)
+        XCTAssert(vc.presentedViewController?.dynamicType == UIAlertController.self)
+    }
+
+    func testDoesNotShowGoHomeAlertSheetIfPassedInVCIsNone(){
+        let vc = UIViewController()//Must put VC in window hirearchy in order to present stuff
+        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = vc
+        XCTAssertNil(vc.presentedViewController)
+
+        ADHelper.showGoHomeAlertSheet(onViewController: nil)
+        XCTAssertNil(vc.presentedViewController)
+    }
+
+
+    func testHandleLaunch_No_Options(){
+        let wm = StubWorkManager()
+        let lm = StubLocationManager()
+
+        let options: [NSObject:AnyObject]? = nil
+        ADHelper.handleLaunchOptions(options, workManager: wm, locationManager: lm)
+        XCTAssert(wm.resetWasCalled == false)
+        XCTAssert(lm.startedUpdating == false)
+    }
+
+    func testHandleLaunchOptionLocalNotificationOption(){
+        let wm = StubWorkManager()
+        let lm = StubLocationManager()
+
+        let options = [UIApplicationLaunchOptionsLocationKey: NSNumber(bool: true)]
+        ADHelper.handleLaunchOptions(options, workManager: wm, locationManager: lm)
+        XCTAssert(wm.resetWasCalled)
+        XCTAssert(lm.startedUpdating)
+
+    }
+
+    func testRegisteringDefaults(){
+
+        //user defaults are registered at app launch. So verify that everything is normal
+        let def = NSUserDefaults.standardUserDefaults()
+
+        ADHelper.registerDefaults(def)
+        XCTAssertFalse(def.boolForKey(.onboardingComplete))
+        XCTAssert(def.integerForKey(.hoursInWorkWeek) == 40)
+        XCTAssert(def.integerForKey(.resetDay) == 0)
+        XCTAssert(def.integerForKey(.resetHour) == 4)
+        XCTAssert(def.integerForKey(.workRadius) == 200)
+
+        let resetDate = def.objectForKey(.clearDate) as! NSDate
+        let cal = NSCalendar.currentCalendar()
+        let comps = cal.components([NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute, NSCalendarUnit.WeekdayOrdinal], fromDate: resetDate)
+        XCTAssert(comps.weekday == 1)//sunday
+        XCTAssert(comps.hour == 4)//4am
+        XCTAssert(comps.minute == 0)//4am
 
 
     }
 
 }
+

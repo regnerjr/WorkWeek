@@ -3,8 +3,8 @@ import Foundation
 ///
 /// The constant strings used for getting values in and out of NSUserDefaults
 ///
-public enum SettingsKey : String{
-
+public enum SettingsKey: String {
+    //TODO: Make all these names upper case, then shorten their use across the codebase
     /// Hours in a Work week an Int
     case hoursInWorkWeek = "hoursInWorkWeekPrefKey"
     /// The Day of the week to reset the
@@ -26,23 +26,26 @@ public struct Defaults {
 // Wish I could break up the settings keys into classes which would constrain this so only the
 // strings which control the double settings could be passes to doubleForKey
 extension NSUserDefaults {
-    public func doubleForKey(defaultName: SettingsKey) ->Double {
+    public func doubleForKey(defaultName: SettingsKey) -> Double {
         return doubleForKey(defaultName.rawValue)
     }
-    public func setDouble(value: Double, forKey defaultName: SettingsKey){
+    public func setDouble(value: Double, forKey defaultName: SettingsKey) {
         setDouble(value, forKey: defaultName.rawValue)
     }
     public func integerForKey(defaultName: SettingsKey) -> Int {
         return integerForKey(defaultName.rawValue)
     }
-    public func setInteger(value: Int, forKey defaultName: SettingsKey){
+    public func setInteger(value: Int, forKey defaultName: SettingsKey) {
         setInteger(value, forKey: defaultName.rawValue)
     }
-    public func setObject(object: AnyObject, forKey key: SettingsKey){
+    public func setObject(object: AnyObject, forKey key: SettingsKey) {
         setObject(object, forKey: key.rawValue)
     }
-    public func objectForKey(defaultName: SettingsKey) -> AnyObject?{
+    public func objectForKey(defaultName: SettingsKey) -> AnyObject? {
         return objectForKey(defaultName.rawValue)
+    }
+    public func setBool(value: Bool, forKey defaultName: SettingsKey) {
+        setBool(value, forKey: defaultName.rawValue)
     }
     public func boolForKey(defaultName: SettingsKey) -> Bool {
         return boolForKey(defaultName.rawValue)
@@ -50,16 +53,8 @@ extension NSUserDefaults {
 }
 
 
-public func updateDefaultResetDate( defaults: NSUserDefaults = Defaults.standard){
-    //get date from the settings
-    if let date = getDateForReset(
-        defaults.integerForKey(.resetDay),
-        hour: defaults.integerForKey(.resetHour),
-        minute: 0) {
-            defaults.setObject(date, forKey: .clearDate)
-    } else {
-        NSLog("Could not get a reset day for %@, %@",
-            defaults.integerForKey(.resetDay),
-            defaults.integerForKey(.resetHour))
-    }
+public func updateDefaultResetDate( defaults: NSUserDefaults = Defaults.standard) {
+    let date = getDateForReset(defaults.integerForKey(.resetDay),
+        hour: defaults.integerForKey(.resetHour), minute: 0)
+    defaults.setObject(date, forKey: .clearDate)
 }

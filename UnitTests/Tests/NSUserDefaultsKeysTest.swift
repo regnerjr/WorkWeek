@@ -78,7 +78,7 @@ class NSUserDefaultsKeysTest: XCTestCase {
         XCTAssert(defaults.setObjectKey == keyForTest.rawValue, "Correct Key is set for Objects")
         let result = defaults.objectForKey(keyForTest) as! NSDate?
         XCTAssertEqual(defaults.setObjectKey, keyForTest.rawValue, "Correct Key is used for getting object")
-        XCTAssertEqual(val, result!,  "Archive and restore Int works")
+        XCTAssert(val.timeIntervalSinceReferenceDate == result!.timeIntervalSinceReferenceDate, "Archived Date is the same as restored date")
     }
 
     func testUpdateDefaultResetDate(){

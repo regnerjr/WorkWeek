@@ -1,11 +1,12 @@
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, UIPickerViewDelegate {
 
     @IBOutlet weak var workHoursTextField: WorkHoursTextField!
     @IBOutlet weak var stepper: Stepper!
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var workRadiusField: WorkRadiusTextField!
+    @IBOutlet weak var resetDateLabel: UILabel!
 
     let pickerSource = DayTimePicker()
 
@@ -43,9 +44,20 @@ class SettingsViewController: UIViewController {
         setPickerDelegateAndDataSource()
         setPickerToDefaultRows()
         setTextFieldsAndSteppersToDefauls()
+
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        let fmt = NSDateFormatter()
+        fmt.timeStyle = NSDateFormatterStyle.ShortStyle
+        fmt.dateStyle = NSDateFormatterStyle.ShortStyle
+        if let date = Defaults.standard.objectForKey(.clearDate) as? NSDate {
+            resetDateLabel.text = fmt.stringFromDate(date)
+        }
     }
 
     override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
         defaultResetDay = picker.selectedRowInComponent(0)
         defaultResetHour = picker.selectedRowInComponent(1)
     }
@@ -77,6 +89,7 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func doneOnboarding(sender: UIBarButtonItem) {
+        viewWillDisappear(true)
         Defaults.standard.setBool(true, forKey: SettingsKey.onboardingComplete.rawValue)
         let ad = UIApplication.sharedApplication().delegate as? AppDelegate
         ad?.loadInterface()
@@ -85,6 +98,7 @@ class SettingsViewController: UIViewController {
     func setPickerDelegateAndDataSource(){
         picker.delegate = pickerSource
         picker.dataSource = pickerSource
+        pickerSource.dateLabel = resetDateLabel
     }
 
     func setPickerToDefaultRows(){
