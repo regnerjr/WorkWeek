@@ -79,15 +79,7 @@ public class TableViewController: UITableViewController {
 extension TableViewController {
 
     override public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        //TODO: Convert this to be a fraction of the screen height instead of a constant, This will help thing look better on smaller phones
-        return 150
-    }
-
-    override public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 80
-    }
-    public override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 80
+        return floor(UIScreen.mainScreen().bounds.height / 5)
     }
 
     override public func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
