@@ -9,7 +9,7 @@ enum StoryBoardSegues: String {
 enum ReuseIdentifiers: String {
     case headerCell = "headerView"
     case mainCell = "mainCell"
-    case footerCell = "footerView"
+    case footer = "footerView"
 }
 
 public class TableViewController: UITableViewController {
@@ -24,6 +24,7 @@ public class TableViewController: UITableViewController {
     var array = [WorkDay]()
 
     override public func viewDidLoad() {
+        tableView.registerClass(FooterTableView.self, forHeaderFooterViewReuseIdentifier: ReuseIdentifiers.footer.rawValue)
         navigationController?.title = "WorkWeek"
 
         locationManager.manager.startUpdatingLocation()
@@ -51,6 +52,7 @@ public class TableViewController: UITableViewController {
 
     func reloadTableViewNotification(note: NSNotification){
         print("Reloading TableView Due to Notification")
+        array = workManager.allItems()
         tableView.reloadData()
     }
 
@@ -71,7 +73,9 @@ public class TableViewController: UITableViewController {
 
     func reloadTableView(timer: NSTimer){
         print("Reloading table view due to timer")
-        self.tableView.reloadData()
+        //for now get new data too!
+        array = workManager.allItems()
+        tableView.reloadData()
     }
 }
 
@@ -91,29 +95,12 @@ extension TableViewController {
     }
 
     override public func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if let footer = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.footerCell.rawValue) as! FooterTableViewCell? {
-            if workManager.isAtWork {
-                footer.contentView.backgroundColor = OverlayColor.Fill
-                //get the current work time
-                if let lastArrival = workManager.eventsForTheWeek.lastObject as? Event {
-                    if lastArrival.inOrOut == .Arrival {
-                        footer.AtWorkLabel.text = "At Work: " + lastArrival.date.dayOfWeek
-                        footer.ArrivedTimeLabel.text = Formatter.shortTime.stringFromDate(lastArrival.date)
-                        footer.activityIndicator.startAnimating()
-                        let (h,m) = hoursMinutesFromDate(date: lastArrival.date, toDate: NSDate())
-                        footer.timeSoFarLabel.text = Formatter.double.stringFromDouble(getDoubleFrom(hours: h, min: m))
-                    }
-                }
-            } else {
-                footer.activityIndicator.stopAnimating()
-            }
 
-            return footer
-        } else { //if we can't deque a Reusable Cell, just fail gracefully with a View with a white background
-            let defaultfooter = UIView()
-            defaultfooter.backgroundColor = UIColor.whiteColor()
-            return defaultfooter
-        }
+        guard workManager.isAtWork == true  else { return nil }
+
+        let footer = tableView.dequeueReusableHeaderFooterViewWithIdentifier(ReuseIdentifiers.footer.rawValue) as! FooterTableView
+        footer.configureWithLastArrival(workManager.lastArrival)
+        return footer
     }
 
     override public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -124,9 +111,7 @@ extension TableViewController {
             graph.hoursLabel.text = String(graph.hoursWorked)
             return header
         } else {
-            let defaultHeader = UIView()
-            defaultHeader.backgroundColor = .redColor()
-            return defaultHeader
+            return nil
         }
     }
 }

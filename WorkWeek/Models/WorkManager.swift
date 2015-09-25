@@ -13,7 +13,7 @@ struct Archive {
 
 public class WorkManager : NSObject {
 
-    public private(set) var eventsForTheWeek = NSMutableArray() {
+    public private(set) var eventsForTheWeek = Array<Event>() {
         willSet {
             print("Events for the week Will Set did fire:")
             print("New Value: \(newValue)")
@@ -21,10 +21,9 @@ public class WorkManager : NSObject {
     }
 
     func addOrRemoveNotification(newEvent: Event) {
-        if newEvent.inOrOut == .Arrival {
-            //do arrival stuff here
-        } else if newEvent.inOrOut == .Departure {
-            //do departure stuff here
+        switch newEvent.ad {
+        case .Arrival: print("Arrived: \(newEvent.date)")
+        case .Departure: print("Departed: \(newEvent.date)")
         }
     }
 
@@ -43,33 +42,36 @@ public class WorkManager : NSObject {
     }
 
     public var isAtWork: Bool {
-        if let lastEvent = eventsForTheWeek.lastObject as? Event{
-            return lastEvent.inOrOut == .Arrival //if the last event was an arrival return true
+        guard let event = eventsForTheWeek.last else {
+            return false //never been there not there now
         }
-        return false // if no events then there has not been an arrival
+        switch event.ad {
+        case .Arrival: return true
+        case .Departure: return false
+        }
     }
 
     // MARK: - Init
     public override init() {
         super.init()
-        eventsForTheWeek = restoreArchivedEvents() ?? NSMutableArray()
+        eventsForTheWeek = restoreArchivedEvents() ?? Array<Event>()
     }
 
     public func addArrival(date: NSDate = NSDate()) {
         //set up a notification to fire at 40 hours
         localNotificationHandler.setupNotification(hoursWorkedThisWeek, hoursInFullWorkWeek: hoursInWorkWeek)
-        let newArrival = Event(inOrOut: .Arrival, date: date)
-        print("Adding a New Arrival, \(newArrival.inOrOut.rawValue), with date \(newArrival.date)")
-        eventsForTheWeek.addObject(newArrival)
+        let newArrival = Event(ad: .Arrival, date: date)
+        print("Adding a New Arrival, \(newArrival), with date \(newArrival.date)")
+        eventsForTheWeek.append(newArrival)
         postNotification()
         saveNewArchive(eventsForTheWeek)
     }
 
     public func addDeparture(date: NSDate = NSDate()) {
         localNotificationHandler.cancelAllNotifications()
-        let newDeparture = Event(inOrOut: .Departure, date: date)
-        print("Adding a New Departure, \(newDeparture.inOrOut.rawValue), with date \(newDeparture.date)")
-        eventsForTheWeek.addObject(newDeparture)
+        let departure = Event(ad: .Departure, date: date)
+        print("Adding a New Departure, \(departure), with date \(departure.date)")
+        eventsForTheWeek.append(departure)
         postNotification()
         saveNewArchive(eventsForTheWeek)
         workDays = processEvents(eventsForTheWeek)
@@ -77,7 +79,7 @@ public class WorkManager : NSObject {
     }
 
     public func clearEvents() {
-        eventsForTheWeek = NSMutableArray()
+        eventsForTheWeek = Array<Event>()
         postNotification()
         //clear the archive as well
         saveNewArchive(eventsForTheWeek)
@@ -96,14 +98,26 @@ public class WorkManager : NSObject {
         center.postNotification(note)
     }
 
-    private func restoreArchivedEvents() -> NSMutableArray? {
+    private func restoreArchivedEvents() -> Array<Event>? {
         // Get the archived events, nil if there are none
-        return NSKeyedUnarchiver.unarchiveMutableArrayWithFile(Archive.path)
+        guard let objects =  NSKeyedUnarchiver.unarchiveMutableArrayWithFile(Archive.path) else {
+            return nil
+        }
+        var restored = Array<Event>()
+        for item in objects {
+            guard let item = item as? EncodeEvent else {
+                fatalError("turns out you can't do this cast! ")
+            }
+            restored.append(item.value)
+        }
+        return restored
     }
 
-    private func saveNewArchive(events : NSMutableArray) -> Bool {
+    private func saveNewArchive(events: Array<Event>) -> Bool {
+        let archiveArray = NSMutableArray()
+        archiveArray.addObjectsFromArray(events.map{EncodeEvent(ev: $0)})
         if let path = Archive.path {
-            return NSKeyedArchiver.archiveRootObject(self.eventsForTheWeek, toFile: path)
+            return NSKeyedArchiver.archiveRootObject(archiveArray, toFile: path)
         }
         return false
     }
@@ -114,40 +128,36 @@ public class WorkManager : NSObject {
         return workDays
     }
 
-    public func processEvents(inEvents:  NSMutableArray ) -> [WorkDay] {
+    public func processEvents(var inEvents:  Array<Event> ) -> [WorkDay] {
         // make a copy so we can mutate this
-        let events = inEvents.mutableCopy() as! NSMutableArray
         var workTimes = [WorkDay]()
         //items should be paired, make sure first item is an arrival
         //if not drop it
-        removeFirstObjectIfDeparture(events)
+        inEvents = removeFirstObjectIfDeparture(inEvents)
 
-        while events.count >= 2 { //loop through events pairing them
+        while inEvents.count >= 2 { //loop through events pairing them
+            let first  = inEvents.removeAtIndex(0)
+            let second = inEvents.removeAtIndex(0)
 
-            let first  = events.objectAtIndex(0) as! Event
-            let second = events.objectAtIndex(1) as! Event
-            if first.inOrOut == .Arrival &&
-              second.inOrOut == .Departure {
-                //we have two paired items
+            switch (first.ad, second.ad){
+            case (.Arrival, .Departure):
                 let day = makeWorkDayFrom(event1: first, event2: second)
                 workTimes.append(day)
+            case (_,_): continue
             }
-            events.removeObjectAtIndex(0) //remove the arrival
-            events.removeObjectAtIndex(0) //remove the departure
         }
 
         return workTimes
-
     }
 
-    private func removeFirstObjectIfDeparture(events: NSMutableArray){
+    private func removeFirstObjectIfDeparture(var events: Array<Event>) -> Array<Event>{
         if events.count > 0  {
-            if let first = events[0] as? Event {
-                if first.inOrOut == .Departure {
-                    events.removeObjectAtIndex(0)
-                }
+            if events.first?.ad == .Departure {
+                events.removeFirst()
+                return events
             }
         }
+        return events
     }
 
     private func makeWorkDayFrom(event1 first: Event, event2 second: Event) -> WorkDay{
@@ -177,13 +187,18 @@ public class WorkManager : NSObject {
         }
     }
 
+    var lastArrival: Event? {
+        guard let lastArrival = eventsForTheWeek.last where lastArrival.ad == .Arrival  else {
+            return nil
+        }
+        return lastArrival
+    }
+
     public func hoursSoFarToday() -> Double {
-        if let lastArrival = eventsForTheWeek.lastObject as? Event {
-            if lastArrival.inOrOut == .Arrival {
-                let (h,m) = hoursMinutesFromDate(date: lastArrival.date, toDate: NSDate())
-                let hoursToday = getDoubleFrom(hours: h, min: m)
-                return hoursToday
-            }
+        if let lastArrival = lastArrival {
+            let (h,m) = hoursMinutesFromDate(date: lastArrival.date, toDate: NSDate())
+            let hoursToday = getDoubleFrom(hours: h, min: m)
+            return hoursToday
         }
         return 0
     }

@@ -80,6 +80,7 @@ class TableViewDataSourceTests: XCTestCase {
         XCTAssertEqual(workCell.workDate!.text!, "Mon", "")
         XCTAssertEqual(workCell.workTime!.text!, "8.0", "")
         let timeFormatter = NSDateFormatter(); timeFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        //Fragile Tests
         XCTAssertEqual(workCell.arrivalTime!.text!, timeFormatter.stringFromDate(arrivalTime), "")
         XCTAssertEqual(workCell.departureTime!.text!, timeFormatter.stringFromDate(departureTime), "")
 

@@ -25,6 +25,11 @@ class AppDelegateTests: XCTestCase {
         super.setUp()
         app = UIApplication.sharedApplication()
         ad = UIApplication.sharedApplication().delegate as! AppDelegate
+
+        //Clear User Defaults
+        let domainName = NSBundle.mainBundle().bundleIdentifier
+        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(domainName!)
+
     }
 
     func testDataIsResetWhenApplicationEntersForeground(){
@@ -32,7 +37,7 @@ class AppDelegateTests: XCTestCase {
         let wm = StubWorkManager()
         ad.workManager = wm
 
-        ad.applicationWillEnterForeground(app)
+        ad.applicationDidBecomeActive(app)
         XCTAssert(wm.resetWasCalled)
     }
 
@@ -41,7 +46,7 @@ class AppDelegateTests: XCTestCase {
         app.applicationIconBadgeNumber = 40
         XCTAssert(app.applicationIconBadgeNumber > 0)
 
-        ad.applicationWillEnterForeground(app)
+        ad.applicationDidBecomeActive(app)
         XCTAssert(app.applicationIconBadgeNumber == 0)
     }
 
@@ -97,7 +102,8 @@ class AppDelegateTests: XCTestCase {
         let lm = StubLocationManager()
 
         let options: [NSObject:AnyObject]? = nil
-        ADHelper.handleLaunchOptions(options, workManager: wm, locationManager: lm)
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.handleLaunchOptions(options, workManager: wm)
         XCTAssert(wm.resetWasCalled == false)
         XCTAssert(lm.startedUpdating == false)
     }
@@ -107,7 +113,9 @@ class AppDelegateTests: XCTestCase {
         let lm = StubLocationManager()
 
         let options = [UIApplicationLaunchOptionsLocationKey: NSNumber(bool: true)]
-        ADHelper.handleLaunchOptions(options, workManager: wm, locationManager: lm)
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.locationManager = lm
+        appDelegate.handleLaunchOptions(options, workManager: wm)
         XCTAssert(wm.resetWasCalled)
         XCTAssert(lm.startedUpdating)
 
@@ -127,7 +135,7 @@ class AppDelegateTests: XCTestCase {
 
         let resetDate = def.objectForKey(.clearDate) as! NSDate
         let cal = NSCalendar.currentCalendar()
-        let comps = cal.components([NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute, NSCalendarUnit.WeekdayOrdinal], fromDate: resetDate)
+        let comps = cal.components([NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute, NSCalendarUnit.Weekday], fromDate: resetDate)
         XCTAssert(comps.weekday == 1)//sunday
         XCTAssert(comps.hour == 4)//4am
         XCTAssert(comps.minute == 0)//4am
