@@ -18,9 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
-        workManager.resetDataIfNeeded()
+        workManager.resetDataIfNeeded() //move these to the correct areas
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-        ADHelper.reloadTableViewIfShown(self)
+        ADHelper.reloadTableViewIfShown(self) //move this to the
     }
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
@@ -60,7 +60,6 @@ class ADHelper {
         vc.presentViewController(alert, animated: true, completion: nil)
     }
 
-
     static func registerDefaults(userDefaults: NSUserDefaults = Defaults.standard){
         let defaultResetDate = getDateForReset(0, hour: 4, minute: 0)
         print("Registering Reset Date: \(defaultResetDate)")
@@ -74,6 +73,7 @@ class ADHelper {
         ]
         userDefaults.registerDefaults(defaults)
     }
+
     static func reloadTableViewIfShown(ad: AppDelegate){
         let navController = ad.window?.rootViewController as? UINavigationController
         guard let tvc = navController?.topViewController as? TableViewController else {
