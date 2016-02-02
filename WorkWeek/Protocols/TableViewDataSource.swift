@@ -1,6 +1,5 @@
 import UIKit
 
-//MARK: - UITableViewDataSource
 extension TableViewController {
 
     override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -10,9 +9,8 @@ extension TableViewController {
     override public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return workManager.allItems().count
-        } else {
-            return 0
         }
+        return 0
     }
 
     override public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

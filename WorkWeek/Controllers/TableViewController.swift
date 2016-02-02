@@ -44,6 +44,7 @@ public class TableViewController: UITableViewController {
 
     func listenForNotifications(center: NSNotificationCenter = NSNotificationCenter.defaultCenter()){
         center.addObserver(self, selector: "reloadTableViewNotification:", name: "WorkWeekUpdated", object: nil)
+        center.addObserver(self, selector: "reloadTableViewNotification:", name: "UIApplicationDidBecomeActiveNotification", object: nil)
     }
 
     func stopListeningToNotifications(center: NSNotificationCenter = NSNotificationCenter.defaultCenter()){

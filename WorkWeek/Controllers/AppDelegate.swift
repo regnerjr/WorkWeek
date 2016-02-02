@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(application: UIApplication) {
         workManager.resetDataIfNeeded() //move these to the correct areas
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-        ADHelper.reloadTableViewIfShown(self) //move this to the
     }
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
@@ -72,15 +71,6 @@ class ADHelper {
             SettingsKey.clearDate.rawValue: defaultResetDate
         ]
         userDefaults.registerDefaults(defaults)
-    }
-
-    static func reloadTableViewIfShown(ad: AppDelegate){
-        let navController = ad.window?.rootViewController as? UINavigationController
-        guard let tvc = navController?.topViewController as? TableViewController else {
-            return
-        }
-        tvc.reloadTableView(NSTimer())
-
     }
 
 }

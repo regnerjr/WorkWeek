@@ -39,11 +39,11 @@ class NSDateExtensionsTest: XCTestCase {
         XCTAssertEqual(oneWeekComparison, NSComparisonResult.OrderedDescending, "Reset Date is less than one week in the future")
     }
 
-    func testDateForReset_withWeekWrap(){
+    func testDateForReset_2(){
         NSTimeZone.setDefaultTimeZone(NSTimeZone(forSecondsFromGMT: 0))
         //set reset day to be same day as it is now. 
 
-        let day = NSCalendar.currentCalendar().components(.Weekday, fromDate: NSDate()).weekday - 1
+        let day = 2
         let hour = 4 // 4 am
         let minute = 0 //always zero
         let resetDate = getDateForReset(day, hour: hour, minute: minute)
@@ -60,6 +60,48 @@ class NSDateExtensionsTest: XCTestCase {
         XCTAssertEqual(oneWeekComparison, NSComparisonResult.OrderedDescending, "Reset Date is less than one week in the future")
     }
 
+    func testDateForReset_4(){
+        NSTimeZone.setDefaultTimeZone(NSTimeZone(forSecondsFromGMT: 0))
+        //set reset day to be same day as it is now. 
+
+        let day = 4
+        let hour = 4 // 4 am
+        let minute = 0 //always zero
+        let resetDate = getDateForReset(day, hour: hour, minute: minute)
+        // reset date should have components of sunday 4: 00 am
+        let resetComps = NSCalendar.currentCalendar().components(
+            [NSCalendarUnit.Weekday, NSCalendarUnit.Hour, NSCalendarUnit.Minute],
+            fromDate: resetDate)
+        XCTAssertEqual(resetComps.weekday, day + 1, "Reset day set to currentWeekday")
+        XCTAssertEqual(resetComps.hour, 4, "Reset hour is 4 am ")
+        let comparison = NSDate().compare(resetDate)
+        XCTAssertEqual(comparison, NSComparisonResult.OrderedAscending, "Reset Date is in the future")
+        //but it is less than 1 week in the future
+        let oneWeekComparison = NSDate(timeIntervalSinceNow: 7 * 24 * 60 * 60).compare(resetDate) //one week 7days, 24hours,60minutes, 60 seconds
+        XCTAssertEqual(oneWeekComparison, NSComparisonResult.OrderedDescending, "Reset Date is less than one week in the future")
+    }
+
+    func testDateForReset_6(){
+        NSTimeZone.setDefaultTimeZone(NSTimeZone(forSecondsFromGMT: 0))
+        //set reset day to be same day as it is now. 
+
+        let day = 6
+        let hour = 4 // 4 am
+        let minute = 0 //always zero
+        let resetDate = getDateForReset(day, hour: hour, minute: minute)
+        // reset date should have components of sunday 4: 00 am
+        let resetComps = NSCalendar.currentCalendar().components(
+            [NSCalendarUnit.Weekday, NSCalendarUnit.Hour, NSCalendarUnit.Minute],
+            fromDate: resetDate)
+        XCTAssertEqual(resetComps.weekday, day + 1, "Reset day set to currentWeekday")
+        XCTAssertEqual(resetComps.hour, 4, "Reset hour is 4 am ")
+        let comparison = NSDate().compare(resetDate)
+        XCTAssertEqual(comparison, NSComparisonResult.OrderedAscending, "Reset Date is in the future")
+        //but it is less than 1 week in the future
+        let oneWeekComparison = NSDate(timeIntervalSinceNow: 7 * 24 * 60 * 60).compare(resetDate) //one week 7days, 24hours,60minutes, 60 seconds
+        XCTAssertEqual(oneWeekComparison, NSComparisonResult.OrderedDescending, "Reset Date is less than one week in the future")
+    }
+    
     func testHourMinuteCalculations(){
 
         let referenceDate = NSDate(timeIntervalSinceReferenceDate: 0)

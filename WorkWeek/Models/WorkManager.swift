@@ -103,6 +103,7 @@ public class WorkManager : NSObject {
         guard let objects =  NSKeyedUnarchiver.unarchiveMutableArrayWithFile(Archive.path) else {
             return nil
         }
+        print(objects)
         var restored = Array<Event>()
         for item in objects {
             guard let item = item as? EncodeEvent else {
