@@ -14,13 +14,14 @@ class AppDelegateTests: XCTestCase {
             resetWasCalled = true
         }
     }
+
     class StubLocationManager: LocationManager {
         var startedUpdating = false
         override func startUpdatingLocation(){
             startedUpdating = true
         }
-
     }
+
     override func setUp() {
         super.setUp()
         app = UIApplication.sharedApplication()
@@ -29,11 +30,9 @@ class AppDelegateTests: XCTestCase {
         //Clear User Defaults
         let domainName = NSBundle.mainBundle().bundleIdentifier
         NSUserDefaults.standardUserDefaults().removePersistentDomainForName(domainName!)
-
     }
 
     func testDataIsResetWhenApplicationEntersForeground(){
-
         let wm = StubWorkManager()
         ad.workManager = wm
 
@@ -63,7 +62,7 @@ class AppDelegateTests: XCTestCase {
 
     func testLoadInterfaceReturnsCorrectStoryboardIfOnboardingIsNOTComplete(){
         let def = NSUserDefaults(suiteName: "testDefaults")
-        def?.setBool(false, forKey: SettingsKey.onboardingComplete)
+        def?.setBool(false, forKey: SettingsKey.OnboardingComplete)
         let onboardingVC = ADHelper.loadInterface(def!)
 
         XCTAssert(onboardingVC?.restorationIdentifier == "OnboardingFirstScreen")
@@ -71,7 +70,7 @@ class AppDelegateTests: XCTestCase {
 
     func testLoadInterfaceReturnsCorrectStoryboardIfOnboardingIsComplete(){
         let def = NSUserDefaults(suiteName: "testDefaults")
-        def?.setBool(true, forKey: SettingsKey.onboardingComplete)
+        def?.setBool(true, forKey: SettingsKey.OnboardingComplete)
         let onboardingVC = ADHelper.loadInterface(def!)
 
         XCTAssert(onboardingVC?.restorationIdentifier == "MainStoryboardInitialVC")
@@ -96,7 +95,6 @@ class AppDelegateTests: XCTestCase {
         XCTAssertNil(vc.presentedViewController)
     }
 
-
     func testHandleLaunch_No_Options(){
         let wm = StubWorkManager()
         let lm = StubLocationManager()
@@ -118,7 +116,6 @@ class AppDelegateTests: XCTestCase {
         appDelegate.handleLaunchOptions(options, workManager: wm)
         XCTAssert(wm.resetWasCalled)
         XCTAssert(lm.startedUpdating)
-
     }
 
     func testRegisteringDefaults(){
@@ -127,21 +124,18 @@ class AppDelegateTests: XCTestCase {
         let def = NSUserDefaults.standardUserDefaults()
 
         ADHelper.registerDefaults(def)
-        XCTAssertFalse(def.boolForKey(.onboardingComplete))
-        XCTAssert(def.integerForKey(.hoursInWorkWeek) == 40)
-        XCTAssert(def.integerForKey(.resetDay) == 0)
-        XCTAssert(def.integerForKey(.resetHour) == 4)
-        XCTAssert(def.integerForKey(.workRadius) == 200)
+        XCTAssertFalse(def.boolForKey(.OnboardingComplete))
+        XCTAssert(def.integerForKey(.HoursInWorkWeek) == 40)
+        XCTAssert(def.integerForKey(.ResetDay) == 0)
+        XCTAssert(def.integerForKey(.ResetHour) == 4)
+        XCTAssert(def.integerForKey(.WorkRadius) == 200)
 
-        let resetDate = def.objectForKey(.clearDate) as! NSDate
+        let resetDate = def.objectForKey(.ClearDate) as! NSDate
         let cal = NSCalendar.currentCalendar()
         let comps = cal.components([NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute, NSCalendarUnit.Weekday], fromDate: resetDate)
         XCTAssert(comps.weekday == 1)//sunday
         XCTAssert(comps.hour == 4)//4am
         XCTAssert(comps.minute == 0)//4am
-
-
     }
 
 }
-

@@ -1,17 +1,19 @@
 import UIKit
 
 class DayTimePicker: NSObject {
+
     lazy var dateFormatter: NSDateFormatter = {
         return NSDateFormatter()
     }()
+
     lazy var shortDateFmt: NSDateFormatter = {
         let fmt = NSDateFormatter()
         fmt.timeStyle = NSDateFormatterStyle.ShortStyle
         fmt.dateStyle = NSDateFormatterStyle.ShortStyle
         return fmt
     }()
+
     var calendar = NSCalendar.currentCalendar()
-    
     //TODO: Look at this awesome Hack?
     weak var dateLabel: UILabel? = nil
 }

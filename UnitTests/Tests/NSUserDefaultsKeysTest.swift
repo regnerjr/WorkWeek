@@ -52,7 +52,7 @@ class NSUserDefaultsKeysTest: XCTestCase {
     }
 
     func testSavingAndRetrievingADouble() {
-        let keyForTest = SettingsKey.hoursInWorkWeek
+        let keyForTest = SettingsKey.HoursInWorkWeek
         let val = 10.0
         defaults.setDouble(val, forKey: keyForTest)
         XCTAssert(defaults.setDoubleKey == keyForTest.rawValue, "Correct Key is set, in user Defaults")
@@ -62,7 +62,7 @@ class NSUserDefaultsKeysTest: XCTestCase {
     }
 
     func testSavingAndRetrievingAnInt() {
-        let keyForTest = SettingsKey.hoursInWorkWeek
+        let keyForTest = SettingsKey.HoursInWorkWeek
         let val = 45
         defaults.setInteger(val, forKey: keyForTest)
         XCTAssert(defaults.setIntKey == keyForTest.rawValue, "Correct Key is set for Ints")
@@ -72,7 +72,7 @@ class NSUserDefaultsKeysTest: XCTestCase {
     }
 
     func testSavingAndRetrievingADate() {
-        let keyForTest = SettingsKey.clearDate
+        let keyForTest = SettingsKey.ClearDate
         let val = NSDate()
         defaults.setObject(val, forKey: keyForTest)
         XCTAssert(defaults.setObjectKey == keyForTest.rawValue, "Correct Key is set for Objects")
@@ -83,7 +83,7 @@ class NSUserDefaultsKeysTest: XCTestCase {
 
     func testUpdateDefaultResetDate(){
         updateDefaultResetDate(defaults)
-        XCTAssertEqual(defaults.setObjectKey, SettingsKey.clearDate.rawValue, "Sets a new clear date")
+        XCTAssertEqual(defaults.setObjectKey, SettingsKey.ClearDate.rawValue, "Sets a new clear date")
     }
 
 }

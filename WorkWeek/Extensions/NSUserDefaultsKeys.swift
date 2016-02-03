@@ -4,15 +4,12 @@ import Foundation
 /// The constant strings used for getting values in and out of NSUserDefaults
 ///
 public enum SettingsKey: String {
-    //TODO: Make all these names upper case, then shorten their use across the codebase
-    /// Hours in a Work week an Int
-    case hoursInWorkWeek = "hoursInWorkWeekPrefKey"
-    /// The Day of the week to reset the
-    case resetDay        = "resetDayPrefKey"
-    case resetHour       = "resetHourPrefKey"
-    case workRadius      = "workRadiusPrefKey"
-    case clearDate       = "clearDate"
-    case onboardingComplete = "onboardingComplete"
+    case HoursInWorkWeek = "hoursInWorkWeekPrefKey"
+    case ResetDay        = "resetDayPrefKey"
+    case ResetHour       = "resetHourPrefKey"
+    case WorkRadius      = "workRadiusPrefKey"
+    case ClearDate       = "clearDate"
+    case OnboardingComplete = "onboardingComplete"
 }
 
 ///
@@ -54,7 +51,7 @@ extension NSUserDefaults {
 
 
 public func updateDefaultResetDate( defaults: NSUserDefaults = Defaults.standard) {
-    let date = getDateForReset(defaults.integerForKey(.resetDay),
-        hour: defaults.integerForKey(.resetHour), minute: 0)
-    defaults.setObject(date, forKey: .clearDate)
+    let date = getDateForReset(defaults.integerForKey(.ResetDay),
+        hour: defaults.integerForKey(.ResetHour), minute: 0)
+    defaults.setObject(date, forKey: .ClearDate)
 }

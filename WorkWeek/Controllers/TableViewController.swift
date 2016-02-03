@@ -107,7 +107,7 @@ extension TableViewController {
     override public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let header = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.headerCell.rawValue) as UITableViewCell? {
             let graph = header.contentView.subviews[0] as! HeaderView
-            graph.hoursInWeek = Defaults.standard.integerForKey(.hoursInWorkWeek)
+            graph.hoursInWeek = Defaults.standard.integerForKey(.HoursInWorkWeek)
             graph.hoursWorked = Int(workManager.hoursWorkedThisWeek + workManager.hoursSoFarToday()) //loss of precision to draw the graph using only hour marks.
             graph.hoursLabel.text = String(graph.hoursWorked)
             return header

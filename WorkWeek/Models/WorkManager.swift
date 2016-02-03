@@ -20,13 +20,6 @@ public class WorkManager : NSObject {
         }
     }
 
-    func addOrRemoveNotification(newEvent: Event) {
-        switch newEvent.ad {
-        case .Arrival: print("Arrived: \(newEvent.date)")
-        case .Departure: print("Departed: \(newEvent.date)")
-        }
-    }
-
     var localNotificationHandler = LocalNotifier()
 
     private var workDays = Array<WorkDay>()
@@ -38,7 +31,7 @@ public class WorkManager : NSObject {
     }
 
     var hoursInWorkWeek: Int {
-        return Defaults.standard.integerForKey(.hoursInWorkWeek)
+        return Defaults.standard.integerForKey(.HoursInWorkWeek)
     }
 
     public var isAtWork: Bool {
@@ -123,7 +116,6 @@ public class WorkManager : NSObject {
         return false
     }
 
-
     public func allItems() -> [WorkDay] {
         workDays = processEvents(eventsForTheWeek)
         return workDays
@@ -173,7 +165,7 @@ public class WorkManager : NSObject {
 
 
     func resetDataIfNeeded(defaults: NSUserDefaults = Defaults.standard) {
-        if let resetDate = defaults.objectForKey(.clearDate) as? NSDate {
+        if let resetDate = defaults.objectForKey(.ClearDate) as? NSDate {
             switch resetDate.compare(NSDate()) {
             case .OrderedSame:
                 clearEvents()
