@@ -121,16 +121,16 @@ public class WorkManager : NSObject {
         return workDays
     }
 
-    public func processEvents(var inEvents:  Array<Event> ) -> [WorkDay] {
+    public func processEvents(inEvents:  Array<Event> ) -> [WorkDay] {
         // make a copy so we can mutate this
         var workTimes = [WorkDay]()
         //items should be paired, make sure first item is an arrival
         //if not drop it
-        inEvents = removeFirstObjectIfDeparture(inEvents)
+        var modifiedEvents = removeFirstObjectIfDeparture(inEvents)
 
-        while inEvents.count >= 2 { //loop through events pairing them
-            let first  = inEvents.removeAtIndex(0)
-            let second = inEvents.removeAtIndex(0)
+        while modifiedEvents.count >= 2 { //loop through events pairing them
+            let first  = modifiedEvents.removeAtIndex(0)
+            let second = modifiedEvents.removeAtIndex(0)
 
             switch (first.ad, second.ad){
             case (.Arrival, .Departure):
@@ -143,11 +143,10 @@ public class WorkManager : NSObject {
         return workTimes
     }
 
-    private func removeFirstObjectIfDeparture(var events: Array<Event>) -> Array<Event>{
+    private func removeFirstObjectIfDeparture(events: Array<Event>) -> Array<Event>{
         if events.count > 0  {
             if events.first?.ad == .Departure {
-                events.removeFirst()
-                return events
+                return Array(events.dropFirst(1))
             }
         }
         return events

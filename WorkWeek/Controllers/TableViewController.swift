@@ -43,8 +43,8 @@ public class TableViewController: UITableViewController {
     }
 
     func listenForNotifications(center: NSNotificationCenter = NSNotificationCenter.defaultCenter()){
-        center.addObserver(self, selector: "reloadTableViewNotification:", name: "WorkWeekUpdated", object: nil)
-        center.addObserver(self, selector: "reloadTableViewNotification:", name: "UIApplicationDidBecomeActiveNotification", object: nil)
+        center.addObserver(self, selector: #selector(reloadTableViewNotification(_:)), name: "WorkWeekUpdated", object: nil)
+        center.addObserver(self, selector: #selector(reloadTableViewNotification(_:)), name: "UIApplicationDidBecomeActiveNotification", object: nil)
     }
 
     func stopListeningToNotifications(center: NSNotificationCenter = NSNotificationCenter.defaultCenter()){
@@ -69,7 +69,7 @@ public class TableViewController: UITableViewController {
 
     // MARK: - Helper Functions
     func configureTimerToReloadTheTableViewEveryMinute(){
-        NSTimer.scheduledTimerWithTimeInterval(60.0, target: self, selector: "reloadTableView:", userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(60.0, target: self, selector: #selector(reloadTableViewNotification(_:)), userInfo: nil, repeats: true)
     }
 
     func reloadTableView(timer: NSTimer){
