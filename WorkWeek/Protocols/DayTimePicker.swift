@@ -46,11 +46,14 @@ extension DayTimePicker: UIPickerViewDataSource {
 
 extension DayTimePicker: UIPickerViewDelegate {
 
-    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+    func pickerView(pickerView: UIPickerView,
+                    viewForRow row: Int,
+                    forComponent component: Int,
+                    reusingView view: UIView?) -> UIView {
 
         switch component {
-        case 0: return makeADayView(row, withLabel: UILabel(frame: CGRectZero))
-        case 1: return makeAnHourView(row, withLabel: UILabel(frame: CGRectZero))
+        case 0: return makeADayView(row, withLabel: UILabel(frame: .zero))
+        case 1: return makeAnHourView(row, withLabel: UILabel(frame: .zero))
         default:
             print("Something is wrong! asked for picker views for component: \(component)")
             return view ?? UIView() //return the same view?

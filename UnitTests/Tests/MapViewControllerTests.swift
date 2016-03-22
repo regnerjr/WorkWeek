@@ -8,13 +8,18 @@ class MapViewControllerTests: XCTestCase {
     var storyboard: UIStoryboard!
     var mapVC: MapViewController!
     var view: UIView!
+
     override func setUp() {
         super.setUp()
         storyboard = UIStoryboard(name: "Main", bundle: nil)
-        mapVC = storyboard.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
+        guard let vc = storyboard.instantiateViewControllerWithIdentifier("MapViewController")
+            as? MapViewController else {
+                XCTFail("Can't get Map VC") ; return
+        }
+        mapVC = vc
         view = mapVC.view
     }
-    
+
     override func tearDown() {
         storyboard = nil
         mapVC = nil

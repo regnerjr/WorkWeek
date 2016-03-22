@@ -2,7 +2,7 @@ import Foundation
 
 /**
     Extensions for NSNumberFormatter, to make more code typesafe ish
-    
+
     I know the docs say that NSNumberFormatter.stringFromNumber() returns
     an optional. Not sure how to cause this behavior. Guess I am OK with force unwrapping this here.
 */
@@ -17,5 +17,5 @@ public extension NSNumberFormatter {
     func stringFromDouble(value: Double) -> String {
         return stringFromNumber(value)!
     }
-    
+
 }

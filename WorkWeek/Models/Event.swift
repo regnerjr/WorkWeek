@@ -6,11 +6,11 @@ import Foundation
 /// and each event has a specific absolute date on which it happened
 ///
 public struct Event {
-    enum AD {
+    enum AD { //swiftlint:disable:this type_name
         case Arrival
         case Departure
     }
-    let ad: AD
+    let ad: AD //swiftlint:disable:this variable_name
     let date: NSDate
 
     /// timeString is a property which returns the short time for the event
@@ -20,15 +20,15 @@ public struct Event {
     }
 
     var timeSinceEventHoursDouble: Double {
-        let (h,m) = hoursMinutesFromDate(date: self.date, toDate: NSDate())
+        let (h, m) = hoursMinutesFromDate(date: self.date, toDate: NSDate())
         return getDoubleFrom(hours: h, min: m)
     }
 
 }
 
 extension Event: Equatable {}
-public func ==(lhs: Event, rhs: Event) -> Bool {
-    if lhs.ad == rhs.ad && lhs.date == rhs.date{
+public func == (lhs: Event, rhs: Event) -> Bool {
+    if lhs.ad == rhs.ad && lhs.date == rhs.date {
         return true
     } else {
         return false
@@ -39,15 +39,15 @@ public class EncodeEvent: NSObject, NSCoding {
 
     let value: Event
 
-    func arrivalDepartureObject(ev: Event) -> AnyObject{
-        switch ev.ad {
+    func arrivalDepartureObject(event: Event) -> AnyObject {
+        switch event.ad {
         case .Arrival: return NSNumber(bool: true) // yes arbitrary mapping
         case .Departure: return NSNumber(bool: false)
         }
     }
 
-    init(ev: Event){
-        value = ev
+    init(event: Event) {
+        value = event
     }
 
     // NSCoding Conformance
@@ -57,7 +57,8 @@ public class EncodeEvent: NSObject, NSCoding {
     }
 
     required public init?(coder aDecoder: NSCoder) {
-        guard let arrivalDeparture = aDecoder.decodeObjectForKey( RestorationKey.inOrOut) as? NSNumber else {
+        guard let arrivalDeparture = aDecoder.decodeObjectForKey(
+                                        RestorationKey.inOrOut) as? NSNumber else {
             fatalError("Error restoring From Archive \(aDecoder)")
         }
         guard let date = aDecoder.decodeObjectForKey(RestorationKey.date) as? NSDate else {

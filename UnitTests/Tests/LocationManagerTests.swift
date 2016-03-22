@@ -24,8 +24,9 @@ protocol Notifier {
 extension NSNotificationCenter : Notifier {}
 
 struct FakeNotificationCenter: Notifier {
-    var observerAdded: Bool = false;
-    func addObserver(observer: AnyObject, selector aSelector: Selector, name aName: String?, object anObject: AnyObject?) {
+    var observerAdded: Bool = false
+    func addObserver(observer: AnyObject, selector aSelector: Selector,
+                     name aName: String?, object anObject: AnyObject?) {
         print("Added Observer \(observer) with Selector \(aSelector)")
     }
     var notePosted: NSNotification? = nil
@@ -39,27 +40,28 @@ class LocationManagerTests: XCTestCase {
     var locationManager: LocationManager!
     var fakeLocationManager: FakeLocationManager!
 
-    let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), radius: 50, identifier: MapRegionIdentifiers.work)
+    let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
+                                  radius: 50, identifier: MapRegionIdentifiers.work)
 
     override func setUp() {
         fakeLocationManager = FakeLocationManager()
         super.setUp()
     }
-    
+
     override func tearDown() {
         super.tearDown()
         locationManager = nil
         fakeLocationManager = nil
     }
 
-    func testLocationManagerSetsUpAManagerIfAuthorized(){
+    func testLocationManagerSetsUpAManagerIfAuthorized() {
 
         locationManager = LocationManager(authStatus: CLAuthorizationStatus.AuthorizedAlways,
                                             manager: fakeLocationManager)
         XCTAssertNotNil(locationManager, "LocationManagerIsAllocated if Authorized")
     }
 
-    func testLocationManagerRequestsAlwaysIfNotAllowed(){
+    func testLocationManagerRequestsAlwaysIfNotAllowed() {
 
         locationManager = LocationManager(authStatus: CLAuthorizationStatus.AuthorizedWhenInUse,
                                             manager: fakeLocationManager)
@@ -85,10 +87,10 @@ class LocationManagerAtWorkTests: XCTestCase {
         super.tearDown()
         manager = nil
     }
-    func testNotAtWorkWhenNoRegionsAreDefined(){
+    func testNotAtWorkWhenNoRegionsAreDefined() {
         XCTAssertFalse(manager.atWork(), "At Work returns false when no regions are defined")
     }
-    func testNotAtWorkWhenLocationNotAuthorized(){
+    func testNotAtWorkWhenLocationNotAuthorized() {
         //use a not authorized Manager
         manager = LocationManager(authStatus: CLAuthorizationStatus.Denied)
         XCTAssertFalse(manager.atWork(), "Not at work when location services are off")
@@ -99,8 +101,8 @@ class LocationManagerAtWorkTests: XCTestCase {
         manager = LocationManager(authStatus: CLAuthorizationStatus.Restricted)
         XCTAssertFalse(manager.atWork(), "Not at work when location services are off")
     }
-    func testAtWorkWhenUserLocationInMonitoredRegion(){
-        
+    func testAtWorkWhenUserLocationInMonitoredRegion() {
+        //TODO: Finish This Test
     }
 }
 
@@ -110,7 +112,8 @@ class LocationNotificationTests: XCTestCase {
     var fakeLocationManager: FakeLocationManager!
     var fakeNotificationCenter: FakeNotificationCenter!
 
-    let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), radius: 50, identifier: MapRegionIdentifiers.work)
+    let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
+                                  radius: 50, identifier: MapRegionIdentifiers.work)
 
     override func setUp() {
         fakeLocationManager = FakeLocationManager()
@@ -125,7 +128,7 @@ class LocationNotificationTests: XCTestCase {
         fakeNotificationCenter = nil
     }
 
-    func testNotificationIsSentOnArrival(){
-        
+    func testNotificationIsSentOnArrival() {
+        //TODO: Finish This Test
     }
 }

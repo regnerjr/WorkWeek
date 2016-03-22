@@ -7,11 +7,11 @@ struct Archive {
     static var path: String? {
         let documentsDirectories = NSSearchPathForDirectoriesInDomains(
                                     .DocumentDirectory, .UserDomainMask, true)
-        return documentsDirectories.first.map{$0 + "/items.archive"}
+        return documentsDirectories.first.map {$0 + "/items.archive"}
     }
 }
 
-public class WorkManager : NSObject {
+public class WorkManager: NSObject {
 
     public private(set) var eventsForTheWeek = Array<Event>() {
         willSet {
@@ -52,7 +52,8 @@ public class WorkManager : NSObject {
 
     public func addArrival(date: NSDate = NSDate()) {
         //set up a notification to fire at 40 hours
-        localNotificationHandler.setupNotification(hoursWorkedThisWeek, hoursInFullWorkWeek: hoursInWorkWeek)
+        localNotificationHandler.setupNotification(hoursWorkedThisWeek,
+                                                   hoursInFullWorkWeek: hoursInWorkWeek)
         let newArrival = Event(ad: .Arrival, date: date)
         print("Adding a New Arrival, \(newArrival), with date \(newArrival.date)")
         eventsForTheWeek.append(newArrival)
@@ -80,7 +81,7 @@ public class WorkManager : NSObject {
 
     func addArrivalIfAtWork(locationManager: LocationManager) {
         //if you are currently at work add an arrival right now.
-        if locationManager.atWork(){
+        if locationManager.atWork() {
             addArrival()
         }
     }
@@ -109,7 +110,7 @@ public class WorkManager : NSObject {
 
     private func saveNewArchive(events: Array<Event>) -> Bool {
         let archiveArray = NSMutableArray()
-        archiveArray.addObjectsFromArray(events.map{EncodeEvent(ev: $0)})
+        archiveArray.addObjectsFromArray(events.map {EncodeEvent(event: $0)})
         if let path = Archive.path {
             return NSKeyedArchiver.archiveRootObject(archiveArray, toFile: path)
         }
@@ -121,7 +122,7 @@ public class WorkManager : NSObject {
         return workDays
     }
 
-    public func processEvents(inEvents:  Array<Event> ) -> [WorkDay] {
+    public func processEvents(inEvents: Array<Event> ) -> [WorkDay] {
         // make a copy so we can mutate this
         var workTimes = [WorkDay]()
         //items should be paired, make sure first item is an arrival
@@ -132,19 +133,19 @@ public class WorkManager : NSObject {
             let first  = modifiedEvents.removeAtIndex(0)
             let second = modifiedEvents.removeAtIndex(0)
 
-            switch (first.ad, second.ad){
+            switch (first.ad, second.ad) {
             case (.Arrival, .Departure):
                 let day = makeWorkDayFrom(event1: first, event2: second)
                 workTimes.append(day)
-            case (_,_): continue
+            case (_, _): continue
             }
         }
 
         return workTimes
     }
 
-    private func removeFirstObjectIfDeparture(events: Array<Event>) -> Array<Event>{
-        if events.count > 0  {
+    private func removeFirstObjectIfDeparture(events: Array<Event>) -> Array<Event> {
+        if events.count > 0 {
             if events.first?.ad == .Departure {
                 return Array(events.dropFirst(1))
             }
@@ -152,7 +153,7 @@ public class WorkManager : NSObject {
         return events
     }
 
-    private func makeWorkDayFrom(event1 first: Event, event2 second: Event) -> WorkDay{
+    private func makeWorkDayFrom(event1 first: Event, event2 second: Event) -> WorkDay {
         let hoursMinutes = hoursMinutesFromDate(date: first.date, toDate: second.date)
         let workDay = WorkDay(weekDay: first.date.dayOfWeek,
                             hoursWorked: hoursMinutes.hours,
@@ -188,7 +189,7 @@ public class WorkManager : NSObject {
 
     public func hoursSoFarToday() -> Double {
         if let lastArrival = lastArrival {
-            let (h,m) = hoursMinutesFromDate(date: lastArrival.date, toDate: NSDate())
+            let (h, m) = hoursMinutesFromDate(date: lastArrival.date, toDate: NSDate())
             let hoursToday = getDoubleFrom(hours: h, min: m)
             return hoursToday
         }

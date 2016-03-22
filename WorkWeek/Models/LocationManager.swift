@@ -5,13 +5,14 @@ import CoreLocation
 class LocationManager: NSObject {
     /// The actual CLLocationManager
     var manager: CLLocationManager
-    //need an instance of the work manager, so that arrivals and departures can be triggered when the monitored regions are entered or left
+    //need an instance of the work manager, so that arrivals and departures
+    // can be triggered when the monitored regions are entered or left
     private let workManager: WorkManager
 
-    /// Dependency Inject Auth Status and Manager for testing
+    // Dependency Inject Auth Status and Manager for testing
     init(authStatus: CLAuthorizationStatus = CLLocationManager.authorizationStatus(),
-                manager: CLLocationManager = CLLocationManager(),
-        workManager:WorkManager = WorkManager()){
+         manager: CLLocationManager = CLLocationManager(),
+         workManager: WorkManager = WorkManager()) {
         self.manager = manager
         self.workManager = workManager
         super.init()
@@ -27,7 +28,7 @@ class LocationManager: NSObject {
         return manager.monitoredRegions
     }
 
-    func startUpdatingLocation(){
+    func startUpdatingLocation() {
         manager.startUpdatingLocation()
     }
 
@@ -60,7 +61,8 @@ class LocationManager: NSObject {
         return false
     }
 
-    func startMonitoringRegionAtCoordinate(coord: CLLocationCoordinate2D, withRadius regionRadius: CLLocationDistance) {
+    func startMonitoringRegionAtCoordinate(coord: CLLocationCoordinate2D,
+                                           withRadius regionRadius: CLLocationDistance) {
         //current limitation: Only one location may be used!!!
         if let regions = monitoredRegions {
             for region in regions {
@@ -68,7 +70,8 @@ class LocationManager: NSObject {
             }
         }
 
-        let workRegion = CLCircularRegion(center: coord, radius: regionRadius, identifier: MapRegionIdentifiers.work)
+        let workRegion = CLCircularRegion(center: coord, radius: regionRadius,
+                                          identifier: MapRegionIdentifiers.work)
         print("Monitoring new region \(workRegion)")
         manager.startMonitoringForRegion(workRegion)
     }

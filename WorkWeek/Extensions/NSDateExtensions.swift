@@ -1,6 +1,6 @@
 import Foundation
 
-public extension NSDate{
+public extension NSDate {
     /// A simple computed Property of NSDate which returns the short weekday for a given NSDate
     var dayOfWeek: String {
         let weekdayFmt = NSDateFormatter()
@@ -17,9 +17,10 @@ public extension NSDate{
 /// - parameter day: An Int indicating which day of the week is requested.
 /// - parameter hour: An Int indicating which hour of the day
 /// - parameter minute: An Int indicating which minute of the hour
-/// - returns:
+/// - returns: The Next Date
 ///
-public func getDateForReset(day: Int, hour: Int, minute: Int, cal: NSCalendar = NSCalendar.currentCalendar()) -> NSDate {
+public func getDateForReset(day: Int, hour: Int, minute: Int,
+                            cal: NSCalendar = NSCalendar.currentCalendar()) -> NSDate {
     // Get the Calendar in use
     let todaysComps = cal.components([.Weekday, .Hour, .Minute], fromDate: NSDate())
     // Get the relative components,
@@ -48,10 +49,12 @@ public func getDateForReset(day: Int, hour: Int, minute: Int, cal: NSCalendar = 
 /// - parameter toDate: The second Date
 /// - returns: A tuple (hours, minutes) containing the elapsed time
 ///
-public func hoursMinutesFromDate(date date1: NSDate, toDate date2: NSDate ) -> (hours: Int, minutes: Int){
+public func hoursMinutesFromDate(date date1: NSDate,
+                                 toDate date2: NSDate ) -> (hours: Int, minutes: Int) {
     let cal = NSCalendar.currentCalendar()
     let hour = cal.components(.Hour, fromDate: date1, toDate: date2, options: .MatchStrictly).hour
     //gets the minutes not already included in an hour
-    let min = cal.components(.Minute, fromDate: date1, toDate: date2, options: .MatchStrictly).minute % 60
+    let min = cal.components(.Minute, fromDate: date1, toDate: date2,
+                             options: .MatchStrictly).minute % 60
     return (hour, min)
 }

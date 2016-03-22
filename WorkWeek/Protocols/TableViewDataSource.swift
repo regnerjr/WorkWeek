@@ -6,23 +6,32 @@ extension TableViewController {
         return 1
     }
 
-    override public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override public func tableView(tableView: UITableView,
+                                   numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return workManager.allItems().count
         }
         return 0
     }
 
-    override public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.mainCell.rawValue, forIndexPath: indexPath) as! WorkDayCellTableViewCell
+    override public func tableView(tableView: UITableView,
+                                   cellForRowAtIndexPath indexPath: NSIndexPath
+                                  ) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCellWithIdentifier(
+            ReuseIdentifiers.MainCell, forIndexPath: indexPath)
+        guard let workDayCell = cell as? WorkDayCellTableViewCell else {
+            assert(cell is WorkDayCellTableViewCell, "Cell is not WorkDayCellTableViewCell")
+            return cell // return unconfigured cell
+        }
 
         let workItem = workManager.allItems()[indexPath.row]
-        cell.workDate?.text = workItem.weekDay
-        cell.workTime?.text = workItem.decimalHoursWorked
-        cell.arrivalTime.text = workItem.arrivalTime
-        cell.departureTime.text = workItem.departureTime
+        workDayCell.workDate?.text = workItem.weekDay
+        workDayCell.workTime?.text = workItem.decimalHoursWorked
+        workDayCell.arrivalTime.text = workItem.arrivalTime
+        workDayCell.departureTime.text = workItem.departureTime
 
-        return cell
+        return workDayCell
     }
-    
+
 }

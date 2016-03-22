@@ -1,6 +1,6 @@
 import Foundation
-/** 
-    Formatter is a wrapper around NSNumberFormatter and NSDateFormatter. 
+/**
+    Formatter is a wrapper around NSNumberFormatter and NSDateFormatter.
     Available formatters are double, workHours, workRadius, and shortTime.
 
     Having these formatters defined here allows use without the tedious setup
@@ -62,5 +62,5 @@ public struct Formatter {
         timeFormatter.dateStyle = .NoStyle
         return timeFormatter
     }()
-    
+
 }

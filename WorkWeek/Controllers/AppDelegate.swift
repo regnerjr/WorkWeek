@@ -9,7 +9,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return LocationManager()
     }()
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         ADHelper.registerDefaults()
         handleLaunchOptions(launchOptions, workManager: workManager)
@@ -22,15 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
     }
 
-    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+    func application(application: UIApplication,
+                     didReceiveLocalNotification notification: UILocalNotification) {
         ADHelper.showGoHomeAlertSheet(onViewController: window?.rootViewController)
     }
 
-    func loadInterface(){
+    func loadInterface() {
         window?.rootViewController = ADHelper.loadInterface()
     }
 
-    func handleLaunchOptions(options: [NSObject: AnyObject]?, workManager: WorkManager){
+    func handleLaunchOptions(options: [NSObject: AnyObject]?, workManager: WorkManager) {
         if let _ = options?[UIApplicationLaunchOptionsLocationKey] as? NSNumber {
             workManager.resetDataIfNeeded()
             locationManager.startUpdatingLocation()
@@ -50,25 +52,28 @@ class ADHelper {
         return storyboard.instantiateInitialViewController()
     }
 
-    static func showGoHomeAlertSheet(onViewController vc: UIViewController?){
+    static func showGoHomeAlertSheet(onViewController vc: UIViewController?) {
 
         guard let vc = vc else { return }
-        let alert = UIAlertController(title: "WorkWeek", message: "Go Home!", preferredStyle: UIAlertControllerStyle.Alert)
-        let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        let alert = UIAlertController(title: "WorkWeek",
+                                      message: "Go Home!",
+                                      preferredStyle: UIAlertControllerStyle.Alert)
+        let defaultAction = UIAlertAction(title: "OK",
+                                          style: UIAlertActionStyle.Default, handler: nil)
         alert.addAction(defaultAction)
         vc.presentViewController(alert, animated: true, completion: nil)
     }
 
-    static func registerDefaults(userDefaults: NSUserDefaults = Defaults.standard){
+    static func registerDefaults(userDefaults: NSUserDefaults = Defaults.standard) {
         let defaultResetDate = getDateForReset(0, hour: 4, minute: 0)
         print("Registering Reset Date: \(defaultResetDate)")
-        let defaults: [String: AnyObject] = [
-            SettingsKey.OnboardingComplete.rawValue : false,             //default settings screen is not shown
-            SettingsKey.HoursInWorkWeek.rawValue : 40,    // 40 hour work week
-            SettingsKey.ResetDay.rawValue: 0,             // Sunday
-            SettingsKey.ResetHour.rawValue: 4,            // 4 am
-            SettingsKey.WorkRadius.rawValue: 200,         // 200m work radius
-            SettingsKey.ClearDate.rawValue: defaultResetDate
+        let defaults: [SettingsKey: AnyObject] = [
+            SettingsKey.OnboardingComplete : false, //default settings screen is not shown
+            SettingsKey.HoursInWorkWeek : 40,    // 40 hour work week
+            SettingsKey.ResetDay: 0,             // Sunday
+            SettingsKey.ResetHour: 4,            // 4 am
+            SettingsKey.WorkRadius: 200,         // 200m work radius
+            SettingsKey.ClearDate: defaultResetDate
         ]
         userDefaults.registerDefaults(defaults)
     }

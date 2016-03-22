@@ -50,16 +50,19 @@ class HeaderView: UIView {
         let centerY = innerRect.origin.y + innerRect.width / 2.0
         //draw a circle all the way around the circle, - Pi/2 since we start at the top
         let endAngle = ratioOfHoursWorked * CGFloat(2 * M_PI) - CGFloat(M_PI_2)
-        CGContextAddArc(context, centerX, centerY, CGFloat(3 / 8.0) * minWidthOrHeight, CGFloat(-M_PI_2), endAngle, 0)
+        CGContextAddArc(context, centerX, centerY,
+                        CGFloat(3 / 8.0) * minWidthOrHeight, CGFloat(-M_PI_2),
+                        endAngle, 0)
         CGContextStrokePath(context)
     }
 
-    func getOuterRectfromBounds(bounds: CGRect, accountingForLineWitdth lineWidth: CGFloat) -> CGRect {
+    func getOuterRectfromBounds(bounds: CGRect,
+                                accountingForLineWitdth lineWidth: CGFloat) -> CGRect {
         let x = bounds.width > bounds.height ? bounds.width / 2.0 - bounds.height / 2.0 : 0
         let y = bounds.height > bounds.width ? bounds.height / 2.0 - bounds.width / 2.0 : 0
         //must account for the linewidth when calulating bounding box
         //or the circle will be clipped at the edges
-        let center = CGPoint(x: x + lineWidth / 2 , y: y + lineWidth / 2 )
+        let center = CGPoint(x: x + lineWidth / 2, y: y + lineWidth / 2 )
         let size = CGSize(width: minWidthOrHeight - lineWidth, height: minWidthOrHeight - lineWidth)
         let outerRect = CGRect(origin: center, size: size)
         return outerRect

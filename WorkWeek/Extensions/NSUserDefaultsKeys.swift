@@ -47,6 +47,14 @@ extension NSUserDefaults {
     public func boolForKey(defaultName: SettingsKey) -> Bool {
         return boolForKey(defaultName.rawValue)
     }
+    public func registerDefaults(defaults: [SettingsKey: AnyObject]) {
+        //convert [SettingsKey: AnyObject] -> [String: AnyObject]
+        var typedDefaults = [String: AnyObject]()
+        for (name, item) in defaults {
+            typedDefaults[name.rawValue] = item
+        }
+        self.registerDefaults(typedDefaults)
+    }
 }
 
 

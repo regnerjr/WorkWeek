@@ -24,7 +24,7 @@ class OBLocationViewController: UIViewController {
 
     @IBAction func grantAccess(sender: UIButton) {
         // Pop up the Location Manager request for Location Access
-        let ad = UIApplication.sharedApplication().delegate as! AppDelegate
+        let ad = UIApplication.sharedApplication().del
         ad.locationManager = LocationManager()//initialize Location Manager
 
         performSegueWithIdentifier("OnboardingMapShow", sender: nil)
@@ -35,17 +35,25 @@ class OBLocationViewController: UIViewController {
         self.presentViewController(alert, animated: true, completion: nil)
     }
 
-    func locationServicesAreNotEnabledOnThisPhoneAlert()-> UIAlertController {
-        let alert = UIAlertController(title: "Error", message: "Location Services Need to Be Enabled\nYou can enable access in\nSettings->Privacy->Location Services", preferredStyle: UIAlertControllerStyle.ActionSheet)
-        let goToSettings = UIAlertAction(title: "Settings", style: UIAlertActionStyle.Default, handler: { action in
+    func locationServicesAreNotEnabledOnThisPhoneAlert() -> UIAlertController {
+        let alert = UIAlertController(title: "Error",
+                                      message: "Location Services Need to Be " +
+                                               "Enabled\nYou can enable access " +
+                                               "in\nSettings->Privacy->Location Services",
+                                      preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let goToSettings = UIAlertAction(title: "Settings",
+                                         style: UIAlertActionStyle.Default, handler: { action in
             UIApplication.sharedApplication().openSettings()
         })
         alert.addAction(goToSettings)
         return alert
     }
 
-    func createLocationNotInUseWarningPopup()-> UIAlertController {
-        let alert = UIAlertController(title: "Sorry", message: "Work Week will not work without access to your phone's location.", preferredStyle: UIAlertControllerStyle.Alert)
+    func createLocationNotInUseWarningPopup() -> UIAlertController {
+        let alert = UIAlertController(title: "Sorry",
+                                      message: "Work Week will not work without access " +
+                                               "to your phone's location.",
+                                      preferredStyle: UIAlertControllerStyle.Alert)
         let OK = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
         alert.addAction(OK)
         return alert

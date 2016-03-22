@@ -4,7 +4,7 @@ import XCTest
 
 class EventTest: XCTestCase {
 
-    func testEventCreate(){
+    func testEventCreate() {
         let Jan11970 = NSDate(timeIntervalSince1970: 0)
         let newArrival = Event(ad: .Arrival, date: Jan11970)
         XCTAssertEqual(newArrival.date, Jan11970, "Date is stored properly in new Arrival")
@@ -16,7 +16,7 @@ class EventTest: XCTestCase {
 
     }
 
-    func testEventEquatable(){
+    func testEventEquatable() {
         let date = NSDate()
 
         let event1 = Event(ad: .Arrival, date: date)
@@ -30,7 +30,7 @@ class EventTest: XCTestCase {
         XCTAssertFalse(event1 == event4, "Event equality is based on date")
     }
 
-    func testEventArchive(){
+    func testEventArchive() {
 
         let Jan11970 = NSDate(timeIntervalSince1970: 0)
         let newArrival = Event(ad: .Arrival, date: Jan11970)
@@ -40,7 +40,7 @@ class EventTest: XCTestCase {
         if let data = data {
 
         let coder = NSKeyedArchiver(forWritingWithMutableData: data)
-        let encoded = EncodeEvent(ev: newArrival)
+        let encoded = EncodeEvent(event: newArrival)
         encoded.encodeWithCoder(coder)
         coder.finishEncoding()
 
@@ -52,5 +52,5 @@ class EventTest: XCTestCase {
 
         }
     }
-    
+
 }

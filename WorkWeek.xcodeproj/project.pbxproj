@@ -37,6 +37,7 @@
 		52AA92EE1AFAF94100DAE92A /* WorkDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AA92ED1AFAF94100DAE92A /* WorkDay.swift */; };
 		52AA92F01AFAFEE800DAE92A /* WorkDayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AA92EF1AFAFEE800DAE92A /* WorkDayTests.swift */; };
 		52AA93361AFC499400DAE92A /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AA93351AFC499400DAE92A /* AppDelegateTests.swift */; };
+		52AFB96B1CA19C56006B3C5F /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AFB96A1CA19C56006B3C5F /* UITableViewExtensions.swift */; };
 		52B0DFC91B3B00D700ED92A4 /* OBNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B0DFC81B3B00D700ED92A4 /* OBNotificationsViewController.swift */; };
 		52B0DFCB1B3B0C8600ED92A4 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52B0DFCA1B3B0C8600ED92A4 /* Launch Screen.xib */; };
 		52B7105C1B03946400E3172B /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B7105B1B03946400E3172B /* NotificationCenter.swift */; };
@@ -95,6 +96,7 @@
 		52AA92ED1AFAF94100DAE92A /* WorkDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkDay.swift; sourceTree = "<group>"; };
 		52AA92EF1AFAFEE800DAE92A /* WorkDayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkDayTests.swift; sourceTree = "<group>"; };
 		52AA93351AFC499400DAE92A /* AppDelegateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
+		52AFB96A1CA19C56006B3C5F /* UITableViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewExtensions.swift; sourceTree = "<group>"; };
 		52B0DFC81B3B00D700ED92A4 /* OBNotificationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OBNotificationsViewController.swift; sourceTree = "<group>"; };
 		52B0DFCA1B3B0C8600ED92A4 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		52B7105B1B03946400E3172B /* NotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 		749DF0AFEB6121917888A16B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				52AFB96A1CA19C56006B3C5F /* UITableViewExtensions.swift */,
 				5241C7B41B8EA45B00112ADF /* UIApplicationExtensions.swift */,
 				52EACE9E1B8E913400EBFF97 /* Storyboard.swift */,
 				521A80951B055DC1001AB706 /* NSKeyedUnarchiverExtensions.swift */,
@@ -468,6 +471,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52AFB96B1CA19C56006B3C5F /* UITableViewExtensions.swift in Sources */,
 				5239B0D61AB0ED1D002C4523 /* WorkHoursTextField.swift in Sources */,
 				52F40A571A9E803C00FA02C6 /* NSDateExtensions.swift in Sources */,
 				5241C7B51B8EA45B00112ADF /* UIApplicationExtensions.swift in Sources */,

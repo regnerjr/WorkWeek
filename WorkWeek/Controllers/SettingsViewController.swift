@@ -12,11 +12,13 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
 
     var defaultWorkHours: Int {
         get { return Defaults.standard.integerForKey(.HoursInWorkWeek) }
-        set (hoursInFullWeek){
+        set (hoursInFullWeek) {
             Defaults.standard.setInteger(hoursInFullWeek, forKey: .HoursInWorkWeek)
-            //If the number of work hours in a week changes, need to reschedule the end of the week Notification
-            let wm = (UIApplication.sharedApplication().delegate as! AppDelegate).workManager
-            wm.localNotificationHandler.setupNotification(wm.hoursWorkedThisWeek, hoursInFullWorkWeek: hoursInFullWeek)
+            //If the number of work hours in a week changes, need to reschedule
+            // the end of the week Notification
+            let wm = (UIApplication.sharedApplication().del).workManager
+            wm.localNotificationHandler.setupNotification(wm.hoursWorkedThisWeek,
+                                                          hoursInFullWorkWeek: hoursInFullWeek)
         }
     }
 
@@ -35,8 +37,8 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
         }
     }
     var defaultWorkRadius: Int {
-        get{ return Defaults.standard.integerForKey(.WorkRadius) }
-        set{ Defaults.standard.setInteger(newValue, forKey: .WorkRadius) }
+        get { return Defaults.standard.integerForKey(.WorkRadius) }
+        set { Defaults.standard.setInteger(newValue, forKey: .WorkRadius) }
     }
 
     override func viewDidLoad() {
@@ -75,12 +77,12 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
     @IBAction func screenTapGesture(sender: UITapGestureRecognizer) {
         //find any fields that are editing, end editing then resign first responder
         [workHoursTextField, workRadiusField ]
-            .filter{ $0.isFirstResponder() }
-            .forEach{ $0.endEditing(true) }
+            .filter { $0.isFirstResponder() }
+            .forEach { $0.endEditing(true) }
         resignFirstResponder()
     }
 
-    @IBAction func doneEditing(sender: UITextField){
+    @IBAction func doneEditing(sender: UITextField) {
         if sender.text == "" {
             resetTextFieldWithDefault(sender)
         } else {
@@ -90,29 +92,29 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
 
     @IBAction func doneOnboarding(sender: UIBarButtonItem) {
         viewWillDisappear(true)
-        Defaults.standard.setBool(true, forKey: SettingsKey.OnboardingComplete.rawValue)
-        let ad = UIApplication.sharedApplication().delegate as? AppDelegate
-        ad?.loadInterface()
+        Defaults.standard.setBool(true, forKey: SettingsKey.OnboardingComplete)
+        let ad = UIApplication.sharedApplication().del
+        ad.loadInterface()
     }
 
-    func setPickerDelegateAndDataSource(){
+    func setPickerDelegateAndDataSource() {
         picker.delegate = pickerSource
         picker.dataSource = pickerSource
         pickerSource.dateLabel = resetDateLabel
     }
 
-    func setPickerToDefaultRows(){
+    func setPickerToDefaultRows() {
         picker.selectRow(defaultResetDay, inComponent: 0, animated: false)
         picker.selectRow(defaultResetHour, inComponent: 1, animated: false)
     }
 
-    func setTextFieldsAndSteppersToDefauls(){
+    func setTextFieldsAndSteppersToDefauls() {
         workHoursTextField.workHours = defaultWorkHours
         stepper.workHours = defaultWorkHours
         workRadiusField.workRadius = defaultWorkRadius
     }
 
-    func resetTextFieldWithDefault(sender: UITextField){
+    func resetTextFieldWithDefault(sender: UITextField) {
         switch sender {
         case let s as WorkHoursTextField: s.workHours = defaultWorkHours
         case let s as WorkRadiusTextField: s.workRadius = defaultWorkRadius

@@ -19,11 +19,11 @@ class WorkManagerPropertiesTest: XCTestCase {
     }
 
     // Tests eventsForTheWeek, archiving and restoring
-    func testEventsEmptyWhenNothingIsArchived(){
+    func testEventsEmptyWhenNothingIsArchived() {
         XCTAssertEqual(manager.eventsForTheWeek.count, 0, "No Events on a new manager")
     }
 
-    func testEventsAreRestoredFromArchive(){
+    func testEventsAreRestoredFromArchive() {
         XCTAssertEqual(manager.eventsForTheWeek.count, 0, "No Events")
         manager.addArrival(NSDate())
         manager = nil
@@ -32,7 +32,7 @@ class WorkManagerPropertiesTest: XCTestCase {
         XCTAssertEqual(manager.eventsForTheWeek.count, 1, "Has 1 event restored from disk")
     }
 
-    func testHoursWorkedThisWeek(){
+    func testHoursWorkedThisWeek() {
         manager.addArrival(NSDate())
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
         XCTAssert(manager.hoursWorkedThisWeek == 8.0, "Worked 8 hours!")
@@ -49,11 +49,11 @@ class WorkManagerPropertiesTest: XCTestCase {
     }
 
     // MARK: - Helper Functions
-    func clearSavedEventsOnDisk(){
+    func clearSavedEventsOnDisk() {
         let fileManager = NSFileManager.defaultManager()
         if let path = Archive.path {
             if fileManager.fileExistsAtPath(path) {
-                try! fileManager.removeItemAtPath(path)
+                _ = try? fileManager.removeItemAtPath(path)
             }
         }
     }
@@ -64,18 +64,18 @@ class WorkManagerTest: XCTestCase {
 
     var manager: WorkManager!
 
-    override func setUp(){
+    override func setUp() {
         super.setUp()
         manager = WorkManager()
         manager.clearEvents()
     }
 
-    override func tearDown(){
+    override func tearDown() {
         //teardown Here
         super.tearDown()
     }
 
-    func testAddArrival(){
+    func testAddArrival() {
         let date = NSDate()
         manager.addArrival(date)
         let event = manager.eventsForTheWeek.first
@@ -83,7 +83,7 @@ class WorkManagerTest: XCTestCase {
         XCTAssertEqual(event!.ad, Event.AD.Arrival, "Arrival is stored as arrival")
     }
 
-    func testAddDeparture(){
+    func testAddDeparture() {
         let date = NSDate()
         manager.addDeparture(date)
         let event = manager.eventsForTheWeek.first
@@ -92,7 +92,7 @@ class WorkManagerTest: XCTestCase {
     }
 
 
-    func testIsAtWork(){
+    func testIsAtWork() {
 
         manager.addArrival(NSDate())
         XCTAssert(manager.isAtWork == true, "User is at work after arriving")
@@ -100,16 +100,18 @@ class WorkManagerTest: XCTestCase {
         XCTAssert(manager.isAtWork == false, "User is NOT at work after departing")
     }
 
-    func testClearEvents(){
+    func testClearEvents() {
 
         manager.addArrival(NSDate())
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
-        XCTAssert(manager.eventsForTheWeek.count > 0, "Manger has events after arrival and departure have been called")
+        XCTAssert(manager.eventsForTheWeek.count > 0,
+                  "Manger has events after arrival and departure have been called")
         manager.clearEvents()
-        XCTAssert(manager.eventsForTheWeek.count == 0, "Manager does not have events after they have been cleared")
+        XCTAssert(manager.eventsForTheWeek.count == 0,
+                  "Manager does not have events after they have been cleared")
     }
 
-    func testAllItems(){
+    func testAllItems() {
         manager.addArrival(NSDate())
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
         manager.addArrival(NSDate(timeIntervalSinceNow: 60*60*24))
@@ -118,11 +120,12 @@ class WorkManagerTest: XCTestCase {
         XCTAssertEqual(days.count, 2, "2 workDays are returned")
     }
 
-    func testMangerProcessesEvents(){
+    func testMangerProcessesEvents() {
 
         manager.addArrival(NSDate())
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*8))
-        XCTAssertEqual(manager.allItems().count, 1, "One arrival and one Departure makes 1 WorkHours")
+        XCTAssertEqual(manager.allItems().count, 1,
+                       "One arrival and one Departure makes 1 WorkHours")
 
         manager.addArrival(NSDate(timeIntervalSinceNow: 60*60*24))
         manager.addDeparture(NSDate(timeIntervalSinceNow: 60*60*(24+8)))
@@ -130,7 +133,7 @@ class WorkManagerTest: XCTestCase {
 
     }
 
-    func testProcessEventsExtended(){
+    func testProcessEventsExtended() {
 
         let startDate = NSDate()
         manager.addDeparture(startDate) //tets only having a departure, should show no work hours
@@ -139,20 +142,21 @@ class WorkManagerTest: XCTestCase {
 
         manager.addArrival(NSDate(timeInterval: 60*60*1, sinceDate: startDate))
         let workDays1 = manager.allItems()
-        XCTAssert(workDays1.count == 0, "One departure followed by an arrival, does not make a work day")
+        XCTAssert(workDays1.count == 0,
+                  "One departure followed by an arrival, does not make a work day")
 
         manager.addDeparture(NSDate(timeInterval: 60*60*8, sinceDate: startDate))
         let workDays2 = manager.allItems()
         XCTAssert(workDays2.count == 1, "Dep, arriv, dep makes 1 work day")
     }
 
-    func testHoursSoFarToday(){
+    func testHoursSoFarToday() {
         manager.addArrival(NSDate(timeInterval: -(60 * 60), sinceDate: NSDate())) // an hour ago
         let hoursToday = manager.hoursSoFarToday()
         XCTAssertEqual(hoursToday, 1.0, "One Hour since arrival")
     }
 
-    func testHoursSoFarToday_notAtWork(){
+    func testHoursSoFarToday_notAtWork() {
         manager.addArrival(NSDate(timeInterval: -(60*60), sinceDate: NSDate()))
         // arrived an hour ago
         manager.addDeparture(NSDate(timeInterval: -(15*60), sinceDate: NSDate()))
@@ -161,6 +165,5 @@ class WorkManagerTest: XCTestCase {
         XCTAssertEqual(hoursToday, 0, "No hours today if not at work")
 
     }
-
 
 }
