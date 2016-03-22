@@ -12,7 +12,7 @@ class NSNumberFormatterTests: XCTestCase {
         XCTAssertEqual(converted, "0.0", "Converted 0 to \"0.0\"")
 
         let one = formatter.stringFromInt(1)
-        XCTAssertEqual(one, "1.0" , "converted 1 to 1.0")
+        XCTAssertEqual(one, "1.0", "converted 1 to 1.0")
 
         let ninetyNine = formatter.stringFromInt(99)
         XCTAssertEqual(ninetyNine, "99.0", "99 to 99.0")
@@ -31,7 +31,7 @@ class NSNumberFormatterTests: XCTestCase {
         XCTAssertEqual(roundUp, "0.5", "0.45 to 0.5")
 
         let superSmall = formatter.stringFromDouble(0.01)
-        XCTAssertEqual(superSmall, "0.0" , "converted 0.01 to 0.0")
+        XCTAssertEqual(superSmall, "0.0", "converted 0.01 to 0.0")
 
         let big = formatter.stringFromDouble(99.9)
         XCTAssertEqual(big, "99.9", "99 to 99.9")
@@ -118,7 +118,8 @@ class NSNumberFormatterTests: XCTestCase {
         let nines = formatter.stringFromInt(999)
         XCTAssertEqual(nines, "999", "convert 999 to 999")
         let oneThousand = formatter.stringFromInt(1000)
-        XCTAssertEqual(oneThousand, "000", "1000 rolls over since formatter is only allowed 3 digits")
+        XCTAssertEqual(oneThousand, "000",
+                       "1000 rolls over since formatter is only allowed 3 digits")
 
         //MARK: - Double
         let small1 = formatter.stringFromDouble(0.1)

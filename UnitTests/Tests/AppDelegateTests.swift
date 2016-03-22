@@ -5,9 +5,6 @@ import CoreLocation
 
 class AppDelegateTests: XCTestCase {
 
-    var app: UIApplication!
-    var ad: AppDelegate!
-
     class StubWorkManager: WorkManager {
         var resetWasCalled = false
         override func resetDataIfNeeded(defaults: NSUserDefaults = Defaults.standard) {
@@ -17,50 +14,62 @@ class AppDelegateTests: XCTestCase {
 
     class StubLocationManager: LocationManager {
         var startedUpdating = false
-        override func startUpdatingLocation(){
+        override func startUpdatingLocation() {
             startedUpdating = true
         }
     }
 
     override func setUp() {
         super.setUp()
-        app = UIApplication.sharedApplication()
-        ad = UIApplication.sharedApplication().delegate as! AppDelegate
 
         //Clear User Defaults
         let domainName = NSBundle.mainBundle().bundleIdentifier
         NSUserDefaults.standardUserDefaults().removePersistentDomainForName(domainName!)
     }
 
-    func testDataIsResetWhenApplicationEntersForeground(){
-        let wm = StubWorkManager()
-        ad.workManager = wm
+    func testDataIsResetWhenApplicationEntersForeground() {
+        let app = UIApplication.sharedApplication()
+        guard let appDelegate = app.delegate as? AppDelegate else {
+            fatalError("Could not get App Delegate")
+        }
 
-        ad.applicationDidBecomeActive(app)
+        let wm = StubWorkManager()
+        appDelegate.workManager = wm
+
+        appDelegate.applicationDidBecomeActive(app)
         XCTAssert(wm.resetWasCalled)
     }
 
-    func testApplicationBadgeIsClearedWhenAppEntersForeground(){
+    func testApplicationBadgeIsClearedWhenAppEntersForeground() {
+        let app = UIApplication.sharedApplication()
+        guard let appDelegate = app.delegate as? AppDelegate else {
+            fatalError("Could Not Get App Delegate")
+        }
 
         app.applicationIconBadgeNumber = 40
         XCTAssert(app.applicationIconBadgeNumber > 0)
 
-        ad.applicationDidBecomeActive(app)
+        appDelegate.applicationDidBecomeActive(app)
         XCTAssert(app.applicationIconBadgeNumber == 0)
     }
 
-    func testDidReceiveLocalNotificationShowsAlert(){
+    func testDidReceiveLocalNotificationShowsAlert() {
+        let app = UIApplication.sharedApplication()
+        guard let appDelegate = app.delegate as? AppDelegate else {
+            fatalError("Could not get app Delegate")
+        }
+
         let vc = UIViewController()
-        ad.window?.rootViewController = vc //inject that junk
+        appDelegate.window?.rootViewController = vc //inject that junk
         _ = vc.view //load view
         XCTAssertNil(vc.presentedViewController)
 
-        ad.application(app, didReceiveLocalNotification: UILocalNotification())
+        appDelegate.application(app, didReceiveLocalNotification: UILocalNotification())
         XCTAssertNotNil(vc.presentedViewController)
         XCTAssert(vc.presentedViewController?.dynamicType == UIAlertController.self)
     }
 
-    func testLoadInterfaceReturnsCorrectStoryboardIfOnboardingIsNOTComplete(){
+    func testLoadInterfaceReturnsCorrectStoryboardIfOnboardingIsNOTComplete() {
         let def = NSUserDefaults(suiteName: "testDefaults")
         def?.setBool(false, forKey: SettingsKey.OnboardingComplete)
         let onboardingVC = ADHelper.loadInterface(def!)
@@ -68,7 +77,7 @@ class AppDelegateTests: XCTestCase {
         XCTAssert(onboardingVC?.restorationIdentifier == "OnboardingFirstScreen")
     }
 
-    func testLoadInterfaceReturnsCorrectStoryboardIfOnboardingIsComplete(){
+    func testLoadInterfaceReturnsCorrectStoryboardIfOnboardingIsComplete() {
         let def = NSUserDefaults(suiteName: "testDefaults")
         def?.setBool(true, forKey: SettingsKey.OnboardingComplete)
         let onboardingVC = ADHelper.loadInterface(def!)
@@ -76,9 +85,14 @@ class AppDelegateTests: XCTestCase {
         XCTAssert(onboardingVC?.restorationIdentifier == "MainStoryboardInitialVC")
     }
 
-    func testShowGoHomeAlertSheet(){
+    func testShowGoHomeAlertSheet() {
+        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {
+            fatalError("Could not get app Delegate")
+        }
+
+
         let vc = UIViewController()//Must put VC in window hirearchy in order to present stuff
-        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = vc
+        appDelegate.window?.rootViewController = vc
         XCTAssertNil(vc.presentedViewController)
 
         ADHelper.showGoHomeAlertSheet(onViewController: vc)
@@ -86,39 +100,46 @@ class AppDelegateTests: XCTestCase {
         XCTAssert(vc.presentedViewController?.dynamicType == UIAlertController.self)
     }
 
-    func testDoesNotShowGoHomeAlertSheetIfPassedInVCIsNone(){
+    func testDoesNotShowGoHomeAlertSheetIfPassedInVCIsNone() {
         let vc = UIViewController()//Must put VC in window hirearchy in order to present stuff
-        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = vc
+        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {
+            fatalError("Could not get app Delegate")
+        }
+        appDelegate.window?.rootViewController = vc
         XCTAssertNil(vc.presentedViewController)
 
         ADHelper.showGoHomeAlertSheet(onViewController: nil)
         XCTAssertNil(vc.presentedViewController)
     }
 
-    func testHandleLaunch_No_Options(){
+    func testHandleLaunch_No_Options() {
         let wm = StubWorkManager()
         let lm = StubLocationManager()
 
         let options: [NSObject:AnyObject]? = nil
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {
+            fatalError("Could not get app delegate")
+        }
         appDelegate.handleLaunchOptions(options, workManager: wm)
         XCTAssert(wm.resetWasCalled == false)
         XCTAssert(lm.startedUpdating == false)
     }
 
-    func testHandleLaunchOptionLocalNotificationOption(){
+    func testHandleLaunchOptionLocalNotificationOption() {
         let wm = StubWorkManager()
         let lm = StubLocationManager()
 
         let options = [UIApplicationLaunchOptionsLocationKey: NSNumber(bool: true)]
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {
+            fatalError("Could not get App Delegate")
+        }
         appDelegate.locationManager = lm
         appDelegate.handleLaunchOptions(options, workManager: wm)
         XCTAssert(wm.resetWasCalled)
         XCTAssert(lm.startedUpdating)
     }
 
-    func testRegisteringDefaults(){
+    func testRegisteringDefaults() {
 
         //user defaults are registered at app launch. So verify that everything is normal
         let def = NSUserDefaults.standardUserDefaults()
@@ -132,7 +153,7 @@ class AppDelegateTests: XCTestCase {
 
         let resetDate = def.objectForKey(.ClearDate) as! NSDate
         let cal = NSCalendar.currentCalendar()
-        let comps = cal.components([NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute, NSCalendarUnit.Weekday], fromDate: resetDate)
+        let comps = cal.components([.Day, .Hour, .Minute, .Weekday], fromDate: resetDate)
         XCTAssert(comps.weekday == 1)//sunday
         XCTAssert(comps.hour == 4)//4am
         XCTAssert(comps.minute == 0)//4am
