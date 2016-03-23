@@ -1,0 +1,59 @@
+format_version: 1.1.0
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+app:
+  envs:
+  - BITRISE_PROJECT_PATH: WorkWeek.xcodeproj
+    opts:
+      is_expand: false
+  - BITRISE_SCHEME: WorkWeek
+    opts:
+      is_expand: false
+trigger_map:
+- pattern: "*"
+  is_pull_request_allowed: true
+  workflow: primary
+workflows:
+  primary:
+    steps:
+    - git-clone: {}
+    - certificate-and-profile-installer@1.4.0: {}
+    - xcode-test:
+        title: 'Xcode: Unit Test'
+        outputs:
+        - BITRISE_XCODE_TEST_RESULT:
+          opts:
+            title: Result of the tests. 'succeeded' or 'failed'.
+            description: ''
+            summary: ''
+            value_options:
+            - succeeded
+            - failed
+            is_required: false
+            is_expand: true
+            is_dont_change_value: false
+            is_template: false
+        - BITRISE_XCODE_RAW_TEST_RESULT_TEXT_PATH:
+          opts:
+            title: The full, raw test output file path
+            description: |-
+              This is the path of the raw test results log file.
+
+              If the compilation fails this log will contain the compilation output,
+              if the tests can be started it'll only include the test output.
+            summary: ''
+            is_required: false
+            is_expand: true
+            is_dont_change_value: false
+            is_template: false
+    - xcode-archive:
+        title: 'Xcode: Create Archive'
+        inputs:
+        - output_dir: "${BITRISE_DEPLOY_DIR}"
+        outputs:
+        - BITRISE_IPA_PATH:
+          opts:
+            title: The created .ipa file's path
+        - BITRISE_DSYM_PATH:
+          opts:
+            title: The created .dSYM.zip file's path
+    - deploy-to-bitrise-io: {}
