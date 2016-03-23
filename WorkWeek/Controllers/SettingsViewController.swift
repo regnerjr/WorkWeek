@@ -91,7 +91,6 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
     }
 
     @IBAction func doneOnboarding(sender: UIBarButtonItem) {
-        viewWillDisappear(true)
         Defaults.standard.setBool(true, forKey: SettingsKey.OnboardingComplete)
         let ad = UIApplication.sharedApplication().del
         ad.loadInterface()
