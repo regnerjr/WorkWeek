@@ -125,7 +125,7 @@ extension TableViewController {
             //loss of precision to draw the graph using only hour marks.
             graph?.hoursWorked = Int(workManager.hoursWorkedThisWeek +
                                      workManager.hoursSoFarToday())
-            graph?.hoursLabel.text = String(graph?.hoursWorked)
+            graph?.hoursLabel.text = String(graph?.hoursWorked ?? 0)
             return header
         } else {
             return nil
