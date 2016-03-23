@@ -23,10 +23,6 @@ class OBLocationViewController: UIViewController {
     }
 
     @IBAction func grantAccess(sender: UIButton) {
-        // Pop up the Location Manager request for Location Access
-        let ad = UIApplication.sharedApplication().del
-        ad.locationManager = LocationManager()//initialize Location Manager
-
         performSegueWithIdentifier("OnboardingMapShow", sender: nil)
     }
 
