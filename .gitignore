@@ -33,3 +33,4 @@ Carthage
 # AppCode specific files
 .idea/
 *.iml
+.bitrise.secrets.yml
