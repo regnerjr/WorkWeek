@@ -71,7 +71,6 @@ class FooterTableView: UITableViewHeaderFooterView {
         ])
     }
 
-
     func addContentViews() {
         contentView.addSubview(atWorkLabel)
         contentView.addSubview(arrivedTimeLabel)
