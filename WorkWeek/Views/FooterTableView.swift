@@ -63,12 +63,12 @@ class FooterTableView: UITableViewHeaderFooterView {
 
     func constrainAtWorkLabel() {
         atWorkLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activateConstraints([
         atWorkLabel.centerXAnchor
-                   .constraintEqualToAnchor(contentView.centerXAnchor)
-                   .active = true
+                   .constraintEqualToAnchor(contentView.centerXAnchor),
         atWorkLabel.centerYAnchor
                    .constraintEqualToAnchor(contentView.centerYAnchor)
-                   .active = true
+        ])
     }
 
 
