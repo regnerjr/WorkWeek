@@ -343,6 +343,7 @@
 				34B3217B4221BB898CBC9D49 /* Resources */,
 				26F7F5310F927EFD109AA20B /* Warn for TODO and FIXME comments */,
 				52AFB9691CA0FFD7006B3C5F /* SwiftLint */,
+				528EDDEF1E6BCFD30050F4ED /* Increment Build Number */,
 			);
 			buildRules = (
 			);
@@ -454,6 +455,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nFILE_EXTENSIONS=\"h|m|mm|c|cpp|swift\"\nfind -E \"${SRCROOT}\" -ipath \"${SRCROOT}/pods\" -prune -o \\( -regex \".*\\.($FILE_EXTENSIONS)$\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"\n";
+		};
+		528EDDEF1E6BCFD30050F4ED /* Increment Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Increment Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"";
 		};
 		52AFB9691CA0FFD7006B3C5F /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
