@@ -16,7 +16,6 @@ class FooterTableView: UITableViewHeaderFooterView {
         super.init(coder: aDecoder)
         addContentViews()
         contentView.backgroundColor = OverlayColor.Fill
-        print("Init With Coder Called")
     }
 
     override func layoutSubviews() {

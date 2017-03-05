@@ -49,10 +49,10 @@ class HeaderView: UIView {
         let centerX = innerRect.origin.x + innerRect.width / 2.0
         let centerY = innerRect.origin.y + innerRect.width / 2.0
         //draw a circle all the way around the circle, - Pi/2 since we start at the top
-        let endAngle = ratioOfHoursWorked * CGFloat(2 * M_PI) - CGFloat(M_PI_2)
+        let endAngle = ratioOfHoursWorked * CGFloat(2 * CGFloat.pi) - CGFloat(CGFloat.pi / 2)
         context?.addArc(center: CGPoint(x:centerX, y: centerY),
                         radius:CGFloat(3 / 8.0) * minWidthOrHeight,
-                        startAngle: CGFloat(-M_PI_2), endAngle:endAngle,
+                        startAngle: CGFloat(-(CGFloat.pi / 2)), endAngle:endAngle,
                         clockwise: true)
         context?.strokePath()
     }
