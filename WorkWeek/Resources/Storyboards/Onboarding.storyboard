@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tAy-Ot-fgb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12113" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tyB-RX-UD6">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12078"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -27,7 +27,7 @@
                                 <rect key="frame" x="171.5" y="402" width="32" height="30"/>
                                 <state key="normal" title="Next"/>
                                 <connections>
-                                    <segue destination="tA9-It-DNa" kind="showDetail" id="n2i-3Z-z6U"/>
+                                    <segue destination="tA9-It-DNa" kind="show" id="r7i-ry-1Z9"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Work week is an app for helping you track your time spent at work or any other location." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biu-Da-d1C">
@@ -37,7 +37,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ho3-bp-Z3O">
-                                <rect key="frame" x="152" y="168" width="71" height="21"/>
+                                <rect key="frame" x="152" y="212" width="71" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -54,10 +54,11 @@
                             <constraint firstItem="9qc-jN-2Z2" firstAttribute="centerX" secondItem="xY9-W7-AvH" secondAttribute="centerX" id="sF8-Do-mRK"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="bB2-fh-reY"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e0n-Y2-TQx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="334" y="500"/>
+            <point key="canvasLocation" x="1092" y="500"/>
         </scene>
         <!--Location View Controller-->
         <scene sceneID="l6w-2t-RKF">
@@ -123,12 +124,12 @@
                     <connections>
                         <outlet property="cancelButton" destination="x7l-zT-alP" id="hCW-pI-lHE"/>
                         <outlet property="grantAccessButton" destination="bUt-Vs-BMP" id="MxZ-27-38a"/>
-                        <segue destination="UXk-fz-2gS" kind="showDetail" identifier="OnboardingMapShow" id="ZER-lq-OdG"/>
+                        <segue destination="UXk-fz-2gS" kind="show" identifier="OnboardingMapShow" id="ha9-fN-2R9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jnA-kQ-FMd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1003" y="500"/>
+            <point key="canvasLocation" x="1863" y="500"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="d6L-tU-Nrk">
@@ -156,7 +157,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Ubk-tG-FJd"/>
                                     <barButtonItem title="Next" id="zGE-Fv-t4o">
                                         <connections>
-                                            <segue destination="Dax-9M-X2h" kind="showDetail" id="8TK-fl-esF"/>
+                                            <segue destination="Dax-9M-X2h" kind="show" id="yB0-Cc-TDW"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -217,7 +218,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1678" y="500"/>
+            <point key="canvasLocation" x="2616.8000000000002" y="499.70014992503752"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="RCH-nZ-BsV">
@@ -373,7 +374,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3039" y="500"/>
+            <point key="canvasLocation" x="3976.8000000000002" y="499.70014992503752"/>
         </scene>
         <!--Notifications View Controller-->
         <scene sceneID="mcJ-Xy-Mb4">
@@ -415,7 +416,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="6wg-oL-se0" kind="showDetail" identifier="OBPushNotificationsToSettings" id="vjv-ak-kwv"/>
+                                    <segue destination="6wg-oL-se0" kind="show" identifier="OBPushNotificationsToSettings" id="Elj-wM-qrO"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -435,7 +436,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SYb-ln-s6z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2369" y="500"/>
+            <point key="canvasLocation" x="3308" y="499.70014992503752"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="unm-d2-vv2">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="tyB-RX-UD6" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pvK-AV-KNw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="tAy-Ot-fgb" kind="relationship" relationship="rootViewController" id="iGx-aj-sw5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WHW-ze-Pon" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="345" y="500"/>
         </scene>
     </scenes>
     <color key="tintColor" red="0.16341733932495117" green="0.66204029321670532" blue="0.66847562789916992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
