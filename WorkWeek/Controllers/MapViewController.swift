@@ -10,20 +10,20 @@ public struct MapRegionIdentifiers {
     public static let work = "WorkRegion"
 }
 
-public class MapViewController: UIViewController {
+open class MapViewController: UIViewController {
 
-    @IBOutlet public weak var mapView: MKMapView!
+    @IBOutlet open weak var mapView: MKMapView!
     @IBOutlet weak var searchBar: UISearchBar!
 
     var regionRadius: Double { return Double(Defaults.standard.integerForKey(.WorkRadius)) }
 
     var locationManager: LocationManager {
-        let appDelegate = UIApplication.sharedApplication().del
+        let appDelegate = UIApplication.shared.del
         return appDelegate.locationManager
     }
 
     lazy var workManager: WorkManager = {
-        let appDelegate = UIApplication.sharedApplication().del
+        let appDelegate = UIApplication.shared.del
         return appDelegate.workManager
     }()
 
@@ -31,25 +31,25 @@ public class MapViewController: UIViewController {
         return locationManager.monitoredRegions?.flatMap { $0 as? CLCircularRegion }
     }
 
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         MapViewState.hasBeenZoomed = false
         //reset the state so we can zoom in on the user once, per page load
         super.viewDidLoad()
         drawWorkLocations(workLocations)
     }
 
-    public override func prefersStatusBarHidden() -> Bool {
+    open override var prefersStatusBarHidden: Bool {
         return true
     }
 
-    @IBAction func handleLongPress(sender: UILongPressGestureRecognizer) {
-        let location = sender.locationInView(mapView)
+    @IBAction func handleLongPress(_ sender: UILongPressGestureRecognizer) {
+        let location = sender.location(in: mapView)
         //make coordinated from where the user pressed
-        let coordinate = mapView.convertPoint(location, toCoordinateFromView: mapView)
+        let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
 
-        if sender.state == .Began {
+        if sender.state == .began {
             addOverLayAtCoordinate(coordinate)
-        } else if sender.state == .Ended {
+        } else if sender.state == .ended {
             locationManager.startMonitoringRegionAtCoordinate(coordinate, withRadius: regionRadius)
             if locationManager.atWork() {
                 workManager.addArrival()
@@ -59,27 +59,27 @@ public class MapViewController: UIViewController {
         }
     }
 
-    func addOverLayAtCoordinate(coord: CLLocationCoordinate2D) {
+    func addOverLayAtCoordinate(_ coord: CLLocationCoordinate2D) {
         //remove existing overlays
         let existingOverlays = mapView.overlays
         mapView.removeOverlays(existingOverlays)
         //add a circle over lay where the user pressed
-        let circle = MKCircle(centerCoordinate: coord, radius: regionRadius)
-        mapView.addOverlay(circle)
+        let circle = MKCircle(center: coord, radius: regionRadius)
+        mapView.add(circle)
     }
 
-    func drawWorkLocations( workLocations: [CLCircularRegion]?) {
+    func drawWorkLocations( _ workLocations: [CLCircularRegion]?) {
         //draw the current work locations if it is not nil
         workLocations?.map { location in
-            return MKCircle(centerCoordinate: location.center, radius: self.regionRadius)
-        }.forEach(mapView.addOverlay)
+            return MKCircle(center: location.center, radius: self.regionRadius)
+        }.forEach(mapView.add(_:))
     }
 
 }
 
 extension MapViewController: MKMapViewDelegate {
 
-    public func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+    public func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         //only do this map zooming thing once
         if MapViewState.hasBeenZoomed == false {
             MapViewState.hasBeenZoomed = true
@@ -108,19 +108,19 @@ extension MapViewController: MKMapViewDelegate {
         }
     }
 
-    public func mapView(mapView: MKMapView,
-                        rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+    public func mapView(_ mapView: MKMapView,
+                        rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         return (overlay as? MKCircle)?.defaultRenderer ?? MKCircle.clearRenderer(overlay.coordinate)
     }
 
-    public func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+    public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         addOverLayAtCoordinate(view.annotation!.coordinate)
         locationManager.startMonitoringRegionAtCoordinate(view.annotation!.coordinate,
                                                           withRadius: regionRadius)
         workManager.addArrivalIfAtWork(locationManager)
     }
 
-    func mapRectToFitCoordinate(one: CLLocationCoordinate2D,
+    func mapRectToFitCoordinate(_ one: CLLocationCoordinate2D,
                                 andCoordinate two: CLLocationCoordinate2D) -> MKMapRect {
         let a = MKMapPointForCoordinate(one)
         let b = MKMapPointForCoordinate(two)
@@ -138,8 +138,8 @@ extension MKCircle {
         renderer.alpha = 0.75
         return renderer
     }
-    static func clearRenderer(center: CLLocationCoordinate2D) -> MKCircleRenderer {
-        let renderer = MKCircleRenderer(circle: MKCircle(centerCoordinate: center, radius: 100))
+    static func clearRenderer(_ center: CLLocationCoordinate2D) -> MKCircleRenderer {
+        let renderer = MKCircleRenderer(circle: MKCircle(center: center, radius: 100))
         renderer.alpha = 0.0
         return renderer
     }
@@ -147,21 +147,21 @@ extension MKCircle {
 
 extension MapViewController: UISearchBarDelegate {
 
-    public func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
+    public func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
         return true
     }
 
-    public func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         handleSearch(searchBar.text)
     }
 
-    func handleSearch(string: String?) {
-        if let searchString = searchBar.text where searchString != "" {
+    func handleSearch(_ string: String?) {
+        if let searchString = searchBar.text, searchString != "" {
             let request = configureRequest(searchString)
 
             let search = MKLocalSearch(request: request)
-            search.startWithCompletionHandler { response, error in
+            search.start { response, error in
                 if error != nil {
                     //handle error
                     print(error!.localizedDescription)
@@ -176,7 +176,7 @@ extension MapViewController: UISearchBarDelegate {
         }
     }
 
-    func configureRequest(searchText: String) -> MKLocalSearchRequest {
+    func configureRequest(_ searchText: String) -> MKLocalSearchRequest {
         let request = MKLocalSearchRequest()
         request.naturalLanguageQuery = searchText
         request.region = mapView.region

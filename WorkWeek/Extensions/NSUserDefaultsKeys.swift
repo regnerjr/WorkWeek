@@ -17,49 +17,48 @@ public enum SettingsKey: String {
 /// Purely a convenience.
 ///
 public struct Defaults {
-    public static let standard = NSUserDefaults.standardUserDefaults()
+    public static let standard = UserDefaults.standard
 }
 
 // Wish I could break up the settings keys into classes which would constrain this so only the
 // strings which control the double settings could be passes to doubleForKey
-extension NSUserDefaults {
-    public func doubleForKey(defaultName: SettingsKey) -> Double {
-        return doubleForKey(defaultName.rawValue)
+extension UserDefaults {
+    public func doubleForKey(_ defaultName: SettingsKey) -> Double {
+        return double(forKey: defaultName.rawValue)
     }
-    public func setDouble(value: Double, forKey defaultName: SettingsKey) {
-        setDouble(value, forKey: defaultName.rawValue)
+    public func setDouble(_ value: Double, forKey defaultName: SettingsKey) {
+        set(value, forKey: defaultName.rawValue)
     }
-    public func integerForKey(defaultName: SettingsKey) -> Int {
-        return integerForKey(defaultName.rawValue)
+    public func integerForKey(_ defaultName: SettingsKey) -> Int {
+        return integer(forKey: defaultName.rawValue)
     }
-    public func setInteger(value: Int, forKey defaultName: SettingsKey) {
-        setInteger(value, forKey: defaultName.rawValue)
+    public func setInteger(_ value: Int, forKey defaultName: SettingsKey) {
+        set(value, forKey: defaultName.rawValue)
     }
-    public func setObject(object: AnyObject, forKey key: SettingsKey) {
-        setObject(object, forKey: key.rawValue)
+    public func set(_ object: Any?, forKey key: SettingsKey) {
+        set(object, forKey: key.rawValue)
     }
-    public func objectForKey(defaultName: SettingsKey) -> AnyObject? {
-        return objectForKey(defaultName.rawValue)
+    public func objectForKey(_ defaultName: SettingsKey) -> Any? {
+        return object(forKey: defaultName.rawValue) as Any?
     }
-    public func setBool(value: Bool, forKey defaultName: SettingsKey) {
-        setBool(value, forKey: defaultName.rawValue)
+    public func setBool(_ value: Bool, forKey defaultName: SettingsKey) {
+        set(value, forKey: defaultName.rawValue)
     }
-    public func boolForKey(defaultName: SettingsKey) -> Bool {
-        return boolForKey(defaultName.rawValue)
+    public func boolForKey(_ defaultName: SettingsKey) -> Bool {
+        return bool(forKey: defaultName.rawValue)
     }
-    public func registerDefaults(defaults: [SettingsKey: AnyObject]) {
+    public func registerDefaults(_ defaults: [SettingsKey: Any]) {
         //convert [SettingsKey: AnyObject] -> [String: AnyObject]
-        var typedDefaults = [String: AnyObject]()
+        var typedDefaults = [String: Any]()
         for (name, item) in defaults {
             typedDefaults[name.rawValue] = item
         }
-        self.registerDefaults(typedDefaults)
+        self.register(defaults: typedDefaults)
     }
 }
 
-
-public func updateDefaultResetDate( defaults: NSUserDefaults = Defaults.standard) {
+public func updateDefaultResetDate( _ defaults: UserDefaults = Defaults.standard) {
     let date = getDateForReset(defaults.integerForKey(.ResetDay),
         hour: defaults.integerForKey(.ResetHour), minute: 0)
-    defaults.setObject(date, forKey: .ClearDate)
+    defaults.set(date, forKey: .ClearDate)
 }

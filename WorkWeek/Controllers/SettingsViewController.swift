@@ -16,7 +16,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
             Defaults.standard.setInteger(hoursInFullWeek, forKey: .HoursInWorkWeek)
             //If the number of work hours in a week changes, need to reschedule
             // the end of the week Notification
-            let wm = (UIApplication.sharedApplication().del).workManager
+            let wm = (UIApplication.shared.del).workManager
             wm.localNotificationHandler.setupNotification(wm.hoursWorkedThisWeek,
                                                           hoursInFullWorkWeek: hoursInFullWeek)
         }
@@ -49,40 +49,40 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
 
     }
 
-    override func viewWillAppear(animated: Bool) {
-        let fmt = NSDateFormatter()
-        fmt.timeStyle = NSDateFormatterStyle.ShortStyle
-        fmt.dateStyle = NSDateFormatterStyle.ShortStyle
-        if let date = Defaults.standard.objectForKey(.ClearDate) as? NSDate {
-            resetDateLabel.text = fmt.stringFromDate(date)
+    override func viewWillAppear(_ animated: Bool) {
+        let fmt = DateFormatter()
+        fmt.timeStyle = DateFormatter.Style.short
+        fmt.dateStyle = DateFormatter.Style.short
+        if let date = Defaults.standard.objectForKey(.ClearDate) as? Date {
+            resetDateLabel.text = fmt.string(from: date)
         }
     }
 
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        defaultResetDay = picker.selectedRowInComponent(0)
-        defaultResetHour = picker.selectedRowInComponent(1)
+        defaultResetDay = picker.selectedRow(inComponent: 0)
+        defaultResetHour = picker.selectedRow(inComponent: 1)
     }
 
-    @IBAction func launchSystemSettings(sender: UIButton) {
-        UIApplication.sharedApplication().openSettings()
+    @IBAction func launchSystemSettings(_ sender: UIButton) {
+        UIApplication.shared.openSettings()
     }
 
-    @IBAction func stepWorkHours(sender: Stepper) {
+    @IBAction func stepWorkHours(_ sender: Stepper) {
         //change the value stored in the label
         workHoursTextField.workHours = sender.workHours
         defaultWorkHours = sender.workHours
     }
 
-    @IBAction func screenTapGesture(sender: UITapGestureRecognizer) {
+    @IBAction func screenTapGesture(_ sender: UITapGestureRecognizer) {
         //find any fields that are editing, end editing then resign first responder
         [workHoursTextField, workRadiusField ]
-            .filter { $0.isFirstResponder() }
+            .filter { $0.isFirstResponder }
             .forEach { $0.endEditing(true) }
         resignFirstResponder()
     }
 
-    @IBAction func doneEditing(sender: UITextField) {
+    @IBAction func doneEditing(_ sender: UITextField) {
         if sender.text == "" {
             resetTextFieldWithDefault(sender)
         } else {
@@ -90,9 +90,9 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
         }
     }
 
-    @IBAction func doneOnboarding(sender: UIBarButtonItem) {
+    @IBAction func doneOnboarding(_ sender: UIBarButtonItem) {
         Defaults.standard.setBool(true, forKey: SettingsKey.OnboardingComplete)
-        let ad = UIApplication.sharedApplication().del
+        let ad = UIApplication.shared.del
         ad.loadInterface()
     }
 
@@ -113,7 +113,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
         workRadiusField.workRadius = defaultWorkRadius
     }
 
-    func resetTextFieldWithDefault(sender: UITextField) {
+    func resetTextFieldWithDefault(_ sender: UITextField) {
         switch sender {
         case let s as WorkHoursTextField: s.workHours = defaultWorkHours
         case let s as WorkRadiusTextField: s.workRadius = defaultWorkRadius
@@ -121,7 +121,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
         }
     }
 
-    func saveNewValueInDefaults(sender: UITextField) {
+    func saveNewValueInDefaults(_ sender: UITextField) {
         switch sender {
         case let s as WorkHoursTextField:  defaultWorkHours = s.workHours
         case let s as WorkRadiusTextField: defaultWorkRadius = s.workRadius

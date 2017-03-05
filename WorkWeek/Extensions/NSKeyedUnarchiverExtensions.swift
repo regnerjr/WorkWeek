@@ -1,9 +1,9 @@
 import Foundation
 
 extension NSKeyedUnarchiver {
-    static func unarchiveMutableArrayWithFile(path: String?) -> NSMutableArray? {
+    static func unarchiveMutableArrayWithFile(_ path: String?) -> NSMutableArray? {
         if let path = path {
-            return NSKeyedUnarchiver.unarchiveObjectWithFile(path) as? NSMutableArray
+            return NSKeyedUnarchiver.unarchiveObject(withFile: path) as? NSMutableArray
         } else {
             return nil
         }

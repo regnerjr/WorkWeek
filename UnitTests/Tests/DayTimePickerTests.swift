@@ -12,7 +12,7 @@ class DayTimePickerTests: XCTestCase {
         picker = DayTimePicker()
         pickerView = UIPickerView(frame: .zero)
         customPicker = DayTimePicker()
-        customPicker.calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)!
+        customPicker.calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         super.setUp()
     }
 
@@ -22,7 +22,7 @@ class DayTimePickerTests: XCTestCase {
     }
 
     func testComponentsForDayOfWeekAndHourOfDay() {
-        let comps = picker.numberOfComponentsInPickerView(pickerView)
+        let comps = picker.numberOfComponents(in: pickerView)
         XCTAssertEqual(comps, 2, "Two Components: 1 for the Day, 1 for the Hour")
     }
 
@@ -41,7 +41,7 @@ class DayTimePickerTests: XCTestCase {
 
     func testDayView() {
         let dayView = customPicker.pickerView(pickerView, viewForRow: 0,
-                                              forComponent: 0, reusingView: nil)
+                                              forComponent: 0, reusing: nil)
         XCTAssertNotNil(dayView, "DayView is returned")
         let daylabel = dayView as? UILabel
         XCTAssertEqual(daylabel?.text!, "Sunday",
@@ -50,7 +50,7 @@ class DayTimePickerTests: XCTestCase {
 
     func testInvalidDayView() {
         let dayView = customPicker.pickerView(pickerView, viewForRow: 100,
-                                              forComponent: 0, reusingView: nil)
+                                              forComponent: 0, reusing: nil)
         XCTAssertNotNil(dayView, "DayView is returned")
         let daylabel = dayView as? UILabel
         XCTAssertNotNil(daylabel!, "DayLabel is not nil")
@@ -59,7 +59,7 @@ class DayTimePickerTests: XCTestCase {
 
     func testHourView() {
         let hourView = customPicker.pickerView(pickerView, viewForRow: 0,
-                                               forComponent: 1, reusingView: nil)
+                                               forComponent: 1, reusing: nil)
         XCTAssertNotNil(hourView, "Hour View is not Nil")
         let hourLabel = hourView as? UILabel
         XCTAssertEqual(hourLabel?.text!, "12:00 AM", "First Hour is 12:00 AM")
@@ -67,7 +67,7 @@ class DayTimePickerTests: XCTestCase {
 
     func testInvalidHourView() {
         let hourView = customPicker.pickerView(pickerView, viewForRow: 100,
-                                               forComponent: 1, reusingView: nil)
+                                               forComponent: 1, reusing: nil)
         XCTAssertNotNil(hourView, "Hour View is not Nil")
         let hourLabel = hourView as? UILabel
         XCTAssertNotNil(hourLabel!, "Hour Label is not nil")

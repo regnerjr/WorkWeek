@@ -12,7 +12,7 @@ class MapViewControllerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let vc = storyboard.instantiateViewControllerWithIdentifier("MapViewController")
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "MapViewController")
             as? MapViewController else {
                 XCTFail("Can't get Map VC") ; return
         }
@@ -30,9 +30,9 @@ class MapViewControllerTests: XCTestCase {
     func testRendererForCircleOverlay() {
 
         let coord = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-        let overlay = MKCircle(centerCoordinate: coord, radius: 100.0)
+        let overlay = MKCircle(center: coord, radius: 100.0)
 
-        let renderer = mapVC.mapView(mapVC.mapView, rendererForOverlay: overlay)
+        let renderer = mapVC.mapView(mapVC.mapView, rendererFor: overlay)
         XCTAssert(renderer is MKCircleRenderer)
     }
 
@@ -45,7 +45,7 @@ class MapViewControllerTests: XCTestCase {
         mapPoints.append(MKMapPoint(x: 1.0, y: 0.0))
         let polygon = MKPolygon(points: &mapPoints, count: mapPoints.count)
 
-        let renderer = mapVC.mapView(mapVC.mapView, rendererForOverlay: polygon)
+        let renderer = mapVC.mapView(mapVC.mapView, rendererFor: polygon)
         XCTAssert(renderer is MKCircleRenderer, "Default renderer is circle")
         XCTAssert(renderer.alpha == 0.0)
     }

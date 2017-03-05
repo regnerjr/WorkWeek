@@ -5,7 +5,7 @@ import XCTest
 class NSNumberFormatterTests: XCTestCase {
 
     func testFormatterDouble() {
-        let formatter = Formatter.double
+        let formatter = WorkWeek.Formatter.double
 
         // MARK: - From Int
         let converted = formatter.stringFromInt(0)
@@ -44,9 +44,9 @@ class NSNumberFormatterTests: XCTestCase {
     }
 
     func testFormatterWorkHours() {
-        let formatter = Formatter.workHours
+        let formatter = WorkWeek.Formatter.workHours
 
-        //MARK: - From Int
+        // MARK: - From Int
         let zero = formatter.stringFromInt(0)
         XCTAssertEqual(zero, "0", "Converted 0")
 
@@ -62,7 +62,7 @@ class NSNumberFormatterTests: XCTestCase {
         let hugeInt = formatter.stringFromInt(1000000)
         XCTAssertEqual(hugeInt, "00", "Converted 00")
 
-        //MARK: - From Double
+        // MARK: - From Double
         let converted = formatter.stringFromDouble(0.0)
         XCTAssertEqual(converted, "0", "Converted 0.0")
 
@@ -108,9 +108,9 @@ class NSNumberFormatterTests: XCTestCase {
 
     func testFormatterWorkRadius() {
 
-        let formatter = Formatter.workRadius
+        let formatter = WorkWeek.Formatter.workRadius
 
-        //MARK: - Int
+        // MARK: - Int
         let zero = formatter.stringFromInt(0)
         XCTAssertEqual(zero, "00", "convert 0 to 2 digits 00")
         let one = formatter.stringFromInt(1)
@@ -121,7 +121,7 @@ class NSNumberFormatterTests: XCTestCase {
         XCTAssertEqual(oneThousand, "000",
                        "1000 rolls over since formatter is only allowed 3 digits")
 
-        //MARK: - Double
+        // MARK: - Double
         let small1 = formatter.stringFromDouble(0.1)
         XCTAssertEqual(small1, "01", "Round small numbers up, and adds 2 digits")
         let fifty = formatter.stringFromDouble(50.0)
@@ -135,7 +135,6 @@ class NSNumberFormatterTests: XCTestCase {
         XCTAssertEqual(nineNineEightOne, "999", "Rounds up 998.1 to 999")
         let nineNineNineOne = formatter.stringFromDouble(999.1)
         XCTAssertEqual(nineNineNineOne, "000", "Round up with overflow 999.1 -> 000")
-
 
         let bigOverflow = formatter.stringFromDouble(10000.5)
         XCTAssertEqual(bigOverflow, "001", "Round up with overflow 100000.5 -> 001")

@@ -12,10 +12,10 @@ enum ReuseIdentifiers: String {
     case Footer = "FooterView"
 }
 
-public class TableViewController: UITableViewController {
+open class TableViewController: UITableViewController {
 
-    let appDelegate = UIApplication.sharedApplication().del
-    public var workManager: WorkManager {
+    let appDelegate = UIApplication.shared.del
+    open var workManager: WorkManager {
         return appDelegate.workManager
     }
     var locationManager: LocationManager {
@@ -23,7 +23,7 @@ public class TableViewController: UITableViewController {
     }
     var array = [WorkDay]()
 
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         tableView.registerClass(FooterTableView.self,
                                 forHeaderFooterViewReuseIdentifier: ReuseIdentifiers.Footer)
         navigationController?.title = "WorkWeek"
@@ -35,7 +35,7 @@ public class TableViewController: UITableViewController {
         // transition to the map view so that the user can set a work
         // location and begin using the app
         if locationManager.monitoredRegions?.count == 0 {
-            performSegueWithIdentifier(StoryBoardSegues.Map.rawValue, sender: self)
+            performSegue(withIdentifier: StoryBoardSegues.Map.rawValue, sender: self)
         }
         listenForNotifications()
     }
@@ -45,42 +45,42 @@ public class TableViewController: UITableViewController {
     }
 
     func listenForNotifications(
-            center: NSNotificationCenter = NSNotificationCenter.defaultCenter()) {
+            _ center: NotificationCenter = NotificationCenter.default) {
         center.addObserver(self, selector: #selector(reloadTableViewNotification(_:)),
-                           name: "WorkWeekUpdated", object: nil)
+                           name: NSNotification.Name(rawValue: "WorkWeekUpdated"), object: nil)
         center.addObserver(self, selector: #selector(reloadTableViewNotification(_:)),
-                           name: "UIApplicationDidBecomeActiveNotification", object: nil)
+                           name: NSNotification.Name(rawValue: "UIApplicationDidBecomeActiveNotification"), object: nil)
     }
 
     func stopListeningToNotifications(
-            center: NSNotificationCenter = NSNotificationCenter.defaultCenter()) {
+            _ center: NotificationCenter = NotificationCenter.default) {
         center.removeObserver(self)
     }
 
-    func reloadTableViewNotification(note: NSNotification) {
+    func reloadTableViewNotification(_ note: Notification) {
         print("Reloading TableView Due to Notification")
         array = workManager.allItems()
         tableView.reloadData()
     }
 
-    override public func viewWillAppear(animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         array = workManager.allItems()
         tableView.reloadData()
     }
 
     // MARK: - Navigation
-    @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
+    @IBAction func unwindToThisViewController(_ segue: UIStoryboardSegue) {
         tableView.reloadData()
     }
 
     // MARK: - Helper Functions
     func configureTimerToReloadTheTableViewEveryMinute() {
-        NSTimer.scheduledTimerWithTimeInterval(60.0, target: self,
+        Timer.scheduledTimer(timeInterval: 60.0, target: self,
                                                selector: #selector(reloadTableViewNotification(_:)),
                                                userInfo: nil, repeats: true)
     }
 
-    func reloadTableView(timer: NSTimer) {
+    func reloadTableView(_ timer: Timer) {
         print("Reloading table view due to timer")
         //for now get new data too!
         array = workManager.allItems()
@@ -88,16 +88,16 @@ public class TableViewController: UITableViewController {
     }
 }
 
-//MARK: - TableViewDelegate
+// MARK: - TableViewDelegate
 extension TableViewController {
 
-    override public func tableView(tableView: UITableView,
-                                   heightForHeaderInSection section: Int) -> CGFloat {
-        return floor(UIScreen.mainScreen().bounds.height / 5)
+    override open func tableView(_ tableView: UITableView,
+                                 heightForHeaderInSection section: Int) -> CGFloat {
+        return floor(UIScreen.main.bounds.height / 5)
     }
 
-    override public func tableView(tableView: UITableView,
-                                   heightForFooterInSection section: Int) -> CGFloat {
+    override open func tableView(_ tableView: UITableView,
+                                 heightForFooterInSection section: Int) -> CGFloat {
         if workManager.isAtWork {
             return 80
         } else {
@@ -105,8 +105,8 @@ extension TableViewController {
         }
     }
 
-    override public func tableView(tableView: UITableView,
-                                   viewForFooterInSection section: Int) -> UIView? {
+    override open func tableView(_ tableView: UITableView,
+                                 viewForFooterInSection section: Int) -> UIView? {
 
         guard workManager.isAtWork == true  else { return nil }
 
@@ -117,9 +117,9 @@ extension TableViewController {
         return footerView
     }
 
-    override public func tableView(tableView: UITableView,
-                                   viewForHeaderInSection section: Int) -> UIView? {
-        if let header = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifiers.Header) {
+    override open func tableView(_ tableView: UITableView,
+                                 viewForHeaderInSection section: Int) -> UIView? {
+        if let header = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.Header.rawValue) {
             let graph = header.contentView.subviews[0] as? HeaderView
             graph?.hoursInWeek = Defaults.standard.integerForKey(.HoursInWorkWeek)
             //loss of precision to draw the graph using only hour marks.
