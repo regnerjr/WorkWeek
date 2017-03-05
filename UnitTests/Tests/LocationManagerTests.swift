@@ -27,7 +27,7 @@ struct FakeNotificationCenter: Notifier {
 
     var observerAdded: Bool = false
     func addObserver(_ observer: Any, selector aSelector: Selector,
-                     name aName: NSNotification.Name?, object anObject: Any?){
+                     name aName: NSNotification.Name?, object anObject: Any?) {
         print("Added Observer \(observer) with Selector \(aSelector)")
     }
     var notePosted: Notification?

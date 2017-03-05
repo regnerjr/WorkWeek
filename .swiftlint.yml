@@ -1,4 +1,4 @@
-disabled_rules: 
+disabled_rules:
     - valid_docs
     - todo
 variable_name:
