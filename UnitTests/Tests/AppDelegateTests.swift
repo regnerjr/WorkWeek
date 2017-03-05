@@ -73,8 +73,10 @@ class AppDelegateTests: XCTestCase {
         let def = UserDefaults(suiteName: "testDefaults")
         def?.setBool(false, forKey: SettingsKey.OnboardingComplete)
         let onboardingVC = ADHelper.loadInterface(def!)
+        XCTAssert(onboardingVC is UINavigationController)
+        let firstVC = (onboardingVC as? UINavigationController)?.topViewController
+        XCTAssert(firstVC?.restorationIdentifier == "OnboardingFirstScreen")
 
-        XCTAssert(onboardingVC?.restorationIdentifier == "OnboardingFirstScreen")
     }
 
     func testLoadInterfaceReturnsCorrectStoryboardIfOnboardingIsComplete() {
