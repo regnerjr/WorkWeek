@@ -9,8 +9,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return LocationManager()
     }()
 
-    func application(application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         ADHelper.registerDefaults()
         handleLaunchOptions(launchOptions, workManager: workManager)
@@ -18,13 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         workManager.resetDataIfNeeded() //move these to the correct areas
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
-    func application(application: UIApplication,
-                     didReceiveLocalNotification notification: UILocalNotification) {
+    func application(_ application: UIApplication,
+                     didReceive notification: UILocalNotification) {
         ADHelper.showGoHomeAlertSheet(onViewController: window?.rootViewController)
     }
 
@@ -32,8 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = ADHelper.loadInterface()
     }
 
-    func handleLaunchOptions(options: [NSObject: AnyObject]?, workManager: WorkManager) {
-        if let _ = options?[UIApplicationLaunchOptionsLocationKey] as? NSNumber {
+    func handleLaunchOptions(_ options: [AnyHashable: Any]?, workManager: WorkManager) {
+        if let _ = options?[UIApplicationLaunchOptionsKey.location] as? NSNumber {
             workManager.resetDataIfNeeded()
             locationManager.startUpdatingLocation()
         }
@@ -42,12 +42,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 class ADHelper {
 
-    static func loadInterface(defaults: NSUserDefaults = Defaults.standard) -> UIViewController? {
-        let onboardingHasCompleted = defaults.boolForKey(SettingsKey.OnboardingComplete)
+    static func loadInterface(_ defaults: UserDefaults = Defaults.standard) -> UIViewController? {
+        let onboardingHasCompleted = defaults.bool(forKey: SettingsKey.OnboardingComplete.rawValue)
         return getCorrectStoryboard( onboardingHasCompleted )
     }
 
-    static func getCorrectStoryboard(onboardingComplete: Bool ) -> UIViewController? {
+    static func getCorrectStoryboard(_ onboardingComplete: Bool ) -> UIViewController? {
         let storyboard = UIStoryboard.load(onboardingComplete ? .Main : .Onboarding)
         return storyboard.instantiateInitialViewController()
     }
@@ -57,19 +57,19 @@ class ADHelper {
         guard let vc = vc else { return }
         let alert = UIAlertController(title: "WorkWeek",
                                       message: "Go Home!",
-                                      preferredStyle: UIAlertControllerStyle.Alert)
+                                      preferredStyle: UIAlertControllerStyle.alert)
         let defaultAction = UIAlertAction(title: "OK",
-                                          style: UIAlertActionStyle.Default, handler: nil)
+                                          style: UIAlertActionStyle.default, handler: nil)
         alert.addAction(defaultAction)
-        vc.presentViewController(alert, animated: true, completion: nil)
+        vc.present(alert, animated: true, completion: nil)
     }
 
-    static func registerDefaults(userDefaults: NSUserDefaults = Defaults.standard) {
+    static func registerDefaults(_ userDefaults: UserDefaults = Defaults.standard) {
         let defaultResetDate = getDateForReset(0, hour: 4, minute: 0)
         print("Registering Reset Date: \(defaultResetDate)")
-        let defaults: [SettingsKey: AnyObject] = [
-            SettingsKey.OnboardingComplete : false, //default settings screen is not shown
-            SettingsKey.HoursInWorkWeek : 40,    // 40 hour work week
+        let defaults: [SettingsKey: Any] = [
+            SettingsKey.OnboardingComplete: false, //default settings screen is not shown
+            SettingsKey.HoursInWorkWeek: 40,    // 40 hour work week
             SettingsKey.ResetDay: 0,             // Sunday
             SettingsKey.ResetHour: 4,            // 4 am
             SettingsKey.WorkRadius: 200,         // 200m work radius

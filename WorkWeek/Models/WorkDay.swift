@@ -18,7 +18,7 @@ public struct WorkDay {
     }
 
     public init(weekDay: String, hoursWorked: Int, minutesWorked: Int,
-        arrivalTime: String, departureTime: String) {
+                arrivalTime: String, departureTime: String) {
             self.weekDay = weekDay
             self.hoursWorked = hoursWorked
             self.minutesWorked = minutesWorked

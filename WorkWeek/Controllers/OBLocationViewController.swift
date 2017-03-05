@@ -9,26 +9,26 @@ class OBLocationViewController: UIViewController {
 
     var locationAccess: Bool {
         switch CLLocationManager.authorizationStatus() {
-        case .AuthorizedAlways: return true
+        case .authorizedAlways: return true
         case _: return false
         }
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         if !CLLocationManager.locationServicesEnabled() {
             let alert = locationServicesAreNotEnabledOnThisPhoneAlert()
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         }
 
     }
 
-    @IBAction func grantAccess(sender: UIButton) {
-        performSegueWithIdentifier("OnboardingMapShow", sender: nil)
+    @IBAction func grantAccess(_ sender: UIButton) {
+        performSegue(withIdentifier: "OnboardingMapShow", sender: nil)
     }
 
-    @IBAction func cancel(sender: UIButton) {
+    @IBAction func cancel(_ sender: UIButton) {
         let alert = createLocationNotInUseWarningPopup()
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
 
     func locationServicesAreNotEnabledOnThisPhoneAlert() -> UIAlertController {
@@ -36,10 +36,10 @@ class OBLocationViewController: UIViewController {
                                       message: "Location Services Need to Be " +
                                                "Enabled\nYou can enable access " +
                                                "in\nSettings->Privacy->Location Services",
-                                      preferredStyle: UIAlertControllerStyle.ActionSheet)
+                                      preferredStyle: UIAlertControllerStyle.actionSheet)
         let goToSettings = UIAlertAction(title: "Settings",
-                                         style: UIAlertActionStyle.Default, handler: { action in
-            UIApplication.sharedApplication().openSettings()
+                                         style: UIAlertActionStyle.default, handler: { _ in
+            UIApplication.shared.openSettings()
         })
         alert.addAction(goToSettings)
         return alert
@@ -49,8 +49,8 @@ class OBLocationViewController: UIViewController {
         let alert = UIAlertController(title: "Sorry",
                                       message: "Work Week will not work without access " +
                                                "to your phone's location.",
-                                      preferredStyle: UIAlertControllerStyle.Alert)
-        let OK = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+                                      preferredStyle: UIAlertControllerStyle.alert)
+        let OK = UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
         alert.addAction(OK)
         return alert
     }

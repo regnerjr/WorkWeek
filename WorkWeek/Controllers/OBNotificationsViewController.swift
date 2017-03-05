@@ -2,12 +2,12 @@ import UIKit
 
 class OBNotificationsViewController: UIViewController {
 
-    @IBAction func notifyMe(sender: UIButton) {
+    @IBAction func notifyMe(_ sender: UIButton) {
 
-        let application = UIApplication.sharedApplication()
+        let application = UIApplication.shared
         application.registerUserNotificationSettings(
-            UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil))
+            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
 
-        self.performSegueWithIdentifier("OBPushNotificationsToSettings", sender: sender)
+        self.performSegue(withIdentifier: "OBPushNotificationsToSettings", sender: sender)
     }
 }

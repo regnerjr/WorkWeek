@@ -16,21 +16,22 @@ class FakeLocationManager: CLLocationManager {
 }
 
 protocol Notifier {
-    func addObserver(observer: AnyObject, selector aSelector: Selector,
-                     name aName: String?, object anObject: AnyObject?)
-    func postNotification(notification: NSNotification)
+    func addObserver(_ observer: Any, selector aSelector: Selector,
+                     name aName: NSNotification.Name?, object anObject: Any?)
+    func post(_ notification: Notification)
 }
 
-extension NSNotificationCenter : Notifier {}
+extension NotificationCenter : Notifier {}
 
 struct FakeNotificationCenter: Notifier {
+
     var observerAdded: Bool = false
-    func addObserver(observer: AnyObject, selector aSelector: Selector,
-                     name aName: String?, object anObject: AnyObject?) {
+    func addObserver(_ observer: Any, selector aSelector: Selector,
+                     name aName: NSNotification.Name?, object anObject: Any?){
         print("Added Observer \(observer) with Selector \(aSelector)")
     }
-    var notePosted: NSNotification? = nil
-    func postNotification(notification: NSNotification) {
+    var notePosted: Notification?
+    func post(_ notification: Notification) {
         print("Posted Notification \(notification))")
     }
 }
@@ -56,19 +57,19 @@ class LocationManagerTests: XCTestCase {
 
     func testLocationManagerSetsUpAManagerIfAuthorized() {
 
-        locationManager = LocationManager(authStatus: CLAuthorizationStatus.AuthorizedAlways,
+        locationManager = LocationManager(authStatus: CLAuthorizationStatus.authorizedAlways,
                                             manager: fakeLocationManager)
         XCTAssertNotNil(locationManager, "LocationManagerIsAllocated if Authorized")
     }
 
     func testLocationManagerRequestsAlwaysIfNotAllowed() {
 
-        locationManager = LocationManager(authStatus: CLAuthorizationStatus.AuthorizedWhenInUse,
+        locationManager = LocationManager(authStatus: CLAuthorizationStatus.authorizedWhenInUse,
                                             manager: fakeLocationManager)
         XCTAssert(fakeLocationManager.requestedAuthorization == true,
                   "Location Manager requests Always auth if not already granted")
 
-        locationManager = LocationManager(authStatus: CLAuthorizationStatus.Denied,
+        locationManager = LocationManager(authStatus: CLAuthorizationStatus.denied,
                                             manager: fakeLocationManager)
         XCTAssert(fakeLocationManager.requestedAuthorization,
                   "Location Manager requests Always Auth if not already authorized")
@@ -80,7 +81,7 @@ class LocationManagerAtWorkTests: XCTestCase {
     var manager: LocationManager!
 
     override func setUp() {
-        manager = LocationManager(authStatus: CLAuthorizationStatus.AuthorizedAlways)
+        manager = LocationManager(authStatus: CLAuthorizationStatus.authorizedAlways)
         super.setUp()
     }
     override func tearDown() {
@@ -92,17 +93,17 @@ class LocationManagerAtWorkTests: XCTestCase {
     }
     func testNotAtWorkWhenLocationNotAuthorized() {
         //use a not authorized Manager
-        manager = LocationManager(authStatus: CLAuthorizationStatus.Denied)
+        manager = LocationManager(authStatus: CLAuthorizationStatus.denied)
         XCTAssertFalse(manager.atWork(), "Not at work when location services are off")
 
-        manager = LocationManager(authStatus: CLAuthorizationStatus.NotDetermined)
+        manager = LocationManager(authStatus: CLAuthorizationStatus.notDetermined)
         XCTAssertFalse(manager.atWork(), "Not at work when location services are off")
 
-        manager = LocationManager(authStatus: CLAuthorizationStatus.Restricted)
+        manager = LocationManager(authStatus: CLAuthorizationStatus.restricted)
         XCTAssertFalse(manager.atWork(), "Not at work when location services are off")
     }
     func testAtWorkWhenUserLocationInMonitoredRegion() {
-        //TODO: Finish This Test
+        // TODO: Finish This Test
     }
 }
 
@@ -129,6 +130,6 @@ class LocationNotificationTests: XCTestCase {
     }
 
     func testNotificationIsSentOnArrival() {
-        //TODO: Finish This Test
+        // TODO: Finish This Test
     }
 }

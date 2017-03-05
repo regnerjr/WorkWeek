@@ -12,13 +12,13 @@ class TableViewDataSourceTests: XCTestCase {
     override func setUp() {
         super.setUp()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let optVC = storyboard.instantiateViewControllerWithIdentifier("TableViewController")
+        guard let optVC = storyboard.instantiateViewController(withIdentifier: "TableViewController")
             as? TableViewController else {
                 XCTFail("Can't Get Table View Controller"); return
         }
         tableViewController = optVC
         tableView = tableViewController.view as! UITableView //swiftlint:disable:this force_cast
-        appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+        appDelegate = UIApplication.shared.delegate as? AppDelegate
         manager = WorkManager()
         manager.clearEvents()
     }
@@ -33,20 +33,20 @@ class TableViewDataSourceTests: XCTestCase {
     }
 
     func testNumberOfSectionsIsOne() {
-        XCTAssert(tableViewController.numberOfSectionsInTableView(tableView) == 1,
+        XCTAssert(tableViewController.numberOfSections(in: tableView) == 1,
                   "1 Section in the tableView")
     }
 
     func testRowsInSectionZeroDependsOnModel() {
-        manager.addArrival(NSDate())
-        manager.addDeparture(NSDate()) //added one item
+        manager.addArrival(Date())
+        manager.addDeparture(Date()) //added one item
 
         appDelegate.workManager = manager
         let rows = tableViewController.tableView(tableView, numberOfRowsInSection: 0)
         XCTAssertEqual(rows, 1, "1 row for one day of work")
 
-        manager.addArrival(NSDate())
-        manager.addDeparture(NSDate()) //add another entry
+        manager.addArrival(Date())
+        manager.addDeparture(Date()) //add another entry
         appDelegate.workManager = manager
         let rows2 = tableViewController.tableView(tableView, numberOfRowsInSection: 0)
         XCTAssertEqual(rows2, 2, "1 row for one day of work")
@@ -54,8 +54,8 @@ class TableViewDataSourceTests: XCTestCase {
     }
 
     func testRowsInOtherSectionsIsZero() {
-        manager.addArrival(NSDate())
-        manager.addDeparture(NSDate())// add an item, should be displayed in section 0
+        manager.addArrival(Date())
+        manager.addDeparture(Date())// add an item, should be displayed in section 0
 
         appDelegate.workManager = manager
 
@@ -69,27 +69,27 @@ class TableViewDataSourceTests: XCTestCase {
 
     func testTableViewCellCreation() {
         //set timezone to get days and times correct
-        NSTimeZone.setDefaultTimeZone(NSTimeZone(forSecondsFromGMT: 0))
-        let arrivalTime = NSDate(timeIntervalSinceReferenceDate: 0) //jan 1 2001 at 12:00 AM
+        NSTimeZone.default = TimeZone(secondsFromGMT: 0)!
+        let arrivalTime = Date(timeIntervalSinceReferenceDate: 0) //jan 1 2001 at 12:00 AM
         manager.addArrival(arrivalTime)
-        let departureTime = NSDate(timeIntervalSinceReferenceDate: 8*60*60 ) // 8 hours later
+        let departureTime = Date(timeIntervalSinceReferenceDate: 8*60*60 ) // 8 hours later
         manager.addDeparture(departureTime)
         appDelegate.workManager = manager
 
         //need an IndexPath to test this
-        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+        let indexPath = IndexPath(row: 0, section: 0)
         //we only added one item so far, it will be in row 1 of section 1
         tableView.reloadData()
-        let cell = tableViewController.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        let cell = tableViewController.tableView(tableView, cellForRowAt: indexPath)
         let workCell = cell as? WorkDayCellTableViewCell
 
         XCTAssertEqual(workCell?.workDate!.text!, "Mon", "")
         XCTAssertEqual(workCell?.workTime!.text!, "8.0", "")
-        let timeFormatter = NSDateFormatter()
-        timeFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        let timeFormatter = DateFormatter()
+        timeFormatter.timeStyle = DateFormatter.Style.short
         //Fragile Tests
-        XCTAssertEqual(workCell?.arrivalTime!.text!, timeFormatter.stringFromDate(arrivalTime), "")
-        XCTAssertEqual(workCell?.departureTime!.text!, timeFormatter.stringFromDate(departureTime),
+        XCTAssertEqual(workCell?.arrivalTime!.text!, timeFormatter.string(from: arrivalTime), "")
+        XCTAssertEqual(workCell?.departureTime!.text!, timeFormatter.string(from: departureTime),
                        "")
 
     }

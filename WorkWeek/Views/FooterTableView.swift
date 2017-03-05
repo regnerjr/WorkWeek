@@ -6,7 +6,6 @@ class FooterTableView: UITableViewHeaderFooterView {
     let arrivedTimeLabel = UILabel(frame: .zero)
     let timeSoFarLabel = UILabel(frame: .zero)
 
-
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         addContentViews()
@@ -26,9 +25,9 @@ class FooterTableView: UITableViewHeaderFooterView {
         constrainAtWorkLabel()
     }
 
-    func configureWithLastArrival(lastArrival: Event?) {
+    func configureWithLastArrival(_ lastArrival: Event?) {
         guard let lastArrival = lastArrival else {
-            contentView.backgroundColor = .clearColor()
+            contentView.backgroundColor = .clear
             return
         }
         atWorkLabel.text = "At Work: " + lastArrival.date.dayOfWeek
@@ -39,35 +38,35 @@ class FooterTableView: UITableViewHeaderFooterView {
 
     func constrainArrivedLabel() {
         arrivedTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[arrived]-|", options: [], metrics: nil,
+        NSLayoutConstraint.constraints(
+            withVisualFormat: "V:[arrived]-|", options: [], metrics: nil,
             views: ["arrived": arrivedTimeLabel, "contentView": contentView]
-            ).forEach {$0.active = true}
-        NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-[arrived]", options: [], metrics: nil,
+            ).forEach {$0.isActive = true}
+        NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|-[arrived]", options: [], metrics: nil,
             views: ["arrived": arrivedTimeLabel, "contentView": contentView]
-            ).forEach {$0.active = true}
+            ).forEach {$0.isActive = true}
     }
 
     func constrainTimeSoFarLabel() {
         timeSoFarLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[time]-|", options: [], metrics: nil,
+        NSLayoutConstraint.constraints(
+            withVisualFormat: "V:[time]-|", options: [], metrics: nil,
             views: ["time": timeSoFarLabel, "contentView": contentView]
-            ).forEach {$0.active = true}
-        NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:[time]-|", options: [], metrics: nil,
+            ).forEach {$0.isActive = true}
+        NSLayoutConstraint.constraints(
+            withVisualFormat: "H:[time]-|", options: [], metrics: nil,
             views: ["time": timeSoFarLabel, "contentView": contentView]
-            ).forEach {$0.active = true}
+            ).forEach {$0.isActive = true}
     }
 
     func constrainAtWorkLabel() {
         atWorkLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activateConstraints([
+        NSLayoutConstraint.activate([
         atWorkLabel.centerXAnchor
-                   .constraintEqualToAnchor(contentView.centerXAnchor),
+                   .constraint(equalTo: contentView.centerXAnchor),
         atWorkLabel.centerYAnchor
-                   .constraintEqualToAnchor(contentView.centerYAnchor)
+                   .constraint(equalTo: contentView.centerYAnchor)
         ])
     }
 

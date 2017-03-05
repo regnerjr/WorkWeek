@@ -7,7 +7,7 @@ class AppDelegateTests: XCTestCase {
 
     class StubWorkManager: WorkManager {
         var resetWasCalled = false
-        override func resetDataIfNeeded(defaults: NSUserDefaults = Defaults.standard) {
+        override func resetDataIfNeeded(_ defaults: UserDefaults = Defaults.standard) {
             resetWasCalled = true
         }
     }
@@ -23,12 +23,12 @@ class AppDelegateTests: XCTestCase {
         super.setUp()
 
         //Clear User Defaults
-        let domainName = NSBundle.mainBundle().bundleIdentifier
-        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(domainName!)
+        let domainName = Bundle.main.bundleIdentifier
+        UserDefaults.standard.removePersistentDomain(forName: domainName!)
     }
 
     func testDataIsResetWhenApplicationEntersForeground() {
-        let app = UIApplication.sharedApplication()
+        let app = UIApplication.shared
         guard let appDelegate = app.delegate as? AppDelegate else {
             fatalError("Could not get App Delegate")
         }
@@ -41,7 +41,7 @@ class AppDelegateTests: XCTestCase {
     }
 
     func testApplicationBadgeIsClearedWhenAppEntersForeground() {
-        let app = UIApplication.sharedApplication()
+        let app = UIApplication.shared
         guard let appDelegate = app.delegate as? AppDelegate else {
             fatalError("Could Not Get App Delegate")
         }
@@ -54,7 +54,7 @@ class AppDelegateTests: XCTestCase {
     }
 
     func testDidReceiveLocalNotificationShowsAlert() {
-        let app = UIApplication.sharedApplication()
+        let app = UIApplication.shared
         guard let appDelegate = app.delegate as? AppDelegate else {
             fatalError("Could not get app Delegate")
         }
@@ -64,13 +64,13 @@ class AppDelegateTests: XCTestCase {
         _ = vc.view //load view
         XCTAssertNil(vc.presentedViewController)
 
-        appDelegate.application(app, didReceiveLocalNotification: UILocalNotification())
+        appDelegate.application(app, didReceive: UILocalNotification())
         XCTAssertNotNil(vc.presentedViewController)
-        XCTAssert(vc.presentedViewController?.dynamicType == UIAlertController.self)
+        XCTAssert(type(of: vc.presentedViewController!) == UIAlertController.self)
     }
 
     func testLoadInterfaceReturnsCorrectStoryboardIfOnboardingIsNOTComplete() {
-        let def = NSUserDefaults(suiteName: "testDefaults")
+        let def = UserDefaults(suiteName: "testDefaults")
         def?.setBool(false, forKey: SettingsKey.OnboardingComplete)
         let onboardingVC = ADHelper.loadInterface(def!)
 
@@ -78,7 +78,7 @@ class AppDelegateTests: XCTestCase {
     }
 
     func testLoadInterfaceReturnsCorrectStoryboardIfOnboardingIsComplete() {
-        let def = NSUserDefaults(suiteName: "testDefaults")
+        let def = UserDefaults(suiteName: "testDefaults")
         def?.setBool(true, forKey: SettingsKey.OnboardingComplete)
         let onboardingVC = ADHelper.loadInterface(def!)
 
@@ -86,10 +86,9 @@ class AppDelegateTests: XCTestCase {
     }
 
     func testShowGoHomeAlertSheet() {
-        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             fatalError("Could not get app Delegate")
         }
-
 
         let vc = UIViewController()//Must put VC in window hirearchy in order to present stuff
         appDelegate.window?.rootViewController = vc
@@ -97,12 +96,12 @@ class AppDelegateTests: XCTestCase {
 
         ADHelper.showGoHomeAlertSheet(onViewController: vc)
         XCTAssertNotNil(vc.presentedViewController)
-        XCTAssert(vc.presentedViewController?.dynamicType == UIAlertController.self)
+        XCTAssert(type(of: vc.presentedViewController!) == UIAlertController.self)
     }
 
     func testDoesNotShowGoHomeAlertSheetIfPassedInVCIsNone() {
         let vc = UIViewController()//Must put VC in window hirearchy in order to present stuff
-        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             fatalError("Could not get app Delegate")
         }
         appDelegate.window?.rootViewController = vc
@@ -116,8 +115,8 @@ class AppDelegateTests: XCTestCase {
         let wm = StubWorkManager()
         let lm = StubLocationManager()
 
-        let options: [NSObject:AnyObject]? = nil
-        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {
+        let options: [AnyHashable: Any]? = nil
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             fatalError("Could not get app delegate")
         }
         appDelegate.handleLaunchOptions(options, workManager: wm)
@@ -129,8 +128,8 @@ class AppDelegateTests: XCTestCase {
         let wm = StubWorkManager()
         let lm = StubLocationManager()
 
-        let options = [UIApplicationLaunchOptionsLocationKey: NSNumber(bool: true)]
-        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {
+        let options = [UIApplicationLaunchOptionsKey.location: NSNumber(value: true as Bool)]
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             fatalError("Could not get App Delegate")
         }
         appDelegate.locationManager = lm
@@ -142,7 +141,7 @@ class AppDelegateTests: XCTestCase {
     func testRegisteringDefaults() {
 
         //user defaults are registered at app launch. So verify that everything is normal
-        let def = NSUserDefaults.standardUserDefaults()
+        let def = UserDefaults.standard
 
         ADHelper.registerDefaults(def)
         XCTAssertFalse(def.boolForKey(.OnboardingComplete))
@@ -151,13 +150,13 @@ class AppDelegateTests: XCTestCase {
         XCTAssert(def.integerForKey(.ResetHour) == 4)
         XCTAssert(def.integerForKey(.WorkRadius) == 200)
 
-        guard let resetDate = def.objectForKey(.ClearDate) as? NSDate else {
+        guard let resetDate = def.objectForKey(.ClearDate) as? Date else {
             XCTFail("Clear data is not set")
             return
         }
 
-        let cal = NSCalendar.currentCalendar()
-        let comps = cal.components([.Day, .Hour, .Minute, .Weekday], fromDate: resetDate)
+        let cal = Calendar.current
+        let comps = (cal as NSCalendar).components([.day, .hour, .minute, .weekday], from: resetDate)
         XCTAssert(comps.weekday == 1)//sunday
         XCTAssert(comps.hour == 4)//4am
         XCTAssert(comps.minute == 0)//4am

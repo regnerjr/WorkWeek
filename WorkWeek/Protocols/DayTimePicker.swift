@@ -2,38 +2,38 @@ import UIKit
 
 class DayTimePicker: NSObject {
 
-    lazy var dateFormatter: NSDateFormatter = {
-        return NSDateFormatter()
+    lazy var dateFormatter: DateFormatter = {
+        return DateFormatter()
     }()
 
-    lazy var shortDateFmt: NSDateFormatter = {
-        let fmt = NSDateFormatter()
-        fmt.timeStyle = NSDateFormatterStyle.ShortStyle
-        fmt.dateStyle = NSDateFormatterStyle.ShortStyle
+    lazy var shortDateFmt: DateFormatter = {
+        let fmt = DateFormatter()
+        fmt.timeStyle = DateFormatter.Style.short
+        fmt.dateStyle = DateFormatter.Style.short
         return fmt
     }()
 
-    var calendar = NSCalendar.currentCalendar()
-    //TODO: Look at this awesome Hack?
-    weak var dateLabel: UILabel? = nil
+    var calendar = Calendar.current
+    // TODO: Look at this awesome Hack?
+    weak var dateLabel: UILabel?
 }
 
-extension NSCalendar {
+extension Calendar {
     var numberOfWeekdays: Int {
-        return self.maximumRangeOfUnit(.Weekday).length
+        return (self as NSCalendar).maximumRange(of: .weekday).length
     }
     var numberOfHoursInDay: Int {
-        return self.maximumRangeOfUnit(NSCalendarUnit.Hour).length
+        return (self as NSCalendar).maximumRange(of: NSCalendar.Unit.hour).length
     }
 }
 
 extension DayTimePicker: UIPickerViewDataSource {
 
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2 //Weekday, Hour
     }
 
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
         case 0: return calendar.numberOfWeekdays
         case 1: return calendar.numberOfHoursInDay
@@ -46,10 +46,10 @@ extension DayTimePicker: UIPickerViewDataSource {
 
 extension DayTimePicker: UIPickerViewDelegate {
 
-    func pickerView(pickerView: UIPickerView,
+    func pickerView(_ pickerView: UIPickerView,
                     viewForRow row: Int,
                     forComponent component: Int,
-                    reusingView view: UIView?) -> UIView {
+                    reusing view: UIView?) -> UIView {
 
         switch component {
         case 0: return makeADayView(row, withLabel: UILabel(frame: .zero))
@@ -60,35 +60,34 @@ extension DayTimePicker: UIPickerViewDelegate {
         }
     }
 
-    func makeADayView(row: Int, withLabel label: UILabel) -> UIView {
+    func makeADayView(_ row: Int, withLabel label: UILabel) -> UIView {
         let days = dateFormatter.standaloneWeekdaySymbols
-        if row < days.count {
-            label.text = days[row]
+        if row < (days?.count)! {
+            label.text = days?[row]
         }
-        label.textAlignment = NSTextAlignment.Center
+        label.textAlignment = NSTextAlignment.center
         return label
     }
 
-    func makeAnHourView(row: Int, withLabel label: UILabel) -> UIView {
+    func makeAnHourView(_ row: Int, withLabel label: UILabel) -> UIView {
         if row < calendar.numberOfHoursInDay {
-            dateFormatter.timeStyle = .ShortStyle
-            let comp = NSDateComponents()
+            dateFormatter.timeStyle = .short
+            var comp = DateComponents()
             comp.hour = row
-            label.text = dateFormatter.stringFromDate(calendar.dateFromComponents(comp)!)
+            label.text = dateFormatter.string(from: calendar.date(from: comp)!)
         }
-        label.textAlignment = NSTextAlignment.Center
+        label.textAlignment = NSTextAlignment.center
         return label
     }
 
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         print("pickerview selecting New row")
         if let dateLabel = dateLabel {
-            let day = pickerView.selectedRowInComponent(0)
-            let hour = pickerView.selectedRowInComponent(1)
+            let day = pickerView.selectedRow(inComponent: 0)
+            let hour = pickerView.selectedRow(inComponent: 1)
             let resetDate = getDateForReset(day, hour: hour, minute: 0)
-            dateLabel.text = shortDateFmt.stringFromDate(resetDate)
+            dateLabel.text = shortDateFmt.string(from: resetDate)
         }
     }
-
 
 }

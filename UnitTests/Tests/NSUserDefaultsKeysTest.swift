@@ -2,7 +2,7 @@ import XCTest
 
 @testable import WorkWeek
 
-class MyDefaults: NSUserDefaults {
+class MyDefaults: UserDefaults {
     var getDoubleKey: String!
     var setDoubleKey: String!
 
@@ -12,29 +12,29 @@ class MyDefaults: NSUserDefaults {
     var getObjectKey: String!
     var setObjectKey: String!
 
-    override func doubleForKey(defaultName: String) -> Double {
+    override func double(forKey defaultName: String) -> Double {
         getDoubleKey = defaultName
-        return super.doubleForKey(defaultName)
+        return super.double(forKey: defaultName)
     }
-    override func setDouble(value: Double, forKey defaultName: String) {
+    override func set(_ value: Double, forKey defaultName: String) {
         setDoubleKey = defaultName
-        super.setDouble(value, forKey: defaultName)
+        super.set(value, forKey: defaultName)
     }
-    override func setInteger(value: Int, forKey defaultName: String) {
+    override func set(_ value: Int, forKey defaultName: String) {
         setIntKey  = defaultName
-        super.setInteger(value, forKey: defaultName)
+        super.set(value, forKey: defaultName)
     }
-    override func integerForKey(defaultName: String) -> Int {
+    override func integer(forKey defaultName: String) -> Int {
         getIntKey = defaultName
-        return super.integerForKey(defaultName)
+        return super.integer(forKey: defaultName)
     }
-    override func setObject(value: AnyObject?, forKey defaultName: String) {
+    override func set(_ value: Any?, forKey defaultName: String) {
         setObjectKey = defaultName
-        super.setObject(value, forKey: defaultName)
+        super.set(value, forKey: defaultName)
     }
-    override func objectForKey(defaultName: String) -> AnyObject? {
+    override func object(forKey defaultName: String) -> Any? {
         getObjectKey = defaultName
-        return super.objectForKey(defaultName)
+        return super.object(forKey: defaultName)
     }
 
 }
@@ -75,10 +75,10 @@ class NSUserDefaultsKeysTest: XCTestCase {
 
     func testSavingAndRetrievingADate() {
         let keyForTest = SettingsKey.ClearDate
-        let val = NSDate()
-        defaults.setObject(val, forKey: keyForTest)
+        let val = Date()
+        defaults.set(val, forKey: keyForTest)
         XCTAssert(defaults.setObjectKey == keyForTest.rawValue, "Correct Key is set for Objects")
-        let result = defaults.objectForKey(keyForTest) as? NSDate?
+        let result = defaults.objectForKey(keyForTest) as? Date?
         XCTAssertEqual(defaults.setObjectKey, keyForTest.rawValue,
                        "Correct Key is used for getting object")
         XCTAssert(val.timeIntervalSinceReferenceDate == result!!.timeIntervalSinceReferenceDate,

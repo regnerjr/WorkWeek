@@ -2,24 +2,24 @@ import UIKit
 
 extension TableViewController {
 
-    override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override open func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override public func tableView(tableView: UITableView,
-                                   numberOfRowsInSection section: Int) -> Int {
+    override open func tableView(_ tableView: UITableView,
+                                 numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return workManager.allItems().count
         }
         return 0
     }
 
-    override public func tableView(tableView: UITableView,
-                                   cellForRowAtIndexPath indexPath: NSIndexPath
+    override open func tableView(_ tableView: UITableView,
+                                 cellForRowAt indexPath: IndexPath
                                   ) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCellWithIdentifier(
-            ReuseIdentifiers.MainCell, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: ReuseIdentifiers.MainCell.rawValue, for: indexPath)
         guard let workDayCell = cell as? WorkDayCellTableViewCell else {
             assert(cell is WorkDayCellTableViewCell, "Cell is not WorkDayCellTableViewCell")
             return cell // return unconfigured cell

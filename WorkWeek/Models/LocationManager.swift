@@ -7,7 +7,7 @@ class LocationManager: NSObject {
     var manager: CLLocationManager
     //need an instance of the work manager, so that arrivals and departures
     // can be triggered when the monitored regions are entered or left
-    private let workManager: WorkManager
+    fileprivate let workManager: WorkManager
 
     // Dependency Inject Auth Status and Manager for testing
     init(authStatus: CLAuthorizationStatus = CLLocationManager.authorizationStatus(),
@@ -16,7 +16,7 @@ class LocationManager: NSObject {
         self.manager = manager
         self.workManager = workManager
         super.init()
-        if authStatus != .AuthorizedAlways {
+        if authStatus != .authorizedAlways {
             manager.requestAlwaysAuthorization()
         }
         configureLocationManager(manager)
@@ -33,7 +33,7 @@ class LocationManager: NSObject {
     }
 
     /// Sets up the CLLocationManager with the correct defaults
-    private func configureLocationManager( manager: CLLocationManager ) {
+    fileprivate func configureLocationManager( _ manager: CLLocationManager ) {
         manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         manager.distanceFilter = 200
         manager.pausesLocationUpdatesAutomatically = true
@@ -42,10 +42,10 @@ class LocationManager: NSObject {
     func atWork() -> Bool {
         // Convert monitoredRegions: Set<CLRegion>? => circleRegions: Set<CLCircularRegion>
         // The check each circleRegion to see if we are in it
-        if let regions = monitoredRegions, circleRegions = regions as? Set<CLCircularRegion> {
+        if let regions = monitoredRegions, let circleRegions = regions as? Set<CLCircularRegion> {
             let inIt = circleRegions.map { circle -> Bool in
                 if let whereAreWeNow = self.manager.location {
-                    if circle.containsCoordinate(whereAreWeNow.coordinate) {
+                    if circle.contains(whereAreWeNow.coordinate) {
                         return true
                     }
                     return false
@@ -61,19 +61,19 @@ class LocationManager: NSObject {
         return false
     }
 
-    func startMonitoringRegionAtCoordinate(coord: CLLocationCoordinate2D,
+    func startMonitoringRegionAtCoordinate(_ coord: CLLocationCoordinate2D,
                                            withRadius regionRadius: CLLocationDistance) {
         //current limitation: Only one location may be used!!!
         if let regions = monitoredRegions {
             for region in regions {
-                manager.stopMonitoringForRegion(region)
+                manager.stopMonitoring(for: region)
             }
         }
 
         let workRegion = CLCircularRegion(center: coord, radius: regionRadius,
                                           identifier: MapRegionIdentifiers.work)
         print("Monitoring new region \(workRegion)")
-        manager.startMonitoringForRegion(workRegion)
+        manager.startMonitoring(for: workRegion)
     }
 
 }
@@ -81,12 +81,12 @@ class LocationManager: NSObject {
 extension LocationManager: CLLocationManagerDelegate {
 
     /// When a region is entered, an NSNotification is posted to the NSNotification Center
-    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         workManager.addArrival()
     }
 
     /// When a region is exited, an NSNotification is posted to the NSNotification Center
-    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         workManager.addDeparture()
     }
 }

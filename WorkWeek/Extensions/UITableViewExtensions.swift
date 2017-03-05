@@ -10,22 +10,22 @@ import UIKit
 
 extension UITableView {
     func dequeueReusableHeaderFooterViewWithIdentifier(
-            identifier: ReuseIdentifiers) -> UITableViewHeaderFooterView? {
-        return self.dequeueReusableHeaderFooterViewWithIdentifier(identifier.rawValue)
+            _ identifier: ReuseIdentifiers) -> UITableViewHeaderFooterView? {
+        return self.dequeueReusableHeaderFooterView(withIdentifier: identifier.rawValue)
     }
 
-    func registerClass(aClass: AnyClass?,
-                         forHeaderFooterViewReuseIdentifier identifier: ReuseIdentifiers) {
-        return self.registerClass(aClass, forHeaderFooterViewReuseIdentifier: identifier.rawValue)
+    func registerClass(_ aClass: AnyClass?,
+                       forHeaderFooterViewReuseIdentifier identifier: ReuseIdentifiers) {
+        return self.register(aClass, forHeaderFooterViewReuseIdentifier: identifier.rawValue)
 
     }
 
-    func dequeueReusableCellWithIdentifier(identifier: ReuseIdentifiers) -> UITableViewCell? {
-        return self.dequeueReusableCellWithIdentifier(identifier.rawValue)
+    func dequeueReusableCellWithIdentifier(_ identifier: ReuseIdentifiers) -> UITableViewCell? {
+        return self.dequeueReusableCell(withIdentifier: identifier.rawValue)
     }
-    func dequeueReusableCellWithIdentifier(identifier: ReuseIdentifiers,
-                                           forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return dequeueReusableCellWithIdentifier(identifier.rawValue, forIndexPath: indexPath)
+    func dequeueReusableCellWithIdentifier(_ identifier: ReuseIdentifiers,
+                                           forIndexPath indexPath: IndexPath) -> UITableViewCell {
+        return dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath)
     }
 
 }

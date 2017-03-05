@@ -1,13 +1,13 @@
 import Foundation
 
-public extension NSDate {
+public extension Date {
     /// A simple computed Property of NSDate which returns the short weekday for a given NSDate
     var dayOfWeek: String {
-        let weekdayFmt = NSDateFormatter()
+        let weekdayFmt = DateFormatter()
 
         // "E" is for short weekday Tue for Tuesday, use EEEE for full weekday
         weekdayFmt.dateFormat = "E"
-        return weekdayFmt.stringFromDate(self)
+        return weekdayFmt.string(from: self)
     }
 
 }
@@ -19,28 +19,28 @@ public extension NSDate {
 /// - parameter minute: An Int indicating which minute of the hour
 /// - returns: The Next Date
 ///
-public func getDateForReset(day: Int, hour: Int, minute: Int,
-                            cal: NSCalendar = NSCalendar.currentCalendar()) -> NSDate {
+public func getDateForReset(_ day: Int, hour: Int, minute: Int,
+                            cal: Calendar = Calendar.current) -> Date {
     // Get the Calendar in use
-    let todaysComps = cal.components([.Weekday, .Hour, .Minute], fromDate: NSDate())
+    let todaysComps = (cal as NSCalendar).components([.weekday, .hour, .minute], from: Date())
     // Get the relative components,
     // This is where the real magic happens, How much time between now  and our reset time
     // in days hours minutes
-    let resetComps = NSDateComponents()
+    var resetComps = DateComponents()
 
-    if (day + 1) <= todaysComps.weekday {  //adjust for week wrap.
-        resetComps.weekday = (day + 1) - todaysComps.weekday + 7
+    if (day + 1) <= todaysComps.weekday! {  //adjust for week wrap.
+        resetComps.weekday = (day + 1) - todaysComps.weekday! + 7
     } else {
-        resetComps.weekday = (day + 1) - todaysComps.weekday
+        resetComps.weekday = (day + 1) - todaysComps.weekday!
     }
-    resetComps.hour   = hour - todaysComps.hour
-    resetComps.minute = minute - todaysComps.minute
+    resetComps.hour   = hour - todaysComps.hour!
+    resetComps.minute = minute - todaysComps.minute!
 
     // Taking the above differences, add them to now
-    let date = cal.dateByAddingComponents(resetComps, toDate: NSDate(),
-        options: .MatchNextTime)
+    let date = (cal as NSCalendar).date(byAdding: resetComps, to: Date(),
+        options: .matchNextTime)
 
-    return date ?? NSDate()
+    return date ?? Date()
 }
 
 /// Calculates the amount of time between two given dates
@@ -49,12 +49,12 @@ public func getDateForReset(day: Int, hour: Int, minute: Int,
 /// - parameter toDate: The second Date
 /// - returns: A tuple (hours, minutes) containing the elapsed time
 ///
-public func hoursMinutesFromDate(date date1: NSDate,
-                                 toDate date2: NSDate ) -> (hours: Int, minutes: Int) {
-    let cal = NSCalendar.currentCalendar()
-    let hour = cal.components(.Hour, fromDate: date1, toDate: date2, options: .MatchStrictly).hour
+public func hoursMinutesFromDate(date date1: Date,
+                                 toDate date2: Date ) -> (hours: Int, minutes: Int) {
+    let cal = Calendar.current
+    let hour = (cal as NSCalendar).components(.hour, from: date1, to: date2, options: .matchStrictly).hour
     //gets the minutes not already included in an hour
-    let min = cal.components(.Minute, fromDate: date1, toDate: date2,
-                             options: .MatchStrictly).minute % 60
-    return (hour, min)
+    let min = (cal as NSCalendar).components(.minute, from: date1, to: date2,
+                             options: .matchStrictly).minute! % 60
+    return (hour!, min)
 }
