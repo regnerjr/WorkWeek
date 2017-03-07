@@ -20,9 +20,11 @@ extension UITableView {
 
     }
 
+    @available(*, deprecated, message: "Use the one with `indexPath`")
     func dequeueReusableCellWithIdentifier(_ identifier: ReuseIdentifiers) -> UITableViewCell? {
         return self.dequeueReusableCell(withIdentifier: identifier.rawValue)
     }
+
     func dequeueReusableCellWithIdentifier(_ identifier: ReuseIdentifiers,
                                            forIndexPath indexPath: IndexPath) -> UITableViewCell {
         return dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath)
