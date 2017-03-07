@@ -29,10 +29,8 @@ class FooterTableView: UITableViewHeaderFooterView {
             contentView.backgroundColor = .clear
             return
         }
-        atWorkLabel.text = "At Work: " + lastArrival.date.dayOfWeek
+        atWorkLabel.text = "At Work: " + lastArrival.dayOfWeek
         arrivedTimeLabel.text = lastArrival.timeString
-        timeSoFarLabel.text = Formatter.double
-                              .stringFromDouble(lastArrival.timeSinceEventHoursDouble)
     }
 
     func constrainArrivedLabel() {
@@ -45,6 +43,7 @@ class FooterTableView: UITableViewHeaderFooterView {
             withVisualFormat: "H:|-[arrived]", options: [], metrics: nil,
             views: ["arrived": arrivedTimeLabel, "contentView": contentView]
             ).forEach {$0.isActive = true}
+        timeSoFarLabel.text = lastArrival.timeSoFar
     }
 
     func constrainTimeSoFarLabel() {
