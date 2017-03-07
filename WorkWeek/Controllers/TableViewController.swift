@@ -14,6 +14,8 @@ enum ReuseIdentifiers: String {
 
 open class TableViewController: UITableViewController {
 
+    @IBOutlet var footer: FooterTableView!
+
     let appDelegate = UIApplication.shared.del
     open var workManager: WorkManager {
         return appDelegate.workManager
@@ -24,8 +26,6 @@ open class TableViewController: UITableViewController {
     var array = [WorkDay]()
 
     override open func viewDidLoad() {
-        tableView.registerClass(FooterTableView.self,
-                                forHeaderFooterViewReuseIdentifier: ReuseIdentifiers.Footer)
         navigationController?.title = "WorkWeek"
 
         locationManager.manager.startUpdatingLocation()
@@ -60,6 +60,7 @@ open class TableViewController: UITableViewController {
     func reloadTableViewNotification(_ note: Notification) {
         print("Reloading TableView Due to Notification")
         array = workManager.allItems()
+        print("\(array.count)")
         tableView.reloadData()
     }
 
@@ -76,7 +77,7 @@ open class TableViewController: UITableViewController {
     // MARK: - Helper Functions
     func configureTimerToReloadTheTableViewEveryMinute() {
         Timer.scheduledTimer(timeInterval: 60.0, target: self,
-                                               selector: #selector(reloadTableViewNotification(_:)),
+                             selector: #selector(reloadTableView(_:)),
                                                userInfo: nil, repeats: true)
     }
 
@@ -84,6 +85,7 @@ open class TableViewController: UITableViewController {
         print("Reloading table view due to timer")
         //for now get new data too!
         array = workManager.allItems()
+        print("\(array.count)")
         tableView.reloadData()
     }
 }
@@ -110,11 +112,20 @@ extension TableViewController {
 
         guard workManager.isAtWork == true  else { return nil }
 
-        let footer = tableView.dequeueReusableHeaderFooterViewWithIdentifier(
-                                                        ReuseIdentifiers.Footer)
-        guard let footerView = footer as? FooterTableView else { return nil }
-        footerView.configureWithLastArrival(workManager.lastArrival)
-        return footerView
+        var tableFooter = tableView.dequeueReusableHeaderFooterViewWithIdentifier(
+                                ReuseIdentifiers.Footer)
+        if tableFooter == nil {
+            tableView.register(UITableViewHeaderFooterView.self,
+                               forHeaderFooterViewReuseIdentifier: ReuseIdentifiers.Footer.rawValue)
+
+            tableFooter = UITableViewHeaderFooterView(reuseIdentifier: ReuseIdentifiers.Footer.rawValue)
+        }
+        footer.configureWithLastArrival(workManager.lastArrival)
+
+        tableFooter?.contentView.addSubview(footer)
+
+        return footer
+
     }
 
     override open func tableView(_ tableView: UITableView,

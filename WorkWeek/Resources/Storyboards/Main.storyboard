@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VyB-Nf-Eby">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12113" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VyB-Nf-Eby">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12078"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -105,6 +105,19 @@
                                     <outlet property="workTime" destination="dDS-T3-eJK" id="8Xo-JG-Fio"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FooterView" id="0tc-Uu-03a" customClass="FooterTableView" customModule="WorkWeek" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="198" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0tc-Uu-03a" id="wSB-cv-nRy">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="arrivedTimeLabel" destination="bUO-bW-yVx" id="k2J-5B-CfX"/>
+                                    <outlet property="atWorkLabel" destination="Rbj-lR-2MM" id="SHy-ph-sy9"/>
+                                    <outlet property="timeSoFarLabel" destination="Jgv-2b-l9u" id="mwc-zs-eV7"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="gqb-qp-BJH" id="T4D-bE-nuR"/>
@@ -123,8 +136,49 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="footer" destination="6bj-Wf-0Oh" id="UY6-5G-T9U"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="peR-UG-9l3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="6bj-Wf-0Oh" customClass="FooterTableView" customModule="WorkWeek" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6hours today" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jgv-2b-l9u">
+                            <rect key="frame" x="141" y="102" width="91" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.16341733929999999" green="0.66204029320000002" blue="0.66847562790000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="At Work" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbj-lR-2MM">
+                            <rect key="frame" x="83" y="51" width="74" height="26"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arrival: 8:07" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUO-bW-yVx">
+                            <rect key="frame" x="8" y="102" width="83" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.16341733929999999" green="0.66204029320000002" blue="0.66847562790000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="Jgv-2b-l9u" firstAttribute="trailing" secondItem="6bj-Wf-0Oh" secondAttribute="trailingMargin" id="13a-k1-oCt"/>
+                        <constraint firstItem="bUO-bW-yVx" firstAttribute="leading" secondItem="6bj-Wf-0Oh" secondAttribute="leadingMargin" id="EIp-7O-eRe"/>
+                        <constraint firstItem="Rbj-lR-2MM" firstAttribute="centerX" secondItem="6bj-Wf-0Oh" secondAttribute="centerX" id="GfF-YE-kWy"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="bUO-bW-yVx" secondAttribute="bottom" id="d7O-uA-EKa"/>
+                        <constraint firstItem="Rbj-lR-2MM" firstAttribute="centerY" secondItem="6bj-Wf-0Oh" secondAttribute="centerY" id="dS3-Vg-lzP"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="Jgv-2b-l9u" secondAttribute="bottom" id="egh-KA-oGz"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="arrivedTimeLabel" destination="bUO-bW-yVx" id="je6-Kj-DS2"/>
+                        <outlet property="atWorkLabel" destination="Rbj-lR-2MM" id="ZAs-tt-HDR"/>
+                        <outlet property="timeSoFarLabel" destination="Jgv-2b-l9u" id="Fbj-NL-R5u"/>
+                    </connections>
+                </view>
             </objects>
             <point key="canvasLocation" x="1171" y="413"/>
         </scene>
