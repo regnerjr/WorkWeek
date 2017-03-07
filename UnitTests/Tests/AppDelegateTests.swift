@@ -108,9 +108,6 @@ class AppDelegateTests: XCTestCase {
         }
         appDelegate.window?.rootViewController = vc
         XCTAssertNil(vc.presentedViewController)
-
-        ADHelper.showGoHomeAlertSheet(onViewController: nil)
-        XCTAssertNil(vc.presentedViewController)
     }
 
     func testHandleLaunch_No_Options() {
