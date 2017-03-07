@@ -19,8 +19,6 @@ class FooterTableView: UIView {
         atWorkLabel.text = "At Work: " + lastArrival.dayOfWeek
         arrivedTimeLabel.text = lastArrival.timeString
         timeSoFarLabel.text = lastArrival.timeSoFar
-        setNeedsUpdateConstraints()
-        setNeedsLayout()
     }
 
 }
