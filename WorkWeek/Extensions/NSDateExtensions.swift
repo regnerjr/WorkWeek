@@ -1,7 +1,7 @@
 import Foundation
 
 public extension Date {
-    /// A simple computed Property of NSDate which returns the short weekday for a given NSDate
+    /// A simple computed Property of Date which returns the short weekday for a given Date
     var dayOfWeek: String {
         let weekdayFmt = DateFormatter()
 
@@ -12,7 +12,7 @@ public extension Date {
 
 }
 
-/// Calculates the next NSDate which matches the given components
+/// Calculates the next Date which matches the given components
 ///
 /// - parameter day: An Int indicating which day of the week is requested.
 /// - parameter hour: An Int indicating which hour of the day
@@ -22,7 +22,7 @@ public extension Date {
 public func getDateForReset(_ day: Int, hour: Int, minute: Int,
                             cal: Calendar = Calendar.current) -> Date {
     // Get the Calendar in use
-    let todaysComps = (cal as NSCalendar).components([.weekday, .hour, .minute], from: Date())
+    let todaysComps = cal.dateComponents([.weekday, .hour, .minute], from: Date())
     // Get the relative components,
     // This is where the real magic happens, How much time between now  and our reset time
     // in days hours minutes
@@ -37,10 +37,9 @@ public func getDateForReset(_ day: Int, hour: Int, minute: Int,
     resetComps.minute = minute - todaysComps.minute!
 
     // Taking the above differences, add them to now
-    let date = (cal as NSCalendar).date(byAdding: resetComps, to: Date(),
-        options: .matchNextTime)
+    let date = cal.date(byAdding: resetComps, to: Date())
 
-    return date ?? Date()
+    return date! //swiftlint:disable:this force_cast
 }
 
 /// Calculates the amount of time between two given dates
@@ -49,12 +48,9 @@ public func getDateForReset(_ day: Int, hour: Int, minute: Int,
 /// - parameter toDate: The second Date
 /// - returns: A tuple (hours, minutes) containing the elapsed time
 ///
-public func hoursMinutesFromDate(date date1: Date,
-                                 toDate date2: Date ) -> (hours: Int, minutes: Int) {
+public func hoursMinutesFromDate(date startDate: Date,
+                                 toDate endDate: Date ) -> (hours: Int, minutes: Int) {
     let cal = Calendar.current
-    let hour = (cal as NSCalendar).components(.hour, from: date1, to: date2, options: .matchStrictly).hour
-    //gets the minutes not already included in an hour
-    let min = (cal as NSCalendar).components(.minute, from: date1, to: date2,
-                             options: .matchStrictly).minute! % 60
-    return (hour!, min)
+    let comps = cal.dateComponents([.hour, .minute], from: startDate, to: endDate)
+    return (comps.hour!, comps.minute!)
 }
