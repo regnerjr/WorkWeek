@@ -46,38 +46,33 @@ extension DayTimePicker: UIPickerViewDataSource {
 
 extension DayTimePicker: UIPickerViewDelegate {
 
-    func pickerView(_ pickerView: UIPickerView,
-                    viewForRow row: Int,
-                    forComponent component: Int,
-                    reusing view: UIView?) -> UIView {
-
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
-        case 0: return makeADayView(row, withLabel: UILabel(frame: .zero))
-        case 1: return makeAnHourView(row, withLabel: UILabel(frame: .zero))
+        case 0: return makeADayView(row)
+        case 1: return makeAnHourView(row)
         default:
             print("Something is wrong! asked for picker views for component: \(component)")
-            return view ?? UIView() //return the same view?
+            return ""
         }
     }
 
-    func makeADayView(_ row: Int, withLabel label: UILabel) -> UIView {
-        let days = dateFormatter.standaloneWeekdaySymbols
-        if row < (days?.count)! {
-            label.text = days?[row]
+    func makeADayView(_ row: Int) -> String {
+        guard let days = dateFormatter.standaloneWeekdaySymbols, row < days.count else {
+            print("🐛 Something is wrong here,\(#function)")
+            return ""
         }
-        label.textAlignment = NSTextAlignment.center
-        return label
+        return days[row]
     }
 
-    func makeAnHourView(_ row: Int, withLabel label: UILabel) -> UIView {
-        if row < calendar.numberOfHoursInDay {
-            dateFormatter.timeStyle = .short
-            var comp = DateComponents()
-            comp.hour = row
-            label.text = dateFormatter.string(from: calendar.date(from: comp)!)
+    func makeAnHourView(_ row: Int) -> String {
+        guard row < calendar.numberOfHoursInDay else {
+            print("🐛 Something is wrong here,\(#function)")
+            return ""
         }
-        label.textAlignment = NSTextAlignment.center
-        return label
+        dateFormatter.timeStyle = .short
+        var comp = DateComponents()
+        comp.hour = row
+        return dateFormatter.string(from: calendar.date(from: comp)!)
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

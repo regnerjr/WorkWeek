@@ -5,10 +5,10 @@ import Prelude
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var workManager = WorkManager() //variable for testing
-    lazy var locationManager: LocationManager = {
-        return LocationManager()
-    }()
+
+    var workManager = WorkManager()
+    lazy var locationManager: LocationManager =
+                             LocationManager(locationDelegate: self.workManager)
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

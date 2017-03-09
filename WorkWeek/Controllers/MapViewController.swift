@@ -29,7 +29,7 @@ open class MapViewController: UIViewController {
     }()
 
     var workLocations: [CLCircularRegion]? {
-        return locationManager.monitoredRegions?.flatMap { $0 as? CLCircularRegion }
+        return locationManager.monitoredRegions.flatMap { $0 as? CLCircularRegion }
     }
 
     override open func viewDidLoad() {

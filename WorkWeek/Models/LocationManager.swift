@@ -3,29 +3,31 @@ import CoreLocation
 
 /// A manager for handling location realted functions.
 class LocationManager: NSObject {
-    /// The actual CLLocationManager
-    var manager: CLLocationManager
-    //need an instance of the work manager, so that arrivals and departures
-    // can be triggered when the monitored regions are entered or left
-    fileprivate let workManager: WorkManager
 
-    // Dependency Inject Auth Status and Manager for testing
+    var manager: CLLocationManager
+
     init(authStatus: CLAuthorizationStatus = CLLocationManager.authorizationStatus(),
          manager: CLLocationManager = CLLocationManager(),
-         workManager: WorkManager = WorkManager()) {
+         locationDelegate: CLLocationManagerDelegate) {
         self.manager = manager
-        self.workManager = workManager
         super.init()
+
         if authStatus != .authorizedAlways {
             manager.requestAlwaysAuthorization()
         }
         configureLocationManager(manager)
-        manager.delegate = self
+        manager.delegate = locationDelegate
     }
 
     /// Returns the regions monitored by the CLLocationManager
-    var monitoredRegions: Set<CLRegion>? {
-        return manager.monitoredRegions
+    /// currently restricted to circular regions only
+    var monitoredRegions: Set<CLCircularRegion> {
+        return Set<CLCircularRegion>(manager.monitoredRegions
+                                        .flatMap { $0 as? CLCircularRegion })
+    }
+
+    var userLocation: CLLocation? {
+        return manager.location
     }
 
     func startUpdatingLocation() {
@@ -40,34 +42,19 @@ class LocationManager: NSObject {
     }
 
     func atWork() -> Bool {
-        // Convert monitoredRegions: Set<CLRegion>? => circleRegions: Set<CLCircularRegion>
-        // The check each circleRegion to see if we are in it
-        if let regions = monitoredRegions, let circleRegions = regions as? Set<CLCircularRegion> {
-            let inIt = circleRegions.map { circle -> Bool in
-                if let whereAreWeNow = self.manager.location {
-                    if circle.contains(whereAreWeNow.coordinate) {
-                        return true
-                    }
-                    return false
-                }
-                return false
-            }
-            for item in inIt {
-                if item == true {
-                    return true
-                }
-            }
+        guard let currentLocation = userLocation else {
+            return false // don't know where you are, can't tell if you're at work
         }
-        return false
+        return monitoredRegions.contains { (circle: CLCircularRegion) -> Bool in
+            return circle.contains(currentLocation.coordinate)
+        }
     }
 
     func startMonitoringRegionAtCoordinate(_ coord: CLLocationCoordinate2D,
                                            withRadius regionRadius: CLLocationDistance) {
         //current limitation: Only one location may be used!!!
-        if let regions = monitoredRegions {
-            for region in regions {
-                manager.stopMonitoring(for: region)
-            }
+        monitoredRegions.forEach { region in
+            manager.stopMonitoring(for: region)
         }
 
         let workRegion = CLCircularRegion(center: coord, radius: regionRadius,
@@ -76,17 +63,4 @@ class LocationManager: NSObject {
         manager.startMonitoring(for: workRegion)
     }
 
-}
-
-extension LocationManager: CLLocationManagerDelegate {
-
-    /// When a region is entered, an NSNotification is posted to the NSNotification Center
-    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        workManager.addArrival()
-    }
-
-    /// When a region is exited, an NSNotification is posted to the NSNotification Center
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        workManager.addDeparture()
-    }
 }

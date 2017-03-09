@@ -17,7 +17,7 @@ open class TableViewController: UITableViewController {
     @IBOutlet var footer: FooterTableView!
 
     let appDelegate = UIApplication.shared.del
-    open var workManager: WorkManager {
+    var workManager: WorkManager {
         return appDelegate.workManager
     }
     var locationManager: LocationManager {
@@ -34,7 +34,7 @@ open class TableViewController: UITableViewController {
         // check if at least one location is monitored, else we should
         // transition to the map view so that the user can set a work
         // location and begin using the app
-        if locationManager.monitoredRegions?.count == 0 {
+        if locationManager.monitoredRegions.count == 0 {
             performSegue(withIdentifier: StoryBoardSegues.Map.rawValue, sender: self)
         }
         listenForNotifications()

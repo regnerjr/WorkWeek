@@ -19,6 +19,8 @@ class AppDelegateTests: XCTestCase {
         }
     }
 
+    let mockLocDel = MockLocationDelegate()
+
     override func setUp() {
         super.setUp()
 
@@ -112,7 +114,7 @@ class AppDelegateTests: XCTestCase {
 
     func testHandleLaunch_No_Options() {
         let wm = StubWorkManager()
-        let lm = StubLocationManager()
+        let lm = StubLocationManager(locationDelegate: mockLocDel)
 
         let options: [AnyHashable: Any]? = nil
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -125,7 +127,7 @@ class AppDelegateTests: XCTestCase {
 
     func testHandleLaunchOptionLocalNotificationOption() {
         let wm = StubWorkManager()
-        let lm = StubLocationManager()
+        let lm = StubLocationManager(locationDelegate: mockLocDel)
 
         let options = [UIApplicationLaunchOptionsKey.location: NSNumber(value: true as Bool)]
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
