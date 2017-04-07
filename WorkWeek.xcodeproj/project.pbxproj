@@ -34,6 +34,10 @@
 		528F2C7D1AB0ACA2005606C6 /* EventTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40A541A9E7E7400FA02C6 /* EventTest.swift */; };
 		528F2C7E1AB0ACA6005606C6 /* WorkManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52146CB91A9E648E00F40A87 /* WorkManagerTest.swift */; };
 		529B8F2E1AAA5C5100EED298 /* DayTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529B8F2D1AAA5C5100EED298 /* DayTimePicker.swift */; };
+		52A161B41E6E725000EB1DD5 /* Prelude.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A161B21E6E725000EB1DD5 /* Prelude.framework */; };
+		52A161B51E6E725000EB1DD5 /* Prelude.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 52A161B21E6E725000EB1DD5 /* Prelude.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		52A161B61E6E725000EB1DD5 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A161B31E6E725000EB1DD5 /* Result.framework */; };
+		52A161B71E6E725000EB1DD5 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 52A161B31E6E725000EB1DD5 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		52AA92EE1AFAF94100DAE92A /* WorkDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AA92ED1AFAF94100DAE92A /* WorkDay.swift */; };
 		52AA92F01AFAFEE800DAE92A /* WorkDayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AA92EF1AFAFEE800DAE92A /* WorkDayTests.swift */; };
 		52AA93361AFC499400DAE92A /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AA93351AFC499400DAE92A /* AppDelegateTests.swift */; };
@@ -66,6 +70,21 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		52A161B81E6E725100EB1DD5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				52A161B51E6E725000EB1DD5 /* Prelude.framework in Embed Frameworks */,
+				52A161B71E6E725000EB1DD5 /* Result.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		20CF0ED90738128E08E03CC2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30E265B519BC5E1BC3D618FE /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -93,6 +112,8 @@
 		528F2C771AB0ABAF005606C6 /* NSNumberFormatterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNumberFormatterExtensions.swift; sourceTree = "<group>"; };
 		528F2C791AB0ABFC005606C6 /* FormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterTests.swift; sourceTree = "<group>"; };
 		529B8F2D1AAA5C5100EED298 /* DayTimePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayTimePicker.swift; sourceTree = "<group>"; };
+		52A161B21E6E725000EB1DD5 /* Prelude.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Prelude.framework; path = Carthage/Build/iOS/Prelude.framework; sourceTree = "<group>"; };
+		52A161B31E6E725000EB1DD5 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		52AA92ED1AFAF94100DAE92A /* WorkDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkDay.swift; sourceTree = "<group>"; };
 		52AA92EF1AFAFEE800DAE92A /* WorkDayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkDayTests.swift; sourceTree = "<group>"; };
 		52AA93351AFC499400DAE92A /* AppDelegateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
@@ -127,7 +148,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				521763491A61D0C5009661ED /* CoreLocation.framework in Frameworks */,
+				52A161B41E6E725000EB1DD5 /* Prelude.framework in Frameworks */,
 				521763441A61B368009661ED /* MapKit.framework in Frameworks */,
+				52A161B61E6E725000EB1DD5 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +291,8 @@
 		C14C4A6AE12787F2C3174306 = {
 			isa = PBXGroup;
 			children = (
+				52A161B21E6E725000EB1DD5 /* Prelude.framework */,
+				52A161B31E6E725000EB1DD5 /* Result.framework */,
 				535532DFF0F16EC023159453 /* WorkWeek */,
 				5C8F223530E23502684ED33A /* UnitTests */,
 				4AA5892E8CB787E807D6F4D2 /* Frameworks */,
@@ -344,6 +369,7 @@
 				26F7F5310F927EFD109AA20B /* Warn for TODO and FIXME comments */,
 				52AFB9691CA0FFD7006B3C5F /* SwiftLint */,
 				528EDDEF1E6BCFD30050F4ED /* Increment Build Number */,
+				52A161B81E6E725100EB1DD5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -618,7 +644,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/xcodeproj.dst;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -651,7 +680,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/xcodeproj.dst;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

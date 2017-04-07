@@ -24,6 +24,15 @@ public struct Event {
         return getDoubleFrom(hours: h, min: m)
     }
 
+    var dayOfWeek: String {
+        return date.dayOfWeek
+    }
+
+    var timeSoFar: String {
+        return Formatter.double
+            .stringFromDouble(timeSinceEventHoursDouble)
+    }
+
 }
 
 extension Event: Equatable {}

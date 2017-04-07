@@ -13,6 +13,49 @@ class FakeLocationManager: CLLocationManager {
         get { return customLocation }
         set { customLocation = newValue}
     }
+
+    override var monitoredRegions: Set<CLRegion> {
+        return [CLCircularRegion(center:
+            CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), radius: 10, identifier: "FakeRegion") ]
+    }
+
+    var startedUpdatingLocation = false
+    override func startUpdatingLocation() {
+        startedUpdatingLocation = true
+    }
+}
+
+class FakeLocationManagerNoRegions: CLLocationManager {
+    override var monitoredRegions: Set<CLRegion> {
+        return []
+    }
+}
+class FakeLocationManagerNoLocation: CLLocationManager {
+    override var location: CLLocation? {
+        return nil
+    }
+}
+
+class FakeLocationManagerUserNotInRegion: CLLocationManager {
+    override var monitoredRegions: Set<CLRegion> {
+        return [CLCircularRegion(center:
+            CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
+                                 radius: 10, identifier: "FakeRegion") ]
+    }
+    override var location: CLLocation? {
+        return CLLocation(latitude: 1.0, longitude: 1.0)
+    }
+}
+
+class FakeLocationManagerUserInRegion: CLLocationManager {
+    override var monitoredRegions: Set<CLRegion> {
+        return [CLCircularRegion(center:
+            CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
+                                 radius: 10, identifier: "FakeRegion") ]
+    }
+    override var location: CLLocation? {
+        return CLLocation(latitude: 0.0, longitude: 0.0)
+    }
 }
 
 protocol Notifier {
@@ -36,6 +79,8 @@ struct FakeNotificationCenter: Notifier {
     }
 }
 
+class MockLocationDelegate: NSObject, CLLocationManagerDelegate {}
+
 class LocationManagerTests: XCTestCase {
 
     var locationManager: LocationManager!
@@ -43,6 +88,8 @@ class LocationManagerTests: XCTestCase {
 
     let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
                                   radius: 50, identifier: MapRegionIdentifiers.work)
+
+    let mockLocDel = MockLocationDelegate()
 
     override func setUp() {
         fakeLocationManager = FakeLocationManager()
@@ -55,33 +102,79 @@ class LocationManagerTests: XCTestCase {
         fakeLocationManager = nil
     }
 
-    func testLocationManagerSetsUpAManagerIfAuthorized() {
+    func testLocationManagerSkipsAskIfAuthorized() {
 
         locationManager = LocationManager(authStatus: CLAuthorizationStatus.authorizedAlways,
-                                            manager: fakeLocationManager)
-        XCTAssertNotNil(locationManager, "LocationManagerIsAllocated if Authorized")
+                                          manager: fakeLocationManager, locationDelegate: mockLocDel)
+        XCTAssert(fakeLocationManager.requestedAuthorization == false,
+                  "Don't ask for location if we already have it")
     }
 
     func testLocationManagerRequestsAlwaysIfNotAllowed() {
 
         locationManager = LocationManager(authStatus: CLAuthorizationStatus.authorizedWhenInUse,
-                                            manager: fakeLocationManager)
+                                            manager: fakeLocationManager, locationDelegate: mockLocDel)
         XCTAssert(fakeLocationManager.requestedAuthorization == true,
                   "Location Manager requests Always auth if not already granted")
 
         locationManager = LocationManager(authStatus: CLAuthorizationStatus.denied,
-                                            manager: fakeLocationManager)
+                                            manager: fakeLocationManager, locationDelegate: mockLocDel)
         XCTAssert(fakeLocationManager.requestedAuthorization,
                   "Location Manager requests Always Auth if not already authorized")
+    }
+
+    func testManagerManagesCLLocationsRegisteredRegions() {
+        locationManager = LocationManager(authStatus: CLAuthorizationStatus.authorizedWhenInUse,
+                                          manager: fakeLocationManager, locationDelegate: mockLocDel)
+        let regions = locationManager.monitoredRegions
+
+        XCTAssert(regions.count == 1)
+        XCTAssert(regions.first!.identifier == "FakeRegion")
+    }
+
+    func testWeCanStartUpdatingLocation() {
+        locationManager = LocationManager(authStatus: CLAuthorizationStatus.authorizedWhenInUse,
+                                          manager: fakeLocationManager, locationDelegate: mockLocDel)
+        locationManager.startUpdatingLocation()
+        XCTAssert(fakeLocationManager.startedUpdatingLocation == true)
+    }
+
+    func testCantBeAtWorkIfThereAreNoRegionsDefined() {
+        let noRegions = FakeLocationManagerNoRegions()
+        locationManager = LocationManager(authStatus: CLAuthorizationStatus.authorizedWhenInUse,
+                                          manager: noRegions, locationDelegate: mockLocDel)
+        XCTAssert(locationManager.atWork() == false)
+    }
+
+    func testCantBeAtWorkIfWeDontKnowWhereYouAre() {
+        let noLocation = FakeLocationManagerNoLocation()
+        locationManager = LocationManager(authStatus: CLAuthorizationStatus.authorizedWhenInUse,
+                                          manager: noLocation, locationDelegate: mockLocDel)
+        XCTAssert(locationManager.atWork() == false)
+    }
+
+    func testReportsNotInRegionIfUserNotInRegion() {
+        let notInRegion = FakeLocationManagerUserNotInRegion()
+        locationManager = LocationManager(authStatus: CLAuthorizationStatus.authorizedWhenInUse,
+                                          manager: notInRegion, locationDelegate: mockLocDel)
+        XCTAssert(locationManager.atWork() == false)
+    }
+
+    func testReportsInRegionIfUserInRegion() {
+        let InRegion = FakeLocationManagerUserInRegion()
+        locationManager = LocationManager(authStatus: CLAuthorizationStatus.authorizedWhenInUse,
+                                          manager: InRegion, locationDelegate: mockLocDel)
+        XCTAssert(locationManager.atWork() == true)
     }
 }
 
 class LocationManagerAtWorkTests: XCTestCase {
 
     var manager: LocationManager!
+    let mockLocDel = MockLocationDelegate()
 
     override func setUp() {
-        manager = LocationManager(authStatus: CLAuthorizationStatus.authorizedAlways)
+        manager = LocationManager(authStatus: CLAuthorizationStatus.authorizedAlways, locationDelegate: mockLocDel)
         super.setUp()
     }
     override func tearDown() {
@@ -93,13 +186,13 @@ class LocationManagerAtWorkTests: XCTestCase {
     }
     func testNotAtWorkWhenLocationNotAuthorized() {
         //use a not authorized Manager
-        manager = LocationManager(authStatus: CLAuthorizationStatus.denied)
+        manager = LocationManager(authStatus: CLAuthorizationStatus.denied, locationDelegate: mockLocDel)
         XCTAssertFalse(manager.atWork(), "Not at work when location services are off")
 
-        manager = LocationManager(authStatus: CLAuthorizationStatus.notDetermined)
+        manager = LocationManager(authStatus: CLAuthorizationStatus.notDetermined, locationDelegate: mockLocDel)
         XCTAssertFalse(manager.atWork(), "Not at work when location services are off")
 
-        manager = LocationManager(authStatus: CLAuthorizationStatus.restricted)
+        manager = LocationManager(authStatus: CLAuthorizationStatus.restricted, locationDelegate: mockLocDel)
         XCTAssertFalse(manager.atWork(), "Not at work when location services are off")
     }
     func testAtWorkWhenUserLocationInMonitoredRegion() {

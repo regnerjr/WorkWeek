@@ -1,5 +1,6 @@
 import UIKit
 import MapKit
+import Prelude
 
 //This global var is to ensure that the map view is only zoomed on time on initial load.
 struct MapViewState {
@@ -28,7 +29,7 @@ open class MapViewController: UIViewController {
     }()
 
     var workLocations: [CLCircularRegion]? {
-        return locationManager.monitoredRegions?.flatMap { $0 as? CLCircularRegion }
+        return locationManager.monitoredRegions.flatMap { $0 as? CLCircularRegion }
     }
 
     override open func viewDidLoad() {
@@ -61,8 +62,7 @@ open class MapViewController: UIViewController {
 
     func addOverLayAtCoordinate(_ coord: CLLocationCoordinate2D) {
         //remove existing overlays
-        let existingOverlays = mapView.overlays
-        mapView.removeOverlays(existingOverlays)
+        mapView.overlays |> mapView.removeOverlays
         //add a circle over lay where the user pressed
         let circle = MKCircle(center: coord, radius: regionRadius)
         mapView.add(circle)

@@ -123,7 +123,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
 
     func saveNewValueInDefaults(_ sender: UITextField) {
         switch sender {
-        case let s as WorkHoursTextField:  defaultWorkHours = s.workHours
+        case let s as WorkHoursTextField: defaultWorkHours = s.workHours
         case let s as WorkRadiusTextField: defaultWorkRadius = s.workRadius
         default: print("Something is wrong!!! Switching on a UITextField with unknown placeholder")
         }

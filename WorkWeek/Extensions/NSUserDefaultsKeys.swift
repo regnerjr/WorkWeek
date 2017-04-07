@@ -48,7 +48,6 @@ extension UserDefaults {
         return bool(forKey: defaultName.rawValue)
     }
     public func registerDefaults(_ defaults: [SettingsKey: Any]) {
-        //convert [SettingsKey: AnyObject] -> [String: AnyObject]
         var typedDefaults = [String: Any]()
         for (name, item) in defaults {
             typedDefaults[name.rawValue] = item
@@ -59,6 +58,6 @@ extension UserDefaults {
 
 public func updateDefaultResetDate( _ defaults: UserDefaults = Defaults.standard) {
     let date = getDateForReset(defaults.integerForKey(.ResetDay),
-        hour: defaults.integerForKey(.ResetHour), minute: 0)
+                               hour: defaults.integerForKey(.ResetHour), minute: 0)
     defaults.set(date, forKey: .ClearDate)
 }

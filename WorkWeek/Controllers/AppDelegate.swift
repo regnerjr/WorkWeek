@@ -1,13 +1,14 @@
 import UIKit
+import Prelude
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var workManager = WorkManager() //variable for testing
-    lazy var locationManager: LocationManager = {
-        return LocationManager()
-    }()
+
+    var workManager = WorkManager()
+    lazy var locationManager: LocationManager =
+                             LocationManager(locationDelegate: self.workManager)
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -25,7 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didReceive notification: UILocalNotification) {
-        ADHelper.showGoHomeAlertSheet(onViewController: window?.rootViewController)
+        guard let vc = window?.rootViewController else { return }
+        ADHelper.showGoHomeAlertSheet(onViewController: vc)
     }
 
     func loadInterface() {
@@ -52,9 +54,8 @@ class ADHelper {
         return storyboard.instantiateInitialViewController()
     }
 
-    static func showGoHomeAlertSheet(onViewController vc: UIViewController?) {
+    static func showGoHomeAlertSheet(onViewController vc: UIViewController) {
 
-        guard let vc = vc else { return }
         let alert = UIAlertController(title: "WorkWeek",
                                       message: "Go Home!",
                                       preferredStyle: UIAlertControllerStyle.alert)
@@ -75,7 +76,7 @@ class ADHelper {
             SettingsKey.WorkRadius: 200,         // 200m work radius
             SettingsKey.ClearDate: defaultResetDate
         ]
-        userDefaults.registerDefaults(defaults)
+        defaults |> userDefaults.registerDefaults
     }
 
 }

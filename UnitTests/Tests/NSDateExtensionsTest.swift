@@ -46,23 +46,23 @@ class NSDateExtensionsTest: XCTestCase {
 
     func testDateForReset_2() {
         NSTimeZone.default = TimeZone(secondsFromGMT: 0)!
-        //set reset day to be same day as it is now.
 
         let day = 2
         let hour = 4 // 4 am
         let minute = 0 //always zero
         let resetDate = getDateForReset(day, hour: hour, minute: minute)
         // reset date should have components of sunday 4: 00 am
-        let resetComps = (Calendar.current as NSCalendar).components(
-            [NSCalendar.Unit.weekday, NSCalendar.Unit.hour, NSCalendar.Unit.minute],
-            from: resetDate)
+        let resetComps = Calendar.current.dateComponents([
+            Calendar.Component.weekday, Calendar.Component.hour, Calendar.Component.minute
+            ], from: resetDate)
         XCTAssertEqual(resetComps.weekday, day + 1, "Reset day set to currentWeekday")
         XCTAssertEqual(resetComps.hour, 4, "Reset hour is 4 am ")
+        
         let comparison = Date().compare(resetDate)
         XCTAssertEqual(comparison, ComparisonResult.orderedAscending,
                        "Reset Date is in the future")
         //but it is less than 1 week in the future
-        let oneWeekComparison = Date(timeIntervalSinceNow: 7 * 24 * 60 * 60)
+        let oneWeekComparison = Date(timeIntervalSinceNow: 7 * 24 * 60 * 60) //time interva since **now** in a test!!!!!
                                 .compare(resetDate) //one week 7days, 24hours,60minutes, 60 seconds
         XCTAssertEqual(oneWeekComparison, ComparisonResult.orderedDescending,
                        "Reset Date is less than one week in the future")

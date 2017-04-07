@@ -40,38 +40,32 @@ class DayTimePickerTests: XCTestCase {
     }
 
     func testDayView() {
-        let dayView = customPicker.pickerView(pickerView, viewForRow: 0,
-                                              forComponent: 0, reusing: nil)
-        XCTAssertNotNil(dayView, "DayView is returned")
-        let daylabel = dayView as? UILabel
-        XCTAssertEqual(daylabel?.text!, "Sunday",
+        let day = customPicker.pickerView(pickerView, titleForRow: 0, forComponent: 0)
+//        let dayView = customPicker.pickerView(pickerView, titForRow: 0,
+//                                              forComponent: 0, reusing: nil)
+        XCTAssertNotNil(day, "DayView is returned")
+        XCTAssertEqual(day, "Sunday",
                        "Sunday is the first component in the day view (for Gregorian Calendar)")
     }
 
     func testInvalidDayView() {
-        let dayView = customPicker.pickerView(pickerView, viewForRow: 100,
-                                              forComponent: 0, reusing: nil)
-        XCTAssertNotNil(dayView, "DayView is returned")
-        let daylabel = dayView as? UILabel
-        XCTAssertNotNil(daylabel!, "DayLabel is not nil")
-        XCTAssertNil(daylabel?.text, "Text is not set on invald items")
+        let day = customPicker.pickerView(pickerView, titleForRow: 100, forComponent: 0)
+
+        XCTAssertNotNil(day, "Day is returned")
+        XCTAssertEqual(day, "")
     }
 
     func testHourView() {
-        let hourView = customPicker.pickerView(pickerView, viewForRow: 0,
-                                               forComponent: 1, reusing: nil)
-        XCTAssertNotNil(hourView, "Hour View is not Nil")
-        let hourLabel = hourView as? UILabel
-        XCTAssertEqual(hourLabel?.text!, "12:00 AM", "First Hour is 12:00 AM")
+        let hour = customPicker.pickerView(pickerView, titleForRow: 0, forComponent: 1)
+
+        XCTAssertNotNil(hour, "Hour View is not Nil")
+        XCTAssertEqual(hour, "12:00 AM", "First Hour is 12:00 AM")
     }
 
     func testInvalidHourView() {
-        let hourView = customPicker.pickerView(pickerView, viewForRow: 100,
-                                               forComponent: 1, reusing: nil)
-        XCTAssertNotNil(hourView, "Hour View is not Nil")
-        let hourLabel = hourView as? UILabel
-        XCTAssertNotNil(hourLabel!, "Hour Label is not nil")
-        XCTAssertNil(hourLabel?.text, "Text is not set on invald items")
+        let hour = customPicker.pickerView(pickerView, titleForRow: 100, forComponent: 1)
+                XCTAssertNotNil(hour, "Hour View is not Nil")
+        XCTAssertEqual(hour, "")
     }
 
 }

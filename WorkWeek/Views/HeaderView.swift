@@ -19,30 +19,28 @@ class HeaderView: UIView {
     override func draw(_ rect: CGRect) {
 
         //draw some graph here base on hours worked compared to length of work week
-        let context = UIGraphicsGetCurrentContext()
+        guard let context = UIGraphicsGetCurrentContext() else { return }
 
-        //set darked green Pen
-        UIColor(red:0.18, green:0.71, blue:0.73, alpha:1).setStroke()
         let lineWidth: CGFloat = 6.0
-        context?.setLineWidth(lineWidth)
 
-        //draw a larger circle based on the smaller of the width or height
+        setGreenPen(context: context, lineWidth: lineWidth)
+
         let outerRect = getOuterRectfromBounds(bounds, accountingForLineWitdth: lineWidth)
-        context?.strokeEllipse(in: outerRect)
+        context.strokeEllipse(in: outerRect)
 
         //draw a smaller inner circle to be 1/4 the size of the bounding box of the large circle
         let innerRect = getOneFourthRectFromBounds(bounds)
-        context?.strokeEllipse(in: innerRect)
+        context.strokeEllipse(in: innerRect)
 
         //draw a vertical line connnecting the 2 circles
         let x = bounds.width / 2.0
         let y: CGFloat = bounds.width > bounds.height ? 0.0 : outerRect.origin.y
-        context?.move(to: CGPoint(x: x, y: y))
-        context?.addLine(to: CGPoint(x: x, y: innerRect.origin.y))
-        context?.strokePath()
+        context.move(to: CGPoint(x: x, y: y))
+        context.addLine(to: CGPoint(x: x, y: innerRect.origin.y))
+        context.strokePath()
 
         //prepare to draw the inner circle with a wider line an lighter pen
-        context?.setLineWidth(innerRect.origin.y - outerRect.origin.y)
+        context.setLineWidth(innerRect.origin.y - outerRect.origin.y)
         UIColor(red:0.18, green:0.71, blue:0.73, alpha:0.6).setStroke()
 
         //center is just the center of the inner rect
@@ -50,11 +48,16 @@ class HeaderView: UIView {
         let centerY = innerRect.origin.y + innerRect.width / 2.0
         //draw a circle all the way around the circle, - Pi/2 since we start at the top
         let endAngle = ratioOfHoursWorked * CGFloat(2 * CGFloat.pi) - CGFloat(CGFloat.pi / 2)
-        context?.addArc(center: CGPoint(x:centerX, y: centerY),
+        context.addArc(center: CGPoint(x:centerX, y: centerY),
                         radius:CGFloat(3 / 8.0) * minWidthOrHeight,
                         startAngle: CGFloat(-(CGFloat.pi / 2)), endAngle:endAngle,
                         clockwise: true)
-        context?.strokePath()
+        context.strokePath()
+    }
+
+    private func setGreenPen(context: CGContext, lineWidth: CGFloat = 6.0) {
+        UIColor(red:0.18, green:0.71, blue:0.73, alpha:1).setStroke()
+        context.setLineWidth(lineWidth)
     }
 
     func getOuterRectfromBounds(_ bounds: CGRect,
