@@ -73,7 +73,7 @@ class AppDelegateTests: XCTestCase {
 
     func testLoadInterfaceReturnsCorrectStoryboardIfOnboardingIsNOTComplete() {
         let def = UserDefaults(suiteName: "testDefaults")
-        def?.setBool(false, forKey: SettingsKey.OnboardingComplete)
+        def?.setBool(false, forKey: SettingsKey.onboardingComplete)
         let onboardingVC = ADHelper.loadInterface(def!)
         XCTAssert(onboardingVC is UINavigationController)
         let firstVC = (onboardingVC as? UINavigationController)?.topViewController
@@ -83,7 +83,7 @@ class AppDelegateTests: XCTestCase {
 
     func testLoadInterfaceReturnsCorrectStoryboardIfOnboardingIsComplete() {
         let def = UserDefaults(suiteName: "testDefaults")
-        def?.setBool(true, forKey: SettingsKey.OnboardingComplete)
+        def?.setBool(true, forKey: SettingsKey.onboardingComplete)
         let onboardingVC = ADHelper.loadInterface(def!)
 
         XCTAssert(onboardingVC?.restorationIdentifier == "MainStoryboardInitialVC")
@@ -145,13 +145,13 @@ class AppDelegateTests: XCTestCase {
         let def = UserDefaults.standard
 
         ADHelper.registerDefaults(def)
-        XCTAssertFalse(def.boolForKey(.OnboardingComplete))
-        XCTAssert(def.integerForKey(.HoursInWorkWeek) == 40)
-        XCTAssert(def.integerForKey(.ResetDay) == 0)
-        XCTAssert(def.integerForKey(.ResetHour) == 4)
-        XCTAssert(def.integerForKey(.WorkRadius) == 200)
+        XCTAssertFalse(def.boolForKey(.onboardingComplete))
+        XCTAssert(def.integerForKey(.hoursInWorkWeek) == 40)
+        XCTAssert(def.integerForKey(.resetDay) == 0)
+        XCTAssert(def.integerForKey(.resetHour) == 4)
+        XCTAssert(def.integerForKey(.workRadius) == 200)
 
-        guard let resetDate = def.objectForKey(.ClearDate) as? Date else {
+        guard let resetDate = def.objectForKey(.clearDate) as? Date else {
             XCTFail("Clear data is not set")
             return
         }

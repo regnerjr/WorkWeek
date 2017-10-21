@@ -45,12 +45,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 class ADHelper {
 
     static func loadInterface(_ defaults: UserDefaults = Defaults.standard) -> UIViewController? {
-        let onboardingHasCompleted = defaults.bool(forKey: SettingsKey.OnboardingComplete.rawValue)
+        let onboardingHasCompleted = defaults.bool(forKey: SettingsKey.onboardingComplete.rawValue)
         return getCorrectStoryboard( onboardingHasCompleted )
     }
 
     static func getCorrectStoryboard(_ onboardingComplete: Bool ) -> UIViewController? {
-        let storyboard = UIStoryboard.load(onboardingComplete ? .Main : .Onboarding)
+        let storyboard = UIStoryboard.load(onboardingComplete ? .main : .onboarding)
         return storyboard.instantiateInitialViewController()
     }
 
@@ -69,12 +69,12 @@ class ADHelper {
         let defaultResetDate = getDateForReset(0, hour: 4, minute: 0)
         print("Registering Reset Date: \(defaultResetDate)")
         let defaults: [SettingsKey: Any] = [
-            SettingsKey.OnboardingComplete: false, //default settings screen is not shown
-            SettingsKey.HoursInWorkWeek: 40,    // 40 hour work week
-            SettingsKey.ResetDay: 0,             // Sunday
-            SettingsKey.ResetHour: 4,            // 4 am
-            SettingsKey.WorkRadius: 200,         // 200m work radius
-            SettingsKey.ClearDate: defaultResetDate
+            SettingsKey.onboardingComplete: false, //default settings screen is not shown
+            SettingsKey.hoursInWorkWeek: 40,    // 40 hour work week
+            SettingsKey.resetDay: 0,             // Sunday
+            SettingsKey.resetHour: 4,            // 4 am
+            SettingsKey.workRadius: 200,         // 200m work radius
+            SettingsKey.clearDate: defaultResetDate
         ]
         defaults |> userDefaults.registerDefaults
     }

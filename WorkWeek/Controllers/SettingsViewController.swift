@@ -11,9 +11,9 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
     let pickerSource = DayTimePicker()
 
     var defaultWorkHours: Int {
-        get { return Defaults.standard.integerForKey(.HoursInWorkWeek) }
+        get { return Defaults.standard.integerForKey(.hoursInWorkWeek) }
         set (hoursInFullWeek) {
-            Defaults.standard.setInteger(hoursInFullWeek, forKey: .HoursInWorkWeek)
+            Defaults.standard.setInteger(hoursInFullWeek, forKey: .hoursInWorkWeek)
             //If the number of work hours in a week changes, need to reschedule
             // the end of the week Notification
             let wm = (UIApplication.shared.del).workManager
@@ -23,22 +23,22 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
     }
 
     var defaultResetDay: Int {
-        get { return Defaults.standard.integerForKey(.ResetDay) }
+        get { return Defaults.standard.integerForKey(.resetDay) }
         set {
-            Defaults.standard.setInteger(newValue, forKey: .ResetDay)
+            Defaults.standard.setInteger(newValue, forKey: .resetDay)
             updateDefaultResetDate()
         }
     }
     var defaultResetHour: Int {
-        get { return Defaults.standard.integerForKey(.ResetHour) }
+        get { return Defaults.standard.integerForKey(.resetHour) }
         set {
-            Defaults.standard.setInteger(newValue, forKey:.ResetHour)
+            Defaults.standard.setInteger(newValue, forKey:.resetHour)
             updateDefaultResetDate()
         }
     }
     var defaultWorkRadius: Int {
-        get { return Defaults.standard.integerForKey(.WorkRadius) }
-        set { Defaults.standard.setInteger(newValue, forKey: .WorkRadius) }
+        get { return Defaults.standard.integerForKey(.workRadius) }
+        set { Defaults.standard.setInteger(newValue, forKey: .workRadius) }
     }
 
     override func viewDidLoad() {
@@ -53,7 +53,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
         let fmt = DateFormatter()
         fmt.timeStyle = DateFormatter.Style.short
         fmt.dateStyle = DateFormatter.Style.short
-        if let date = Defaults.standard.objectForKey(.ClearDate) as? Date {
+        if let date = Defaults.standard.objectForKey(.clearDate) as? Date {
             resetDateLabel.text = fmt.string(from: date)
         }
     }
@@ -91,7 +91,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
     }
 
     @IBAction func doneOnboarding(_ sender: UIBarButtonItem) {
-        Defaults.standard.setBool(true, forKey: SettingsKey.OnboardingComplete)
+        Defaults.standard.setBool(true, forKey: SettingsKey.onboardingComplete)
         let ad = UIApplication.shared.del
         ad.loadInterface()
     }
