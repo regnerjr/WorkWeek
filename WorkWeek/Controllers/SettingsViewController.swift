@@ -32,7 +32,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate {
     var defaultResetHour: Int {
         get { return Defaults.standard.integerForKey(.resetHour) }
         set {
-            Defaults.standard.setInteger(newValue, forKey:.resetHour)
+            Defaults.standard.setInteger(newValue, forKey: .resetHour)
             updateDefaultResetDate()
         }
     }
