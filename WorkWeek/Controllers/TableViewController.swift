@@ -2,14 +2,14 @@ import UIKit
 import CoreLocation
 
 enum StoryBoardSegues: String {
-    case Map = "MapViewSegue"
-    case Settings = "settingsSegue"
+    case map = "MapViewSegue"
+    case settings = "settingsSegue"
 }
 
 enum ReuseIdentifiers: String {
-    case Header = "HeaderView"
-    case MainCell = "MainCell"
-    case Footer = "FooterView"
+    case header = "HeaderView"
+    case mainCell = "MainCell"
+    case footer = "FooterView"
 }
 
 open class TableViewController: UITableViewController {
@@ -35,7 +35,7 @@ open class TableViewController: UITableViewController {
         // transition to the map view so that the user can set a work
         // location and begin using the app
         if locationManager.monitoredRegions.count == 0 {
-            performSegue(withIdentifier: StoryBoardSegues.Map.rawValue, sender: self)
+            performSegue(withIdentifier: StoryBoardSegues.map.rawValue, sender: self)
         }
         listenForNotifications()
     }
@@ -113,12 +113,12 @@ extension TableViewController {
         guard workManager.isAtWork == true  else { return nil }
 
         var tableFooter = tableView.dequeueReusableHeaderFooterViewWithIdentifier(
-                                ReuseIdentifiers.Footer)
+                                ReuseIdentifiers.footer)
         if tableFooter == nil {
             tableView.register(UITableViewHeaderFooterView.self,
-                               forHeaderFooterViewReuseIdentifier: ReuseIdentifiers.Footer.rawValue)
+                               forHeaderFooterViewReuseIdentifier: ReuseIdentifiers.footer.rawValue)
 
-            tableFooter = UITableViewHeaderFooterView(reuseIdentifier: ReuseIdentifiers.Footer.rawValue)
+            tableFooter = UITableViewHeaderFooterView(reuseIdentifier: ReuseIdentifiers.footer.rawValue)
         }
         footer.configureWithLastArrival(workManager.lastArrival)
 
@@ -130,9 +130,9 @@ extension TableViewController {
 
     override open func tableView(_ tableView: UITableView,
                                  viewForHeaderInSection section: Int) -> UIView? {
-        if let header = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.Header.rawValue) {
+        if let header = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifiers.header.rawValue) {
             let graph = header.contentView.subviews[0] as? HeaderView
-            graph?.hoursInWeek = Defaults.standard.integerForKey(.HoursInWorkWeek)
+            graph?.hoursInWeek = Defaults.standard.integerForKey(.hoursInWorkWeek)
             //loss of precision to draw the graph using only hour marks.
             graph?.hoursWorked = Int(workManager.hoursWorkedThisWeek +
                                      workManager.hoursSoFarToday())

@@ -11,7 +11,7 @@ open class LocalNotifier {
         note.alertTitle = "Your Work Week is Over!"
         note.hasAction = false
         note.repeatInterval = []
-        note.applicationIconBadgeNumber = Defaults.standard.integerForKey(.HoursInWorkWeek)
+        note.applicationIconBadgeNumber = Defaults.standard.integerForKey(.hoursInWorkWeek)
         note.soundName = UILocalNotificationDefaultSoundName
 
         // Since this is our only notification we can just clear all of them and

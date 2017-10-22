@@ -1,8 +1,8 @@
 import UIKit
 
 public enum Storyboard: String {
-    case Main
-    case Onboarding
+    case main = "Main"
+    case onboarding = "Onboarding"
 }
 
 extension UIStoryboard {

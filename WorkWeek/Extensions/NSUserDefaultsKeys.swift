@@ -4,12 +4,12 @@ import Foundation
 /// The constant strings used for getting values in and out of NSUserDefaults
 ///
 public enum SettingsKey: String {
-    case HoursInWorkWeek = "hoursInWorkWeekPrefKey"
-    case ResetDay        = "resetDayPrefKey"
-    case ResetHour       = "resetHourPrefKey"
-    case WorkRadius      = "workRadiusPrefKey"
-    case ClearDate       = "clearDate"
-    case OnboardingComplete = "onboardingComplete"
+    case hoursInWorkWeek = "hoursInWorkWeekPrefKey"
+    case resetDay        = "resetDayPrefKey"
+    case resetHour       = "resetHourPrefKey"
+    case workRadius      = "workRadiusPrefKey"
+    case clearDate       = "clearDate"
+    case onboardingComplete = "onboardingComplete"
 }
 
 ///
@@ -57,7 +57,7 @@ extension UserDefaults {
 }
 
 public func updateDefaultResetDate( _ defaults: UserDefaults = Defaults.standard) {
-    let date = getDateForReset(defaults.integerForKey(.ResetDay),
-                               hour: defaults.integerForKey(.ResetHour), minute: 0)
-    defaults.set(date, forKey: .ClearDate)
+    let date = getDateForReset(defaults.integerForKey(.resetDay),
+                               hour: defaults.integerForKey(.resetHour), minute: 0)
+    defaults.set(date, forKey: .clearDate)
 }

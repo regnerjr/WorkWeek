@@ -19,7 +19,7 @@ extension TableViewController {
                                   ) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(
-            withIdentifier: ReuseIdentifiers.MainCell.rawValue, for: indexPath)
+            withIdentifier: ReuseIdentifiers.mainCell.rawValue, for: indexPath)
         guard let workDayCell = cell as? WorkDayCellTableViewCell else {
             assert(cell is WorkDayCellTableViewCell, "Cell is not WorkDayCellTableViewCell")
             return cell // return unconfigured cell

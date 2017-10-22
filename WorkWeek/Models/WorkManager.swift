@@ -31,7 +31,7 @@ class WorkManager: NSObject {
     }
 
     var hoursInWorkWeek: Int {
-        return Defaults.standard.integerForKey(.HoursInWorkWeek)
+        return Defaults.standard.integerForKey(.hoursInWorkWeek)
     }
 
     var isAtWork: Bool {
@@ -158,7 +158,7 @@ class WorkManager: NSObject {
     }
 
     func resetDataIfNeeded(_ defaults: UserDefaults = Defaults.standard) {
-        if let resetDate = defaults.objectForKey(.ClearDate) as? Date {
+        if let resetDate = defaults.objectForKey(.clearDate) as? Date {
             switch resetDate.compare(Date()) {
             case .orderedSame:
                 clearEvents()

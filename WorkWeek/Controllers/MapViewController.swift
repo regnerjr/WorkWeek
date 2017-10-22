@@ -16,7 +16,7 @@ open class MapViewController: UIViewController {
     @IBOutlet open weak var mapView: MKMapView!
     @IBOutlet weak var searchBar: UISearchBar!
 
-    var regionRadius: Double { return Double(Defaults.standard.integerForKey(.WorkRadius)) }
+    var regionRadius: Double { return Double(Defaults.standard.integerForKey(.workRadius)) }
 
     var locationManager: LocationManager {
         let appDelegate = UIApplication.shared.del
